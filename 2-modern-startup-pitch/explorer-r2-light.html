@@ -1,0 +1,1511 @@
+<!-- Agent: Explorer | Round: 2 - Light Mode Masterpiece | Theme: Modern Startup Pitch | Intent: Asymmetric gradient-driven SaaS dashboard with breathing animations and bold experimental data visualizations -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Startup Dashboard - EXPLORER</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        :root {
+            /* Color System - Bold & Energetic */
+            --bg-primary: #FAFBFC;
+            --bg-secondary: #FFFFFF;
+            --bg-card: #FFFFFF;
+
+            /* Gradient Accents */
+            --gradient-electric: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-sunset: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-ocean: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-forest: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --gradient-fire: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --gradient-cosmic: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+
+            /* Accent Colors */
+            --electric-blue: #667eea;
+            --purple: #764ba2;
+            --pink: #f093fb;
+            --cyan: #00f2fe;
+            --mint: #38f9d7;
+            --coral: #f5576c;
+
+            /* Semantic Colors */
+            --success: #43e97b;
+            --warning: #fee140;
+            --danger: #f5576c;
+            --info: #4facfe;
+
+            /* Text Colors */
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-tertiary: #a0aec0;
+            --text-white: #ffffff;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 4rem;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.03);
+            --shadow-lg: 0 10px 20px rgba(0,0,0,0.08), 0 6px 6px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 40px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.06);
+
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            padding: var(--space-md) var(--space-xl);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .brand-logo {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-electric);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .brand-text h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-electric);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .brand-text p {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--space-sm);
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-full);
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary {
+            background: var(--gradient-electric);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-sunset);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-primary);
+            border: 2px solid rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--electric-blue);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Hero Section - Large and Bold */
+        .hero-section {
+            background: var(--gradient-electric);
+            padding: var(--space-2xl) var(--space-xl);
+            position: relative;
+            overflow: hidden;
+            animation: gradientBreath 8s ease-in-out infinite;
+        }
+
+        @keyframes gradientBreath {
+            0%, 100% {
+                background-position: 0% 50%;
+                background-size: 200% 200%;
+            }
+            50% {
+                background-position: 100% 50%;
+                background-size: 220% 220%;
+            }
+        }
+
+        .hero-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-tagline {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: var(--space-md);
+            line-height: 1.2;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: var(--space-xl);
+            max-width: 600px;
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .hero-metric {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .hero-metric:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-4px);
+            box-shadow: 0 24px 48px rgba(0,0,0,0.15);
+        }
+
+        .hero-metric-label {
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.8);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .hero-metric-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+
+        .hero-metric-delta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--success);
+            background: rgba(67,233,123,0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-full);
+        }
+
+        .hero-metric-meta {
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.7);
+            margin-top: var(--space-sm);
+        }
+
+        /* Main Container */
+        main {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+        }
+
+        /* Asymmetric Grid Layout - Explorer Signature */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .grid-item-large {
+            grid-column: span 8;
+        }
+
+        .grid-item-medium {
+            grid-column: span 4;
+        }
+
+        .grid-item-small {
+            grid-column: span 3;
+        }
+
+        .grid-item-full {
+            grid-column: span 12;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(0,0,0,0.05);
+            height: 100%;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .card-action {
+            color: var(--electric-blue);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .card-action:hover {
+            color: var(--purple);
+        }
+
+        /* KPI Cards with Gradient Borders */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .kpi-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-electric);
+        }
+
+        .kpi-card.kpi-sunset::before {
+            background: var(--gradient-sunset);
+        }
+
+        .kpi-card.kpi-ocean::before {
+            background: var(--gradient-ocean);
+        }
+
+        .kpi-card.kpi-forest::before {
+            background: var(--gradient-forest);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .kpi-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .kpi-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .kpi-delta {
+            font-weight: 700;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .kpi-delta.positive {
+            color: var(--success);
+        }
+
+        .kpi-delta.negative {
+            color: var(--danger);
+        }
+
+        .kpi-meta {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+
+        /* Sparkline */
+        .sparkline {
+            height: 40px;
+            margin-top: var(--space-sm);
+            background: linear-gradient(to right, rgba(102,126,234,0.1) 0%, rgba(102,126,234,0.2) 50%, rgba(102,126,234,0.3) 100%);
+            border-radius: var(--radius-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sparkline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 200%; }
+        }
+
+        /* Chart Styles - Bold and Colorful */
+        .chart-container {
+            height: 300px;
+            position: relative;
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            background: linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%);
+            border: 1px solid rgba(102,126,234,0.1);
+        }
+
+        .chart-bars {
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            gap: var(--space-xs);
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: var(--gradient-electric);
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            position: relative;
+            min-height: 20px;
+            animation: barGrow 1s ease-out backwards;
+        }
+
+        .chart-bar:nth-child(2) {
+            background: var(--gradient-ocean);
+            animation-delay: 0.1s;
+        }
+
+        .chart-bar:nth-child(3) {
+            background: var(--gradient-sunset);
+            animation-delay: 0.2s;
+        }
+
+        .chart-bar:nth-child(4) {
+            background: var(--gradient-forest);
+            animation-delay: 0.3s;
+        }
+
+        .chart-bar:nth-child(5) {
+            background: var(--gradient-fire);
+            animation-delay: 0.4s;
+        }
+
+        .chart-bar:nth-child(6) {
+            background: var(--gradient-electric);
+            animation-delay: 0.5s;
+        }
+
+        .chart-bar:nth-child(7) {
+            background: var(--gradient-ocean);
+            animation-delay: 0.6s;
+        }
+
+        @keyframes barGrow {
+            from {
+                transform: scaleY(0);
+                opacity: 0;
+            }
+            to {
+                transform: scaleY(1);
+                opacity: 1;
+            }
+        }
+
+        .chart-bar-label {
+            position: absolute;
+            bottom: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            white-space: nowrap;
+        }
+
+        /* Circular Progress Chart - Experimental */
+        .circular-chart {
+            height: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-lg);
+        }
+
+        .circle-group {
+            display: flex;
+            gap: var(--space-xl);
+        }
+
+        .progress-circle {
+            position: relative;
+            width: 140px;
+            height: 140px;
+        }
+
+        .circle-bg {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(var(--gradient-electric) 0deg, rgba(102,126,234,0.1) 270deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .circle-inner {
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .circle-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .circle-label {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            font-weight: 600;
+            margin-top: var(--space-sm);
+            text-align: center;
+        }
+
+        /* Data Table */
+        .table-container {
+            overflow-x: auto;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead {
+            background: linear-gradient(135deg, rgba(102,126,234,0.08) 0%, rgba(118,75,162,0.08) 100%);
+        }
+
+        th {
+            padding: var(--space-md);
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid rgba(102,126,234,0.2);
+        }
+
+        td {
+            padding: var(--space-md);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            color: var(--text-secondary);
+        }
+
+        tr:hover {
+            background: rgba(102,126,234,0.03);
+        }
+
+        /* Status Pills */
+        .pill {
+            display: inline-block;
+            padding: 0.375rem 0.875rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pill-success {
+            background: rgba(67,233,123,0.15);
+            color: #2d7a4f;
+        }
+
+        .pill-warning {
+            background: rgba(254,225,64,0.15);
+            color: #8b7000;
+        }
+
+        .pill-danger {
+            background: rgba(245,87,108,0.15);
+            color: #b91c3a;
+        }
+
+        .pill-info {
+            background: rgba(79,172,254,0.15);
+            color: #1e5a8e;
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .stat-box {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--electric-blue);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .stat-box.stat-purple {
+            border-left-color: var(--purple);
+        }
+
+        .stat-box.stat-pink {
+            border-left-color: var(--pink);
+        }
+
+        .stat-box.stat-cyan {
+            border-left-color: var(--cyan);
+        }
+
+        .stat-box.stat-mint {
+            border-left-color: var(--mint);
+        }
+
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: var(--gradient-electric);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-box.stat-purple .stat-icon {
+            background: var(--gradient-sunset);
+        }
+
+        .stat-box.stat-pink .stat-icon {
+            background: var(--gradient-fire);
+        }
+
+        .stat-box.stat-cyan .stat-icon {
+            background: var(--gradient-ocean);
+        }
+
+        .stat-box.stat-mint .stat-icon {
+            background: var(--gradient-forest);
+        }
+
+        .stat-content h3 {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-content p {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Timeline Component - Experimental */
+        .timeline {
+            position: relative;
+            padding-left: var(--space-lg);
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--gradient-electric);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: var(--space-lg);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--electric-blue);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.2);
+        }
+
+        .timeline-time {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid rgba(0,0,0,0.06);
+            padding: var(--space-lg) var(--space-xl);
+            margin-top: var(--space-2xl);
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+        }
+
+        .footer-agent {
+            font-weight: 700;
+            background: var(--gradient-electric);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 960px) {
+            .hero-tagline {
+                font-size: 2.5rem;
+            }
+
+            .grid-item-large,
+            .grid-item-medium,
+            .grid-item-small {
+                grid-column: span 12;
+            }
+
+            .dashboard-grid {
+                gap: var(--space-md);
+            }
+
+            .circle-group {
+                flex-direction: column;
+                gap: var(--space-md);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-tagline {
+                font-size: 2rem;
+            }
+
+            .hero-metric-value {
+                font-size: 2.5rem;
+            }
+
+            main {
+                padding: var(--space-md);
+            }
+
+            .header-content {
+                padding: 0 var(--space-md);
+            }
+
+            .btn {
+                padding: 0.625rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Custom Animations */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.5rem 0.75rem;
+            background: var(--text-primary);
+            color: white;
+            font-size: 0.75rem;
+            border-radius: var(--radius-sm);
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            margin-bottom: 0.5rem;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: var(--gradient-electric);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Insight Card */
+        .insight-card {
+            background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.05) 100%);
+            border-left: 4px solid var(--electric-blue);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+        }
+
+        .insight-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .insight-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-electric);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .insight-title {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .insight-body {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="brand">
+                <div class="brand-logo">E</div>
+                <div class="brand-text">
+                    <h1>Velocity Dashboard</h1>
+                    <p>EXPLORER • EXPERIMENTAL SYSTEMS</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary">
+                    <span>Export Report</span>
+                </button>
+                <button class="btn btn-primary">
+                    <span>Share Insights</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section with Bold Metrics -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h2 class="hero-tagline">Accelerating Growth.<br>Breaking Records.</h2>
+            <p class="hero-subtitle">
+                Your startup's momentum captured in real-time. Track the metrics that matter most to investors, team, and customers.
+            </p>
+            <div class="hero-metrics">
+                <div class="hero-metric">
+                    <div class="hero-metric-label">Monthly Recurring Revenue</div>
+                    <div class="hero-metric-value">$847K</div>
+                    <span class="hero-metric-delta">↑ 43%</span>
+                    <div class="hero-metric-meta">vs. last quarter | Target: $1.2M by Q4</div>
+                </div>
+                <div class="hero-metric">
+                    <div class="hero-metric-label">Active Users</div>
+                    <div class="hero-metric-value">124K</div>
+                    <span class="hero-metric-delta">↑ 67%</span>
+                    <div class="hero-metric-meta">+51K this month | 89% retention rate</div>
+                </div>
+                <div class="hero-metric">
+                    <div class="hero-metric-label">Conversion Rate</div>
+                    <div class="hero-metric-value">18.4%</div>
+                    <span class="hero-metric-delta">↑ 5.2%</span>
+                    <div class="hero-metric-meta">Industry avg: 12% | Top quartile performance</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Dashboard Content -->
+    <main>
+        <!-- Stats Row -->
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-icon">📈</div>
+                <div class="stat-content">
+                    <h3>Weekly Signups</h3>
+                    <p>3,847</p>
+                </div>
+            </div>
+            <div class="stat-box stat-purple">
+                <div class="stat-icon">💰</div>
+                <div class="stat-content">
+                    <h3>ARR Growth</h3>
+                    <p>+$2.1M</p>
+                </div>
+            </div>
+            <div class="stat-box stat-pink">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-content">
+                    <h3>Activation Rate</h3>
+                    <p>76%</p>
+                </div>
+            </div>
+            <div class="stat-box stat-cyan">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-content">
+                    <h3>NPS Score</h3>
+                    <p>72</p>
+                </div>
+            </div>
+            <div class="stat-box stat-mint">
+                <div class="stat-icon">🚀</div>
+                <div class="stat-content">
+                    <h3>Viral Coefficient</h3>
+                    <p>1.34</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- KPI Grid -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-label">CAC Payback</div>
+                <div class="kpi-value">4.2m</div>
+                <div class="kpi-footer">
+                    <span class="kpi-delta positive">↓ 18% <span style="font-weight: normal;">better</span></span>
+                    <span class="kpi-meta">Industry: 6-8m</span>
+                </div>
+                <div class="sparkline"></div>
+            </div>
+            <div class="kpi-card kpi-sunset">
+                <div class="kpi-label">LTV:CAC Ratio</div>
+                <div class="kpi-value">5.8:1</div>
+                <div class="kpi-footer">
+                    <span class="kpi-delta positive">↑ 23%</span>
+                    <span class="kpi-meta">Target: 3:1+</span>
+                </div>
+                <div class="sparkline"></div>
+            </div>
+            <div class="kpi-card kpi-ocean">
+                <div class="kpi-label">Churn Rate</div>
+                <div class="kpi-value">2.1%</div>
+                <div class="kpi-footer">
+                    <span class="kpi-delta positive">↓ 0.9%</span>
+                    <span class="kpi-meta">Best in class</span>
+                </div>
+                <div class="sparkline"></div>
+            </div>
+            <div class="kpi-card kpi-forest">
+                <div class="kpi-label">Net Revenue Retention</div>
+                <div class="kpi-value">142%</div>
+                <div class="kpi-footer">
+                    <span class="kpi-delta positive">↑ 17%</span>
+                    <span class="kpi-meta">Expansion strong</span>
+                </div>
+                <div class="sparkline"></div>
+            </div>
+        </div>
+
+        <!-- Asymmetric Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Large Chart - Revenue Trend -->
+            <div class="grid-item-large">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Revenue Growth Trajectory</h3>
+                        <span class="card-action">View Details →</span>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-bars">
+                            <div class="chart-bar" style="height: 45%;">
+                                <span class="chart-bar-label">Jan</span>
+                            </div>
+                            <div class="chart-bar" style="height: 52%;">
+                                <span class="chart-bar-label">Feb</span>
+                            </div>
+                            <div class="chart-bar" style="height: 61%;">
+                                <span class="chart-bar-label">Mar</span>
+                            </div>
+                            <div class="chart-bar" style="height: 68%;">
+                                <span class="chart-bar-label">Apr</span>
+                            </div>
+                            <div class="chart-bar" style="height: 78%;">
+                                <span class="chart-bar-label">May</span>
+                            </div>
+                            <div class="chart-bar" style="height: 85%;">
+                                <span class="chart-bar-label">Jun</span>
+                            </div>
+                            <div class="chart-bar" style="height: 95%;">
+                                <span class="chart-bar-label">Jul</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medium Chart - Circular Progress -->
+            <div class="grid-item-medium">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Goal Achievement</h3>
+                    </div>
+                    <div class="circular-chart">
+                        <div class="circle-group">
+                            <div class="progress-circle">
+                                <div class="circle-bg">
+                                    <div class="circle-inner">
+                                        <span class="circle-value">87%</span>
+                                    </div>
+                                </div>
+                                <div class="circle-label">Q3 Target</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Timeline -->
+            <div class="grid-item-medium">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Recent Milestones</h3>
+                        <span class="card-action">View All →</span>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-time">2 hours ago</div>
+                            <div class="timeline-title">Product Launch: AI Features</div>
+                            <div class="timeline-desc">Released ML-powered recommendations to 50K users</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">Yesterday</div>
+                            <div class="timeline-title">Enterprise Deal Closed</div>
+                            <div class="timeline-desc">$480K ARR with Fortune 500 company</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">3 days ago</div>
+                            <div class="timeline-title">Series B Announcement</div>
+                            <div class="timeline-desc">$28M raised, led by Sequoia Capital</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-time">1 week ago</div>
+                            <div class="timeline-title">100K Users Milestone</div>
+                            <div class="timeline-desc">Crossed six-figure user threshold</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insights Card -->
+            <div class="grid-item-large">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">AI-Powered Insights</h3>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-header">
+                            <div class="insight-icon">💡</div>
+                            <div class="insight-title">Product-Led Growth Acceleration</div>
+                        </div>
+                        <div class="insight-body">
+                            Your activation rate jumped 12% after implementing the new onboarding flow. Users who complete the tutorial are 3.4x more likely to convert to paid plans within 30 days. Consider expanding this pattern to mobile platforms.
+                        </div>
+                    </div>
+                    <div class="insight-card" style="border-left-color: var(--purple);">
+                        <div class="insight-header">
+                            <div class="insight-icon" style="background: var(--gradient-sunset);">📊</div>
+                            <div class="insight-title">Enterprise Segment Opportunity</div>
+                        </div>
+                        <div class="insight-body">
+                            Companies with 500+ employees show 89% higher LTV and 42% lower churn. Your sales team should prioritize enterprise outreach—current pipeline suggests potential for $5M+ in annual contract value.
+                        </div>
+                    </div>
+                    <div class="insight-card" style="border-left-color: var(--cyan);">
+                        <div class="insight-header">
+                            <div class="insight-icon" style="background: var(--gradient-ocean);">🎯</div>
+                            <div class="insight-title">Viral Loop Optimization</div>
+                        </div>
+                        <div class="insight-body">
+                            Users acquired through referrals have 2.8x higher retention rates. Your viral coefficient of 1.34 means each user brings 1.34 new users on average. Doubling referral incentives could compound growth exponentially.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Width Table -->
+            <div class="grid-item-full">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Top Customer Segments by Revenue</h3>
+                        <span class="card-action">Export CSV →</span>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Segment</th>
+                                    <th>Customers</th>
+                                    <th>MRR</th>
+                                    <th>Growth</th>
+                                    <th>Churn</th>
+                                    <th>LTV</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Enterprise (500+ employees)</strong></td>
+                                    <td>47</td>
+                                    <td><strong>$284,000</strong></td>
+                                    <td style="color: var(--success); font-weight: 700;">+56%</td>
+                                    <td>0.8%</td>
+                                    <td>$187K</td>
+                                    <td><span class="pill pill-success">Excellent</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Mid-Market (100-500)</strong></td>
+                                    <td>183</td>
+                                    <td><strong>$312,000</strong></td>
+                                    <td style="color: var(--success); font-weight: 700;">+43%</td>
+                                    <td>1.4%</td>
+                                    <td>$92K</td>
+                                    <td><span class="pill pill-success">Strong</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>SMB (20-100)</strong></td>
+                                    <td>512</td>
+                                    <td><strong>$178,000</strong></td>
+                                    <td style="color: var(--success); font-weight: 700;">+38%</td>
+                                    <td>2.9%</td>
+                                    <td>$34K</td>
+                                    <td><span class="pill pill-info">Good</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Startups (1-20)</strong></td>
+                                    <td>1,247</td>
+                                    <td><strong>$73,000</strong></td>
+                                    <td style="color: var(--success); font-weight: 700;">+72%</td>
+                                    <td>4.2%</td>
+                                    <td>$18K</td>
+                                    <td><span class="pill pill-warning">Growing</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Free Tier (Converting)</strong></td>
+                                    <td>8,934</td>
+                                    <td>—</td>
+                                    <td style="color: var(--success); font-weight: 700;">+124%</td>
+                                    <td>18.4%</td>
+                                    <td>—</td>
+                                    <td><span class="pill pill-info">Pipeline</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Education/Non-Profit</strong></td>
+                                    <td>89</td>
+                                    <td><strong>$12,000</strong></td>
+                                    <td style="color: var(--success); font-weight: 700;">+21%</td>
+                                    <td>1.1%</td>
+                                    <td>$28K</td>
+                                    <td><span class="pill pill-success">Loyal</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional KPI Cards in Asymmetric Layout -->
+            <div class="grid-item-small">
+                <div class="card">
+                    <h4 style="font-size: 0.875rem; color: var(--text-tertiary); margin-bottom: var(--space-sm); text-transform: uppercase; font-weight: 600;">Burn Rate</h4>
+                    <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Space Grotesk', sans-serif; margin-bottom: var(--space-xs);">$287K</div>
+                    <div style="font-size: 0.875rem; color: var(--text-secondary);">Per month</div>
+                    <div style="margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid rgba(0,0,0,0.06);">
+                        <div style="font-size: 0.75rem; color: var(--text-tertiary); margin-bottom: 0.25rem;">Runway</div>
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--success);">18 months</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-item-small">
+                <div class="card">
+                    <h4 style="font-size: 0.875rem; color: var(--text-tertiary); margin-bottom: var(--space-sm); text-transform: uppercase; font-weight: 600;">Team Size</h4>
+                    <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Space Grotesk', sans-serif; margin-bottom: var(--space-xs);">47</div>
+                    <div style="font-size: 0.875rem; color: var(--text-secondary);">Full-time</div>
+                    <div style="margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid rgba(0,0,0,0.06);">
+                        <div style="font-size: 0.75rem; color: var(--text-tertiary); margin-bottom: 0.25rem;">Open Roles</div>
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--electric-blue);">12 positions</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-item-small">
+                <div class="card">
+                    <h4 style="font-size: 0.875rem; color: var(--text-tertiary); margin-bottom: var(--space-sm); text-transform: uppercase; font-weight: 600;">Market Share</h4>
+                    <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Space Grotesk', sans-serif; margin-bottom: var(--space-xs);">8.4%</div>
+                    <div style="font-size: 0.875rem; color: var(--text-secondary);">Of segment</div>
+                    <div style="margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid rgba(0,0,0,0.06);">
+                        <div style="font-size: 0.75rem; color: var(--text-tertiary); margin-bottom: 0.25rem;">Rank</div>
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--purple);">#3 Player</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-item-small">
+                <div class="card">
+                    <h4 style="font-size: 0.875rem; color: var(--text-tertiary); margin-bottom: var(--space-sm); text-transform: uppercase; font-weight: 600;">API Calls</h4>
+                    <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Space Grotesk', sans-serif; margin-bottom: var(--space-xs);">847M</div>
+                    <div style="font-size: 0.875rem; color: var(--text-secondary);">This month</div>
+                    <div style="margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid rgba(0,0,0,0.06);">
+                        <div style="font-size: 0.75rem; color: var(--text-tertiary); margin-bottom: 0.25rem;">Uptime</div>
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--success);">99.97%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Marketing Funnel Chart -->
+        <div class="dashboard-grid">
+            <div class="grid-item-full">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Marketing Funnel Performance - Last 30 Days</h3>
+                        <span class="card-action">Optimize Funnel →</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-md); margin-top: var(--space-md);">
+                        <div style="text-align: center; padding: var(--space-lg); background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(102,126,234,0.05) 100%); border-radius: var(--radius-md);">
+                            <div style="font-size: 0.75rem; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: var(--space-xs); font-weight: 600;">Visitors</div>
+                            <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Space Grotesk', sans-serif; color: var(--electric-blue);">487K</div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary); margin-top: var(--space-xs);">100%</div>
+                        </div>
+                        <div style="text-align: center; padding: var(--space-lg); background: linear-gradient(135deg, rgba(118,75,162,0.1) 0%, rgba(118,75,162,0.05) 100%); border-radius: var(--radius-md);">
+                            <div style="font-size: 0.75rem; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: var(--space-xs); font-weight: 600;">Sign Ups</div>
+                            <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Space Grotesk', sans-serif; color: var(--purple);">89K</div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary); margin-top: var(--space-xs);">18.3%</div>
+                        </div>
+                        <div style="text-align: center; padding: var(--space-lg); background: linear-gradient(135deg, rgba(79,172,254,0.1) 0%, rgba(79,172,254,0.05) 100%); border-radius: var(--radius-md);">
+                            <div style="font-size: 0.75rem; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: var(--space-xs); font-weight: 600;">Activated</div>
+                            <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Space Grotesk', sans-serif; color: var(--info);">67K</div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary); margin-top: var(--space-xs);">75.8%</div>
+                        </div>
+                        <div style="text-align: center; padding: var(--space-lg); background: linear-gradient(135deg, rgba(56,249,215,0.1) 0%, rgba(56,249,215,0.05) 100%); border-radius: var(--radius-md);">
+                            <div style="font-size: 0.75rem; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: var(--space-xs); font-weight: 600;">Trial Started</div>
+                            <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Space Grotesk', sans-serif; color: var(--mint);">34K</div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary); margin-top: var(--space-xs);">50.7%</div>
+                        </div>
+                        <div style="text-align: center; padding: var(--space-lg); background: linear-gradient(135deg, rgba(67,233,123,0.1) 0%, rgba(67,233,123,0.05) 100%); border-radius: var(--radius-md);">
+                            <div style="font-size: 0.75rem; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: var(--space-xs); font-weight: 600;">Converted</div>
+                            <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Space Grotesk', sans-serif; color: var(--success);">16K</div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary); margin-top: var(--space-xs);">47.1%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-text">
+                Dashboard last updated: <strong>Nov 9, 2025 • 14:37 UTC</strong> | Data refresh: Real-time
+            </div>
+            <div class="footer-agent">EXPLORER</div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.card, .kpi-card, .stat-box');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-4px)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Animate numbers on scroll
+            const observerOptions = {
+                threshold: 0.5,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.kpi-card, .stat-box, .card');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                observer.observe(el);
+            });
+
+            // Add pulsing effect to certain elements
+            const pulseElements = document.querySelectorAll('.hero-metric-delta');
+            pulseElements.forEach(el => {
+                setInterval(() => {
+                    el.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        el.style.transform = 'scale(1)';
+                    }, 200);
+                }, 3000);
+            });
+
+            // Console easter egg
+            console.log('%c🚀 EXPLORER Dashboard v2.0', 'font-size: 20px; font-weight: bold; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;');
+            console.log('%cExperimental Systems UX • Modern Startup Pitch Theme', 'font-size: 12px; color: #667eea;');
+            console.log('%cBuilt with asymmetric grids, gradient animations, and bold data visualizations', 'font-size: 11px; color: #888;');
+        });
+
+        // Breathing gradient animation for hero section
+        let gradientPosition = 0;
+        setInterval(() => {
+            gradientPosition = (gradientPosition + 1) % 360;
+            const heroSection = document.querySelector('.hero-section');
+            if (heroSection) {
+                heroSection.style.backgroundImage = `linear-gradient(${gradientPosition}deg, #667eea 0%, #764ba2 100%)`;
+            }
+        }, 100);
+
+        // Sparkline shimmer effect enhancement
+        const sparklines = document.querySelectorAll('.sparkline');
+        sparklines.forEach((sparkline, index) => {
+            setTimeout(() => {
+                sparkline.style.animation = 'shimmer 2s infinite';
+            }, index * 200);
+        });
+    </script>
+</body>
+</html>

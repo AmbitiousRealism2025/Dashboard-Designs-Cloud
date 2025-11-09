@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Command Center - ATLAS</title>
+    <!-- Agent: Atlas | Round: 2 - Light Mode Masterpiece | Theme: Executive Boardroom | Intent: Multi-stakeholder operational command center delivering complete executive situational awareness across all departments and strategic initiatives -->
+    <style>
+        /* ============================================
+           ATLAS EXECUTIVE BOARDROOM - LIGHT MODE
+           Multi-Stakeholder Operational Dashboard
+           ============================================ */
+
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            /* Executive Boardroom Light Palette */
+            --bg-primary: #FAFBFC;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #F5F7F9;
+            --bg-panel: #FFFFFF;
+
+            /* Typography Colors */
+            --text-primary: #1A2332;
+            --text-secondary: #4A5568;
+            --text-tertiary: #718096;
+            --text-muted: #A0AEC0;
+
+            /* Accent Colors - Muted Executive Palette */
+            --navy-deep: #2C3E5F;
+            --navy-medium: #4A5F7F;
+            --navy-light: #6B7FA0;
+
+            --gold-accent: #B8956A;
+            --gold-light: #D4C5A5;
+
+            --teal-accent: #5D8A8A;
+            --teal-light: #7FA8A8;
+
+            --bronze-accent: #9D7E5C;
+
+            /* Status Colors - Professional */
+            --status-optimal: #2E7D54;
+            --status-optimal-bg: #E6F4ED;
+            --status-good: #5D8A5D;
+            --status-good-bg: #EDF7ED;
+            --status-caution: #C9903D;
+            --status-caution-bg: #FFF5E6;
+            --status-warning: #D67B45;
+            --status-warning-bg: #FFEDE3;
+            --status-critical: #B44949;
+            --status-critical-bg: #FDE8E8;
+
+            /* Border & Shadow */
+            --border-subtle: #E2E8F0;
+            --border-medium: #CBD5E0;
+            --border-dark: #A0AEC0;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.10);
+            --shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+            /* Spacing System */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+
+            /* Typography Scale */
+            --font-serif: 'Crimson Pro', Georgia, serif;
+            --font-sans: 'Inter', system-ui, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ============================================
+           HEADER - Command Center Masthead
+           ============================================ */
+
+        .masthead {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border-bottom: 2px solid var(--border-medium);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .masthead-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-lg) var(--space-2xl);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .brand-lockup {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+
+        .agent-badge {
+            background: var(--navy-deep);
+            color: #FFFFFF;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 4px;
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .masthead-title {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .global-status-bar {
+            display: flex;
+            gap: var(--space-xl);
+            align-items: center;
+        }
+
+        .system-indicator {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: 0.813rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: pulse-gentle 2s ease-in-out infinite;
+        }
+
+        .status-dot.optimal { background: var(--status-optimal); }
+        .status-dot.caution { background: var(--status-caution); }
+        .status-dot.critical { background: var(--status-critical); }
+
+        @keyframes pulse-gentle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .timestamp-display {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+
+        .masthead-nav {
+            display: flex;
+            gap: var(--space-xs);
+            padding: 0 var(--space-2xl);
+        }
+
+        .nav-segment {
+            padding: var(--space-md) var(--space-lg);
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .nav-segment.active {
+            color: var(--navy-deep);
+            border-bottom-color: var(--gold-accent);
+            background: var(--bg-secondary);
+        }
+
+        .nav-segment:hover:not(.active) {
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+        }
+
+        /* ============================================
+           KPI EXECUTIVE STRIP
+           ============================================ */
+
+        .kpi-executive-strip {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: var(--space-xl) var(--space-2xl);
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .kpi-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-medium);
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-accent), var(--teal-accent));
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .kpi-card:hover::before {
+            opacity: 1;
+        }
+
+        .kpi-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-tertiary);
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-value {
+            font-size: 2.25rem;
+            font-weight: 700;
+            font-family: var(--font-serif);
+            color: var(--text-primary);
+            line-height: 1.1;
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-delta {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 3px;
+        }
+
+        .kpi-delta.positive {
+            color: var(--status-optimal);
+            background: var(--status-optimal-bg);
+        }
+
+        .kpi-delta.negative {
+            color: var(--status-critical);
+            background: var(--status-critical-bg);
+        }
+
+        .kpi-delta.neutral {
+            color: var(--text-secondary);
+            background: var(--bg-tertiary);
+        }
+
+        .kpi-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: var(--space-sm);
+        }
+
+        /* ============================================
+           MAIN COMMAND GRID
+           ============================================ */
+
+        .command-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            gap: var(--space-lg);
+            padding: var(--space-xl) var(--space-2xl);
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           LEFT PANEL - Departmental Health Monitor
+           ============================================ */
+
+        .panel {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            background: linear-gradient(135deg, var(--navy-deep), var(--navy-medium));
+            color: #FFFFFF;
+            padding: var(--space-md) var(--space-lg);
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            font-weight: 600;
+            border-bottom: 2px solid var(--gold-accent);
+        }
+
+        .panel-body {
+            padding: var(--space-lg);
+        }
+
+        .department-monitor {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .dept-status-card {
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: var(--space-md);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .dept-status-card:hover {
+            border-color: var(--navy-light);
+            box-shadow: var(--shadow-sm);
+            transform: translateX(4px);
+        }
+
+        .dept-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+        }
+
+        .dept-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+        }
+
+        .health-score {
+            font-size: 1.25rem;
+            font-weight: 700;
+            font-family: var(--font-serif);
+        }
+
+        .health-score.excellent { color: var(--status-optimal); }
+        .health-score.good { color: var(--status-good); }
+        .health-score.fair { color: var(--status-caution); }
+        .health-score.poor { color: var(--status-critical); }
+
+        .dept-metrics {
+            display: flex;
+            gap: var(--space-md);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .dept-metric {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .dept-metric-label {
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        .dept-metric-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .status-bar-mini {
+            height: 4px;
+            background: var(--bg-tertiary);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: var(--space-sm);
+        }
+
+        .status-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.4s ease;
+        }
+
+        /* ============================================
+           CENTER PANEL - Strategic Initiatives Timeline
+           ============================================ */
+
+        .center-column {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        .timeline-panel .panel-body {
+            padding: var(--space-xl);
+        }
+
+        .initiative-timeline {
+            position: relative;
+            padding-left: var(--space-xl);
+        }
+
+        .timeline-axis {
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-medium);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: var(--space-xl);
+            padding: var(--space-lg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            background: var(--bg-tertiary);
+            transition: all 0.2s ease;
+        }
+
+        .timeline-item:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateX(4px);
+            border-color: var(--navy-light);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 24px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 3px solid var(--bg-panel);
+            box-shadow: 0 0 0 2px var(--navy-deep);
+            z-index: 1;
+        }
+
+        .timeline-item.completed::before {
+            background: var(--status-optimal);
+        }
+
+        .timeline-item.in-progress::before {
+            background: var(--gold-accent);
+            animation: pulse-gentle 2s ease-in-out infinite;
+        }
+
+        .timeline-item.planned::before {
+            background: var(--bg-panel);
+        }
+
+        .initiative-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-md);
+        }
+
+        .initiative-title {
+            font-family: var(--font-serif);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .initiative-status-badge {
+            padding: var(--space-xs) var(--space-md);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .initiative-status-badge.completed {
+            background: var(--status-optimal-bg);
+            color: var(--status-optimal);
+        }
+
+        .initiative-status-badge.in-progress {
+            background: var(--status-caution-bg);
+            color: var(--status-caution);
+        }
+
+        .initiative-status-badge.planned {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-medium);
+        }
+
+        .initiative-meta {
+            display: flex;
+            gap: var(--space-lg);
+            font-size: 0.813rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .progress-track {
+            background: var(--bg-secondary);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--teal-accent), var(--gold-accent));
+            transition: width 0.4s ease;
+        }
+
+        .progress-label {
+            position: absolute;
+            right: var(--space-sm);
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.688rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* ============================================
+           CHART VISUALIZATION PANEL
+           ============================================ */
+
+        .chart-panel {
+            padding: var(--space-xl);
+        }
+
+        .chart-container {
+            height: 300px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            position: relative;
+            padding: var(--space-lg);
+        }
+
+        .chart-title {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-lg);
+        }
+
+        .chart-grid {
+            position: absolute;
+            top: var(--space-lg);
+            left: var(--space-lg);
+            right: var(--space-lg);
+            bottom: var(--space-lg);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .chart-grid-line {
+            height: 1px;
+            background: var(--border-subtle);
+        }
+
+        .chart-bars {
+            position: absolute;
+            bottom: var(--space-lg);
+            left: var(--space-lg);
+            right: var(--space-lg);
+            height: 240px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            gap: var(--space-sm);
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(180deg, var(--navy-medium), var(--navy-deep));
+            border-radius: 4px 4px 0 0;
+            min-height: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .chart-bar:hover {
+            background: linear-gradient(180deg, var(--gold-accent), var(--bronze-accent));
+            transform: translateY(-4px);
+        }
+
+        .chart-bar-label {
+            position: absolute;
+            bottom: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.688rem;
+            color: var(--text-tertiary);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* ============================================
+           RIGHT PANEL - Alert & Notification Feed
+           ============================================ */
+
+        .alert-feed {
+            max-height: 800px;
+            overflow-y: auto;
+        }
+
+        .alert-item {
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: background 0.2s ease;
+            cursor: pointer;
+        }
+
+        .alert-item:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .alert-item:last-child {
+            border-bottom: none;
+        }
+
+        .alert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-sm);
+        }
+
+        .alert-severity {
+            padding: 2px var(--space-sm);
+            border-radius: 3px;
+            font-size: 0.688rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .alert-severity.critical {
+            background: var(--status-critical-bg);
+            color: var(--status-critical);
+        }
+
+        .alert-severity.warning {
+            background: var(--status-warning-bg);
+            color: var(--status-warning);
+        }
+
+        .alert-severity.info {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+        }
+
+        .alert-time {
+            font-size: 0.688rem;
+            color: var(--text-tertiary);
+        }
+
+        .alert-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .alert-description {
+            font-size: 0.813rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .alert-source {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            margin-top: var(--space-sm);
+            font-style: italic;
+        }
+
+        /* ============================================
+           STAKEHOLDER MATRIX TABLE
+           ============================================ */
+
+        .matrix-section {
+            padding: var(--space-xl) var(--space-2xl);
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .table-controls {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        .control-button {
+            padding: var(--space-sm) var(--space-lg);
+            border: 1px solid var(--border-medium);
+            background: var(--bg-panel);
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: 0.813rem;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .control-button:hover {
+            background: var(--navy-deep);
+            color: #FFFFFF;
+            border-color: var(--navy-deep);
+        }
+
+        .stakeholder-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stakeholder-table thead {
+            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+            border-bottom: 2px solid var(--border-medium);
+        }
+
+        .stakeholder-table th {
+            padding: var(--space-md) var(--space-lg);
+            text-align: left;
+            font-family: var(--font-serif);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stakeholder-table tbody tr {
+            border-bottom: 1px solid var(--border-subtle);
+            transition: background 0.2s ease;
+        }
+
+        .stakeholder-table tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .stakeholder-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .stakeholder-table td {
+            padding: var(--space-md) var(--space-lg);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .stakeholder-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .stakeholder-role {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-md);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .priority-badge.p1 {
+            background: var(--status-critical-bg);
+            color: var(--status-critical);
+        }
+
+        .priority-badge.p2 {
+            background: var(--status-warning-bg);
+            color: var(--status-warning);
+        }
+
+        .priority-badge.p3 {
+            background: var(--status-caution-bg);
+            color: var(--status-caution);
+        }
+
+        .priority-badge.p4 {
+            background: var(--status-good-bg);
+            color: var(--status-good);
+        }
+
+        .engagement-score {
+            font-weight: 700;
+            font-family: var(--font-serif);
+            font-size: 1rem;
+        }
+
+        .engagement-score.high {
+            color: var(--status-optimal);
+        }
+
+        .engagement-score.medium {
+            color: var(--status-caution);
+        }
+
+        .engagement-score.low {
+            color: var(--status-critical);
+        }
+
+        .action-indicators {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .action-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.688rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .action-icon.pending {
+            background: var(--status-caution-bg);
+            color: var(--status-caution);
+        }
+
+        .action-icon.completed {
+            background: var(--status-optimal-bg);
+            color: var(--status-optimal);
+        }
+
+        .action-icon:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ============================================
+           FOOTER - Operational Metadata
+           ============================================ */
+
+        .command-footer {
+            background: linear-gradient(135deg, var(--navy-deep), var(--navy-medium));
+            color: #FFFFFF;
+            padding: var(--space-xl) var(--space-2xl);
+            border-top: 3px solid var(--gold-accent);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-xl);
+        }
+
+        .footer-section h4 {
+            font-family: var(--font-serif);
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gold-light);
+        }
+
+        .footer-section p {
+            font-size: 0.813rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: var(--space-sm);
+        }
+
+        .system-health-footer {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .health-metric-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-sm);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        .health-metric-footer .value {
+            font-weight: 700;
+            font-family: var(--font-serif);
+        }
+
+        .footer-attribution {
+            text-align: center;
+            padding-top: var(--space-xl);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: var(--space-xl);
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+
+        @media (max-width: 1400px) {
+            .command-grid {
+                grid-template-columns: 260px 1fr 280px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .command-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 960px) {
+            .masthead-top {
+                flex-direction: column;
+                gap: var(--space-lg);
+                align-items: flex-start;
+            }
+
+            .global-status-bar {
+                flex-wrap: wrap;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .masthead-top,
+            .kpi-executive-strip,
+            .command-grid,
+            .matrix-section,
+            .command-footer {
+                padding-left: var(--space-lg);
+                padding-right: var(--space-lg);
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .masthead-nav {
+                padding: 0 var(--space-lg);
+                overflow-x: auto;
+            }
+
+            .stakeholder-table {
+                font-size: 0.75rem;
+            }
+
+            .stakeholder-table th,
+            .stakeholder-table td {
+                padding: var(--space-sm) var(--space-md);
+            }
+        }
+
+        /* ============================================
+           SCROLLBAR STYLING
+           ============================================ */
+
+        .alert-feed::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .alert-feed::-webkit-scrollbar-track {
+            background: var(--bg-tertiary);
+        }
+
+        .alert-feed::-webkit-scrollbar-thumb {
+            background: var(--border-medium);
+            border-radius: 4px;
+        }
+
+        .alert-feed::-webkit-scrollbar-thumb:hover {
+            background: var(--navy-light);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MASTHEAD -->
+    <header class="masthead">
+        <div class="masthead-top">
+            <div class="brand-lockup">
+                <div class="agent-badge">ATLAS</div>
+                <h1 class="masthead-title">Executive Command Center</h1>
+            </div>
+            <div class="global-status-bar">
+                <div class="system-indicator">
+                    <span class="status-dot optimal"></span>
+                    <span>Systems Operational</span>
+                </div>
+                <div class="system-indicator">
+                    <span class="status-dot caution"></span>
+                    <span>3 Items Require Attention</span>
+                </div>
+                <div class="timestamp-display">
+                    Last Updated: 09:47 EST | Q4 2025
+                </div>
+            </div>
+        </div>
+        <nav class="masthead-nav">
+            <button class="nav-segment active">Command Overview</button>
+            <button class="nav-segment">Strategic Initiatives</button>
+            <button class="nav-segment">Stakeholder Matrix</button>
+            <button class="nav-segment">Risk Register</button>
+            <button class="nav-segment">Board Reports</button>
+        </nav>
+    </header>
+
+    <!-- KPI EXECUTIVE STRIP -->
+    <section class="kpi-executive-strip">
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-label">Enterprise Revenue</div>
+                <div class="kpi-value">$847M</div>
+                <div class="kpi-delta positive">+12.4% YoY</div>
+                <div class="kpi-meta">Exceeding annual target by 8.2%</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Operating Margin</div>
+                <div class="kpi-value">28.3%</div>
+                <div class="kpi-delta positive">+2.1pp</div>
+                <div class="kpi-meta">Industry benchmark: 24.5%</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Customer Retention</div>
+                <div class="kpi-value">94.7%</div>
+                <div class="kpi-delta positive">+1.8%</div>
+                <div class="kpi-meta">Best-in-class performance</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Employee NPS</div>
+                <div class="kpi-value">+68</div>
+                <div class="kpi-delta neutral">-2 pts</div>
+                <div class="kpi-meta">Above sector average (+52)</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Strategic Initiatives</div>
+                <div class="kpi-value">12/15</div>
+                <div class="kpi-delta positive">On Track</div>
+                <div class="kpi-meta">80% completion rate on schedule</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Board Readiness</div>
+                <div class="kpi-value">92%</div>
+                <div class="kpi-delta positive">+5%</div>
+                <div class="kpi-meta">Meeting materials 95% complete</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN COMMAND GRID -->
+    <div class="command-grid">
+
+        <!-- LEFT PANEL: Departmental Health Monitor -->
+        <aside class="panel">
+            <div class="panel-header">Departmental Health Monitor</div>
+            <div class="panel-body">
+                <div class="department-monitor">
+
+                    <div class="dept-status-card">
+                        <div class="dept-header">
+                            <div class="dept-name">Sales & Revenue</div>
+                            <div class="health-score excellent">96</div>
+                        </div>
+                        <div class="dept-metrics">
+                            <div class="dept-metric">
+                                <span class="dept-metric-label">Pipeline</span>
+                                <span class="dept-metric-value">$1.2B</span>
+                            </div>
+                            <div class="dept-metric">
+                                <span class="dept-metric-label">Velocity</span>
+                                <span class="dept-metric-value">+18%</span>
+                            </div>
+                        </div>
+                        <div class="status-bar-mini">
+                            <div class="status-bar-fill" style="width: 96%; background: var(--status-optimal);"></div>
+                        </div>
+                    </div>
+
+                    <div class="dept-status-card">
+                        <div class="dept-header">
+                            <div class="dept-name">Product & Engineering</div>
+                            <div class="health-score good">88</div>
+                        </div>
+                        <div class="dept-metrics">
+                            <div class="dept-metric">
+                                <span class="dept-metric-label">Velocity</span>
+                                <span class="dept-metric-value">142 pts</span>
+                            </div>
+                            <div class="dept-metric">
+                                <span class="dept-metric-label">Quality</span>
+                                <span class="dept-metric-value">97.2%</span>
+                            </div>
+                        </div>
+                        <div class="status-bar-mini">
+                            <div class="status-bar-fill" style="width: 88%; background: var(--status-good);"></div>
+                        </div>
+                    </div>
+
+                    <div class="dept-status-card">
+                        <div class="dept-header">
+                            <div class="dept-name">Customer Success</div>
+                            <div class="health-score excellent">93</div>
+                        </div>
+                        <div class="dept-metrics">
+                            <div class="dept-metric">
+                                <span class="dept-metric-label">CSAT</span>
+                                <span class="dept-metric-value">4.7/5</span>
+                            </div>
+                            <div class="dept-metric">
+                                <span class="dept-metric-label">SLA</span>
+                                <span class="dept-metric-value">99.1%</span>
+                            </div>
+                        </div>
+                        <div class="status-bar-mini">
+                            <div class="status-bar-fill" style="width: 93%; background: var(--status-optimal);"></div>
+                        </div>
+                    </div>
+
+                    <div class="dept-status-card">
+                        <div class="dept-header">
+                            <div class="dept-name">Finance & Operations</div>
+                            <div class="health-score good">85</div>
+                        </div>
+                        <div class="dept-metrics">
+                            <div class="dept-metric">
+                                <span class="dept-metric-label">Burn Rate</span>
+                                <span class="dept-metric-value">$4.2M</span>
+                            </div>
+                            <div class="dept-metric">
+                                <span class="dept-metric-label">Runway</span>
+                                <span class="dept-metric-value">38 mos</span>
+                            </div>
+                        </div>
+                        <div class="status-bar-mini">
+                            <div class="status-bar-fill" style="width: 85%; background: var(--status-good);"></div>
+                        </div>
+                    </div>
+
+                    <div class="dept-status-card">
+                        <div class="dept-header">
+                            <div class="dept-name">Marketing & Brand</div>
+                            <div class="health-score fair">78</div>
+                        </div>
+                        <div class="dept-metrics">
+                            <div class="dept-metric">
+                                <span class="dept-metric-label">Leads</span>
+                                <span class="dept-metric-value">2,847</span>
+                            </div>
+                            <div class="dept-metric">
+                                <span class="dept-metric-label">CAC</span>
+                                <span class="dept-metric-value">$1,240</span>
+                            </div>
+                        </div>
+                        <div class="status-bar-mini">
+                            <div class="status-bar-fill" style="width: 78%; background: var(--status-caution);"></div>
+                        </div>
+                    </div>
+
+                    <div class="dept-status-card">
+                        <div class="dept-header">
+                            <div class="dept-name">People & Culture</div>
+                            <div class="health-score good">82</div>
+                        </div>
+                        <div class="dept-metrics">
+                            <div class="dept-metric">
+                                <span class="dept-metric-label">Headcount</span>
+                                <span class="dept-metric-value">847</span>
+                            </div>
+                            <div class="dept-metric">
+                                <span class="dept-metric-label">Attrition</span>
+                                <span class="dept-metric-value">8.4%</span>
+                            </div>
+                        </div>
+                        <div class="status-bar-mini">
+                            <div class="status-bar-fill" style="width: 82%; background: var(--status-good);"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </aside>
+
+        <!-- CENTER COLUMN: Strategic Initiatives & Charts -->
+        <div class="center-column">
+
+            <!-- Strategic Initiatives Timeline -->
+            <section class="panel timeline-panel">
+                <div class="panel-header">Strategic Initiatives Timeline - Q4 2025</div>
+                <div class="panel-body">
+                    <div class="initiative-timeline">
+                        <div class="timeline-axis"></div>
+
+                        <div class="timeline-item completed">
+                            <div class="initiative-header">
+                                <div>
+                                    <div class="initiative-title">Global Market Expansion - APAC</div>
+                                    <div class="initiative-meta">
+                                        <span class="meta-item">🎯 Target: $120M ARR</span>
+                                        <span class="meta-item">👤 Owner: J. Chen, VP International</span>
+                                        <span class="meta-item">📅 Q2-Q4 2025</span>
+                                    </div>
+                                </div>
+                                <div class="initiative-status-badge completed">Completed</div>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 100%;"></div>
+                                <div class="progress-label">100%</div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item in-progress">
+                            <div class="initiative-header">
+                                <div>
+                                    <div class="initiative-title">AI-Powered Analytics Platform Launch</div>
+                                    <div class="initiative-meta">
+                                        <span class="meta-item">🎯 Target: 40% feature adoption</span>
+                                        <span class="meta-item">👤 Owner: S. Patel, CTO</span>
+                                        <span class="meta-item">📅 Q3 2025 - Q1 2026</span>
+                                    </div>
+                                </div>
+                                <div class="initiative-status-badge in-progress">In Progress</div>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 67%;"></div>
+                                <div class="progress-label">67%</div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item in-progress">
+                            <div class="initiative-header">
+                                <div>
+                                    <div class="initiative-title">Enterprise Security Certification (SOC 2 Type II)</div>
+                                    <div class="initiative-meta">
+                                        <span class="meta-item">🎯 Target: Full compliance certification</span>
+                                        <span class="meta-item">👤 Owner: M. Rodriguez, CISO</span>
+                                        <span class="meta-item">📅 Q4 2025</span>
+                                    </div>
+                                </div>
+                                <div class="initiative-status-badge in-progress">In Progress</div>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 84%;"></div>
+                                <div class="progress-label">84%</div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item planned">
+                            <div class="initiative-header">
+                                <div>
+                                    <div class="initiative-title">Customer Self-Service Portal Redesign</div>
+                                    <div class="initiative-meta">
+                                        <span class="meta-item">🎯 Target: 50% ticket reduction</span>
+                                        <span class="meta-item">👤 Owner: L. Thompson, VP CX</span>
+                                        <span class="meta-item">📅 Q1 2026</span>
+                                    </div>
+                                </div>
+                                <div class="initiative-status-badge planned">Planned</div>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 15%;"></div>
+                                <div class="progress-label">15%</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Performance Analytics Chart -->
+            <section class="panel">
+                <div class="panel-header">Quarterly Performance Trajectory</div>
+                <div class="chart-panel">
+                    <div class="chart-container">
+                        <div class="chart-grid">
+                            <div class="chart-grid-line"></div>
+                            <div class="chart-grid-line"></div>
+                            <div class="chart-grid-line"></div>
+                            <div class="chart-grid-line"></div>
+                            <div class="chart-grid-line"></div>
+                        </div>
+                        <div class="chart-bars">
+                            <div class="chart-bar" style="height: 45%;">
+                                <div class="chart-bar-label">Q1</div>
+                            </div>
+                            <div class="chart-bar" style="height: 58%;">
+                                <div class="chart-bar-label">Q2</div>
+                            </div>
+                            <div class="chart-bar" style="height: 72%;">
+                                <div class="chart-bar-label">Q3</div>
+                            </div>
+                            <div class="chart-bar" style="height: 88%;">
+                                <div class="chart-bar-label">Q4</div>
+                            </div>
+                            <div class="chart-bar" style="height: 68%; opacity: 0.5;">
+                                <div class="chart-bar-label">Q1 '26</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- RIGHT PANEL: Alert & Notification Feed -->
+        <aside class="panel">
+            <div class="panel-header">Executive Alert Feed</div>
+            <div class="alert-feed">
+
+                <div class="alert-item">
+                    <div class="alert-header">
+                        <div class="alert-severity critical">Critical</div>
+                        <div class="alert-time">14 min ago</div>
+                    </div>
+                    <div class="alert-title">Board Materials Review Required</div>
+                    <div class="alert-description">Q4 financial presentation pending CEO approval. Board meeting scheduled in 48 hours.</div>
+                    <div class="alert-source">Source: Corporate Secretary Office</div>
+                </div>
+
+                <div class="alert-item">
+                    <div class="alert-header">
+                        <div class="alert-severity warning">Warning</div>
+                        <div class="alert-time">1 hour ago</div>
+                    </div>
+                    <div class="alert-title">Marketing CAC Above Target</div>
+                    <div class="alert-description">Customer acquisition cost increased 12% MoM. Marketing ops team investigating channel efficiency.</div>
+                    <div class="alert-source">Source: Finance Analytics</div>
+                </div>
+
+                <div class="alert-item">
+                    <div class="alert-header">
+                        <div class="alert-severity info">Info</div>
+                        <div class="alert-time">2 hours ago</div>
+                    </div>
+                    <div class="alert-title">APAC Expansion Milestone Achieved</div>
+                    <div class="alert-description">Successfully onboarded 50th enterprise customer in Singapore market, exceeding Q4 target by 25%.</div>
+                    <div class="alert-source">Source: International Sales</div>
+                </div>
+
+                <div class="alert-item">
+                    <div class="alert-header">
+                        <div class="alert-severity warning">Warning</div>
+                        <div class="alert-time">3 hours ago</div>
+                    </div>
+                    <div class="alert-title">Engineering Sprint Velocity Decline</div>
+                    <div class="alert-description">Development velocity down 8% this sprint. CTO reviewing resource allocation and technical debt priorities.</div>
+                    <div class="alert-source">Source: Engineering Ops</div>
+                </div>
+
+                <div class="alert-item">
+                    <div class="alert-header">
+                        <div class="alert-severity info">Info</div>
+                        <div class="alert-time">5 hours ago</div>
+                    </div>
+                    <div class="alert-title">Employee Engagement Survey Complete</div>
+                    <div class="alert-description">Annual engagement survey concluded with 94% participation rate. Results available for leadership review.</div>
+                    <div class="alert-source">Source: People & Culture</div>
+                </div>
+
+                <div class="alert-item">
+                    <div class="alert-header">
+                        <div class="alert-severity critical">Critical</div>
+                        <div class="alert-time">6 hours ago</div>
+                    </div>
+                    <div class="alert-title">Major Customer Renewal At Risk</div>
+                    <div class="alert-description">Enterprise customer (TechCorp, $2.4M ARR) flagged concerns during QBR. Executive intervention recommended.</div>
+                    <div class="alert-source">Source: Customer Success</div>
+                </div>
+
+                <div class="alert-item">
+                    <div class="alert-header">
+                        <div class="alert-severity info">Info</div>
+                        <div class="alert-time">8 hours ago</div>
+                    </div>
+                    <div class="alert-title">SOC 2 Audit Progress Update</div>
+                    <div class="alert-description">Security compliance audit at 84% completion. Final review scheduled for next week, certification expected on schedule.</div>
+                    <div class="alert-source">Source: Security & Compliance</div>
+                </div>
+
+                <div class="alert-item">
+                    <div class="alert-header">
+                        <div class="alert-severity warning">Warning</div>
+                        <div class="alert-time">12 hours ago</div>
+                    </div>
+                    <div class="alert-title">Competitive Intelligence Alert</div>
+                    <div class="alert-description">Primary competitor announced new AI features similar to our Q1 roadmap. Product strategy review recommended.</div>
+                    <div class="alert-source">Source: Market Intelligence</div>
+                </div>
+
+                <div class="alert-item">
+                    <div class="alert-header">
+                        <div class="alert-severity info">Info</div>
+                        <div class="alert-time">1 day ago</div>
+                    </div>
+                    <div class="alert-title">Investor Relations Update</div>
+                    <div class="alert-description">Series D investor quarterly update distributed. Positive feedback on growth metrics and market positioning.</div>
+                    <div class="alert-source">Source: Investor Relations</div>
+                </div>
+
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- STAKEHOLDER ENGAGEMENT MATRIX -->
+    <section class="matrix-section">
+        <div class="section-header">
+            <h2 class="section-title">Multi-Stakeholder Engagement Matrix</h2>
+            <div class="table-controls">
+                <button class="control-button">Export Report</button>
+                <button class="control-button">Filter View</button>
+                <button class="control-button">Configure Columns</button>
+            </div>
+        </div>
+
+        <table class="stakeholder-table">
+            <thead>
+                <tr>
+                    <th>Stakeholder</th>
+                    <th>Department</th>
+                    <th>Priority</th>
+                    <th>Last Engagement</th>
+                    <th>Engagement Score</th>
+                    <th>Active Initiatives</th>
+                    <th>Actions Required</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="stakeholder-name">Jennifer Chen</div>
+                        <div class="stakeholder-role">VP International Sales</div>
+                    </td>
+                    <td>Sales & Revenue</td>
+                    <td><span class="priority-badge p1">P1</span></td>
+                    <td>2 days ago</td>
+                    <td><span class="engagement-score high">94</span></td>
+                    <td>APAC Expansion, Enterprise Partnerships</td>
+                    <td>
+                        <div class="action-indicators">
+                            <div class="action-icon completed" title="Q4 Review Complete">✓</div>
+                            <div class="action-icon pending" title="Strategic Planning Pending">!</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="stakeholder-name">Sarah Patel</div>
+                        <div class="stakeholder-role">Chief Technology Officer</div>
+                    </td>
+                    <td>Product & Engineering</td>
+                    <td><span class="priority-badge p1">P1</span></td>
+                    <td>1 day ago</td>
+                    <td><span class="engagement-score high">91</span></td>
+                    <td>AI Platform, Infrastructure Modernization</td>
+                    <td>
+                        <div class="action-indicators">
+                            <div class="action-icon pending" title="Architecture Review Pending">!</div>
+                            <div class="action-icon pending" title="Budget Approval Needed">!</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="stakeholder-name">Marcus Rodriguez</div>
+                        <div class="stakeholder-role">Chief Information Security Officer</div>
+                    </td>
+                    <td>Security & Compliance</td>
+                    <td><span class="priority-badge p1">P1</span></td>
+                    <td>3 days ago</td>
+                    <td><span class="engagement-score high">88</span></td>
+                    <td>SOC 2 Certification, Zero Trust Implementation</td>
+                    <td>
+                        <div class="action-indicators">
+                            <div class="action-icon completed" title="Audit Complete">✓</div>
+                            <div class="action-icon completed" title="Board Report Submitted">✓</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="stakeholder-name">Lisa Thompson</div>
+                        <div class="stakeholder-role">VP Customer Experience</div>
+                    </td>
+                    <td>Customer Success</td>
+                    <td><span class="priority-badge p2">P2</span></td>
+                    <td>4 days ago</td>
+                    <td><span class="engagement-score high">86</span></td>
+                    <td>Self-Service Portal, NPS Program</td>
+                    <td>
+                        <div class="action-indicators">
+                            <div class="action-icon pending" title="Quarterly Review Due">!</div>
+                            <div class="action-icon completed" title="Metrics Updated">✓</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="stakeholder-name">David Nguyen</div>
+                        <div class="stakeholder-role">Chief Financial Officer</div>
+                    </td>
+                    <td>Finance & Operations</td>
+                    <td><span class="priority-badge p1">P1</span></td>
+                    <td>1 day ago</td>
+                    <td><span class="engagement-score high">93</span></td>
+                    <td>FP&A Transformation, IPO Readiness</td>
+                    <td>
+                        <div class="action-indicators">
+                            <div class="action-icon completed" title="Board Deck Ready">✓</div>
+                            <div class="action-icon completed" title="Forecast Updated">✓</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="stakeholder-name">Amanda Fitzgerald</div>
+                        <div class="stakeholder-role">CMO</div>
+                    </td>
+                    <td>Marketing & Brand</td>
+                    <td><span class="priority-badge p2">P2</span></td>
+                    <td>5 days ago</td>
+                    <td><span class="engagement-score medium">72</span></td>
+                    <td>Brand Refresh, Demand Generation</td>
+                    <td>
+                        <div class="action-indicators">
+                            <div class="action-icon pending" title="CAC Review Needed">!</div>
+                            <div class="action-icon pending" title="Strategy Alignment">!</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="stakeholder-name">Robert Kim</div>
+                        <div class="stakeholder-role">Chief People Officer</div>
+                    </td>
+                    <td>People & Culture</td>
+                    <td><span class="priority-badge p3">P3</span></td>
+                    <td>1 week ago</td>
+                    <td><span class="engagement-score medium">79</span></td>
+                    <td>Leadership Development, DEI Programs</td>
+                    <td>
+                        <div class="action-indicators">
+                            <div class="action-icon completed" title="Survey Complete">✓</div>
+                            <div class="action-icon pending" title="Action Plan Review">!</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="stakeholder-name">Elena Volkov</div>
+                        <div class="stakeholder-role">VP Product Strategy</div>
+                    </td>
+                    <td>Product Management</td>
+                    <td><span class="priority-badge p2">P2</span></td>
+                    <td>3 days ago</td>
+                    <td><span class="engagement-score high">84</span></td>
+                    <td>Product Roadmap 2026, AI Integration</td>
+                    <td>
+                        <div class="action-indicators">
+                            <div class="action-icon completed" title="Roadmap Approved">✓</div>
+                            <div class="action-icon pending" title="Competitive Analysis Due">!</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="stakeholder-name">James Morrison</div>
+                        <div class="stakeholder-role">General Counsel</div>
+                    </td>
+                    <td>Legal & Compliance</td>
+                    <td><span class="priority-badge p3">P3</span></td>
+                    <td>1 week ago</td>
+                    <td><span class="engagement-score medium">76</span></td>
+                    <td>Contract Automation, Privacy Compliance</td>
+                    <td>
+                        <div class="action-indicators">
+                            <div class="action-icon completed" title="Policy Review Complete">✓</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="stakeholder-name">Priya Sharma</div>
+                        <div class="stakeholder-role">VP Business Development</div>
+                    </td>
+                    <td>Partnerships & Alliances</td>
+                    <td><span class="priority-badge p4">P4</span></td>
+                    <td>2 weeks ago</td>
+                    <td><span class="engagement-score medium">68</span></td>
+                    <td>Strategic Partnerships, Channel Development</td>
+                    <td>
+                        <div class="action-indicators">
+                            <div class="action-icon pending" title="Partnership Review">!</div>
+                            <div class="action-icon pending" title="Pipeline Update">!</div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="command-footer">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>System Information</h4>
+                <p><strong>Platform Version:</strong> Atlas Command Center v4.2.1</p>
+                <p><strong>Data Freshness:</strong> Real-time (< 5 min latency)</p>
+                <p><strong>Integration Status:</strong> All systems operational</p>
+                <p><strong>Last System Sync:</strong> 2025-11-09 09:47:23 EST</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Operational Health</h4>
+                <div class="system-health-footer">
+                    <div class="health-metric-footer">
+                        <span>Data Pipeline Uptime</span>
+                        <span class="value">99.97%</span>
+                    </div>
+                    <div class="health-metric-footer">
+                        <span>API Response Time</span>
+                        <span class="value">142ms</span>
+                    </div>
+                    <div class="health-metric-footer">
+                        <span>Active User Sessions</span>
+                        <span class="value">847</span>
+                    </div>
+                    <div class="health-metric-footer">
+                        <span>Security Incidents</span>
+                        <span class="value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Access & Permissions</h4>
+                <p><strong>Current User:</strong> Executive Leadership</p>
+                <p><strong>Access Level:</strong> Full Command (L5)</p>
+                <p><strong>Data Classification:</strong> Confidential - Board Level</p>
+                <p><strong>Session Expires:</strong> 4 hours 12 minutes</p>
+            </div>
+        </div>
+
+        <div class="footer-attribution">
+            <p>ATLAS Executive Command Center | Multi-Stakeholder Operational Dashboard</p>
+            <p>Designed for C-Suite Situational Awareness & Strategic Decision Support</p>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================
+        // ATLAS COMMAND CENTER - INTERACTIVE BEHAVIORS
+        // ============================================
+
+        // Navigation segment interaction
+        document.querySelectorAll('.nav-segment').forEach(segment => {
+            segment.addEventListener('click', function() {
+                document.querySelectorAll('.nav-segment').forEach(s => s.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Department status card drill-down simulation
+        document.querySelectorAll('.dept-status-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const deptName = this.querySelector('.dept-name').textContent;
+                console.log(`Drilling down into: ${deptName}`);
+                // In production: navigate to detailed department view
+            });
+        });
+
+        // Timeline item expansion
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            item.addEventListener('click', function() {
+                console.log('Initiative details requested');
+                // In production: show modal with detailed initiative information
+            });
+        });
+
+        // Alert item interaction
+        document.querySelectorAll('.alert-item').forEach(alert => {
+            alert.addEventListener('click', function() {
+                const severity = this.querySelector('.alert-severity').textContent;
+                const title = this.querySelector('.alert-title').textContent;
+                console.log(`Alert clicked: ${severity} - ${title}`);
+                // In production: open alert detail panel or modal
+            });
+        });
+
+        // Chart bar interaction
+        document.querySelectorAll('.chart-bar').forEach(bar => {
+            bar.addEventListener('click', function() {
+                const label = this.querySelector('.chart-bar-label').textContent;
+                console.log(`Quarter selected: ${label}`);
+                // In production: show detailed quarterly breakdown
+            });
+        });
+
+        // Stakeholder table row interaction
+        document.querySelectorAll('.stakeholder-table tbody tr').forEach(row => {
+            row.addEventListener('click', function() {
+                const name = this.querySelector('.stakeholder-name').textContent;
+                console.log(`Stakeholder profile: ${name}`);
+                // In production: navigate to stakeholder engagement dashboard
+            });
+        });
+
+        // Action icon interactions
+        document.querySelectorAll('.action-icon').forEach(icon => {
+            icon.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const title = this.getAttribute('title');
+                console.log(`Action: ${title}`);
+                // In production: open action detail or trigger workflow
+            });
+        });
+
+        // Real-time timestamp update
+        function updateTimestamp() {
+            const timestampDisplay = document.querySelector('.timestamp-display');
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const quarter = 'Q' + (Math.floor(now.getMonth() / 3) + 1);
+            const year = now.getFullYear();
+            timestampDisplay.textContent = `Last Updated: ${hours}:${minutes} EST | ${quarter} ${year}`;
+        }
+
+        // Update timestamp every minute
+        setInterval(updateTimestamp, 60000);
+        updateTimestamp();
+
+        // Simulate live data updates for status bars
+        function simulateDataUpdate() {
+            document.querySelectorAll('.status-bar-fill').forEach(bar => {
+                const currentWidth = parseFloat(bar.style.width);
+                const variance = (Math.random() - 0.5) * 2; // ±1%
+                const newWidth = Math.max(0, Math.min(100, currentWidth + variance));
+                bar.style.width = newWidth + '%';
+            });
+        }
+
+        // Subtle data refresh every 30 seconds
+        setInterval(simulateDataUpdate, 30000);
+
+        // KPI card hover enhancement
+        document.querySelectorAll('.kpi-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.borderColor = getComputedStyle(document.documentElement)
+                    .getPropertyValue('--gold-accent');
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.borderColor = getComputedStyle(document.documentElement)
+                    .getPropertyValue('--border-subtle');
+            });
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('ATLAS Executive Command Center initialized');
+            console.log('Multi-stakeholder operational dashboard ready');
+
+            // Simulate initial data load animation
+            document.querySelectorAll('.panel').forEach((panel, index) => {
+                panel.style.opacity = '0';
+                panel.style.transform = 'translateY(20px)';
+
+                setTimeout(() => {
+                    panel.style.transition = 'all 0.4s ease';
+                    panel.style.opacity = '1';
+                    panel.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // Control button interactions
+        document.querySelectorAll('.control-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const action = this.textContent.trim();
+                console.log(`Control action: ${action}`);
+                // In production: trigger appropriate data export, filter, or configuration panel
+            });
+        });
+    </script>
+
+</body>
+</html>

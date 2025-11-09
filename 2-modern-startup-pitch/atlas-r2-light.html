@@ -1,0 +1,1973 @@
+<!-- Agent: Atlas | Round: 2 - Light Mode Masterpiece | Theme: Modern Startup Pitch | Intent: Multi-stakeholder startup ops command center with gradient-rich visual design and cross-functional real-time status tracking -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Operations Command | Atlas Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        :root {
+            /* Light Mode Color System */
+            --bg-primary: #FAFBFF;
+            --bg-secondary: #FFFFFF;
+            --bg-card: #FFFFFF;
+
+            /* Bold Gradient Accents */
+            --gradient-primary: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+            --gradient-secondary: linear-gradient(135deg, #3B82F6 0%, #06B6D4 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #F87171 100%);
+
+            /* Solid Colors */
+            --color-primary: #6366F1;
+            --color-secondary: #3B82F6;
+            --color-success: #10B981;
+            --color-warning: #F59E0B;
+            --color-danger: #EF4444;
+            --color-purple: #8B5CF6;
+            --color-cyan: #06B6D4;
+            --color-pink: #EC4899;
+
+            /* Text Colors */
+            --text-primary: #1E293B;
+            --text-secondary: #64748B;
+            --text-muted: #94A3B8;
+            --text-white: #FFFFFF;
+
+            /* Borders & Shadows */
+            --border-light: #E2E8F0;
+            --shadow-sm: 0 2px 8px rgba(99, 102, 241, 0.08);
+            --shadow-md: 0 4px 16px rgba(99, 102, 241, 0.12);
+            --shadow-lg: 0 8px 32px rgba(99, 102, 241, 0.16);
+
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 0.75rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* Hero Header Section */
+        .hero-header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .brand-logo {
+            width: 44px;
+            height: 44px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: var(--text-white);
+            font-size: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .brand-info h1 {
+            font-size: 24px;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .brand-subtitle {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+        }
+
+        .agent-badge {
+            background: var(--gradient-primary);
+            color: var(--text-white);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: 24px;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 1px;
+            box-shadow: var(--shadow-md);
+            animation: breathe 3s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3); }
+            50% { box-shadow: 0 6px 24px rgba(99, 102, 241, 0.5); }
+        }
+
+        .refresh-btn {
+            background: var(--bg-card);
+            border: 2px solid var(--border-light);
+            color: var(--text-primary);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 13px;
+        }
+
+        .refresh-btn:hover {
+            border-color: var(--color-primary);
+            background: var(--gradient-primary);
+            color: var(--text-white);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .sync-indicator {
+            width: 8px;
+            height: 8px;
+            background: var(--color-success);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+
+        /* Hero Mission Section */
+        .hero-mission {
+            padding: var(--spacing-2xl) var(--spacing-xl);
+            background: linear-gradient(135deg, #FAFBFF 0%, #F1F5FF 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-mission::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-mission::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .mission-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .mission-tagline {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .mission-description {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto var(--spacing-xl);
+            font-weight: 500;
+        }
+
+        /* Hero Metrics Strip */
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        .hero-metric {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-metric::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .hero-metric.success::before {
+            background: var(--gradient-success);
+        }
+
+        .hero-metric.warning::before {
+            background: var(--gradient-warning);
+        }
+
+        .hero-metric.secondary::before {
+            background: var(--gradient-secondary);
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .metric-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .metric-delta {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-top: var(--spacing-xs);
+        }
+
+        .metric-delta.positive {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--color-success);
+        }
+
+        .metric-delta.negative {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--color-danger);
+        }
+
+        /* Main Dashboard Layout */
+        .dashboard-container {
+            padding: var(--spacing-xl);
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .section-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-white);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .time-selector {
+            display: flex;
+            gap: var(--spacing-xs);
+            background: var(--bg-card);
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+        }
+
+        .time-option {
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .time-option.active {
+            background: var(--gradient-primary);
+            color: var(--text-white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Multi-Panel Grid Layout */
+        .multi-panel-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .panel {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+        }
+
+        .panel:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .panel-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .panel-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .panel-badge.live {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(52, 211, 153, 0.2) 100%);
+            color: var(--color-success);
+            border: 1px solid var(--color-success);
+        }
+
+        .panel-badge.alert {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(248, 113, 113, 0.2) 100%);
+            color: var(--color-danger);
+            border: 1px solid var(--color-danger);
+            animation: pulse-border 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { border-color: var(--color-danger); }
+            50% { border-color: transparent; }
+        }
+
+        .panel-badge.tracking {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+            color: var(--color-secondary);
+            border: 1px solid var(--color-secondary);
+        }
+
+        /* Status Cards Grid */
+        .status-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .status-card {
+            padding: var(--spacing-md);
+            border-radius: 12px;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-light);
+            text-align: center;
+        }
+
+        .status-card:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-2px);
+        }
+
+        .status-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto var(--spacing-sm);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-white);
+        }
+
+        .status-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .status-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .status-trend {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Timeline View */
+        .timeline {
+            position: relative;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 40px;
+            bottom: -20px;
+            width: 2px;
+            background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-purple) 100%);
+            opacity: 0.3;
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-marker {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--text-white);
+            font-size: 16px;
+            box-shadow: var(--shadow-md);
+            z-index: 1;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: var(--bg-primary);
+            padding: var(--spacing-md);
+            border-radius: 12px;
+            border-left: 3px solid transparent;
+        }
+
+        .timeline-content:hover {
+            border-left-color: var(--color-primary);
+            transform: translateX(4px);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .timeline-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .timeline-time {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .timeline-description {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .data-table thead {
+            background: linear-gradient(135deg, #F8F9FF 0%, #F1F5FF 100%);
+        }
+
+        .data-table th {
+            padding: var(--spacing-md);
+            text-align: left;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .data-table th:first-child {
+            border-top-left-radius: 12px;
+        }
+
+        .data-table th:last-child {
+            border-top-right-radius: 12px;
+        }
+
+        .data-table td {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--border-light);
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-primary);
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Status Pills */
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            border: 2px solid;
+        }
+
+        .status-pill::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .status-pill.on-track {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--color-success);
+            border-color: var(--color-success);
+        }
+
+        .status-pill.on-track::before {
+            background: var(--color-success);
+        }
+
+        .status-pill.at-risk {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--color-warning);
+            border-color: var(--color-warning);
+        }
+
+        .status-pill.at-risk::before {
+            background: var(--color-warning);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .status-pill.blocked {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--color-danger);
+            border-color: var(--color-danger);
+        }
+
+        .status-pill.blocked::before {
+            background: var(--color-danger);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .status-pill.completed {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        .status-pill.completed::before {
+            background: var(--color-primary);
+        }
+
+        /* Chart Containers */
+        .chart-container {
+            height: 240px;
+            background: linear-gradient(135deg, #F8F9FF 0%, #FAFBFF 100%);
+            border-radius: 12px;
+            padding: var(--spacing-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: var(--spacing-lg);
+        }
+
+        .chart-grid-line {
+            height: 1px;
+            background: var(--border-light);
+        }
+
+        .chart-bars {
+            position: absolute;
+            bottom: var(--spacing-lg);
+            left: var(--spacing-lg);
+            right: var(--spacing-lg);
+            height: 180px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            gap: 8px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: var(--gradient-primary);
+            border-radius: 8px 8px 0 0;
+            min-width: 20px;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            animation: bar-grow 0.8s ease-out;
+        }
+
+        @keyframes bar-grow {
+            from { height: 0; opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .chart-bar:nth-child(2n) {
+            background: var(--gradient-secondary);
+        }
+
+        .chart-bar:nth-child(3n) {
+            background: var(--gradient-success);
+        }
+
+        .chart-bar:hover {
+            opacity: 0.8;
+            transform: scaleY(1.02);
+        }
+
+        /* Progress Bars */
+        .progress-item {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .progress-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .progress-value {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar-container {
+            height: 12px;
+            background: var(--bg-primary);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 20px;
+            background: var(--gradient-primary);
+            transition: width 1s ease-out;
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.3);
+        }
+
+        .progress-bar-fill.success {
+            background: var(--gradient-success);
+        }
+
+        .progress-bar-fill.warning {
+            background: var(--gradient-warning);
+        }
+
+        .progress-bar-fill.danger {
+            background: var(--gradient-danger);
+        }
+
+        /* Alert Banner */
+        .alert-banner {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            border-left: 4px solid;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .alert-banner.info {
+            border-left-color: var(--color-secondary);
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.05) 0%, transparent 100%);
+        }
+
+        .alert-banner.warning {
+            border-left-color: var(--color-warning);
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.05) 0%, transparent 100%);
+        }
+
+        .alert-banner.success {
+            border-left-color: var(--color-success);
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%);
+        }
+
+        .alert-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--text-white);
+            flex-shrink: 0;
+        }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert-title {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .alert-message {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Metric Cards Row */
+        .metric-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: var(--spacing-lg);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            padding: 2px;
+            background: var(--gradient-primary);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.2s ease-out;
+        }
+
+        .metric-card:hover::before {
+            opacity: 1;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Sparkline */
+        .sparkline {
+            height: 40px;
+            margin-top: var(--spacing-sm);
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+        }
+
+        .sparkline-bar {
+            flex: 1;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            min-height: 4px;
+            animation: shimmer 2s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Footer */
+        .dashboard-footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-light);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-info {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .footer-badge {
+            background: var(--gradient-primary);
+            color: var(--text-white);
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 960px) {
+            .multi-panel-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .mission-tagline {
+                font-size: 32px;
+            }
+
+            .dashboard-container {
+                padding: var(--spacing-md);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header-top {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+
+            .hero-mission {
+                padding: var(--spacing-lg);
+            }
+
+            .mission-tagline {
+                font-size: 24px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--spacing-sm);
+            }
+        }
+
+        /* Grid Span Utilities */
+        .span-4 { grid-column: span 4; }
+        .span-6 { grid-column: span 6; }
+        .span-8 { grid-column: span 8; }
+        .span-12 { grid-column: span 12; }
+
+        @media (max-width: 960px) {
+            .span-4, .span-6, .span-8 { grid-column: span 12; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Header -->
+    <header class="hero-header">
+        <div class="header-top">
+            <div class="brand-section">
+                <div class="brand-logo">V</div>
+                <div class="brand-info">
+                    <h1>VelocityHQ</h1>
+                    <div class="brand-subtitle">Multi-Stakeholder Operations Command</div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="agent-badge">ATLAS</div>
+                <button class="refresh-btn">
+                    <div class="sync-indicator"></div>
+                    Live Sync
+                </button>
+            </div>
+        </div>
+
+        <div class="hero-mission">
+            <div class="mission-content">
+                <div class="mission-tagline">
+                    Building the Future, One Sprint at a Time
+                </div>
+                <div class="mission-description">
+                    Real-time operational intelligence across Product, Engineering, Sales, and Customer Success teams. Track what matters, ship faster, grow smarter.
+                </div>
+
+                <div class="hero-metrics">
+                    <div class="hero-metric">
+                        <div class="metric-label">Monthly Recurring Revenue</div>
+                        <div class="metric-value">$847K</div>
+                        <div class="metric-delta positive">↑ 34% MoM</div>
+                    </div>
+                    <div class="hero-metric success">
+                        <div class="metric-label">Active Users (30d)</div>
+                        <div class="metric-value">12,847</div>
+                        <div class="metric-delta positive">↑ 28% Growth</div>
+                    </div>
+                    <div class="hero-metric secondary">
+                        <div class="metric-label">Sprint Velocity</div>
+                        <div class="metric-value">142 pts</div>
+                        <div class="metric-delta positive">↑ 18% vs avg</div>
+                    </div>
+                    <div class="hero-metric warning">
+                        <div class="metric-label">Customer Health Score</div>
+                        <div class="metric-value">8.4/10</div>
+                        <div class="metric-delta negative">↓ 0.3 this week</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dashboard -->
+    <div class="dashboard-container">
+        <!-- Alerts Section -->
+        <section style="margin-bottom: 2rem;">
+            <div class="alert-banner warning">
+                <div class="alert-icon" style="background: var(--gradient-warning);">!</div>
+                <div class="alert-content">
+                    <div class="alert-title">Action Required: Q4 Roadmap Review</div>
+                    <div class="alert-message">3 features at risk for Q4 delivery. Product sync scheduled for 2:30 PM today.</div>
+                </div>
+            </div>
+            <div class="alert-banner success">
+                <div class="alert-icon" style="background: var(--gradient-success);">✓</div>
+                <div class="alert-content">
+                    <div class="alert-title">Deployment Success: v2.8.4 is Live</div>
+                    <div class="alert-message">New authentication system deployed to production. Zero downtime achieved.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Team Status -->
+        <section style="margin-bottom: 3rem;">
+            <div class="section-header">
+                <div class="section-title">
+                    <div class="section-icon" style="background: var(--gradient-primary);">P</div>
+                    Product Team Status
+                </div>
+                <div class="time-selector">
+                    <div class="time-option">Today</div>
+                    <div class="time-option active">This Week</div>
+                    <div class="time-option">This Month</div>
+                </div>
+            </div>
+
+            <div class="multi-panel-grid">
+                <!-- Sprint Progress -->
+                <div class="panel span-6">
+                    <div class="panel-header">
+                        <div class="panel-title">Current Sprint: Week 3/3</div>
+                        <div class="panel-badge live">Live</div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <div class="progress-label">Stories Completed</div>
+                            <div class="progress-value">18/22 (82%)</div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill success" style="width: 82%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <div class="progress-label">Story Points Delivered</div>
+                            <div class="progress-value">142/165 (86%)</div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill success" style="width: 86%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <div class="progress-label">Code Review Velocity</div>
+                            <div class="progress-value">2.4h avg (Target: <3h)</div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" style="width: 80%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <div class="progress-label">Test Coverage</div>
+                            <div class="progress-value">87.2%</div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill success" style="width: 87%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Roadmap Status -->
+                <div class="panel span-6">
+                    <div class="panel-header">
+                        <div class="panel-title">Q4 Feature Roadmap</div>
+                        <div class="panel-badge tracking">6 Active</div>
+                    </div>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Owner</th>
+                                <th>Progress</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight: 600;">Advanced Analytics Dashboard</td>
+                                <td>Sarah Chen</td>
+                                <td>78%</td>
+                                <td><span class="status-pill on-track">On Track</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Mobile App v2.0</td>
+                                <td>Marcus Lee</td>
+                                <td>45%</td>
+                                <td><span class="status-pill at-risk">At Risk</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">API Rate Limiting</td>
+                                <td>Dev Team</td>
+                                <td>92%</td>
+                                <td><span class="status-pill on-track">On Track</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">SSO Integration</td>
+                                <td>Alex Rivera</td>
+                                <td>15%</td>
+                                <td><span class="status-pill blocked">Blocked</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Export Functionality</td>
+                                <td>Jamie Park</td>
+                                <td>100%</td>
+                                <td><span class="status-pill completed">Shipped</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Notification Center</td>
+                                <td>Taylor Kim</td>
+                                <td>63%</td>
+                                <td><span class="status-pill on-track">On Track</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Engineering Metrics -->
+                <div class="panel span-4">
+                    <div class="panel-header">
+                        <div class="panel-title">Engineering Metrics</div>
+                        <div class="panel-badge live">Live</div>
+                    </div>
+
+                    <div class="status-cards">
+                        <div class="status-card">
+                            <div class="status-icon" style="background: var(--gradient-primary);">PR</div>
+                            <div class="status-label">Open PRs</div>
+                            <div class="status-value">14</div>
+                            <div class="status-trend">2 need review</div>
+                        </div>
+                        <div class="status-card">
+                            <div class="status-icon" style="background: var(--gradient-success);">CI</div>
+                            <div class="status-label">Build Success</div>
+                            <div class="status-value">98%</div>
+                            <div class="status-trend">Last 7 days</div>
+                        </div>
+                        <div class="status-card">
+                            <div class="status-icon" style="background: var(--gradient-warning);">⚠</div>
+                            <div class="status-label">Tech Debt</div>
+                            <div class="status-value">23</div>
+                            <div class="status-trend">items tracked</div>
+                        </div>
+                        <div class="status-card">
+                            <div class="status-icon" style="background: var(--gradient-secondary);">⚡</div>
+                            <div class="status-label">Deploy Freq</div>
+                            <div class="status-value">4.2</div>
+                            <div class="status-trend">per day avg</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Timeline -->
+                <div class="panel span-8">
+                    <div class="panel-header">
+                        <div class="panel-title">Engineering Activity Stream</div>
+                        <div class="panel-badge live">Live</div>
+                    </div>
+
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-marker" style="background: var(--gradient-success);">✓</div>
+                            <div class="timeline-content">
+                                <div class="timeline-header">
+                                    <div class="timeline-title">Production Deployment Successful</div>
+                                    <div class="timeline-time">8 minutes ago</div>
+                                </div>
+                                <div class="timeline-description">
+                                    v2.8.4 deployed to production environment. New auth system live with zero downtime. All health checks passing.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-marker" style="background: var(--gradient-primary);">M</div>
+                            <div class="timeline-content">
+                                <div class="timeline-header">
+                                    <div class="timeline-title">PR Merged: Advanced Filtering Component</div>
+                                    <div class="timeline-time">1 hour ago</div>
+                                </div>
+                                <div class="timeline-description">
+                                    Sarah Chen's filtering component merged to main. +847 lines, -234 lines. Test coverage: 94%.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-marker" style="background: var(--gradient-warning);">!</div>
+                            <div class="timeline-content">
+                                <div class="timeline-header">
+                                    <div class="timeline-title">Staging Environment Alert Resolved</div>
+                                    <div class="timeline-time">3 hours ago</div>
+                                </div>
+                                <div class="timeline-description">
+                                    Database connection pool exhaustion resolved. Root cause: inefficient query in analytics module. Fix deployed.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-marker" style="background: var(--gradient-secondary);">R</div>
+                            <div class="timeline-content">
+                                <div class="timeline-header">
+                                    <div class="timeline-title">Code Review: Mobile Notification System</div>
+                                    <div class="timeline-time">5 hours ago</div>
+                                </div>
+                                <div class="timeline-description">
+                                    Marcus Lee requested review for push notification refactor. 4 approvals needed before merge.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sales & Growth -->
+        <section style="margin-bottom: 3rem;">
+            <div class="section-header">
+                <div class="section-title">
+                    <div class="section-icon" style="background: var(--gradient-success);">$</div>
+                    Sales & Growth Operations
+                </div>
+                <div class="time-selector">
+                    <div class="time-option">This Week</div>
+                    <div class="time-option active">This Month</div>
+                    <div class="time-option">This Quarter</div>
+                </div>
+            </div>
+
+            <div class="multi-panel-grid">
+                <!-- Revenue Metrics -->
+                <div class="panel span-8">
+                    <div class="panel-header">
+                        <div class="panel-title">Revenue Growth Trend</div>
+                        <div class="panel-badge tracking">MTD</div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-grid">
+                            <div class="chart-grid-line"></div>
+                            <div class="chart-grid-line"></div>
+                            <div class="chart-grid-line"></div>
+                            <div class="chart-grid-line"></div>
+                        </div>
+                        <div class="chart-bars">
+                            <div class="chart-bar" style="height: 45%;"></div>
+                            <div class="chart-bar" style="height: 62%;"></div>
+                            <div class="chart-bar" style="height: 58%;"></div>
+                            <div class="chart-bar" style="height: 73%;"></div>
+                            <div class="chart-bar" style="height: 68%;"></div>
+                            <div class="chart-bar" style="height: 81%;"></div>
+                            <div class="chart-bar" style="height: 76%;"></div>
+                            <div class="chart-bar" style="height: 88%;"></div>
+                            <div class="chart-bar" style="height: 92%;"></div>
+                            <div class="chart-bar" style="height: 95%;"></div>
+                            <div class="chart-bar" style="height: 89%;"></div>
+                            <div class="chart-bar" style="height: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sales Funnel Status -->
+                <div class="panel span-4">
+                    <div class="panel-header">
+                        <div class="panel-title">Pipeline Snapshot</div>
+                        <div class="panel-badge live">Live</div>
+                    </div>
+
+                    <div class="metric-cards">
+                        <div class="metric-card">
+                            <div class="metric-label">Active Deals</div>
+                            <div class="metric-value">47</div>
+                            <div class="sparkline">
+                                <div class="sparkline-bar" style="height: 40%;"></div>
+                                <div class="sparkline-bar" style="height: 55%;"></div>
+                                <div class="sparkline-bar" style="height: 48%;"></div>
+                                <div class="sparkline-bar" style="height: 72%;"></div>
+                                <div class="sparkline-bar" style="height: 85%;"></div>
+                                <div class="sparkline-bar" style="height: 100%;"></div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Win Rate</div>
+                            <div class="metric-value">42%</div>
+                            <div class="sparkline">
+                                <div class="sparkline-bar" style="height: 65%;"></div>
+                                <div class="sparkline-bar" style="height: 70%;"></div>
+                                <div class="sparkline-bar" style="height: 62%;"></div>
+                                <div class="sparkline-bar" style="height: 75%;"></div>
+                                <div class="sparkline-bar" style="height: 80%;"></div>
+                                <div class="sparkline-bar" style="height: 84%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem;">
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <div class="progress-label">Lead → Demo</div>
+                                <div class="progress-value">28%</div>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" style="width: 28%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <div class="progress-label">Demo → Trial</div>
+                                <div class="progress-value">64%</div>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill success" style="width: 64%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <div class="progress-label">Trial → Paid</div>
+                                <div class="progress-value">42%</div>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill success" style="width: 42%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Deals -->
+                <div class="panel span-12">
+                    <div class="panel-header">
+                        <div class="panel-title">High-Value Deals in Pipeline</div>
+                        <div class="panel-badge tracking">$2.4M Total</div>
+                    </div>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Company</th>
+                                <th>Deal Value</th>
+                                <th>Stage</th>
+                                <th>Owner</th>
+                                <th>Close Date</th>
+                                <th>Probability</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight: 700;">TechCorp Industries</td>
+                                <td style="font-weight: 600; color: var(--color-success);">$420K</td>
+                                <td>Negotiation</td>
+                                <td>Jordan Smith</td>
+                                <td>Nov 15, 2025</td>
+                                <td>85%</td>
+                                <td><span class="status-pill on-track">Hot</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 700;">Global Dynamics LLC</td>
+                                <td style="font-weight: 600; color: var(--color-success);">$380K</td>
+                                <td>Proposal</td>
+                                <td>Emma Davis</td>
+                                <td>Nov 22, 2025</td>
+                                <td>70%</td>
+                                <td><span class="status-pill on-track">Hot</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 700;">InnovateCo</td>
+                                <td style="font-weight: 600; color: var(--color-primary);">$295K</td>
+                                <td>Trial Active</td>
+                                <td>Chris Anderson</td>
+                                <td>Dec 1, 2025</td>
+                                <td>60%</td>
+                                <td><span class="status-pill completed">Warm</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 700;">Future Systems Inc</td>
+                                <td style="font-weight: 600; color: var(--color-primary);">$268K</td>
+                                <td>Discovery</td>
+                                <td>Sam Taylor</td>
+                                <td>Dec 10, 2025</td>
+                                <td>45%</td>
+                                <td><span class="status-pill completed">Warm</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 700;">Enterprise Solutions Group</td>
+                                <td style="font-weight: 600; color: var(--color-warning);">$185K</td>
+                                <td>Stalled</td>
+                                <td>Alex Morgan</td>
+                                <td>Nov 30, 2025</td>
+                                <td>30%</td>
+                                <td><span class="status-pill at-risk">At Risk</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 700;">CloudTech Partners</td>
+                                <td style="font-weight: 600; color: var(--color-secondary);">$850K</td>
+                                <td>Legal Review</td>
+                                <td>Casey Johnson</td>
+                                <td>Nov 18, 2025</td>
+                                <td>90%</td>
+                                <td><span class="status-pill on-track">Hot</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Success -->
+        <section style="margin-bottom: 3rem;">
+            <div class="section-header">
+                <div class="section-title">
+                    <div class="section-icon" style="background: var(--gradient-secondary);">CS</div>
+                    Customer Success & Health
+                </div>
+                <div class="time-selector">
+                    <div class="time-option">Live</div>
+                    <div class="time-option active">7 Days</div>
+                    <div class="time-option">30 Days</div>
+                </div>
+            </div>
+
+            <div class="multi-panel-grid">
+                <!-- User Growth Chart -->
+                <div class="panel span-6">
+                    <div class="panel-header">
+                        <div class="panel-title">Active User Growth</div>
+                        <div class="panel-badge tracking">30-Day Trend</div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-grid">
+                            <div class="chart-grid-line"></div>
+                            <div class="chart-grid-line"></div>
+                            <div class="chart-grid-line"></div>
+                            <div class="chart-grid-line"></div>
+                        </div>
+                        <div class="chart-bars">
+                            <div class="chart-bar" style="height: 52%;"></div>
+                            <div class="chart-bar" style="height: 58%;"></div>
+                            <div class="chart-bar" style="height: 61%;"></div>
+                            <div class="chart-bar" style="height: 59%;"></div>
+                            <div class="chart-bar" style="height: 67%;"></div>
+                            <div class="chart-bar" style="height: 72%;"></div>
+                            <div class="chart-bar" style="height: 69%;"></div>
+                            <div class="chart-bar" style="height: 76%;"></div>
+                            <div class="chart-bar" style="height: 81%;"></div>
+                            <div class="chart-bar" style="height: 85%;"></div>
+                            <div class="chart-bar" style="height: 88%;"></div>
+                            <div class="chart-bar" style="height: 92%;"></div>
+                            <div class="chart-bar" style="height: 95%;"></div>
+                            <div class="chart-bar" style="height: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Health Segments -->
+                <div class="panel span-6">
+                    <div class="panel-header">
+                        <div class="panel-title">Customer Health Distribution</div>
+                        <div class="panel-badge live">Live</div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <div class="progress-label">Healthy (Score 8-10)</div>
+                            <div class="progress-value">284 accounts (68%)</div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill success" style="width: 68%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <div class="progress-label">At Risk (Score 5-7)</div>
+                            <div class="progress-value">97 accounts (23%)</div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill warning" style="width: 23%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <div class="progress-label">Critical (Score 0-4)</div>
+                            <div class="progress-value">38 accounts (9%)</div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill danger" style="width: 9%;"></div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid var(--border-light);">
+                        <div class="status-cards">
+                            <div class="status-card">
+                                <div class="status-icon" style="background: var(--gradient-danger);">!</div>
+                                <div class="status-label">Churn Risk</div>
+                                <div class="status-value">12</div>
+                                <div class="status-trend">needs action</div>
+                            </div>
+                            <div class="status-card">
+                                <div class="status-icon" style="background: var(--gradient-success);">↑</div>
+                                <div class="status-label">Upsell Ready</div>
+                                <div class="status-value">34</div>
+                                <div class="status-trend">opportunities</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Support Metrics -->
+                <div class="panel span-4">
+                    <div class="panel-header">
+                        <div class="panel-title">Support Performance</div>
+                        <div class="panel-badge live">Live</div>
+                    </div>
+
+                    <div class="metric-cards">
+                        <div class="metric-card">
+                            <div class="metric-label">Open Tickets</div>
+                            <div class="metric-value">38</div>
+                            <div class="metric-delta positive">↓ 12 vs yesterday</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Avg Response Time</div>
+                            <div class="metric-value">1.2h</div>
+                            <div class="metric-delta positive">↓ 0.3h improvement</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">CSAT Score</div>
+                            <div class="metric-value">4.7/5</div>
+                            <div class="metric-delta positive">↑ 0.2 this week</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">First Contact Resolution</div>
+                            <div class="metric-value">78%</div>
+                            <div class="metric-delta positive">↑ 5% vs avg</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Customer Activity -->
+                <div class="panel span-8">
+                    <div class="panel-header">
+                        <div class="panel-title">Recent Customer Interactions</div>
+                        <div class="panel-badge live">Live</div>
+                    </div>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Account</th>
+                                <th>Activity</th>
+                                <th>CSM</th>
+                                <th>Health Score</th>
+                                <th>Last Contact</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight: 600;">Acme Corporation</td>
+                                <td>Quarterly Business Review completed</td>
+                                <td>Riley Cooper</td>
+                                <td style="font-weight: 700; color: var(--color-success);">9.2</td>
+                                <td>2 hours ago</td>
+                                <td><span class="status-pill on-track">Healthy</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">StartupXYZ Inc</td>
+                                <td>Support escalation - API issues</td>
+                                <td>Morgan Lee</td>
+                                <td style="font-weight: 700; color: var(--color-warning);">6.1</td>
+                                <td>4 hours ago</td>
+                                <td><span class="status-pill at-risk">At Risk</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Enterprise Solutions</td>
+                                <td>Renewal discussion scheduled</td>
+                                <td>Jordan Blake</td>
+                                <td style="font-weight: 700; color: var(--color-success);">8.8</td>
+                                <td>1 day ago</td>
+                                <td><span class="status-pill on-track">Healthy</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">TechForward LLC</td>
+                                <td>Feature request: Advanced reporting</td>
+                                <td>Casey Martinez</td>
+                                <td style="font-weight: 700; color: var(--color-success);">9.5</td>
+                                <td>1 day ago</td>
+                                <td><span class="status-pill on-track">Healthy</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Digital Innovators</td>
+                                <td>Churn risk - usage declining</td>
+                                <td>Alex Rivera</td>
+                                <td style="font-weight: 700; color: var(--color-danger);">3.4</td>
+                                <td>3 days ago</td>
+                                <td><span class="status-pill blocked">Critical</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marketing Funnel -->
+        <section style="margin-bottom: 3rem;">
+            <div class="section-header">
+                <div class="section-title">
+                    <div class="section-icon" style="background: linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%);">M</div>
+                    Marketing Funnel Performance
+                </div>
+                <div class="time-selector">
+                    <div class="time-option">7 Days</div>
+                    <div class="time-option active">30 Days</div>
+                    <div class="time-option">90 Days</div>
+                </div>
+            </div>
+
+            <div class="multi-panel-grid">
+                <!-- Funnel Visualization -->
+                <div class="panel span-8">
+                    <div class="panel-header">
+                        <div class="panel-title">Conversion Funnel (Last 30 Days)</div>
+                        <div class="panel-badge tracking">Updated Hourly</div>
+                    </div>
+
+                    <div style="padding: 1rem 0;">
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <div class="progress-label">Website Visitors</div>
+                                <div class="progress-value">45,238 visitors</div>
+                            </div>
+                            <div class="progress-bar-container" style="height: 16px;">
+                                <div class="progress-bar-fill" style="width: 100%; background: var(--gradient-primary);"></div>
+                            </div>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <div class="progress-label">Sign Ups</div>
+                                <div class="progress-value">3,847 (8.5% conversion)</div>
+                            </div>
+                            <div class="progress-bar-container" style="height: 16px;">
+                                <div class="progress-bar-fill" style="width: 85%; background: var(--gradient-secondary);"></div>
+                            </div>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <div class="progress-label">Activated Users</div>
+                                <div class="progress-value">2,684 (69.8% activation)</div>
+                            </div>
+                            <div class="progress-bar-container" style="height: 16px;">
+                                <div class="progress-bar-fill success" style="width: 70%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <div class="progress-label">Trial Started</div>
+                                <div class="progress-value">1,876 (48.8% trial start)</div>
+                            </div>
+                            <div class="progress-bar-container" style="height: 16px;">
+                                <div class="progress-bar-fill success" style="width: 55%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <div class="progress-label">Paying Customers</div>
+                                <div class="progress-value">524 (27.9% trial-to-paid)</div>
+                            </div>
+                            <div class="progress-bar-container" style="height: 16px;">
+                                <div class="progress-bar-fill" style="width: 28%; background: var(--gradient-success);"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campaign Performance -->
+                <div class="panel span-4">
+                    <div class="panel-header">
+                        <div class="panel-title">Top Campaigns</div>
+                        <div class="panel-badge tracking">Active</div>
+                    </div>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Campaign</th>
+                                <th>Leads</th>
+                                <th>Conv %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight: 600;">Product Hunt Launch</td>
+                                <td>847</td>
+                                <td style="font-weight: 700; color: var(--color-success);">12.4%</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">LinkedIn Ads - Enterprise</td>
+                                <td>562</td>
+                                <td style="font-weight: 700; color: var(--color-success);">9.8%</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Content Marketing</td>
+                                <td>1,243</td>
+                                <td style="font-weight: 700; color: var(--color-primary);">6.2%</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Webinar Series</td>
+                                <td>324</td>
+                                <td style="font-weight: 700; color: var(--color-success);">15.7%</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Partner Referrals</td>
+                                <td>189</td>
+                                <td style="font-weight: 700; color: var(--color-success);">22.3%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Channel Performance -->
+                <div class="panel span-12">
+                    <div class="panel-header">
+                        <div class="panel-title">Marketing Channel ROI</div>
+                        <div class="panel-badge tracking">30-Day Performance</div>
+                    </div>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Channel</th>
+                                <th>Spend</th>
+                                <th>Impressions</th>
+                                <th>Clicks</th>
+                                <th>CTR</th>
+                                <th>Conversions</th>
+                                <th>CAC</th>
+                                <th>ROI</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight: 700;">Google Ads</td>
+                                <td>$12,400</td>
+                                <td>284,500</td>
+                                <td>3,847</td>
+                                <td>1.35%</td>
+                                <td>147</td>
+                                <td>$84</td>
+                                <td style="font-weight: 700; color: var(--color-success);">4.2x</td>
+                                <td><span class="status-pill on-track">Excellent</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 700;">LinkedIn Ads</td>
+                                <td>$8,900</td>
+                                <td>124,300</td>
+                                <td>2,156</td>
+                                <td>1.73%</td>
+                                <td>98</td>
+                                <td>$91</td>
+                                <td style="font-weight: 700; color: var(--color-success);">3.8x</td>
+                                <td><span class="status-pill on-track">Excellent</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 700;">Facebook Ads</td>
+                                <td>$6,200</td>
+                                <td>542,100</td>
+                                <td>4,892</td>
+                                <td>0.90%</td>
+                                <td>67</td>
+                                <td>$93</td>
+                                <td style="font-weight: 700; color: var(--color-primary);">2.9x</td>
+                                <td><span class="status-pill completed">Good</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 700;">Content Marketing</td>
+                                <td>$4,500</td>
+                                <td>89,200</td>
+                                <td>1,784</td>
+                                <td>2.00%</td>
+                                <td>124</td>
+                                <td>$36</td>
+                                <td style="font-weight: 700; color: var(--color-success);">6.8x</td>
+                                <td><span class="status-pill on-track">Excellent</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 700;">Email Campaigns</td>
+                                <td>$1,200</td>
+                                <td>45,600</td>
+                                <td>3,648</td>
+                                <td>8.00%</td>
+                                <td>178</td>
+                                <td>$7</td>
+                                <td style="font-weight: 700; color: var(--color-success);">12.4x</td>
+                                <td><span class="status-pill on-track">Excellent</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 700;">Organic Search</td>
+                                <td>$0</td>
+                                <td>167,800</td>
+                                <td>8,942</td>
+                                <td>5.33%</td>
+                                <td>412</td>
+                                <td>$0</td>
+                                <td style="font-weight: 700; color: var(--color-success);">∞</td>
+                                <td><span class="status-pill on-track">Perfect</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+        <div class="footer-info">
+            Last updated: November 9, 2025 • 14:23:47 UTC • Auto-refresh enabled • Data latency: <2min
+        </div>
+        <div class="footer-badge">DESIGNED BY ATLAS</div>
+    </footer>
+
+    <script>
+        // Live timestamp update
+        function updateTimestamp() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { hour12: false });
+            const dateString = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+            const footer = document.querySelector('.footer-info');
+            if (footer) {
+                footer.innerHTML = `Last updated: ${dateString} • ${timeString} UTC • Auto-refresh enabled • Data latency: <2min`;
+            }
+        }
+
+        // Update timestamp every second
+        setInterval(updateTimestamp, 1000);
+        updateTimestamp();
+
+        // Simulate live data updates with subtle animations
+        function simulateLiveUpdate() {
+            const liveElements = document.querySelectorAll('.panel-badge.live');
+            liveElements.forEach(badge => {
+                badge.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    badge.style.transform = 'scale(1)';
+                }, 200);
+            });
+        }
+
+        // Simulate updates every 10 seconds
+        setInterval(simulateLiveUpdate, 10000);
+
+        // Add hover effects for interactive elements
+        document.querySelectorAll('.chart-bar').forEach(bar => {
+            bar.addEventListener('mouseenter', function() {
+                this.style.opacity = '0.7';
+            });
+            bar.addEventListener('mouseleave', function() {
+                this.style.opacity = '1';
+            });
+        });
+
+        // Table row interaction
+        document.querySelectorAll('.data-table tbody tr').forEach(row => {
+            row.addEventListener('click', function() {
+                console.log('Row clicked:', this);
+            });
+        });
+
+        // Time selector interaction
+        document.querySelectorAll('.time-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const parent = this.parentElement;
+                parent.querySelectorAll('.time-option').forEach(opt => {
+                    opt.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        // Refresh button interaction
+        document.querySelector('.refresh-btn').addEventListener('click', function() {
+            this.style.transform = 'rotate(360deg)';
+            setTimeout(() => {
+                this.style.transform = 'rotate(0deg)';
+            }, 600);
+        });
+
+        // Console log for demo purposes
+        console.log('🚀 VelocityHQ Dashboard loaded successfully');
+        console.log('📊 Atlas Multi-Stakeholder Operations Command Center');
+        console.log('✨ Theme: Modern Startup Pitch - Light Mode');
+    </script>
+</body>
+</html>

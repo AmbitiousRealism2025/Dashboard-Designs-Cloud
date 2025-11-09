@@ -1,0 +1,1718 @@
+<!-- Agent: Teeqa | Round: 2 - Light Mode Masterpiece | Theme: Customer Journey CX Studio | Intent: Create a delightful, human-centered CX dashboard with playful journey visualization, warm gradients, and customer voice storytelling -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Journey CX Studio - Teeqa Light Mode</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Warm Light Mode Palette */
+            --bg-primary: #FAFBFC;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #F8F9FA;
+            --bg-card: #FFFFFF;
+
+            /* Warm Accents */
+            --coral-primary: #FF6B6B;
+            --coral-light: #FFE3E3;
+            --coral-gradient: linear-gradient(135deg, #FF6B6B 0%, #FF8787 100%);
+
+            --amber-primary: #FFA94D;
+            --amber-light: #FFF3E0;
+            --amber-gradient: linear-gradient(135deg, #FFA94D 0%, #FFB366 100%);
+
+            --teal-primary: #20C997;
+            --teal-light: #D3F9F0;
+            --teal-gradient: linear-gradient(135deg, #20C997 0%, #38D9A9 100%);
+
+            /* Semantic Colors */
+            --success: #51CF66;
+            --success-light: #D3F9D8;
+            --warning: #FFA94D;
+            --warning-light: #FFF3E0;
+            --danger: #FF6B6B;
+            --danger-light: #FFE3E3;
+
+            /* Neutrals */
+            --gray-50: #F8F9FA;
+            --gray-100: #F1F3F5;
+            --gray-200: #E9ECEF;
+            --gray-300: #DEE2E6;
+            --gray-400: #CED4DA;
+            --gray-500: #ADB5BD;
+            --gray-600: #868E96;
+            --gray-700: #495057;
+            --gray-800: #343A40;
+            --gray-900: #212529;
+
+            /* Typography */
+            --font-primary: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-secondary: 'DM Sans', system-ui, sans-serif;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 0.75rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --shadow-xl: 0 16px 48px rgba(0,0,0,0.16);
+
+            /* Borders */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-pill: 9999px;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-primary);
+            color: var(--gray-900);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--gray-200);
+            padding: var(--space-lg) var(--space-xl);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .brand-logo {
+            width: 48px;
+            height: 48px;
+            background: var(--coral-gradient);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-md);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .brand-text h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 2px;
+        }
+
+        .brand-text p {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            font-family: var(--font-secondary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--space-sm);
+            align-items: center;
+        }
+
+        .header-btn {
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-pill);
+            border: none;
+            font-family: var(--font-primary);
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .header-btn.primary {
+            background: var(--coral-gradient);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-btn.secondary {
+            background: var(--gray-100);
+            color: var(--gray-700);
+        }
+
+        .header-btn.secondary:hover {
+            background: var(--gray-200);
+        }
+
+        .agent-badge {
+            background: var(--teal-gradient);
+            color: white;
+            padding: 6px 16px;
+            border-radius: var(--radius-pill);
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+        }
+
+        /* Journey Timeline Hero */
+        .journey-hero {
+            background: linear-gradient(135deg, #FFF5F5 0%, #FFF3E0 50%, #E6FCF5 100%);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .journey-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,107,107,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .journey-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: var(--space-sm);
+            position: relative;
+        }
+
+        .journey-subtitle {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            margin-bottom: var(--space-2xl);
+            position: relative;
+        }
+
+        .journey-stages {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--space-md);
+            position: relative;
+        }
+
+        .journey-stage {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .journey-stage:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--coral-primary);
+        }
+
+        .stage-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto var(--space-md);
+            border-radius: var(--radius-pill);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            position: relative;
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        .journey-stage:nth-child(1) .stage-icon {
+            background: var(--coral-light);
+            animation-delay: 0.1s;
+        }
+
+        .journey-stage:nth-child(2) .stage-icon {
+            background: var(--amber-light);
+            animation-delay: 0.2s;
+        }
+
+        .journey-stage:nth-child(3) .stage-icon {
+            background: var(--teal-light);
+            animation-delay: 0.3s;
+        }
+
+        .journey-stage:nth-child(4) .stage-icon {
+            background: var(--success-light);
+            animation-delay: 0.4s;
+        }
+
+        .journey-stage:nth-child(5) .stage-icon {
+            background: var(--warning-light);
+            animation-delay: 0.5s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stage-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: var(--space-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stage-metric {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: var(--space-xs);
+        }
+
+        .stage-label {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+
+        .stage-progress {
+            width: 100%;
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: var(--radius-pill);
+            margin-top: var(--space-md);
+            overflow: hidden;
+        }
+
+        .stage-progress-bar {
+            height: 100%;
+            border-radius: var(--radius-pill);
+            transition: width 1s ease;
+        }
+
+        .journey-stage:nth-child(1) .stage-progress-bar {
+            background: var(--coral-gradient);
+            width: 85%;
+        }
+
+        .journey-stage:nth-child(2) .stage-progress-bar {
+            background: var(--amber-gradient);
+            width: 72%;
+        }
+
+        .journey-stage:nth-child(3) .stage-progress-bar {
+            background: var(--teal-gradient);
+            width: 68%;
+        }
+
+        .journey-stage:nth-child(4) .stage-progress-bar {
+            background: linear-gradient(135deg, #51CF66 0%, #69DB7C 100%);
+            width: 91%;
+        }
+
+        .journey-stage:nth-child(5) .stage-progress-bar {
+            background: var(--amber-gradient);
+            width: 12%;
+        }
+
+        /* KPI Cards Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+            border-left: 4px solid;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            opacity: 0.1;
+            font-size: 4rem;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .kpi-card:nth-child(1) {
+            border-left-color: var(--coral-primary);
+        }
+
+        .kpi-card:nth-child(2) {
+            border-left-color: var(--teal-primary);
+        }
+
+        .kpi-card:nth-child(3) {
+            border-left-color: var(--amber-primary);
+        }
+
+        .kpi-card:nth-child(4) {
+            border-left-color: var(--success);
+        }
+
+        .kpi-label {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .kpi-value {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: var(--space-xs);
+            line-height: 1;
+        }
+
+        .kpi-delta {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-delta.positive {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .kpi-delta.negative {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .kpi-meta {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        /* NPS Section */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: var(--space-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 32px;
+            background: var(--coral-gradient);
+            border-radius: var(--radius-pill);
+        }
+
+        .nps-container {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nps-score-display {
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+        }
+
+        .nps-score-big {
+            font-size: 5rem;
+            font-weight: 900;
+            background: var(--coral-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: var(--space-sm);
+        }
+
+        .nps-score-label {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            font-weight: 600;
+        }
+
+        .nps-emojis {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .nps-emoji {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            background: var(--gray-50);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .nps-emoji:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nps-emoji.detractor {
+            background: var(--danger-light);
+        }
+
+        .nps-emoji.passive {
+            background: var(--warning-light);
+        }
+
+        .nps-emoji.promoter {
+            background: var(--success-light);
+        }
+
+        .emoji-icon {
+            font-size: 3rem;
+            line-height: 1;
+        }
+
+        .emoji-label {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--gray-700);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .emoji-count {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--gray-900);
+        }
+
+        .emoji-percentage {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+
+        .nps-breakdown {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+
+        /* Customer Voices */
+        .voices-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-lg);
+        }
+
+        .testimonial-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 2px solid transparent;
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        .testimonial-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .testimonial-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .testimonial-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--teal-primary);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .customer-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-pill);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .testimonial-card:nth-child(3n+1) .customer-avatar {
+            background: var(--coral-gradient);
+        }
+
+        .testimonial-card:nth-child(3n+2) .customer-avatar {
+            background: var(--teal-gradient);
+        }
+
+        .testimonial-card:nth-child(3n+3) .customer-avatar {
+            background: var(--amber-gradient);
+        }
+
+        .customer-info h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 2px;
+        }
+
+        .customer-info p {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+
+        .testimonial-rating {
+            display: flex;
+            gap: 4px;
+            margin-bottom: var(--space-md);
+        }
+
+        .star {
+            color: var(--amber-primary);
+            font-size: 1rem;
+        }
+
+        .testimonial-text {
+            font-size: 0.9375rem;
+            color: var(--gray-700);
+            line-height: 1.6;
+            margin-bottom: var(--space-md);
+            font-style: italic;
+        }
+
+        .testimonial-meta {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .sentiment-badge {
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        .sentiment-positive {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .sentiment-neutral {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        /* Charts Section */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .chart-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .chart-header {
+            margin-bottom: var(--space-lg);
+        }
+
+        .chart-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: var(--space-xs);
+        }
+
+        .chart-subtitle {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .chart-placeholder {
+            height: 280px;
+            background: var(--gray-50);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Funnel Chart */
+        .funnel-chart {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            padding: var(--space-lg);
+        }
+
+        .funnel-stage {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .funnel-bar-container {
+            flex: 1;
+            height: 48px;
+            position: relative;
+        }
+
+        .funnel-bar {
+            height: 100%;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            padding: 0 var(--space-md);
+            color: white;
+            font-weight: 700;
+            transition: all 0.5s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .funnel-stage:nth-child(1) .funnel-bar {
+            background: var(--coral-gradient);
+            width: 100%;
+        }
+
+        .funnel-stage:nth-child(2) .funnel-bar {
+            background: var(--amber-gradient);
+            width: 75%;
+        }
+
+        .funnel-stage:nth-child(3) .funnel-bar {
+            background: var(--teal-gradient);
+            width: 55%;
+        }
+
+        .funnel-stage:nth-child(4) .funnel-bar {
+            background: linear-gradient(135deg, #51CF66 0%, #69DB7C 100%);
+            width: 42%;
+        }
+
+        .funnel-stage:nth-child(5) .funnel-bar {
+            background: linear-gradient(135deg, #748FFC 0%, #91A7FF 100%);
+            width: 35%;
+        }
+
+        .funnel-label {
+            min-width: 140px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .funnel-value {
+            min-width: 80px;
+            text-align: right;
+            font-size: 1.125rem;
+            font-weight: 800;
+            color: var(--gray-900);
+        }
+
+        /* CSAT Trend Chart */
+        .csat-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 100%;
+            padding: var(--space-lg);
+            gap: var(--space-sm);
+        }
+
+        .csat-bar {
+            flex: 1;
+            background: var(--teal-gradient);
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            transition: all 0.5s ease;
+            position: relative;
+            cursor: pointer;
+            min-width: 40px;
+        }
+
+        .csat-bar:hover {
+            opacity: 0.8;
+            transform: scaleY(1.05);
+        }
+
+        .csat-bar::after {
+            content: attr(data-value);
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--gray-700);
+            white-space: nowrap;
+        }
+
+        /* Data Table */
+        .table-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .table-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .table-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .table-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .table-btn {
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--gray-300);
+            background: var(--bg-secondary);
+            color: var(--gray-700);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .table-btn:hover {
+            background: var(--gray-100);
+            border-color: var(--gray-400);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        thead {
+            background: var(--gray-50);
+        }
+
+        th {
+            padding: var(--space-md);
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--gray-700);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        th:first-child {
+            border-radius: var(--radius-md) 0 0 0;
+        }
+
+        th:last-child {
+            border-radius: 0 var(--radius-md) 0 0;
+        }
+
+        td {
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--gray-200);
+            font-size: 0.9375rem;
+            color: var(--gray-800);
+        }
+
+        tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: var(--gray-50);
+        }
+
+        .customer-cell {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .customer-avatar-small {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-pill);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+
+        .customer-name {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .customer-email {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+
+        .status-pill {
+            padding: 6px 12px;
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-pill.active {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .status-pill.at-risk {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .status-pill.churned {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .status-pill::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .health-score {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .health-bar {
+            width: 60px;
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: var(--radius-pill);
+            overflow: hidden;
+        }
+
+        .health-bar-fill {
+            height: 100%;
+            border-radius: var(--radius-pill);
+            transition: width 0.5s ease;
+        }
+
+        .health-score.high .health-bar-fill {
+            background: var(--success);
+        }
+
+        .health-score.medium .health-bar-fill {
+            background: var(--warning);
+        }
+
+        .health-score.low .health-bar-fill {
+            background: var(--danger);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--gray-200);
+            padding: var(--space-xl);
+            margin-top: var(--space-2xl);
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        .footer-badge {
+            background: var(--coral-gradient);
+            color: white;
+            padding: 8px 20px;
+            border-radius: var(--radius-pill);
+            font-weight: 700;
+            font-size: 0.875rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .journey-stages {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--space-md);
+            }
+
+            .journey-stages {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nps-emojis {
+                flex-direction: column;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: var(--space-md);
+            }
+
+            .table-card {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="brand-section">
+                <div class="brand-logo">💙</div>
+                <div class="brand-text">
+                    <h1>Customer Journey Studio</h1>
+                    <p>Understand, optimize, and delight every step of the way</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="agent-badge">TEEQA</div>
+                <button class="header-btn secondary">⚙️ Settings</button>
+                <button class="header-btn primary">📊 Export Report</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Journey Timeline Hero -->
+        <div class="journey-hero">
+            <h2 class="journey-title">The Complete Customer Journey</h2>
+            <p class="journey-subtitle">Track engagement, satisfaction, and success across every lifecycle stage</p>
+
+            <div class="journey-stages">
+                <div class="journey-stage">
+                    <div class="stage-icon">🎯</div>
+                    <div class="stage-title">Awareness</div>
+                    <div class="stage-metric">12.4K</div>
+                    <div class="stage-label">Visitors</div>
+                    <div class="stage-progress">
+                        <div class="stage-progress-bar"></div>
+                    </div>
+                </div>
+                <div class="journey-stage">
+                    <div class="stage-icon">✨</div>
+                    <div class="stage-title">Acquisition</div>
+                    <div class="stage-metric">3.2K</div>
+                    <div class="stage-label">Sign-ups</div>
+                    <div class="stage-progress">
+                        <div class="stage-progress-bar"></div>
+                    </div>
+                </div>
+                <div class="journey-stage">
+                    <div class="stage-icon">🚀</div>
+                    <div class="stage-title">Onboarding</div>
+                    <div class="stage-metric">2.8K</div>
+                    <div class="stage-label">Active Setup</div>
+                    <div class="stage-progress">
+                        <div class="stage-progress-bar"></div>
+                    </div>
+                </div>
+                <div class="journey-stage">
+                    <div class="stage-icon">💎</div>
+                    <div class="stage-title">Retention</div>
+                    <div class="stage-metric">2.1K</div>
+                    <div class="stage-label">Engaged Users</div>
+                    <div class="stage-progress">
+                        <div class="stage-progress-bar"></div>
+                    </div>
+                </div>
+                <div class="journey-stage">
+                    <div class="stage-icon">⚠️</div>
+                    <div class="stage-title">Churn Risk</div>
+                    <div class="stage-metric">247</div>
+                    <div class="stage-label">At Risk</div>
+                    <div class="stage-progress">
+                        <div class="stage-progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-label">💖 Customer Lifetime Value</div>
+                <div class="kpi-value">$4,275</div>
+                <div class="kpi-delta positive">↑ 18.5%</div>
+                <div class="kpi-meta">vs. last quarter · Target: $4,000</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">🎯 Retention Rate</div>
+                <div class="kpi-value">87.3%</div>
+                <div class="kpi-delta positive">↑ 3.2%</div>
+                <div class="kpi-meta">30-day rolling · Industry avg: 82%</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">⚡ Time to Value</div>
+                <div class="kpi-value">4.2 days</div>
+                <div class="kpi-delta negative">↓ 0.8 days</div>
+                <div class="kpi-meta">First meaningful action · Goal: 3 days</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">🌟 Support Satisfaction</div>
+                <div class="kpi-value">4.8/5.0</div>
+                <div class="kpi-delta positive">↑ 0.3</div>
+                <div class="kpi-meta">2,847 ratings this month</div>
+            </div>
+        </div>
+
+        <!-- NPS Section -->
+        <div class="nps-container">
+            <h3 class="section-title">Net Promoter Score</h3>
+            <div class="nps-score-display">
+                <div class="nps-score-big">67</div>
+                <div class="nps-score-label">Excellent • Well above SaaS average (36)</div>
+            </div>
+            <div class="nps-emojis">
+                <div class="nps-emoji detractor">
+                    <div class="emoji-icon">😟</div>
+                    <div class="emoji-label">Detractors</div>
+                    <div class="emoji-count">142</div>
+                    <div class="emoji-percentage">8.2%</div>
+                </div>
+                <div class="nps-emoji passive">
+                    <div class="emoji-icon">😐</div>
+                    <div class="emoji-label">Passives</div>
+                    <div class="emoji-count">428</div>
+                    <div class="emoji-percentage">24.7%</div>
+                </div>
+                <div class="nps-emoji promoter">
+                    <div class="emoji-icon">😍</div>
+                    <div class="emoji-label">Promoters</div>
+                    <div class="emoji-count">1,312</div>
+                    <div class="emoji-percentage">75.5%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Voices -->
+        <div class="voices-section">
+            <h3 class="section-title">Customer Voices</h3>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="customer-avatar">SM</div>
+                        <div class="customer-info">
+                            <h4>Sarah Mitchell</h4>
+                            <p>Head of Operations · TechFlow Inc</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <div class="testimonial-text">
+                        "The onboarding process was incredibly smooth. We were up and running in less than 3 days, and the support team was there every step of the way. Game changer for our workflow!"
+                    </div>
+                    <div class="testimonial-meta">
+                        <span class="sentiment-badge sentiment-positive">Positive</span>
+                        <span>•</span>
+                        <span>Posted 2 days ago</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="customer-avatar">JC</div>
+                        <div class="customer-info">
+                            <h4>James Chen</h4>
+                            <p>Product Manager · DataSync Labs</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <div class="testimonial-text">
+                        "Our team productivity increased by 40% in the first month. The analytics dashboard gives us insights we never had before. Highly recommend to any growing team."
+                    </div>
+                    <div class="testimonial-meta">
+                        <span class="sentiment-badge sentiment-positive">Positive</span>
+                        <span>•</span>
+                        <span>Posted 5 days ago</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="customer-avatar">EP</div>
+                        <div class="customer-info">
+                            <h4>Emily Parker</h4>
+                            <p>Director of CX · GrowthStack</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">☆</span>
+                    </div>
+                    <div class="testimonial-text">
+                        "Great product overall. The interface is beautiful and intuitive. Would love to see more integration options in the future, but current features are solid."
+                    </div>
+                    <div class="testimonial-meta">
+                        <span class="sentiment-badge sentiment-neutral">Neutral</span>
+                        <span>•</span>
+                        <span>Posted 1 week ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">Customer Acquisition Funnel</div>
+                    <div class="chart-subtitle">Conversion through lifecycle stages • Last 30 days</div>
+                </div>
+                <div class="chart-placeholder">
+                    <div class="funnel-chart">
+                        <div class="funnel-stage">
+                            <div class="funnel-label">Visited Website</div>
+                            <div class="funnel-bar-container">
+                                <div class="funnel-bar">
+                                    <span>12,438 visitors</span>
+                                </div>
+                            </div>
+                            <div class="funnel-value">100%</div>
+                        </div>
+                        <div class="funnel-stage">
+                            <div class="funnel-label">Started Trial</div>
+                            <div class="funnel-bar-container">
+                                <div class="funnel-bar">
+                                    <span>3,247 sign-ups</span>
+                                </div>
+                            </div>
+                            <div class="funnel-value">26.1%</div>
+                        </div>
+                        <div class="funnel-stage">
+                            <div class="funnel-label">Completed Onboarding</div>
+                            <div class="funnel-bar-container">
+                                <div class="funnel-bar">
+                                    <span>2,815 activated</span>
+                                </div>
+                            </div>
+                            <div class="funnel-value">22.6%</div>
+                        </div>
+                        <div class="funnel-stage">
+                            <div class="funnel-label">First Value Milestone</div>
+                            <div class="funnel-bar-container">
+                                <div class="funnel-bar">
+                                    <span>2,103 engaged</span>
+                                </div>
+                            </div>
+                            <div class="funnel-value">16.9%</div>
+                        </div>
+                        <div class="funnel-stage">
+                            <div class="funnel-label">Converted to Paid</div>
+                            <div class="funnel-bar-container">
+                                <div class="funnel-bar">
+                                    <span>1,742 customers</span>
+                                </div>
+                            </div>
+                            <div class="funnel-value">14.0%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">Customer Satisfaction Trend</div>
+                    <div class="chart-subtitle">CSAT scores by week • 8 week rolling</div>
+                </div>
+                <div class="chart-placeholder">
+                    <div class="csat-chart">
+                        <div class="csat-bar" style="height: 72%;" data-value="4.3"></div>
+                        <div class="csat-bar" style="height: 78%;" data-value="4.5"></div>
+                        <div class="csat-bar" style="height: 75%;" data-value="4.4"></div>
+                        <div class="csat-bar" style="height: 82%;" data-value="4.6"></div>
+                        <div class="csat-bar" style="height: 88%;" data-value="4.7"></div>
+                        <div class="csat-bar" style="height: 85%;" data-value="4.6"></div>
+                        <div class="csat-bar" style="height: 92%;" data-value="4.8"></div>
+                        <div class="csat-bar" style="height: 96%;" data-value="4.9"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Health Table -->
+        <div class="table-section">
+            <div class="table-card">
+                <div class="table-header">
+                    <h3 class="table-title">Customer Health Dashboard</h3>
+                    <div class="table-actions">
+                        <button class="table-btn">🔍 Filter</button>
+                        <button class="table-btn">↓ Export</button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Segment</th>
+                            <th>Health Score</th>
+                            <th>Status</th>
+                            <th>NPS Rating</th>
+                            <th>Last Activity</th>
+                            <th>Renewal Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar-small" style="background: linear-gradient(135deg, #FF6B6B 0%, #FF8787 100%);">AC</div>
+                                    <div>
+                                        <div class="customer-name">Acme Corporation</div>
+                                        <div class="customer-email">enterprise@acme.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Enterprise</td>
+                            <td>
+                                <div class="health-score high">
+                                    <span>92</span>
+                                    <div class="health-bar">
+                                        <div class="health-bar-fill" style="width: 92%;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>9</td>
+                            <td>2 hours ago</td>
+                            <td>Dec 15, 2025</td>
+                            <td>
+                                <button class="table-btn">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar-small" style="background: linear-gradient(135deg, #20C997 0%, #38D9A9 100%);">TF</div>
+                                    <div>
+                                        <div class="customer-name">TechFlow Inc</div>
+                                        <div class="customer-email">ops@techflow.io</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Mid-Market</td>
+                            <td>
+                                <div class="health-score high">
+                                    <span>88</span>
+                                    <div class="health-bar">
+                                        <div class="health-bar-fill" style="width: 88%;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>10</td>
+                            <td>5 hours ago</td>
+                            <td>Jan 22, 2026</td>
+                            <td>
+                                <button class="table-btn">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar-small" style="background: linear-gradient(135deg, #FFA94D 0%, #FFB366 100%);">DS</div>
+                                    <div>
+                                        <div class="customer-name">DataSync Labs</div>
+                                        <div class="customer-email">team@datasync.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Growth</td>
+                            <td>
+                                <div class="health-score medium">
+                                    <span>65</span>
+                                    <div class="health-bar">
+                                        <div class="health-bar-fill" style="width: 65%;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="status-pill at-risk">At Risk</span></td>
+                            <td>6</td>
+                            <td>3 days ago</td>
+                            <td>Nov 30, 2025</td>
+                            <td>
+                                <button class="table-btn">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar-small" style="background: linear-gradient(135deg, #748FFC 0%, #91A7FF 100%);">GS</div>
+                                    <div>
+                                        <div class="customer-name">GrowthStack</div>
+                                        <div class="customer-email">cx@growthstack.co</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Mid-Market</td>
+                            <td>
+                                <div class="health-score high">
+                                    <span>78</span>
+                                    <div class="health-bar">
+                                        <div class="health-bar-fill" style="width: 78%;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>8</td>
+                            <td>1 day ago</td>
+                            <td>Feb 8, 2026</td>
+                            <td>
+                                <button class="table-btn">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar-small" style="background: linear-gradient(135deg, #E599F7 0%, #F3A6FF 100%);">SV</div>
+                                    <div>
+                                        <div class="customer-name">StartupVentures</div>
+                                        <div class="customer-email">hello@startupvc.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>SMB</td>
+                            <td>
+                                <div class="health-score low">
+                                    <span>42</span>
+                                    <div class="health-bar">
+                                        <div class="health-bar-fill" style="width: 42%;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="status-pill churned">Churned</span></td>
+                            <td>3</td>
+                            <td>2 weeks ago</td>
+                            <td>Expired</td>
+                            <td>
+                                <button class="table-btn">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar-small" style="background: linear-gradient(135deg, #20C997 0%, #38D9A9 100%);">IC</div>
+                                    <div>
+                                        <div class="customer-name">InnovateCo</div>
+                                        <div class="customer-email">product@innovate.io</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Enterprise</td>
+                            <td>
+                                <div class="health-score high">
+                                    <span>95</span>
+                                    <div class="health-bar">
+                                        <div class="health-bar-fill" style="width: 95%;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>10</td>
+                            <td>30 minutes ago</td>
+                            <td>Mar 12, 2026</td>
+                            <td>
+                                <button class="table-btn">View</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-text">
+                Last updated: Nov 9, 2025 at 2:47 PM PST • Showing data from Oct 10 - Nov 9, 2025 • 1,847 active customers tracked
+            </div>
+            <div class="footer-badge">Designed by TEEQA</div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth entrance animations on load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate progress bars
+            const progressBars = document.querySelectorAll('.stage-progress-bar, .funnel-bar, .health-bar-fill');
+            progressBars.forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.style.transition = 'width 1s ease';
+                }, index * 100);
+            });
+
+            // Animate CSAT bars
+            const csatBars = document.querySelectorAll('.csat-bar');
+            csatBars.forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.style.transform = 'scaleY(1)';
+                }, index * 100);
+            });
+
+            // Add interactive hover effects
+            const kpiCards = document.querySelectorAll('.kpi-card');
+            kpiCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-4px) scale(1.01)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Journey stage interactions
+            const journeyStages = document.querySelectorAll('.journey-stage');
+            journeyStages.forEach(stage => {
+                stage.addEventListener('click', function() {
+                    journeyStages.forEach(s => s.style.borderColor = 'transparent');
+                    this.style.borderColor = 'var(--coral-primary)';
+                    this.style.boxShadow = 'var(--shadow-xl)';
+                });
+            });
+
+            // NPS emoji interactions
+            const npsEmojis = document.querySelectorAll('.nps-emoji');
+            npsEmojis.forEach(emoji => {
+                emoji.addEventListener('click', function() {
+                    const emojiIcon = this.querySelector('.emoji-icon');
+                    emojiIcon.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        emojiIcon.style.transform = 'scale(1)';
+                    }, 200);
+                });
+            });
+
+            // Table row selection
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', function(e) {
+                    if (e.target.tagName !== 'BUTTON') {
+                        tableRows.forEach(r => r.style.background = '');
+                        this.style.background = 'var(--teal-light)';
+                    }
+                });
+            });
+
+            // Testimonial card interactions
+            const testimonialCards = document.querySelectorAll('.testimonial-card');
+            testimonialCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const avatar = this.querySelector('.customer-avatar');
+                    avatar.style.transform = 'rotate(5deg) scale(1.1)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    const avatar = this.querySelector('.customer-avatar');
+                    avatar.style.transform = 'rotate(0deg) scale(1)';
+                });
+            });
+
+            // Add sparkle effect to brand logo
+            const brandLogo = document.querySelector('.brand-logo');
+            setInterval(() => {
+                brandLogo.style.transform = 'rotate(360deg)';
+                setTimeout(() => {
+                    brandLogo.style.transform = 'rotate(0deg)';
+                }, 600);
+            }, 8000);
+
+            console.log('🎨 Teeqa Customer Journey CX Studio - Light Mode initialized!');
+            console.log('💙 Delightful, warm, and customer-centric design ready to go!');
+        });
+    </script>
+</body>
+</html>

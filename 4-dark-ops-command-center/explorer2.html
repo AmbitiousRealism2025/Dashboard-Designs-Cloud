@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dark Ops Command Center | Explorer v2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Agent: Explorer | Theme: Dark Ops Command Center | Intent: Bold experimental command center with neon accents and mission-critical monitoring -->
+  <style>
+    :root { --black: #050509; --dark: #0a0d14; --panel: #0f1218; --cyan: #00f5ff; --lime: #39ff14; --magenta: #ff006e; --red: #ff073a; --text: #e0e6ed; --dim: #6b7280; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    @keyframes glow { 0%, 100% { filter: drop-shadow(0 0 8px var(--cyan)); } 50% { filter: drop-shadow(0 0 20px var(--cyan)); } }
+    @keyframes scan { 0% { transform: translateY(0); } 100% { transform: translateY(100%); } }
+    body { font-family: 'Courier New', monospace; background: radial-gradient(circle at center, var(--dark), var(--black)); color: var(--text); min-height: 100vh; position: relative; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,245,255,0.03) 2px, rgba(0,245,255,0.03) 4px); pointer-events: none; }
+    .container { max-width: 1800px; margin: 0 auto; padding: 30px 40px; position: relative; z-index: 1; }
+    .header { background: linear-gradient(135deg, rgba(15,18,24,0.9), rgba(10,13,20,0.7)); border: 1px solid rgba(0,245,255,0.2); border-radius: 4px; padding: 20px 28px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 0 30px rgba(0,245,255,0.1); }
+    .brand { display: flex; align-items: center; gap: 16px; }
+    .logo { width: 48px; height: 48px; background: var(--cyan); border: 2px solid var(--cyan); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 24px; color: var(--black); animation: glow 2s infinite; }
+    .brand-text h1 { font-size: 22px; font-weight: 700; color: var(--cyan); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px; }
+    .brand-text p { font-size: 11px; color: var(--dim); letter-spacing: 1px; }
+    .status-bar { display: flex; gap: 16px; align-items: center; }
+    .status-chip { padding: 6px 14px; background: rgba(0,245,255,0.1); border: 1px solid rgba(0,245,255,0.3); font-size: 10px; color: var(--cyan); text-transform: uppercase; letter-spacing: 1.5px; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lime); animation: pulse 2s infinite; margin-right: 6px; display: inline-block; }
+    .agent-badge { padding: 6px 14px; background: linear-gradient(135deg, rgba(255,0,110,0.2), rgba(0,245,255,0.2)); border: 1px solid var(--magenta); font-size: 10px; color: var(--magenta); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
+    .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 24px; }
+    .kpi { background: linear-gradient(135deg, rgba(15,18,24,0.9), rgba(10,13,20,0.7)); border: 1px solid rgba(0,245,255,0.2); border-left: 3px solid var(--cyan); padding: 20px; position: relative; overflow: hidden; transition: all 0.3s; }
+    .kpi:hover { border-color: var(--cyan); box-shadow: 0 0 30px rgba(0,245,255,0.3); transform: translateY(-4px); }
+    .kpi::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--cyan), transparent); animation: scan 4s linear infinite; }
+    .kpi-label { font-size: 10px; color: var(--dim); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+    .kpi-value { font-size: 36px; font-weight: 700; color: var(--cyan); margin-bottom: 8px; line-height: 1; text-shadow: 0 0 10px rgba(0,245,255,0.5); }
+    .kpi-delta { font-size: 12px; color: var(--lime); font-weight: 700; }
+    .kpi-meta { font-size: 10px; color: var(--dim); margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(107,114,128,0.2); }
+    .panels { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 24px; }
+    .panel { background: linear-gradient(135deg, rgba(15,18,24,0.9), rgba(10,13,20,0.7)); border: 1px solid rgba(0,245,255,0.2); padding: 24px; position: relative; }
+    .panel-title { font-size: 14px; font-weight: 700; color: var(--cyan); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+    .chart { height: 260px; background: linear-gradient(180deg, rgba(0,245,255,0.05), transparent); border: 1px dashed rgba(0,245,255,0.3); position: relative; overflow: hidden; }
+    .chart-grid { position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 44px, rgba(0,245,255,0.1) 44px, rgba(0,245,255,0.1) 45px), repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(0,245,255,0.1) 59px, rgba(0,245,255,0.1) 60px); }
+    .chart-line { position: absolute; bottom: 12%; left: 8%; right: 8%; height: 60%; background: linear-gradient(90deg, var(--cyan), var(--lime)); clip-path: polygon(0 100%, 0 52%, 20% 62%, 40% 36%, 60% 44%, 80% 24%, 100% 18%, 100% 100%); filter: drop-shadow(0 0 16px var(--cyan)); opacity: 0.8; }
+    .insights { display: flex; flex-direction: column; gap: 16px; }
+    .insight { padding: 16px; background: rgba(0,245,255,0.05); border-left: 3px solid var(--magenta); }
+    .insight-title { font-size: 12px; font-weight: 700; color: var(--magenta); text-transform: uppercase; margin-bottom: 6px; }
+    .insight-body { font-size: 11px; color: var(--dim); line-height: 1.6; }
+    .table-panel { background: linear-gradient(135deg, rgba(15,18,24,0.9), rgba(10,13,20,0.7)); border: 1px solid rgba(0,245,255,0.2); padding: 24px; }
+    .table { width: 100%; border-collapse: collapse; font-size: 11px; }
+    .table thead { border-bottom: 1px solid rgba(0,245,255,0.3); }
+    .table th { padding: 12px; text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--cyan); font-weight: 700; }
+    .table td { padding: 12px; border-bottom: 1px solid rgba(107,114,128,0.1); color: var(--dim); }
+    .table .primary { color: var(--text); font-weight: 600; }
+    .status { padding: 4px 10px; font-size: 9px; text-transform: uppercase; font-weight: 700; border-radius: 2px; }
+    .status.online { background: rgba(57,255,20,0.15); color: var(--lime); border: 1px solid rgba(57,255,20,0.4); }
+    .status.alert { background: rgba(255,7,58,0.15); color: var(--red); border: 1px solid rgba(255,7,58,0.4); }
+    @media (max-width: 1400px) { .kpis { grid-template-columns: repeat(2, 1fr); } .panels { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="brand">
+        <div class="logo">E</div>
+        <div class="brand-text">
+          <h1>OPS Command Center</h1>
+          <p>SYSTEM.STATUS.MONITOR // Q4.2025</p>
+        </div>
+      </div>
+      <div class="status-bar">
+        <div class="status-chip"><span class="status-dot"></span>SYSTEMS ONLINE</div>
+        <div class="status-chip">OCT-DEC 2025</div>
+        <div class="agent-badge">Explorer · R2</div>
+      </div>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><div class="kpi-label">Uptime</div><div class="kpi-value">99.98%</div><div class="kpi-delta">↑ 0.08%</div><div class="kpi-meta">TARGET: 99.9%</div></div>
+      <div class="kpi"><div class="kpi-label">Throughput</div><div class="kpi-value">8.4M</div><div class="kpi-delta">↑ 24.2%</div><div class="kpi-meta">REQUESTS/HR</div></div>
+      <div class="kpi"><div class="kpi-label">Latency</div><div class="kpi-value">42ms</div><div class="kpi-delta">↓ 18ms</div><div class="kpi-meta">P95 RESPONSE</div></div>
+      <div class="kpi"><div class="kpi-label">Incidents</div><div class="kpi-value">3</div><div class="kpi-delta">↓ 7</div><div class="kpi-meta">CRITICAL: 0</div></div>
+    </div>
+    <div class="panels">
+      <div class="panel"><div class="panel-title">System Performance</div><div class="chart"><div class="chart-grid"></div><div class="chart-line"></div></div></div>
+      <div class="panel"><div class="panel-title">Alerts</div><div class="insights">
+        <div class="insight"><div class="insight-title">HIGH PRIORITY</div><div class="insight-body">Database replication lag detected in US-WEST-2. Auto-scaling triggered.</div></div>
+        <div class="insight"><div class="insight-title">RESOLVED</div><div class="insight-body">API gateway timeout issue resolved. All services nominal.</div></div>
+        <div class="insight"><div class="insight-title">MONITORING</div><div class="insight-body">Traffic spike detected. Capacity within normal operating parameters.</div></div>
+      </div></div>
+    </div>
+    <div class="table-panel">
+      <div class="panel-title">Service Status</div>
+      <table class="table">
+        <thead><tr><th>SERVICE</th><th>OWNER</th><th>UPTIME</th><th>LATENCY</th><th>STATUS</th></tr></thead>
+        <tbody>
+          <tr><td class="primary">API Gateway</td><td>Platform</td><td>99.99%</td><td>38ms</td><td><span class="status online">ONLINE</span></td></tr>
+          <tr><td class="primary">Database Cluster</td><td>Data</td><td>99.98%</td><td>12ms</td><td><span class="status online">ONLINE</span></td></tr>
+          <tr><td class="primary">Message Queue</td><td>Infrastructure</td><td>99.97%</td><td>24ms</td><td><span class="status online">ONLINE</span></td></tr>
+          <tr><td class="primary">CDN Network</td><td>Edge</td><td>100.00%</td><td>18ms</td><td><span class="status online">ONLINE</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

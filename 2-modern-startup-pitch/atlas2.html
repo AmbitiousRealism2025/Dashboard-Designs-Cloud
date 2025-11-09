@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Modern Startup Pitch Dashboard | Atlas v2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Agent: Atlas | Theme: Modern Startup Pitch | Intent: Operational SaaS command center with multi-metric tracking and real-time growth monitoring -->
+  <style>
+    :root {
+      --bg: #f9fafb;
+      --surface: #ffffff;
+      --purple: #8b5cf6;
+      --blue: #3b82f6;
+      --cyan: #06b6d4;
+      --text: #111827;
+      --text-mid: #6b7280;
+      --text-light: #9ca3af;
+      --border: #e5e7eb;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @keyframes statusBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .container { max-width: 1900px; margin: 0 auto; padding: 30px 40px; }
+
+    .top-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 28px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .brand { display: flex; align-items: center; gap: 16px; }
+
+    .logo {
+      width: 46px;
+      height: 46px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 22px;
+      color: white;
+    }
+
+    .brand-text h1 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .brand-text p {
+      font-size: 11px;
+      color: var(--text-mid);
+      font-family: monospace;
+    }
+
+    .status-bar {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      font-size: 11px;
+      font-family: monospace;
+    }
+
+    .status-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--success);
+      animation: statusBlink 2s infinite;
+    }
+
+    .agent-badge {
+      padding: 6px 12px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      border-radius: 8px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: white;
+      font-weight: 700;
+    }
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .kpi {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--purple);
+      border-radius: 10px;
+      padding: 18px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      transition: all 0.2s;
+    }
+
+    .kpi:hover {
+      transform: translateX(4px);
+      border-left-color: var(--blue);
+      box-shadow: 0 4px 12px rgba(139,92,246,0.15);
+    }
+
+    .kpi-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .kpi-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-mid);
+      font-weight: 600;
+    }
+
+    .kpi-indicator {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--success);
+    }
+
+    .kpi-value {
+      font-size: 30px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .kpi-delta {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--success);
+      font-family: monospace;
+    }
+
+    .kpi-meta {
+      font-size: 10px;
+      color: var(--text-light);
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      font-family: monospace;
+    }
+
+    .panels {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .panel-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .panel-subtitle {
+      font-size: 10px;
+      color: var(--text-mid);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+    }
+
+    .chart {
+      height: 250px;
+      background: linear-gradient(135deg, rgba(139,92,246,0.04), rgba(59,130,246,0.04));
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      position: relative;
+    }
+
+    .chart-path {
+      position: absolute;
+      bottom: 10%;
+      left: 8%;
+      right: 8%;
+      height: 60%;
+      background: linear-gradient(135deg, var(--purple), var(--blue), var(--cyan));
+      clip-path: polygon(0 100%, 0 55%, 15% 65%, 30% 38%, 45% 48%, 60% 28%, 75% 35%, 90% 18%, 100% 15%, 100% 100%);
+      opacity: 0.75;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .metric-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: var(--bg);
+      border-radius: 6px;
+      font-size: 11px;
+    }
+
+    .metric-label-sm {
+      color: var(--text-mid);
+      font-weight: 500;
+    }
+
+    .metric-value-sm {
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+    .table-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .table thead {
+      background: linear-gradient(135deg, rgba(139,92,246,0.06), rgba(59,130,246,0.06));
+    }
+
+    .table th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--purple);
+      font-weight: 700;
+    }
+
+    .table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-mid);
+      font-family: monospace;
+    }
+
+    .table tbody tr:hover {
+      background: var(--bg);
+    }
+
+    .table .primary {
+      color: var(--text);
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .ops-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .ops-status.active {
+      background: rgba(16,185,129,0.12);
+      color: var(--success);
+    }
+
+    .ops-status.building {
+      background: rgba(245,158,11,0.12);
+      color: var(--warning);
+    }
+
+    .ops-status::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    @media (max-width: 1400px) {
+      .kpis { grid-template-columns: repeat(3, 1fr); }
+      .panels { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top-bar">
+      <div class="brand">
+        <div class="logo">A</div>
+        <div class="brand-text">
+          <h1>Growth Operations Center</h1>
+          <p>LIVE.METRICS.Q4.2025 // SAAS.DASHBOARD</p>
+        </div>
+      </div>
+      <div class="status-bar">
+        <div class="status-chip">
+          <div class="status-dot"></div>
+          <span>SYSTEMS: LIVE</span>
+        </div>
+        <div class="status-chip">
+          <span>OCT-DEC 2025</span>
+        </div>
+        <div class="agent-badge">Atlas · R2</div>
+      </div>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi">
+        <div class="kpi-header">
+          <div class="kpi-label">MRR</div>
+          <div class="kpi-indicator"></div>
+        </div>
+        <div class="kpi-value">$458K</div>
+        <div class="kpi-delta">↑ 38.2%</div>
+        <div class="kpi-meta">TARGET: $380K // STATUS: EXCEEDING</div>
+      </div>
+
+      <div class="kpi">
+        <div class="kpi-header">
+          <div class="kpi-label">ARR</div>
+          <div class="kpi-indicator"></div>
+        </div>
+        <div class="kpi-value">$5.5M</div>
+        <div class="kpi-delta">↑ 42.1%</div>
+        <div class="kpi-meta">YOY GROWTH // COMPOUNDED</div>
+      </div>
+
+      <div class="kpi">
+        <div class="kpi-header">
+          <div class="kpi-label">USERS</div>
+          <div class="kpi-indicator"></div>
+        </div>
+        <div class="kpi-value">16.2K</div>
+        <div class="kpi-delta">↑ 31.4%</div>
+        <div class="kpi-meta">ACTIVE: 14.8K // RETENTION: 91%</div>
+      </div>
+
+      <div class="kpi">
+        <div class="kpi-header">
+          <div class="kpi-label">CAC</div>
+          <div class="kpi-indicator"></div>
+        </div>
+        <div class="kpi-value">$980</div>
+        <div class="kpi-delta">↑ 12%</div>
+        <div class="kpi-meta">PAYBACK: 4.2MO // LTV: $19.8K</div>
+      </div>
+
+      <div class="kpi">
+        <div class="kpi-header">
+          <div class="kpi-label">CONV RATE</div>
+          <div class="kpi-indicator"></div>
+        </div>
+        <div class="kpi-value">10.8%</div>
+        <div class="kpi-delta">↑ 2.4PTS</div>
+        <div class="kpi-meta">TRIAL-TO-PAID // OPTIMIZED</div>
+      </div>
+
+      <div class="kpi">
+        <div class="kpi-header">
+          <div class="kpi-label">NRR</div>
+          <div class="kpi-indicator"></div>
+        </div>
+        <div class="kpi-value">118%</div>
+        <div class="kpi-delta">↑ 6PTS</div>
+        <div class="kpi-meta">NET RETENTION // EXPANDING</div>
+      </div>
+    </div>
+
+    <div class="panels">
+      <div class="panel">
+        <div class="panel-title">Revenue Trajectory</div>
+        <div class="panel-subtitle">MRR Growth Over Time</div>
+        <div class="chart">
+          <div class="chart-path"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">SaaS Metrics</div>
+        <div class="panel-subtitle">Performance Indicators</div>
+        <div class="metrics-grid">
+          <div class="metric-item">
+            <span class="metric-label-sm">Quick Ratio</span>
+            <span class="metric-value-sm">5.2x</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label-sm">Burn Multi</span>
+            <span class="metric-value-sm">0.6</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label-sm">Magic #</span>
+            <span class="metric-value-sm">1.4</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label-sm">Rule of 40</span>
+            <span class="metric-value-sm">64</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label-sm">Exp MRR</span>
+            <span class="metric-value-sm">$54K</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label-sm">Churn</span>
+            <span class="metric-value-sm">2.8%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-panel">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>GROWTH ENGINE</th>
+            <th>OWNER</th>
+            <th>MRR</th>
+            <th>USERS</th>
+            <th>CAC</th>
+            <th>STATUS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="primary">PLG Funnel</td>
+            <td>Product</td>
+            <td>$168K</td>
+            <td>8.2K</td>
+            <td>$420</td>
+            <td><span class="ops-status active">SCALING</span></td>
+          </tr>
+          <tr>
+            <td class="primary">Enterprise Sales</td>
+            <td>Sales</td>
+            <td>$142K</td>
+            <td>2.8K</td>
+            <td>$2.4K</td>
+            <td><span class="ops-status active">ACTIVE</span></td>
+          </tr>
+          <tr>
+            <td class="primary">Referral Program</td>
+            <td>Growth</td>
+            <td>$94K</td>
+            <td>3.6K</td>
+            <td>$180</td>
+            <td><span class="ops-status active">VIRAL</span></td>
+          </tr>
+          <tr>
+            <td class="primary">Content Engine</td>
+            <td>Marketing</td>
+            <td>$54K</td>
+            <td>1.6K</td>
+            <td>$840</td>
+            <td><span class="ops-status active">GROWING</span></td>
+          </tr>
+          <tr>
+            <td class="primary">Mobile Launch</td>
+            <td>Engineering</td>
+            <td>TBD</td>
+            <td>--</td>
+            <td>--</td>
+            <td><span class="ops-status building">DEV</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

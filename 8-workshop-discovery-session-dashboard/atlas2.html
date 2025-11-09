@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Workshop Discovery Session | Atlas v2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Agent: Atlas | Theme: Workshop Discovery Session | Intent: Sticky-note aesthetic facilitation dashboard with high legibility -->
+  <style>
+    :root { --bg: #fef6e4; --yellow: #f3d250; --pink: #ff6b9d; --sky: #5bc0eb; --mint: #9cfffa; --text: #2d3436; --light: #636e72; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Comic Sans MS', 'Marker Felt', cursive; background: linear-gradient(135deg, #fef6e4, #fcf8e8); color: var(--text); line-height: 1.6; }
+    .page { max-width: 1600px; margin: 0 auto; padding: 50px; }
+    .header { text-align: center; margin-bottom: 50px; }
+    .logo { width: 80px; height: 80px; background: var(--pink); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px; margin: 0 auto 20px; transform: rotate(-5deg); box-shadow: 4px 4px 0 rgba(0,0,0,0.1); }
+    .title { font-size: 42px; font-weight: 900; margin-bottom: 12px; transform: rotate(-2deg); text-shadow: 3px 3px 0 rgba(0,0,0,0.1); }
+    .subtitle { font-size: 20px; color: var(--light); transform: rotate(1deg); }
+    .agent { display: inline-block; margin-top: 16px; padding: 8px 18px; background: var(--mint); border: 3px solid var(--text); border-radius: 8px; font-size: 14px; font-weight: 900; transform: rotate(-1deg); box-shadow: 3px 3px 0 rgba(0,0,0,0.1); }
+    .sticky-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 50px; }
+    .sticky { background: var(--yellow); padding: 24px; box-shadow: 4px 4px 0 rgba(0,0,0,0.1); position: relative; transform: rotate(2deg); transition: transform 0.3s; }
+    .sticky:nth-child(2n) { background: var(--pink); transform: rotate(-2deg); }
+    .sticky:nth-child(3n) { background: var(--sky); transform: rotate(1deg); }
+    .sticky:nth-child(4n) { background: var(--mint); transform: rotate(-1deg); }
+    .sticky:hover { transform: rotate(0deg) scale(1.05); z-index: 10; }
+    .sticky-label { font-size: 14px; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; }
+    .sticky-value { font-size: 48px; font-weight: 900; margin-bottom: 8px; line-height: 1; text-shadow: 2px 2px 0 rgba(255,255,255,0.5); }
+    .sticky-note { font-size: 16px; font-weight: 700; }
+    .board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 50px; }
+    .board-column { background: rgba(255,255,255,0.6); padding: 28px; border-radius: 20px; border: 4px solid var(--text); box-shadow: 6px 6px 0 rgba(0,0,0,0.1); }
+    .board-title { font-size: 24px; font-weight: 900; margin-bottom: 20px; text-transform: uppercase; transform: rotate(-1deg); }
+    .board-items { display: flex; flex-direction: column; gap: 16px; }
+    .board-item { background: var(--yellow); padding: 18px; border-radius: 8px; box-shadow: 3px 3px 0 rgba(0,0,0,0.1); transform: rotate(1deg); font-size: 16px; font-weight: 700; }
+    .board-item:nth-child(2n) { background: var(--mint); transform: rotate(-1deg); }
+    .board-item strong { display: block; margin-bottom: 6px; font-size: 18px; }
+    .table-section { background: rgba(255,255,255,0.6); padding: 32px; border-radius: 20px; border: 4px solid var(--text); box-shadow: 6px 6px 0 rgba(0,0,0,0.1); }
+    .section-title { font-size: 28px; font-weight: 900; margin-bottom: 24px; text-transform: uppercase; transform: rotate(-1deg); }
+    .table { width: 100%; border-collapse: collapse; font-size: 16px; }
+    .table th { padding: 14px; text-align: left; font-size: 14px; font-weight: 900; text-transform: uppercase; border-bottom: 3px solid var(--text); }
+    .table td { padding: 14px; border-bottom: 2px solid rgba(0,0,0,0.1); }
+    .table .primary { font-weight: 900; }
+    .badge { display: inline-block; padding: 6px 14px; border-radius: 20px; font-size: 14px; font-weight: 900; text-transform: uppercase; border: 2px solid var(--text); box-shadow: 2px 2px 0 rgba(0,0,0,0.1); }
+    .badge.green { background: var(--mint); }
+    .badge.yellow { background: var(--yellow); }
+    .badge.pink { background: var(--pink); }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="logo">✨</div>
+      <h1 class="title">Workshop Dashboard!</h1>
+      <p class="subtitle">Discovery Session · Q4 2025</p>
+      <div class="agent">Atlas · Round 2</div>
+    </div>
+    <div class="sticky-grid">
+      <div class="sticky"><div class="sticky-label">Ideas Generated</div><div class="sticky-value">47</div><div class="sticky-note">So many good ones!</div></div>
+      <div class="sticky"><div class="sticky-label">Participants</div><div class="sticky-value">18</div><div class="sticky-note">Great turnout!</div></div>
+      <div class="sticky"><div class="sticky-label">Action Items</div><div class="sticky-value">12</div><div class="sticky-note">Let's do this!</div></div>
+      <div class="sticky"><div class="sticky-label">Next Session</div><div class="sticky-value">Jan 15</div><div class="sticky-note">Mark calendars!</div></div>
+    </div>
+    <div class="board">
+      <div class="board-column">
+        <div class="board-title">🎯 Goals</div>
+        <div class="board-items">
+          <div class="board-item"><strong>Improve onboarding</strong>Make it super easy for new users</div>
+          <div class="board-item"><strong>Speed up delivery</strong>Ship features faster</div>
+          <div class="board-item"><strong>Better collaboration</strong>Help teams work together</div>
+        </div>
+      </div>
+      <div class="board-column">
+        <div class="board-title">💡 Ideas</div>
+        <div class="board-items">
+          <div class="board-item"><strong>Interactive tours</strong>Guide users step-by-step</div>
+          <div class="board-item"><strong>Quick wins dashboard</strong>Show progress clearly</div>
+          <div class="board-item"><strong>Team chat integration</strong>Connect everything</div>
+        </div>
+      </div>
+      <div class="board-column">
+        <div class="board-title">🚀 Next Steps</div>
+        <div class="board-items">
+          <div class="board-item"><strong>Prototype testing</strong>Get feedback from 10 users</div>
+          <div class="board-item"><strong>Design sprint</strong>Create mockups next week</div>
+          <div class="board-item"><strong>Team alignment</strong>Present to leadership</div>
+        </div>
+      </div>
+    </div>
+    <div class="table-section">
+      <div class="section-title">📋 Action Items</div>
+      <table class="table">
+        <thead><tr><th>What</th><th>Who</th><th>When</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="primary">Create user research plan</td><td>Sarah</td><td>Next week</td><td><span class="badge green">Ready</span></td></tr>
+          <tr><td class="primary">Design mockups</td><td>Alex</td><td>Jan 10</td><td><span class="badge yellow">In Progress</span></td></tr>
+          <tr><td class="primary">Schedule followup workshop</td><td>Jordan</td><td>Jan 15</td><td><span class="badge pink">Planned</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

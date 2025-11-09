@@ -1,0 +1,1758 @@
+<!-- Agent: Atlas | Round: 2 - Light Mode Masterpiece | Theme: Workshop Discovery Session | Intent: Multi-stakeholder discovery command center with interactive sticky-note facilitation system -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas Workshop Command - Discovery Session Dashboard</title>
+    <style>
+        /* ============================================
+           ATLAS WORKSHOP DISCOVERY SESSION DASHBOARD
+           Theme: Light Mode Post-It Facilitation Command
+           Signature: Multi-stakeholder operational view
+           ============================================ */
+
+        :root {
+            /* Light Mode Foundation */
+            --bg-main: #fafafa;
+            --bg-canvas: #ffffff;
+            --bg-elevated: #f5f5f5;
+
+            /* Post-It Color System */
+            --sticky-yellow: #ffd966;
+            --sticky-yellow-dark: #f9c74f;
+            --sticky-pink: #ff6ec7;
+            --sticky-pink-dark: #e94b8f;
+            --sticky-blue: #4ecdc4;
+            --sticky-blue-dark: #3ab5ad;
+            --sticky-mint: #95e1d3;
+            --sticky-mint-dark: #6dd5c3;
+            --sticky-orange: #ffb347;
+            --sticky-purple: #c49bff;
+
+            /* Stakeholder Team Colors */
+            --team-product: var(--sticky-yellow);
+            --team-engineering: var(--sticky-blue);
+            --team-design: var(--sticky-pink);
+            --team-marketing: var(--sticky-mint);
+            --team-executive: var(--sticky-purple);
+            --team-sales: var(--sticky-orange);
+
+            /* Semantic Colors */
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --text-tertiary: #787878;
+            --border-light: #e0e0e0;
+            --border-medium: #bdbdbd;
+
+            /* Status Colors */
+            --status-decided: #4caf50;
+            --status-discussing: #ff9800;
+            --status-parked: #9e9e9e;
+            --status-critical: #f44336;
+
+            /* Shadows for Sticky Notes */
+            --shadow-sticky: 0 2px 8px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-sticky-hover: 0 6px 20px rgba(0,0,0,0.15), 0 3px 8px rgba(0,0,0,0.12);
+            --shadow-elevated: 0 4px 12px rgba(0,0,0,0.1);
+
+            /* Typography - Larger for projector visibility */
+            --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --font-handwritten: 'Comic Sans MS', 'Marker Felt', cursive;
+
+            /* Spacing - Chunkier for workshop context */
+            --space-xs: 6px;
+            --space-sm: 12px;
+            --space-md: 20px;
+            --space-lg: 32px;
+            --space-xl: 48px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+
+        /* ============================================
+           WORKSHOP HEADER - Session Control Center
+           ============================================ */
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: var(--space-md) var(--space-lg);
+            box-shadow: var(--shadow-elevated);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 4px solid #5a67d8;
+        }
+
+        .header-main {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            align-items: center;
+            gap: var(--space-lg);
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .workshop-title-block h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .workshop-meta {
+            font-size: 15px;
+            opacity: 0.95;
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
+
+        .session-timer {
+            background: rgba(255,255,255,0.2);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .session-timer-value {
+            font-size: 28px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 1px;
+        }
+
+        .session-timer-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            opacity: 0.9;
+            letter-spacing: 0.5px;
+        }
+
+        .facilitator-badge {
+            background: rgba(255,255,255,0.25);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .facilitator-badge::before {
+            content: "👤";
+            font-size: 18px;
+        }
+
+        .atlas-brand {
+            background: rgba(0,0,0,0.25);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: 2px;
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+
+        /* ============================================
+           KPI METRICS STRIP - Workshop Progress
+           ============================================ */
+
+        .kpi-strip {
+            background: var(--bg-canvas);
+            padding: var(--space-md) var(--space-lg);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .kpi-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: var(--space-md);
+            border-radius: 12px;
+            border-left: 5px solid;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        .kpi-card:nth-child(1) { border-left-color: var(--sticky-yellow-dark); }
+        .kpi-card:nth-child(2) { border-left-color: var(--sticky-pink-dark); }
+        .kpi-card:nth-child(3) { border-left-color: var(--sticky-blue-dark); }
+        .kpi-card:nth-child(4) { border-left-color: var(--sticky-mint-dark); }
+        .kpi-card:nth-child(5) { border-left-color: var(--sticky-purple); }
+
+        .kpi-label {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-secondary);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .kpi-value {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 4px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .kpi-delta {
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .kpi-delta.positive { color: var(--status-decided); }
+        .kpi-delta.neutral { color: var(--text-tertiary); }
+
+        /* ============================================
+           MAIN LAYOUT - Workshop Canvas
+           ============================================ */
+
+        .dashboard-layout {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: var(--space-lg);
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: var(--space-lg);
+        }
+
+        /* ============================================
+           STICKY NOTE BOARD - Multi-Stakeholder Insights
+           ============================================ */
+
+        .sticky-board-section {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .section-count {
+            background: var(--sticky-yellow);
+            color: var(--text-primary);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: var(--shadow-sticky);
+        }
+
+        .cluster-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .insight-cluster {
+            background: var(--bg-canvas);
+            border-radius: 12px;
+            padding: var(--space-md);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 2px solid var(--border-light);
+        }
+
+        .cluster-header {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding-bottom: var(--space-sm);
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .cluster-icon {
+            font-size: 20px;
+        }
+
+        .sticky-notes-container {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .sticky-note {
+            padding: var(--space-md);
+            border-radius: 8px;
+            box-shadow: var(--shadow-sticky);
+            cursor: pointer;
+            position: relative;
+            font-size: 15px;
+            line-height: 1.5;
+            transform: rotate(0deg);
+            animation: stickyPopIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes stickyPopIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px) rotate(-3deg) scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+        }
+
+        .sticky-note:hover {
+            transform: translateY(-3px) rotate(0deg) scale(1.02);
+            box-shadow: var(--shadow-sticky-hover);
+            z-index: 10;
+        }
+
+        .sticky-note.product { background: var(--team-product); }
+        .sticky-note.engineering { background: var(--team-engineering); color: white; }
+        .sticky-note.design { background: var(--team-design); color: white; }
+        .sticky-note.marketing { background: var(--team-marketing); }
+        .sticky-note.executive { background: var(--team-executive); color: white; }
+        .sticky-note.sales { background: var(--team-orange); }
+
+        .sticky-content {
+            font-weight: 500;
+            margin-bottom: var(--space-sm);
+        }
+
+        .sticky-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            opacity: 0.85;
+            padding-top: var(--space-xs);
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .sticky-owner {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .sticky-owner::before {
+            content: "👤";
+            font-size: 14px;
+        }
+
+        .sticky-priority {
+            padding: 2px 8px;
+            border-radius: 8px;
+            background: rgba(0,0,0,0.15);
+            font-weight: 700;
+            font-size: 11px;
+        }
+
+        .sticky-priority.high { background: var(--status-critical); color: white; }
+        .sticky-priority.medium { background: var(--status-discussing); color: white; }
+        .sticky-priority.low { background: var(--status-parked); color: white; }
+
+        /* ============================================
+           THEME MAPPING BOARD
+           ============================================ */
+
+        .theme-mapping {
+            background: var(--bg-canvas);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-elevated);
+            border: 2px solid var(--border-light);
+        }
+
+        .theme-map-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+        }
+
+        .theme-cluster-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: var(--space-md);
+            border-radius: 10px;
+            box-shadow: var(--shadow-sticky);
+            border: 2px solid rgba(0,0,0,0.1);
+        }
+
+        .theme-cluster-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sticky-hover);
+        }
+
+        .theme-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .theme-insights-count {
+            font-size: 32px;
+            font-weight: 800;
+            color: #667eea;
+            margin-bottom: var(--space-xs);
+        }
+
+        .theme-contributors {
+            font-size: 12px;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .contributor-tag {
+            background: rgba(0,0,0,0.1);
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        /* ============================================
+           SIDEBAR - Decision Log & Actions
+           ============================================ */
+
+        .sidebar-column {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        .decision-log-panel,
+        .action-tracker-panel,
+        .participant-panel {
+            background: var(--bg-canvas);
+            border-radius: 12px;
+            padding: var(--space-md);
+            box-shadow: var(--shadow-elevated);
+            border: 2px solid var(--border-light);
+        }
+
+        .panel-header {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: var(--space-sm);
+            border-bottom: 3px solid var(--sticky-yellow);
+        }
+
+        .panel-badge {
+            background: var(--sticky-yellow);
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: var(--shadow-sticky);
+        }
+
+        .decision-item {
+            background: linear-gradient(135deg, #e3ffe7 0%, #d9e7ff 100%);
+            padding: var(--space-md);
+            border-radius: 10px;
+            margin-bottom: var(--space-sm);
+            border-left: 4px solid var(--status-decided);
+            box-shadow: var(--shadow-sticky);
+        }
+
+        .decision-item:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-sticky-hover);
+        }
+
+        .decision-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .decision-meta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .decision-owner {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .decision-status {
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 11px;
+            background: var(--status-decided);
+            color: white;
+        }
+
+        .decision-status.discussing {
+            background: var(--status-discussing);
+        }
+
+        .decision-status.parked {
+            background: var(--status-parked);
+        }
+
+        /* Action Items */
+        .action-item {
+            background: var(--sticky-pink);
+            color: white;
+            padding: var(--space-md);
+            border-radius: 10px;
+            margin-bottom: var(--space-sm);
+            box-shadow: var(--shadow-sticky);
+            cursor: pointer;
+        }
+
+        .action-item:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-sticky-hover);
+        }
+
+        .action-title {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .action-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            opacity: 0.95;
+        }
+
+        .action-assignee {
+            font-weight: 600;
+        }
+
+        .action-due {
+            background: rgba(0,0,0,0.2);
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+
+        /* Participant Grid */
+        .participant-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-sm);
+        }
+
+        .participant-card {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: var(--space-sm);
+            border-radius: 8px;
+            box-shadow: var(--shadow-sticky);
+            text-align: center;
+        }
+
+        .participant-name {
+            font-weight: 700;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .participant-role {
+            font-size: 11px;
+            opacity: 0.85;
+        }
+
+        .participant-contribution {
+            font-size: 18px;
+            font-weight: 800;
+            color: #d63031;
+            margin-top: 4px;
+        }
+
+        /* ============================================
+           TIMELINE VISUALIZATION
+           ============================================ */
+
+        .timeline-section {
+            background: var(--bg-canvas);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-elevated);
+            border: 2px solid var(--border-light);
+            margin-top: var(--space-lg);
+        }
+
+        .timeline-track {
+            display: flex;
+            gap: var(--space-md);
+            overflow-x: auto;
+            padding: var(--space-md) 0;
+        }
+
+        .timeline-event {
+            min-width: 240px;
+            background: linear-gradient(135deg, var(--sticky-blue) 0%, var(--sticky-mint) 100%);
+            padding: var(--space-md);
+            border-radius: 10px;
+            box-shadow: var(--shadow-sticky);
+            position: relative;
+            color: white;
+        }
+
+        .timeline-event::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -20px;
+            width: 12px;
+            height: 12px;
+            background: var(--sticky-blue-dark);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 0 4px var(--bg-canvas);
+        }
+
+        .timeline-time {
+            font-size: 12px;
+            font-weight: 700;
+            opacity: 0.9;
+            margin-bottom: 6px;
+        }
+
+        .timeline-activity {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .timeline-participants {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        /* ============================================
+           DATA TABLE - Insight Repository
+           ============================================ */
+
+        .insights-table-section {
+            background: var(--bg-canvas);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-elevated);
+            border: 2px solid var(--border-light);
+            margin-top: var(--space-lg);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .data-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .data-table th {
+            padding: var(--space-md);
+            text-align: left;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 12px;
+        }
+
+        .data-table td {
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .data-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .insight-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-right: 4px;
+        }
+
+        .insight-tag.product { background: var(--team-product); }
+        .insight-tag.engineering { background: var(--team-engineering); color: white; }
+        .insight-tag.design { background: var(--team-design); color: white; }
+        .insight-tag.marketing { background: var(--team-marketing); }
+
+        .impact-badge {
+            padding: 4px 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .impact-badge.high { background: var(--status-critical); color: white; }
+        .impact-badge.medium { background: var(--status-discussing); color: white; }
+        .impact-badge.low { background: var(--status-parked); color: white; }
+
+        /* ============================================
+           CHARTS & VISUALIZATIONS
+           ============================================ */
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+
+        .chart-card {
+            background: var(--bg-canvas);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-elevated);
+            border: 2px solid var(--border-light);
+        }
+
+        .chart-header {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: var(--space-md);
+            color: var(--text-primary);
+        }
+
+        .chart-placeholder {
+            height: 280px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 100%;
+            padding: var(--space-lg);
+            gap: var(--space-sm);
+        }
+
+        .chart-bar {
+            width: 60px;
+            background: linear-gradient(180deg, var(--sticky-pink) 0%, var(--sticky-pink-dark) 100%);
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            box-shadow: var(--shadow-sticky);
+            animation: barGrow 0.8s ease-out;
+        }
+
+        @keyframes barGrow {
+            from { transform: scaleY(0); }
+            to { transform: scaleY(1); }
+        }
+
+        .chart-bar:nth-child(1) { height: 45%; background: linear-gradient(180deg, var(--team-product) 0%, var(--sticky-yellow-dark) 100%); }
+        .chart-bar:nth-child(2) { height: 75%; background: linear-gradient(180deg, var(--team-engineering) 0%, var(--sticky-blue-dark) 100%); }
+        .chart-bar:nth-child(3) { height: 60%; background: linear-gradient(180deg, var(--team-design) 0%, var(--sticky-pink-dark) 100%); }
+        .chart-bar:nth-child(4) { height: 85%; background: linear-gradient(180deg, var(--team-marketing) 0%, var(--sticky-mint-dark) 100%); }
+        .chart-bar:nth-child(5) { height: 55%; background: linear-gradient(180deg, var(--team-executive) 0%, var(--sticky-purple) 100%); }
+
+        .chart-bar-label {
+            position: absolute;
+            bottom: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        /* Pie Chart Simulation */
+        .chart-pie {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--team-product) 0deg 90deg,
+                var(--team-engineering) 90deg 180deg,
+                var(--team-design) 180deg 250deg,
+                var(--team-marketing) 250deg 310deg,
+                var(--team-executive) 310deg 360deg
+            );
+            box-shadow: var(--shadow-sticky-hover);
+            position: relative;
+            animation: pieRotate 1s ease-out;
+        }
+
+        @keyframes pieRotate {
+            from { transform: rotate(0deg) scale(0.5); opacity: 0; }
+            to { transform: rotate(360deg) scale(1); opacity: 1; }
+        }
+
+        .chart-pie::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: var(--bg-canvas);
+            border-radius: 50%;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+
+        footer {
+            background: var(--bg-elevated);
+            padding: var(--space-lg);
+            margin-top: var(--space-xl);
+            border-top: 3px solid var(--sticky-yellow);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+        }
+
+        .footer-meta {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .footer-brand {
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--text-primary);
+            letter-spacing: 2px;
+        }
+
+        .footer-timestamp {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+
+        @media (max-width: 1400px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar-column {
+                grid-row: 1;
+            }
+        }
+
+        @media (max-width: 960px) {
+            .header-main {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cluster-view {
+                grid-template-columns: 1fr;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-track {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .dashboard-layout {
+                padding: var(--space-md);
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .workshop-title-block h1 {
+                font-size: 24px;
+            }
+
+            .kpi-value {
+                font-size: 32px;
+            }
+
+            .theme-map-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .participant-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================
+           LIVE FACILITATION INDICATOR
+           ============================================ */
+
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--status-critical);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .live-indicator::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         WORKSHOP HEADER
+         ============================================ -->
+    <header>
+        <div class="header-main">
+            <div class="workshop-title-block">
+                <h1>Discovery Workshop - Product Strategy Offsite</h1>
+                <div class="workshop-meta">
+                    <span class="live-indicator">Live Session</span>
+                    <span>Q1 2025 Planning | Conference Room A</span>
+                </div>
+            </div>
+            <div class="session-timer">
+                <div class="session-timer-label">Session Time</div>
+                <div class="session-timer-value">02:47:33</div>
+            </div>
+            <div class="facilitator-badge">
+                Sarah Chen, Lead Facilitator
+            </div>
+            <div class="atlas-brand">ATLAS</div>
+        </div>
+    </header>
+
+    <!-- ============================================
+         KPI METRICS STRIP
+         ============================================ -->
+    <section class="kpi-strip">
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-label">Insights Captured</div>
+                <div class="kpi-value">127</div>
+                <div class="kpi-delta positive">↑ 43 this session</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Decisions Made</div>
+                <div class="kpi-value">18</div>
+                <div class="kpi-delta positive">↑ 5 confirmed</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Action Items</div>
+                <div class="kpi-value">34</div>
+                <div class="kpi-delta neutral">→ 12 assigned</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Active Participants</div>
+                <div class="kpi-value">23</div>
+                <div class="kpi-delta positive">↑ 95% engagement</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Themes Identified</div>
+                <div class="kpi-value">8</div>
+                <div class="kpi-delta positive">↑ 3 high priority</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         MAIN DASHBOARD LAYOUT
+         ============================================ -->
+    <div class="dashboard-layout">
+
+        <!-- LEFT COLUMN: Sticky Note Board -->
+        <div class="sticky-board-section">
+
+            <!-- Insight Clusters by Theme -->
+            <div>
+                <div class="section-header">
+                    <h2 class="section-title">
+                        💡 Stakeholder Insights by Theme
+                        <span class="section-count">127 Total</span>
+                    </h2>
+                </div>
+
+                <div class="cluster-view">
+                    <!-- Customer Pain Points Cluster -->
+                    <div class="insight-cluster">
+                        <div class="cluster-header">
+                            <span class="cluster-icon">😣</span>
+                            Customer Pain Points
+                        </div>
+                        <div class="sticky-notes-container">
+                            <div class="sticky-note product">
+                                <div class="sticky-content">
+                                    "Users struggling with onboarding flow - 67% drop-off at step 3"
+                                </div>
+                                <div class="sticky-meta">
+                                    <span class="sticky-owner">Marcus (Product)</span>
+                                    <span class="sticky-priority high">High</span>
+                                </div>
+                            </div>
+                            <div class="sticky-note design">
+                                <div class="sticky-content">
+                                    "Mobile navigation confusing - tested with 12 users, all hesitated"
+                                </div>
+                                <div class="sticky-meta">
+                                    <span class="sticky-owner">Priya (Design)</span>
+                                    <span class="sticky-priority high">High</span>
+                                </div>
+                            </div>
+                            <div class="sticky-note marketing">
+                                <div class="sticky-content">
+                                    "Support tickets up 45% - mostly account setup issues"
+                                </div>
+                                <div class="sticky-meta">
+                                    <span class="sticky-owner">James (Marketing)</span>
+                                    <span class="sticky-priority medium">Med</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Revenue Opportunities Cluster -->
+                    <div class="insight-cluster">
+                        <div class="cluster-header">
+                            <span class="cluster-icon">💰</span>
+                            Revenue Opportunities
+                        </div>
+                        <div class="sticky-notes-container">
+                            <div class="sticky-note sales">
+                                <div class="sticky-content">
+                                    "Enterprise clients asking for SSO - could unlock $2M ARR"
+                                </div>
+                                <div class="sticky-meta">
+                                    <span class="sticky-owner">Rachel (Sales)</span>
+                                    <span class="sticky-priority high">High</span>
+                                </div>
+                            </div>
+                            <div class="sticky-note executive">
+                                <div class="sticky-content">
+                                    "Upsell opportunity in existing accounts - only 23% using premium features"
+                                </div>
+                                <div class="sticky-meta">
+                                    <span class="sticky-owner">David (Exec)</span>
+                                    <span class="sticky-priority medium">Med</span>
+                                </div>
+                            </div>
+                            <div class="sticky-note product">
+                                <div class="sticky-content">
+                                    "Team plan request from 14 beta users - pricing model ready"
+                                </div>
+                                <div class="sticky-meta">
+                                    <span class="sticky-owner">Marcus (Product)</span>
+                                    <span class="sticky-priority medium">Med</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Technical Constraints Cluster -->
+                    <div class="insight-cluster">
+                        <div class="cluster-header">
+                            <span class="cluster-icon">⚙️</span>
+                            Technical Constraints
+                        </div>
+                        <div class="sticky-notes-container">
+                            <div class="sticky-note engineering">
+                                <div class="sticky-content">
+                                    "Current DB architecture won't scale past 50K users - need migration plan"
+                                </div>
+                                <div class="sticky-meta">
+                                    <span class="sticky-owner">Alex (Eng)</span>
+                                    <span class="sticky-priority high">High</span>
+                                </div>
+                            </div>
+                            <div class="sticky-note engineering">
+                                <div class="sticky-content">
+                                    "API rate limits causing issues for power users - redesign needed"
+                                </div>
+                                <div class="sticky-meta">
+                                    <span class="sticky-owner">Jordan (Eng)</span>
+                                    <span class="sticky-priority medium">Med</span>
+                                </div>
+                            </div>
+                            <div class="sticky-note engineering">
+                                <div class="sticky-content">
+                                    "Legacy code in payment module - blocking new integrations"
+                                </div>
+                                <div class="sticky-meta">
+                                    <span class="sticky-owner">Sam (Eng)</span>
+                                    <span class="sticky-priority low">Low</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Competitive Threats Cluster -->
+                    <div class="insight-cluster">
+                        <div class="cluster-header">
+                            <span class="cluster-icon">⚔️</span>
+                            Competitive Landscape
+                        </div>
+                        <div class="sticky-notes-container">
+                            <div class="sticky-note executive">
+                                <div class="sticky-content">
+                                    "Competitor X launched AI features - we're 6 months behind"
+                                </div>
+                                <div class="sticky-meta">
+                                    <span class="sticky-owner">Linda (Exec)</span>
+                                    <span class="sticky-priority high">High</span>
+                                </div>
+                            </div>
+                            <div class="sticky-note sales">
+                                <div class="sticky-content">
+                                    "Lost 3 deals this quarter to better mobile experience"
+                                </div>
+                                <div class="sticky-meta">
+                                    <span class="sticky-owner">Tom (Sales)</span>
+                                    <span class="sticky-priority high">High</span>
+                                </div>
+                            </div>
+                            <div class="sticky-note marketing">
+                                <div class="sticky-content">
+                                    "Competitor pricing 30% lower - need value prop clarity"
+                                </div>
+                                <div class="sticky-meta">
+                                    <span class="sticky-owner">Nina (Marketing)</span>
+                                    <span class="sticky-priority medium">Med</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theme Mapping Overview -->
+            <div class="theme-mapping">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        🗺️ Insight Themes Map
+                    </h2>
+                </div>
+                <div class="theme-map-grid">
+                    <div class="theme-cluster-card">
+                        <div class="theme-name">User Experience</div>
+                        <div class="theme-insights-count">34</div>
+                        <div class="theme-contributors">
+                            <span class="contributor-tag">Product</span>
+                            <span class="contributor-tag">Design</span>
+                            <span class="contributor-tag">Marketing</span>
+                        </div>
+                    </div>
+                    <div class="theme-cluster-card">
+                        <div class="theme-name">Revenue Growth</div>
+                        <div class="theme-insights-count">28</div>
+                        <div class="theme-contributors">
+                            <span class="contributor-tag">Sales</span>
+                            <span class="contributor-tag">Executive</span>
+                            <span class="contributor-tag">Product</span>
+                        </div>
+                    </div>
+                    <div class="theme-cluster-card">
+                        <div class="theme-name">Technical Debt</div>
+                        <div class="theme-insights-count">22</div>
+                        <div class="theme-contributors">
+                            <span class="contributor-tag">Engineering</span>
+                            <span class="contributor-tag">Product</span>
+                        </div>
+                    </div>
+                    <div class="theme-cluster-card">
+                        <div class="theme-name">Market Position</div>
+                        <div class="theme-insights-count">19</div>
+                        <div class="theme-contributors">
+                            <span class="contributor-tag">Executive</span>
+                            <span class="contributor-tag">Sales</span>
+                            <span class="contributor-tag">Marketing</span>
+                        </div>
+                    </div>
+                    <div class="theme-cluster-card">
+                        <div class="theme-name">Customer Support</div>
+                        <div class="theme-insights-count">15</div>
+                        <div class="theme-contributors">
+                            <span class="contributor-tag">Marketing</span>
+                            <span class="contributor-tag">Product</span>
+                        </div>
+                    </div>
+                    <div class="theme-cluster-card">
+                        <div class="theme-name">Product Roadmap</div>
+                        <div class="theme-insights-count">9</div>
+                        <div class="theme-contributors">
+                            <span class="contributor-tag">Product</span>
+                            <span class="contributor-tag">Engineering</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">Insights by Stakeholder Group</div>
+                    <div class="chart-placeholder">
+                        <div class="chart-bars">
+                            <div class="chart-bar">
+                                <div class="chart-bar-label">Product</div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="chart-bar-label">Engineering</div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="chart-bar-label">Design</div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="chart-bar-label">Marketing</div>
+                            </div>
+                            <div class="chart-bar">
+                                <div class="chart-bar-label">Executive</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">Theme Distribution</div>
+                    <div class="chart-placeholder" style="justify-content: center;">
+                        <div class="chart-pie"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline Section -->
+            <div class="timeline-section">
+                <div class="section-header">
+                    <h2 class="section-title">⏱️ Workshop Activity Timeline</h2>
+                </div>
+                <div class="timeline-track">
+                    <div class="timeline-event">
+                        <div class="timeline-time">09:00 - 09:45</div>
+                        <div class="timeline-activity">Opening & Context Setting</div>
+                        <div class="timeline-participants">23 participants • All teams</div>
+                    </div>
+                    <div class="timeline-event">
+                        <div class="timeline-time">09:45 - 10:30</div>
+                        <div class="timeline-activity">Customer Pain Points Brainstorm</div>
+                        <div class="timeline-participants">18 participants • Product, Design, Marketing</div>
+                    </div>
+                    <div class="timeline-event">
+                        <div class="timeline-time">10:30 - 11:15</div>
+                        <div class="timeline-activity">Technical Constraints Review</div>
+                        <div class="timeline-participants">12 participants • Engineering, Product</div>
+                    </div>
+                    <div class="timeline-event">
+                        <div class="timeline-time">11:15 - 12:00</div>
+                        <div class="timeline-activity">Revenue Strategy Session</div>
+                        <div class="timeline-participants">15 participants • Sales, Executive, Product</div>
+                    </div>
+                    <div class="timeline-event" style="background: linear-gradient(135deg, var(--sticky-pink) 0%, var(--sticky-pink-dark) 100%);">
+                        <div class="timeline-time">12:00 - Now</div>
+                        <div class="timeline-activity">Action Planning & Decisions</div>
+                        <div class="timeline-participants">23 participants • All teams</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insights Repository Table -->
+            <div class="insights-table-section">
+                <div class="section-header">
+                    <h2 class="section-title">📊 Insight Repository - All Captured Ideas</h2>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Insight</th>
+                            <th>Source</th>
+                            <th>Theme</th>
+                            <th>Impact</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Onboarding flow causing 67% drop-off - urgent UX redesign needed</td>
+                            <td>Marcus (Product)</td>
+                            <td><span class="insight-tag product">UX</span></td>
+                            <td><span class="impact-badge high">High</span></td>
+                            <td>Action assigned</td>
+                        </tr>
+                        <tr>
+                            <td>Enterprise SSO feature could unlock $2M ARR in pipeline deals</td>
+                            <td>Rachel (Sales)</td>
+                            <td><span class="insight-tag engineering">Revenue</span></td>
+                            <td><span class="impact-badge high">High</span></td>
+                            <td>Decision made</td>
+                        </tr>
+                        <tr>
+                            <td>Database architecture won't scale past 50K users - migration critical</td>
+                            <td>Alex (Engineering)</td>
+                            <td><span class="insight-tag engineering">Tech Debt</span></td>
+                            <td><span class="impact-badge high">High</span></td>
+                            <td>Under discussion</td>
+                        </tr>
+                        <tr>
+                            <td>Competitor AI features launched - we're 6 months behind in roadmap</td>
+                            <td>Linda (Executive)</td>
+                            <td><span class="insight-tag design">Market</span></td>
+                            <td><span class="impact-badge high">High</span></td>
+                            <td>Action assigned</td>
+                        </tr>
+                        <tr>
+                            <td>Mobile navigation confusion validated in user testing (12/12 users)</td>
+                            <td>Priya (Design)</td>
+                            <td><span class="insight-tag design">UX</span></td>
+                            <td><span class="impact-badge high">High</span></td>
+                            <td>Decision made</td>
+                        </tr>
+                        <tr>
+                            <td>Only 23% of accounts using premium features - upsell opportunity</td>
+                            <td>David (Executive)</td>
+                            <td><span class="insight-tag marketing">Revenue</span></td>
+                            <td><span class="impact-badge medium">Medium</span></td>
+                            <td>Under discussion</td>
+                        </tr>
+                        <tr>
+                            <td>Support ticket volume up 45% - mainly account setup confusion</td>
+                            <td>James (Marketing)</td>
+                            <td><span class="insight-tag marketing">Support</span></td>
+                            <td><span class="impact-badge medium">Medium</span></td>
+                            <td>Action assigned</td>
+                        </tr>
+                        <tr>
+                            <td>API rate limits blocking power users - architecture redesign needed</td>
+                            <td>Jordan (Engineering)</td>
+                            <td><span class="insight-tag engineering">Tech Debt</span></td>
+                            <td><span class="impact-badge medium">Medium</span></td>
+                            <td>Backlog</td>
+                        </tr>
+                        <tr>
+                            <td>Team plan pricing model ready - 14 beta users already requesting</td>
+                            <td>Marcus (Product)</td>
+                            <td><span class="insight-tag product">Revenue</span></td>
+                            <td><span class="impact-badge medium">Medium</span></td>
+                            <td>Decision made</td>
+                        </tr>
+                        <tr>
+                            <td>Lost 3 deals to competitors with better mobile experience</td>
+                            <td>Tom (Sales)</td>
+                            <td><span class="insight-tag design">Market</span></td>
+                            <td><span class="impact-badge high">High</span></td>
+                            <td>Under discussion</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDEBAR: Decision Log & Actions -->
+        <div class="sidebar-column">
+
+            <!-- Decision Log -->
+            <div class="decision-log-panel">
+                <div class="panel-header">
+                    ✅ Decisions Made
+                    <span class="panel-badge">18</span>
+                </div>
+
+                <div class="decision-item">
+                    <div class="decision-title">Prioritize onboarding UX redesign for Q1</div>
+                    <div class="decision-meta-row">
+                        <span class="decision-owner">Owner: Marcus</span>
+                        <span class="decision-status">Decided</span>
+                    </div>
+                </div>
+
+                <div class="decision-item">
+                    <div class="decision-title">Build SSO feature for enterprise (est. $2M ARR)</div>
+                    <div class="decision-meta-row">
+                        <span class="decision-owner">Owner: Alex</span>
+                        <span class="decision-status">Decided</span>
+                    </div>
+                </div>
+
+                <div class="decision-item">
+                    <div class="decision-title">Launch team pricing plan in beta by Feb 15</div>
+                    <div class="decision-meta-row">
+                        <span class="decision-owner">Owner: Rachel</span>
+                        <span class="decision-status">Decided</span>
+                    </div>
+                </div>
+
+                <div class="decision-item">
+                    <div class="decision-title">Redesign mobile navigation based on test results</div>
+                    <div class="decision-meta-row">
+                        <span class="decision-owner">Owner: Priya</span>
+                        <span class="decision-status">Decided</span>
+                    </div>
+                </div>
+
+                <div class="decision-item" style="border-left-color: var(--status-discussing);">
+                    <div class="decision-title">DB migration timeline (needs exec approval)</div>
+                    <div class="decision-meta-row">
+                        <span class="decision-owner">Owner: Alex</span>
+                        <span class="decision-status discussing">Discussing</span>
+                    </div>
+                </div>
+
+                <div class="decision-item" style="border-left-color: var(--status-parked);">
+                    <div class="decision-title">AI feature roadmap (deferred to Q2 planning)</div>
+                    <div class="decision-meta-row">
+                        <span class="decision-owner">Owner: Linda</span>
+                        <span class="decision-status parked">Parked</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Tracker -->
+            <div class="action-tracker-panel">
+                <div class="panel-header">
+                    🎯 Action Items
+                    <span class="panel-badge">34</span>
+                </div>
+
+                <div class="action-item">
+                    <div class="action-title">Complete onboarding flow audit & wireframes</div>
+                    <div class="action-meta">
+                        <span class="action-assignee">Marcus + Priya</span>
+                        <span class="action-due">Jan 20</span>
+                    </div>
+                </div>
+
+                <div class="action-item" style="background: var(--sticky-blue);">
+                    <div class="action-title">Scope SSO integration requirements doc</div>
+                    <div class="action-meta">
+                        <span class="action-assignee">Alex + Rachel</span>
+                        <span class="action-due">Jan 15</span>
+                    </div>
+                </div>
+
+                <div class="action-item" style="background: var(--sticky-yellow); color: var(--text-primary);">
+                    <div class="action-title">Draft team pricing model & beta criteria</div>
+                    <div class="action-meta">
+                        <span class="action-assignee">Marcus</span>
+                        <span class="action-due">Jan 18</span>
+                    </div>
+                </div>
+
+                <div class="action-item" style="background: var(--sticky-mint);">
+                    <div class="action-title">Run mobile nav usability test round 2</div>
+                    <div class="action-meta">
+                        <span class="action-assignee">Priya</span>
+                        <span class="action-due">Jan 22</span>
+                    </div>
+                </div>
+
+                <div class="action-item" style="background: var(--sticky-purple); color: white;">
+                    <div class="action-title">Present DB migration options to exec team</div>
+                    <div class="action-meta">
+                        <span class="action-assignee">Alex + David</span>
+                        <span class="action-due">Jan 25</span>
+                    </div>
+                </div>
+
+                <div class="action-item" style="background: var(--sticky-orange);">
+                    <div class="action-title">Competitive analysis: AI features benchmark</div>
+                    <div class="action-meta">
+                        <span class="action-assignee">Linda + Nina</span>
+                        <span class="action-due">Jan 30</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Participant Engagement -->
+            <div class="participant-panel">
+                <div class="panel-header">
+                    👥 Top Contributors
+                    <span class="panel-badge">23</span>
+                </div>
+                <div class="participant-grid">
+                    <div class="participant-card">
+                        <div class="participant-name">Marcus</div>
+                        <div class="participant-role">Product Lead</div>
+                        <div class="participant-contribution">18 ideas</div>
+                    </div>
+                    <div class="participant-card" style="background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);">
+                        <div class="participant-name">Alex</div>
+                        <div class="participant-role">Engineering</div>
+                        <div class="participant-contribution">15 ideas</div>
+                    </div>
+                    <div class="participant-card" style="background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);">
+                        <div class="participant-name">Priya</div>
+                        <div class="participant-role">Design Lead</div>
+                        <div class="participant-contribution">14 ideas</div>
+                    </div>
+                    <div class="participant-card" style="background: linear-gradient(135deg, #55efc4 0%, #00b894 100%);">
+                        <div class="participant-name">Rachel</div>
+                        <div class="participant-role">Sales VP</div>
+                        <div class="participant-contribution">13 ideas</div>
+                    </div>
+                    <div class="participant-card" style="background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);">
+                        <div class="participant-name">Linda</div>
+                        <div class="participant-role">Executive</div>
+                        <div class="participant-contribution">12 ideas</div>
+                    </div>
+                    <div class="participant-card" style="background: linear-gradient(135deg, #fab1a0 0%, #ff7675 100%);">
+                        <div class="participant-name">James</div>
+                        <div class="participant-role">Marketing</div>
+                        <div class="participant-contribution">11 ideas</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-meta">
+                Discovery Workshop Dashboard | Q1 2025 Product Strategy Offsite
+            </div>
+            <div class="footer-brand">ATLAS</div>
+            <div class="footer-timestamp">
+                Last updated: 2025-01-14 12:47:33 PST | Session active
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================
+        // WORKSHOP TIMER - Live Session Clock
+        // ============================================
+        function updateSessionTimer() {
+            const timerElement = document.querySelector('.session-timer-value');
+            const startTime = new Date();
+            startTime.setHours(9, 0, 0, 0); // Workshop started at 9:00 AM
+
+            setInterval(() => {
+                const now = new Date();
+                const diff = now - startTime;
+
+                const hours = Math.floor(diff / 3600000);
+                const minutes = Math.floor((diff % 3600000) / 60000);
+                const seconds = Math.floor((diff % 60000) / 1000);
+
+                timerElement.textContent =
+                    `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        // ============================================
+        // STICKY NOTE ANIMATIONS - Staggered Entrance
+        // ============================================
+        function animateStickyNotes() {
+            const stickyNotes = document.querySelectorAll('.sticky-note');
+            stickyNotes.forEach((note, index) => {
+                note.style.animationDelay = `${index * 0.05}s`;
+            });
+        }
+
+        // ============================================
+        // TABLE SORTING - Interactive Data Table
+        // ============================================
+        function enableTableSorting() {
+            const table = document.querySelector('.data-table');
+            if (!table) return;
+
+            const headers = table.querySelectorAll('th');
+            headers.forEach((header, index) => {
+                header.style.cursor = 'pointer';
+                header.addEventListener('click', () => {
+                    sortTable(table, index);
+                });
+            });
+        }
+
+        function sortTable(table, columnIndex) {
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            rows.sort((a, b) => {
+                const aText = a.cells[columnIndex].textContent.trim();
+                const bText = b.cells[columnIndex].textContent.trim();
+                return aText.localeCompare(bText);
+            });
+
+            rows.forEach(row => tbody.appendChild(row));
+        }
+
+        // ============================================
+        // LIVE UPDATES SIMULATION
+        // ============================================
+        function simulateLiveUpdates() {
+            const kpiValues = document.querySelectorAll('.kpi-value');
+
+            setInterval(() => {
+                // Randomly update insight count
+                const insightsKPI = kpiValues[0];
+                const currentValue = parseInt(insightsKPI.textContent);
+                if (Math.random() > 0.7) {
+                    insightsKPI.textContent = currentValue + 1;
+                    insightsKPI.style.color = 'var(--status-decided)';
+                    setTimeout(() => {
+                        insightsKPI.style.color = 'var(--text-primary)';
+                    }, 500);
+                }
+            }, 15000); // Every 15 seconds
+        }
+
+        // ============================================
+        // INITIALIZE ALL FEATURES
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            updateSessionTimer();
+            animateStickyNotes();
+            enableTableSorting();
+            simulateLiveUpdates();
+
+            // Add hover tooltips for sticky notes
+            const stickyNotes = document.querySelectorAll('.sticky-note');
+            stickyNotes.forEach(note => {
+                note.addEventListener('mouseenter', function() {
+                    this.style.zIndex = '20';
+                });
+                note.addEventListener('mouseleave', function() {
+                    this.style.zIndex = '1';
+                });
+            });
+
+            // Log workshop activity
+            console.log('%c🎯 ATLAS Workshop Dashboard Initialized',
+                'background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 24px; font-size: 16px; font-weight: bold; border-radius: 8px;');
+            console.log('Workshop: Product Strategy Offsite Q1 2025');
+            console.log('Participants: 23 active | Insights: 127 captured');
+            console.log('Session Status: LIVE | Facilitator: Sarah Chen');
+        });
+
+        // ============================================
+        // KEYBOARD SHORTCUTS FOR FACILITATION
+        // ============================================
+        document.addEventListener('keydown', (e) => {
+            // Ctrl+D: Toggle decision log
+            if (e.ctrlKey && e.key === 'd') {
+                e.preventDefault();
+                const decisionPanel = document.querySelector('.decision-log-panel');
+                decisionPanel.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            // Ctrl+A: Toggle action items
+            if (e.ctrlKey && e.key === 'a') {
+                e.preventDefault();
+                const actionPanel = document.querySelector('.action-tracker-panel');
+                actionPanel.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    </script>
+
+</body>
+</html>

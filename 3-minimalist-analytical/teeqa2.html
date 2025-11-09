@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Minimalist Analytical Dashboard | Teeqa v2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Agent: Teeqa | Theme: Minimalist Analytical | Intent: Refined minimalist dashboard with subtle brand touches and clean data presentation -->
+  <style>
+    :root { --bg: #fafafa; --surface: #ffffff; --gray-300: #d4d4d4; --gray-500: #737373; --gray-700: #404040; --gray-900: #171717; --blue: #0ea5e9; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, sans-serif; background: var(--bg); color: var(--gray-900); line-height: 1.5; }
+    .page { max-width: 1500px; margin: 0 auto; padding: 50px 70px; }
+    .header { margin-bottom: 50px; padding-bottom: 20px; border-bottom: 1px solid var(--gray-300); }
+    .logo { width: 44px; height: 44px; background: var(--blue); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 22px; color: white; margin-bottom: 16px; border-radius: 4px; }
+    .header-row { display: flex; justify-content: space-between; align-items: flex-end; }
+    .title { font-size: 28px; font-weight: 300; letter-spacing: -0.5px; margin-bottom: 4px; }
+    .subtitle { font-size: 13px; color: var(--gray-500); }
+    .meta { text-align: right; font-size: 12px; color: var(--gray-500); }
+    .agent { display: inline-block; margin-top: 8px; padding: 4px 10px; background: rgba(14,165,233,0.1); border: 1px solid rgba(14,165,233,0.3); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--blue); }
+    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-bottom: 50px; }
+    .metric::before { content: ''; display: block; width: 28px; height: 2px; background: var(--blue); margin-bottom: 12px; }
+    .metric-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--gray-500); margin-bottom: 10px; font-weight: 600; }
+    .metric-value { font-size: 44px; font-weight: 300; letter-spacing: -1.5px; margin-bottom: 10px; line-height: 1; }
+    .metric-delta { font-size: 14px; color: var(--blue); font-weight: 600; }
+    .metric-note { font-size: 11px; color: var(--gray-500); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--gray-300); }
+    .content { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; margin-bottom: 50px; }
+    .panel-title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: var(--gray-700); }
+    .chart { height: 260px; border: 1px solid var(--gray-300); position: relative; }
+    .chart-path { position: absolute; bottom: 12%; left: 6%; right: 6%; height: 60%; border: 2px solid var(--blue); clip-path: polygon(0 100%, 0 46%, 22% 54%, 44% 30%, 66% 38%, 88% 20%, 100% 16%, 100% 100%); opacity: 0.9; }
+    .insights { display: flex; flex-direction: column; gap: 20px; }
+    .insight { padding: 16px; border-left: 3px solid var(--blue); background: var(--surface); }
+    .insight-title { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .insight-body { font-size: 12px; color: var(--gray-500); line-height: 1.6; }
+    .table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .table thead { border-bottom: 1px solid var(--gray-300); }
+    .table th { padding: 12px; text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--gray-700); font-weight: 600; }
+    .table td { padding: 14px 12px; border-bottom: 1px solid var(--gray-300); color: var(--gray-500); }
+    .table .primary { color: var(--gray-900); font-weight: 500; }
+    .status { padding: 4px 10px; background: rgba(14,165,233,0.1); color: var(--blue); font-size: 10px; text-transform: uppercase; font-weight: 600; border-radius: 2px; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="logo">T</div>
+      <div class="header-row">
+        <div>
+          <h1 class="title">Analysis Dashboard</h1>
+          <p class="subtitle">Q4 2025 Performance</p>
+        </div>
+        <div class="meta">
+          <div>October – December 2025</div>
+          <div class="agent">Teeqa · Round 2</div>
+        </div>
+      </div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="metric-label">Revenue</div><div class="metric-value">$2.8M</div><div class="metric-delta">+18.2%</div><div class="metric-note">Quarterly total</div></div>
+      <div class="metric"><div class="metric-label">Margin</div><div class="metric-value">29.4%</div><div class="metric-delta">+3.1 pts</div><div class="metric-note">Operating margin</div></div>
+      <div class="metric"><div class="metric-label">Customers</div><div class="metric-value">1,624</div><div class="metric-delta">+12.8%</div><div class="metric-note">Active base</div></div>
+      <div class="metric"><div class="metric-label">Retention</div><div class="metric-value">93.2%</div><div class="metric-delta">+1.4 pts</div><div class="metric-note">Customer retention</div></div>
+    </div>
+    <div class="content">
+      <div>
+        <div class="panel-title">Revenue Performance</div>
+        <div class="chart"><div class="chart-path"></div></div>
+      </div>
+      <div>
+        <div class="panel-title">Key Insights</div>
+        <div class="insights">
+          <div class="insight">
+            <div class="insight-title">Strong Quarter</div>
+            <div class="insight-body">Revenue growth driven by customer expansion and improved pricing.</div>
+          </div>
+          <div class="insight">
+            <div class="insight-title">Margin Gains</div>
+            <div class="insight-body">Operational efficiency improvements contributing to profitability.</div>
+          </div>
+          <div class="insight">
+            <div class="insight-title">Retention Up</div>
+            <div class="insight-body">Customer satisfaction metrics trending positively.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="panel-title">Initiatives</div>
+      <table class="table">
+        <thead><tr><th>Initiative</th><th>Owner</th><th>Budget</th><th>Progress</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="primary">Platform Enhancement</td><td>Product Team</td><td>$680K</td><td>84%</td><td><span class="status">Active</span></td></tr>
+          <tr><td class="primary">Market Growth</td><td>Sales Team</td><td>$540K</td><td>78%</td><td><span class="status">Active</span></td></tr>
+          <tr><td class="primary">Product Development</td><td>Engineering</td><td>$420K</td><td>88%</td><td><span class="status">Active</span></td></tr>
+          <tr><td class="primary">Operations</td><td>Ops Team</td><td>$280K</td><td>62%</td><td><span class="status">Active</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

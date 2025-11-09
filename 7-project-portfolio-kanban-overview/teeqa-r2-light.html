@@ -1,0 +1,2035 @@
+<!-- Agent: Teeqa | Round: 2 - Light Mode Masterpiece | Theme: Project Portfolio Kanban | Intent: Create a delightful, vibrant project management experience with playful card interactions and premium SaaS polish -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Command Center | TEEQA Design</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           TEEQA ROUND 2 LIGHT MODE - PROJECT KANBAN
+           Theme: Vibrant, Playful, Brand-Forward SaaS
+           ============================================ */
+
+        :root {
+            /* Light Mode Base Colors */
+            --bg-primary: #FAFBFC;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #F5F7FA;
+            --text-primary: #1A1F36;
+            --text-secondary: #4A5568;
+            --text-muted: #718096;
+
+            /* Status Colors - Vibrant & Distinct */
+            --status-backlog: #8B5CF6;      /* Purple */
+            --status-backlog-light: #EDE9FE;
+            --status-progress: #3B82F6;     /* Blue */
+            --status-progress-light: #DBEAFE;
+            --status-risk: #F59E0B;         /* Orange */
+            --status-risk-light: #FEF3C7;
+            --status-done: #10B981;         /* Green */
+            --status-done-light: #D1FAE5;
+            --status-blocked: #EF4444;      /* Red */
+            --status-blocked-light: #FEE2E2;
+
+            /* Brand Accent Colors */
+            --brand-primary: #6366F1;
+            --brand-secondary: #EC4899;
+            --brand-gradient: linear-gradient(135deg, #6366F1 0%, #EC4899 100%);
+
+            /* UI Elements */
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.12), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --shadow-card-hover: 0 12px 24px -8px rgba(99,102,241,0.25);
+
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --radius-xl: 18px;
+
+            --spacing-xs: 6px;
+            --spacing-sm: 10px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+
+            /* Typography */
+            --font-display: 'Manrope', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ==================
+           HEADER SECTION
+           ================== */
+
+        .app-header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid #E5E7EB;
+            padding: var(--spacing-md) var(--spacing-xl);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--spacing-lg);
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .brand-logo {
+            width: 44px;
+            height: 44px;
+            background: var(--brand-gradient);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 18px;
+            color: white;
+            letter-spacing: -0.5px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .brand-info h1 {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .brand-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 280px;
+            padding: 10px 16px 10px 40px;
+            border: 1.5px solid #E5E7EB;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-family: var(--font-body);
+            transition: all 0.2s ease;
+            background: var(--bg-tertiary);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--brand-primary);
+            background: var(--bg-secondary);
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 600;
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--brand-gradient);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1.5px solid #E5E7EB;
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            border-color: var(--brand-primary);
+        }
+
+        /* ==================
+           MAIN CONTAINER
+           ================== */
+
+        .main-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: var(--spacing-xl);
+        }
+
+        /* ==================
+           KPI METRICS STRIP
+           ================== */
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .metric-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #F0F0F0;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--metric-color);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--metric-color);
+        }
+
+        .metric-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .metric-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            background: var(--metric-bg);
+            color: var(--metric-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .metric-value {
+            font-family: var(--font-display);
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .metric-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .metric-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .metric-change.positive {
+            background: var(--status-done-light);
+            color: var(--status-done);
+        }
+
+        .metric-change.neutral {
+            background: var(--status-progress-light);
+            color: var(--status-progress);
+        }
+
+        .metric-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ==================
+           KANBAN SWIMLANES
+           ================== */
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .view-controls {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .view-btn {
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            font-weight: 600;
+            background: var(--bg-tertiary);
+            border: 1.5px solid #E5E7EB;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .view-btn.active {
+            background: var(--brand-primary);
+            color: white;
+            border-color: var(--brand-primary);
+        }
+
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .kanban-column {
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            min-height: 600px;
+        }
+
+        .column-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-md);
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .column-title {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .column-title h3 {
+            font-family: var(--font-display);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .column-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 24px;
+            height: 24px;
+            padding: 0 8px;
+            border-radius: 12px;
+            background: var(--column-bg);
+            color: var(--column-color);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .column-menu {
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 18px;
+            transition: color 0.2s ease;
+        }
+
+        .column-menu:hover {
+            color: var(--text-primary);
+        }
+
+        .project-cards {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            box-shadow: var(--shadow-sm);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-3px) rotate(0.5deg);
+            box-shadow: var(--shadow-card-hover);
+            border-color: var(--card-color);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .project-priority {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--priority-color);
+            box-shadow: 0 0 0 3px var(--priority-light);
+        }
+
+        .project-name {
+            font-family: var(--font-display);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .project-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.5;
+        }
+
+        .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .meta-tag {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .progress-section {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .progress-label span:first-child {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .progress-label span:last-child {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--card-color);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--card-color) 0%, var(--card-color-light) 100%);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .team-avatars {
+            display: flex;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--avatar-bg);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            border: 2px solid var(--bg-secondary);
+            margin-left: -8px;
+            transition: transform 0.2s ease;
+        }
+
+        .avatar:first-child {
+            margin-left: 0;
+        }
+
+        .avatar:hover {
+            transform: translateY(-3px) scale(1.1);
+            z-index: 10;
+        }
+
+        .card-date {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* ==================
+           CHARTS SECTION
+           ================== */
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .chart-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #F0F0F0;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .chart-title {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .chart-filter {
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 600;
+            background: var(--bg-tertiary);
+            border: 1.5px solid #E5E7EB;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .timeline-chart {
+            height: 300px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .timeline-row {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .timeline-label {
+            width: 120px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .timeline-bar-container {
+            flex: 1;
+            height: 32px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-bar {
+            position: absolute;
+            height: 100%;
+            background: var(--bar-color);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            padding: 0 var(--spacing-sm);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-bar:hover {
+            filter: brightness(1.1);
+            transform: scaleY(1.1);
+        }
+
+        .budget-chart {
+            height: 300px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: var(--spacing-md) 0;
+            position: relative;
+        }
+
+        .budget-bar {
+            flex: 1;
+            max-width: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .bar-container {
+            width: 100%;
+            height: 240px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .bar-fill {
+            width: 100%;
+            background: var(--bar-gradient);
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar-fill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: barShimmer 2s infinite;
+        }
+
+        @keyframes barShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .bar-container:hover .bar-fill {
+            transform: scaleY(1.05);
+            filter: brightness(1.1);
+        }
+
+        .bar-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        /* ==================
+           DATA TABLE
+           ================== */
+
+        .table-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #F0F0F0;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .table-title {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .table-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table thead {
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+        }
+
+        .data-table th {
+            padding: var(--spacing-md);
+            text-align: left;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table tbody tr {
+            border-bottom: 1px solid #F0F0F0;
+            transition: all 0.2s ease;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .data-table td {
+            padding: var(--spacing-md);
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .table-project-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .status-badge.backlog {
+            background: var(--status-backlog-light);
+            color: var(--status-backlog);
+        }
+
+        .status-badge.progress {
+            background: var(--status-progress-light);
+            color: var(--status-progress);
+        }
+
+        .status-badge.risk {
+            background: var(--status-risk-light);
+            color: var(--status-risk);
+        }
+
+        .status-badge.done {
+            background: var(--status-done-light);
+            color: var(--status-done);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .progress-cell {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .mini-progress {
+            flex: 1;
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .mini-progress-fill {
+            height: 100%;
+            background: var(--fill-color);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            min-width: 40px;
+        }
+
+        /* ==================
+           FOOTER
+           ================== */
+
+        .app-footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid #E5E7EB;
+            padding: var(--spacing-lg) var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .footer-logo {
+            width: 32px;
+            height: 32px;
+            background: var(--brand-gradient);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 14px;
+            color: white;
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .footer-text strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--spacing-lg);
+        }
+
+        .footer-link {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--brand-primary);
+        }
+
+        /* ==================
+           RESPONSIVE
+           ================== */
+
+        @media (max-width: 1200px) {
+            .kanban-board {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: var(--spacing-md);
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kanban-board {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+
+            .data-table {
+                font-size: 12px;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: var(--spacing-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="app-header">
+        <div class="header-content">
+            <div class="brand-section">
+                <div class="brand-logo">T</div>
+                <div class="brand-info">
+                    <h1>Portfolio Command Center</h1>
+                    <p>Q4 2024 • Active Portfolio Overview</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="Search projects, teams, milestones...">
+                </div>
+                <button class="btn btn-secondary">Filter</button>
+                <button class="btn btn-primary">+ New Project</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-container">
+
+        <!-- KPI METRICS -->
+        <section class="metrics-grid">
+            <div class="metric-card" style="--metric-color: var(--brand-primary); --metric-bg: rgba(99,102,241,0.1);">
+                <div class="metric-header">
+                    <span class="metric-label">Total Projects</span>
+                    <div class="metric-icon">📊</div>
+                </div>
+                <div class="metric-value">42</div>
+                <div class="metric-footer">
+                    <span class="metric-change positive">+12% ↑</span>
+                    <span class="metric-subtitle">vs last quarter</span>
+                </div>
+            </div>
+
+            <div class="metric-card" style="--metric-color: var(--status-progress); --metric-bg: var(--status-progress-light);">
+                <div class="metric-header">
+                    <span class="metric-label">In Progress</span>
+                    <div class="metric-icon">⚡</div>
+                </div>
+                <div class="metric-value">18</div>
+                <div class="metric-footer">
+                    <span class="metric-change neutral">43% ↔</span>
+                    <span class="metric-subtitle">of total</span>
+                </div>
+            </div>
+
+            <div class="metric-card" style="--metric-color: var(--status-done); --metric-bg: var(--status-done-light);">
+                <div class="metric-header">
+                    <span class="metric-label">Completed</span>
+                    <div class="metric-icon">✓</div>
+                </div>
+                <div class="metric-value">15</div>
+                <div class="metric-footer">
+                    <span class="metric-change positive">+8 ↑</span>
+                    <span class="metric-subtitle">this month</span>
+                </div>
+            </div>
+
+            <div class="metric-card" style="--metric-color: var(--status-risk); --metric-bg: var(--status-risk-light);">
+                <div class="metric-header">
+                    <span class="metric-label">Budget Health</span>
+                    <div class="metric-icon">💰</div>
+                </div>
+                <div class="metric-value">87%</div>
+                <div class="metric-footer">
+                    <span class="metric-change positive">+5% ↑</span>
+                    <span class="metric-subtitle">utilization</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- KANBAN BOARD -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title">Project Swimlanes</h2>
+                <div class="view-controls">
+                    <button class="view-btn active">Board View</button>
+                    <button class="view-btn">Timeline</button>
+                    <button class="view-btn">List</button>
+                </div>
+            </div>
+
+            <div class="kanban-board">
+                <!-- BACKLOG COLUMN -->
+                <div class="kanban-column">
+                    <div class="column-header">
+                        <div class="column-title">
+                            <h3>📋 Backlog</h3>
+                            <span class="column-count" style="--column-bg: var(--status-backlog-light); --column-color: var(--status-backlog);">5</span>
+                        </div>
+                        <span class="column-menu">⋮</span>
+                    </div>
+                    <div class="project-cards">
+                        <div class="project-card" style="--card-color: var(--status-backlog); --card-color-light: var(--status-backlog-light); --priority-color: var(--status-risk); --priority-light: var(--status-risk-light);">
+                            <div class="card-header">
+                                <div class="project-priority"></div>
+                            </div>
+                            <h4 class="project-name">Mobile App Redesign</h4>
+                            <p class="project-desc">Complete overhaul of iOS and Android apps with new design system</p>
+                            <div class="card-meta">
+                                <span class="meta-tag">Design</span>
+                                <span class="meta-tag">Mobile</span>
+                            </div>
+                            <div class="progress-section">
+                                <div class="progress-label">
+                                    <span>Planning</span>
+                                    <span>15%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 15%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="team-avatars">
+                                    <div class="avatar" style="--avatar-bg: #8B5CF6;">SJ</div>
+                                    <div class="avatar" style="--avatar-bg: #EC4899;">MK</div>
+                                </div>
+                                <span class="card-date">Dec 15</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card" style="--card-color: var(--status-backlog); --card-color-light: var(--status-backlog-light); --priority-color: var(--status-progress); --priority-light: var(--status-progress-light);">
+                            <div class="card-header">
+                                <div class="project-priority"></div>
+                            </div>
+                            <h4 class="project-name">API v3 Migration</h4>
+                            <p class="project-desc">Upgrade all services to new REST API version with GraphQL support</p>
+                            <div class="card-meta">
+                                <span class="meta-tag">Backend</span>
+                                <span class="meta-tag">API</span>
+                            </div>
+                            <div class="progress-section">
+                                <div class="progress-label">
+                                    <span>Scoping</span>
+                                    <span>8%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 8%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="team-avatars">
+                                    <div class="avatar" style="--avatar-bg: #3B82F6;">RD</div>
+                                    <div class="avatar" style="--avatar-bg: #10B981;">LP</div>
+                                    <div class="avatar" style="--avatar-bg: #F59E0B;">TC</div>
+                                </div>
+                                <span class="card-date">Jan 10</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card" style="--card-color: var(--status-backlog); --card-color-light: var(--status-backlog-light); --priority-color: var(--status-done); --priority-light: var(--status-done-light);">
+                            <div class="card-header">
+                                <div class="project-priority"></div>
+                            </div>
+                            <h4 class="project-name">Analytics Dashboard v2</h4>
+                            <p class="project-desc">Enhanced reporting with real-time metrics and custom widgets</p>
+                            <div class="card-meta">
+                                <span class="meta-tag">Analytics</span>
+                            </div>
+                            <div class="progress-section">
+                                <div class="progress-label">
+                                    <span>Research</span>
+                                    <span>5%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 5%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="team-avatars">
+                                    <div class="avatar" style="--avatar-bg: #6366F1;">AM</div>
+                                </div>
+                                <span class="card-date">Dec 30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IN PROGRESS COLUMN -->
+                <div class="kanban-column">
+                    <div class="column-header">
+                        <div class="column-title">
+                            <h3>🚀 In Progress</h3>
+                            <span class="column-count" style="--column-bg: var(--status-progress-light); --column-color: var(--status-progress);">7</span>
+                        </div>
+                        <span class="column-menu">⋮</span>
+                    </div>
+                    <div class="project-cards">
+                        <div class="project-card" style="--card-color: var(--status-progress); --card-color-light: var(--status-progress-light); --priority-color: var(--status-risk); --priority-light: var(--status-risk-light);">
+                            <div class="card-header">
+                                <div class="project-priority"></div>
+                            </div>
+                            <h4 class="project-name">Customer Portal Launch</h4>
+                            <p class="project-desc">Self-service portal for account management and support tickets</p>
+                            <div class="card-meta">
+                                <span class="meta-tag">Frontend</span>
+                                <span class="meta-tag">Customer</span>
+                            </div>
+                            <div class="progress-section">
+                                <div class="progress-label">
+                                    <span>Development</span>
+                                    <span>62%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 62%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="team-avatars">
+                                    <div class="avatar" style="--avatar-bg: #EC4899;">JW</div>
+                                    <div class="avatar" style="--avatar-bg: #8B5CF6;">NK</div>
+                                    <div class="avatar" style="--avatar-bg: #10B981;">BC</div>
+                                </div>
+                                <span class="card-date">Nov 28</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card" style="--card-color: var(--status-progress); --card-color-light: var(--status-progress-light); --priority-color: var(--status-progress); --priority-light: var(--status-progress-light);">
+                            <div class="card-header">
+                                <div class="project-priority"></div>
+                            </div>
+                            <h4 class="project-name">Payment Gateway Integration</h4>
+                            <p class="project-desc">Stripe and PayPal integration for subscription billing</p>
+                            <div class="card-meta">
+                                <span class="meta-tag">Payments</span>
+                                <span class="meta-tag">Integration</span>
+                            </div>
+                            <div class="progress-section">
+                                <div class="progress-label">
+                                    <span>Implementation</span>
+                                    <span>45%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 45%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="team-avatars">
+                                    <div class="avatar" style="--avatar-bg: #3B82F6;">DS</div>
+                                    <div class="avatar" style="--avatar-bg: #F59E0B;">EM</div>
+                                </div>
+                                <span class="card-date">Dec 5</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card" style="--card-color: var(--status-progress); --card-color-light: var(--status-progress-light); --priority-color: var(--status-done); --priority-light: var(--status-done-light);">
+                            <div class="card-header">
+                                <div class="project-priority"></div>
+                            </div>
+                            <h4 class="project-name">Email Campaign Builder</h4>
+                            <p class="project-desc">Drag-and-drop editor for marketing email templates</p>
+                            <div class="card-meta">
+                                <span class="meta-tag">Marketing</span>
+                            </div>
+                            <div class="progress-section">
+                                <div class="progress-label">
+                                    <span>Testing</span>
+                                    <span>78%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 78%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="team-avatars">
+                                    <div class="avatar" style="--avatar-bg: #6366F1;">HT</div>
+                                    <div class="avatar" style="--avatar-bg: #EC4899;">FG</div>
+                                </div>
+                                <span class="card-date">Nov 22</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card" style="--card-color: var(--status-progress); --card-color-light: var(--status-progress-light); --priority-color: var(--status-progress); --priority-light: var(--status-progress-light);">
+                            <div class="card-header">
+                                <div class="project-priority"></div>
+                            </div>
+                            <h4 class="project-name">Security Audit Q4</h4>
+                            <p class="project-desc">Comprehensive security review and penetration testing</p>
+                            <div class="card-meta">
+                                <span class="meta-tag">Security</span>
+                                <span class="meta-tag">Audit</span>
+                            </div>
+                            <div class="progress-section">
+                                <div class="progress-label">
+                                    <span>In Review</span>
+                                    <span>55%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 55%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="team-avatars">
+                                    <div class="avatar" style="--avatar-bg: #EF4444;">PS</div>
+                                    <div class="avatar" style="--avatar-bg: #10B981;">QR</div>
+                                </div>
+                                <span class="card-date">Nov 30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AT RISK COLUMN -->
+                <div class="kanban-column">
+                    <div class="column-header">
+                        <div class="column-title">
+                            <h3>⚠️ At Risk</h3>
+                            <span class="column-count" style="--column-bg: var(--status-risk-light); --column-color: var(--status-risk);">3</span>
+                        </div>
+                        <span class="column-menu">⋮</span>
+                    </div>
+                    <div class="project-cards">
+                        <div class="project-card" style="--card-color: var(--status-risk); --card-color-light: var(--status-risk-light); --priority-color: var(--status-blocked); --priority-light: var(--status-blocked-light);">
+                            <div class="card-header">
+                                <div class="project-priority"></div>
+                            </div>
+                            <h4 class="project-name">Legacy System Migration</h4>
+                            <p class="project-desc">Database migration from Oracle to PostgreSQL - delayed by vendor issues</p>
+                            <div class="card-meta">
+                                <span class="meta-tag">Database</span>
+                                <span class="meta-tag">Migration</span>
+                            </div>
+                            <div class="progress-section">
+                                <div class="progress-label">
+                                    <span>Blocked</span>
+                                    <span>35%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 35%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="team-avatars">
+                                    <div class="avatar" style="--avatar-bg: #EF4444;">KL</div>
+                                    <div class="avatar" style="--avatar-bg: #F59E0B;">VM</div>
+                                    <div class="avatar" style="--avatar-bg: #8B5CF6;">OI</div>
+                                </div>
+                                <span class="card-date">Overdue</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card" style="--card-color: var(--status-risk); --card-color-light: var(--status-risk-light); --priority-color: var(--status-risk); --priority-light: var(--status-risk-light);">
+                            <div class="card-header">
+                                <div class="project-priority"></div>
+                            </div>
+                            <h4 class="project-name">Infrastructure Scaling</h4>
+                            <p class="project-desc">Auto-scaling implementation for peak traffic - budget concerns</p>
+                            <div class="card-meta">
+                                <span class="meta-tag">DevOps</span>
+                                <span class="meta-tag">Scaling</span>
+                            </div>
+                            <div class="progress-section">
+                                <div class="progress-label">
+                                    <span>Budget Review</span>
+                                    <span>42%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 42%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="team-avatars">
+                                    <div class="avatar" style="--avatar-bg: #3B82F6;">ZX</div>
+                                    <div class="avatar" style="--avatar-bg: #10B981;">WY</div>
+                                </div>
+                                <span class="card-date">Dec 8</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card" style="--card-color: var(--status-risk); --card-color-light: var(--status-risk-light); --priority-color: var(--status-risk); --priority-light: var(--status-risk-light);">
+                            <div class="card-header">
+                                <div class="project-priority"></div>
+                            </div>
+                            <h4 class="project-name">Mobile Push Notifications</h4>
+                            <p class="project-desc">Real-time alerts for mobile users - technical challenges</p>
+                            <div class="card-meta">
+                                <span class="meta-tag">Mobile</span>
+                                <span class="meta-tag">Notifications</span>
+                            </div>
+                            <div class="progress-section">
+                                <div class="progress-label">
+                                    <span>Troubleshooting</span>
+                                    <span>28%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 28%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="team-avatars">
+                                    <div class="avatar" style="--avatar-bg: #EC4899;">GH</div>
+                                </div>
+                                <span class="card-date">Dec 1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DONE COLUMN -->
+                <div class="kanban-column">
+                    <div class="column-header">
+                        <div class="column-title">
+                            <h3>✅ Done</h3>
+                            <span class="column-count" style="--column-bg: var(--status-done-light); --column-color: var(--status-done);">6</span>
+                        </div>
+                        <span class="column-menu">⋮</span>
+                    </div>
+                    <div class="project-cards">
+                        <div class="project-card" style="--card-color: var(--status-done); --card-color-light: var(--status-done-light); --priority-color: var(--status-done); --priority-light: var(--status-done-light);">
+                            <div class="card-header">
+                                <div class="project-priority"></div>
+                            </div>
+                            <h4 class="project-name">Design System v2.0</h4>
+                            <p class="project-desc">Comprehensive component library with documentation site</p>
+                            <div class="card-meta">
+                                <span class="meta-tag">Design</span>
+                                <span class="meta-tag">Components</span>
+                            </div>
+                            <div class="progress-section">
+                                <div class="progress-label">
+                                    <span>Complete</span>
+                                    <span>100%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="team-avatars">
+                                    <div class="avatar" style="--avatar-bg: #10B981;">AB</div>
+                                    <div class="avatar" style="--avatar-bg: #6366F1;">CD</div>
+                                    <div class="avatar" style="--avatar-bg: #EC4899;">EF</div>
+                                </div>
+                                <span class="card-date">Nov 15</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card" style="--card-color: var(--status-done); --card-color-light: var(--status-done-light); --priority-color: var(--status-done); --priority-light: var(--status-done-light);">
+                            <div class="card-header">
+                                <div class="project-priority"></div>
+                            </div>
+                            <h4 class="project-name">SSO Implementation</h4>
+                            <p class="project-desc">Single sign-on with OAuth2 and SAML support</p>
+                            <div class="card-meta">
+                                <span class="meta-tag">Auth</span>
+                                <span class="meta-tag">Security</span>
+                            </div>
+                            <div class="progress-section">
+                                <div class="progress-label">
+                                    <span>Deployed</span>
+                                    <span>100%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="team-avatars">
+                                    <div class="avatar" style="--avatar-bg: #3B82F6;">UV</div>
+                                    <div class="avatar" style="--avatar-bg: #F59E0B;">ST</div>
+                                </div>
+                                <span class="card-date">Nov 10</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card" style="--card-color: var(--status-done); --card-color-light: var(--status-done-light); --priority-color: var(--status-done); --priority-light: var(--status-done-light);">
+                            <div class="card-header">
+                                <div class="project-priority"></div>
+                            </div>
+                            <h4 class="project-name">Onboarding Flow Redesign</h4>
+                            <p class="project-desc">Streamlined user onboarding with interactive tutorials</p>
+                            <div class="card-meta">
+                                <span class="meta-tag">UX</span>
+                            </div>
+                            <div class="progress-section">
+                                <div class="progress-label">
+                                    <span>Live</span>
+                                    <span>100%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="team-avatars">
+                                    <div class="avatar" style="--avatar-bg: #8B5CF6;">IJ</div>
+                                </div>
+                                <span class="card-date">Nov 8</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card" style="--card-color: var(--status-done); --card-color-light: var(--status-done-light); --priority-color: var(--status-done); --priority-light: var(--status-done-light);">
+                            <div class="card-header">
+                                <div class="project-priority"></div>
+                            </div>
+                            <h4 class="project-name">Search Optimization</h4>
+                            <p class="project-desc">Elasticsearch integration with fuzzy matching and filters</p>
+                            <div class="card-meta">
+                                <span class="meta-tag">Search</span>
+                            </div>
+                            <div class="progress-section">
+                                <div class="progress-label">
+                                    <span>Shipped</span>
+                                    <span>100%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="team-avatars">
+                                    <div class="avatar" style="--avatar-bg: #EF4444;">MN</div>
+                                    <div class="avatar" style="--avatar-bg: #10B981;">OP</div>
+                                </div>
+                                <span class="card-date">Oct 28</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHARTS SECTION -->
+        <section class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">Project Timeline Overview</h3>
+                    <select class="chart-filter">
+                        <option>Q4 2024</option>
+                        <option>Q3 2024</option>
+                        <option>Q2 2024</option>
+                    </select>
+                </div>
+                <div class="timeline-chart">
+                    <div class="timeline-row">
+                        <span class="timeline-label">Customer Portal</span>
+                        <div class="timeline-bar-container">
+                            <div class="timeline-bar" style="--bar-color: var(--status-progress); left: 10%; width: 62%;"></div>
+                        </div>
+                    </div>
+                    <div class="timeline-row">
+                        <span class="timeline-label">Payment Gateway</span>
+                        <div class="timeline-bar-container">
+                            <div class="timeline-bar" style="--bar-color: var(--status-progress); left: 25%; width: 45%;"></div>
+                        </div>
+                    </div>
+                    <div class="timeline-row">
+                        <span class="timeline-label">Email Builder</span>
+                        <div class="timeline-bar-container">
+                            <div class="timeline-bar" style="--bar-color: var(--status-progress); left: 5%; width: 78%;"></div>
+                        </div>
+                    </div>
+                    <div class="timeline-row">
+                        <span class="timeline-label">Legacy Migration</span>
+                        <div class="timeline-bar-container">
+                            <div class="timeline-bar" style="--bar-color: var(--status-risk); left: 15%; width: 35%;"></div>
+                        </div>
+                    </div>
+                    <div class="timeline-row">
+                        <span class="timeline-label">Design System</span>
+                        <div class="timeline-bar-container">
+                            <div class="timeline-bar" style="--bar-color: var(--status-done); left: 0%; width: 100%;"></div>
+                        </div>
+                    </div>
+                    <div class="timeline-row">
+                        <span class="timeline-label">SSO Implementation</span>
+                        <div class="timeline-bar-container">
+                            <div class="timeline-bar" style="--bar-color: var(--status-done); left: 0%; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">Budget Allocation</h3>
+                    <select class="chart-filter">
+                        <option>This Quarter</option>
+                        <option>This Year</option>
+                    </select>
+                </div>
+                <div class="budget-chart">
+                    <div class="budget-bar">
+                        <div class="bar-container">
+                            <div class="bar-fill" style="--bar-gradient: linear-gradient(to top, var(--status-progress), var(--status-progress-light)); height: 85%;"></div>
+                        </div>
+                        <span class="bar-label">Frontend</span>
+                    </div>
+                    <div class="budget-bar">
+                        <div class="bar-container">
+                            <div class="bar-fill" style="--bar-gradient: linear-gradient(to top, var(--status-done), var(--status-done-light)); height: 72%;"></div>
+                        </div>
+                        <span class="bar-label">Backend</span>
+                    </div>
+                    <div class="budget-bar">
+                        <div class="bar-container">
+                            <div class="bar-fill" style="--bar-gradient: linear-gradient(to top, var(--brand-primary), var(--brand-secondary)); height: 95%;"></div>
+                        </div>
+                        <span class="bar-label">Design</span>
+                    </div>
+                    <div class="budget-bar">
+                        <div class="bar-container">
+                            <div class="bar-fill" style="--bar-gradient: linear-gradient(to top, var(--status-risk), var(--status-risk-light)); height: 58%;"></div>
+                        </div>
+                        <span class="bar-label">DevOps</span>
+                    </div>
+                    <div class="budget-bar">
+                        <div class="bar-container">
+                            <div class="bar-fill" style="--bar-gradient: linear-gradient(to top, var(--status-backlog), var(--status-backlog-light)); height: 45%;"></div>
+                        </div>
+                        <span class="bar-label">QA</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DETAILED TABLE -->
+        <section class="table-card">
+            <div class="table-header">
+                <h3 class="table-title">All Projects - Detailed View</h3>
+                <div class="table-actions">
+                    <button class="btn btn-secondary">Export</button>
+                    <button class="btn btn-secondary">Filter</button>
+                </div>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Project Name</th>
+                        <th>Status</th>
+                        <th>Owner</th>
+                        <th>Progress</th>
+                        <th>Budget</th>
+                        <th>Due Date</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="table-project-name">Customer Portal Launch</td>
+                        <td><span class="status-badge progress"><span class="status-dot"></span> In Progress</span></td>
+                        <td>Jessica Wong</td>
+                        <td>
+                            <div class="progress-cell">
+                                <div class="mini-progress">
+                                    <div class="mini-progress-fill" style="--fill-color: var(--status-progress); width: 62%;"></div>
+                                </div>
+                                <span class="progress-text">62%</span>
+                            </div>
+                        </td>
+                        <td>$125K</td>
+                        <td>Nov 28, 2024</td>
+                        <td>High</td>
+                    </tr>
+                    <tr>
+                        <td class="table-project-name">Payment Gateway Integration</td>
+                        <td><span class="status-badge progress"><span class="status-dot"></span> In Progress</span></td>
+                        <td>David Smith</td>
+                        <td>
+                            <div class="progress-cell">
+                                <div class="mini-progress">
+                                    <div class="mini-progress-fill" style="--fill-color: var(--status-progress); width: 45%;"></div>
+                                </div>
+                                <span class="progress-text">45%</span>
+                            </div>
+                        </td>
+                        <td>$95K</td>
+                        <td>Dec 5, 2024</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr>
+                        <td class="table-project-name">Design System v2.0</td>
+                        <td><span class="status-badge done"><span class="status-dot"></span> Done</span></td>
+                        <td>Alex Brown</td>
+                        <td>
+                            <div class="progress-cell">
+                                <div class="mini-progress">
+                                    <div class="mini-progress-fill" style="--fill-color: var(--status-done); width: 100%;"></div>
+                                </div>
+                                <span class="progress-text">100%</span>
+                            </div>
+                        </td>
+                        <td>$88K</td>
+                        <td>Nov 15, 2024</td>
+                        <td>High</td>
+                    </tr>
+                    <tr>
+                        <td class="table-project-name">Legacy System Migration</td>
+                        <td><span class="status-badge risk"><span class="status-dot"></span> At Risk</span></td>
+                        <td>Karen Lee</td>
+                        <td>
+                            <div class="progress-cell">
+                                <div class="mini-progress">
+                                    <div class="mini-progress-fill" style="--fill-color: var(--status-risk); width: 35%;"></div>
+                                </div>
+                                <span class="progress-text">35%</span>
+                            </div>
+                        </td>
+                        <td>$215K</td>
+                        <td>Overdue</td>
+                        <td>Critical</td>
+                    </tr>
+                    <tr>
+                        <td class="table-project-name">Email Campaign Builder</td>
+                        <td><span class="status-badge progress"><span class="status-dot"></span> In Progress</span></td>
+                        <td>Hannah Taylor</td>
+                        <td>
+                            <div class="progress-cell">
+                                <div class="mini-progress">
+                                    <div class="mini-progress-fill" style="--fill-color: var(--status-progress); width: 78%;"></div>
+                                </div>
+                                <span class="progress-text">78%</span>
+                            </div>
+                        </td>
+                        <td>$72K</td>
+                        <td>Nov 22, 2024</td>
+                        <td>Low</td>
+                    </tr>
+                    <tr>
+                        <td class="table-project-name">Mobile App Redesign</td>
+                        <td><span class="status-badge backlog"><span class="status-dot"></span> Backlog</span></td>
+                        <td>Sarah Johnson</td>
+                        <td>
+                            <div class="progress-cell">
+                                <div class="mini-progress">
+                                    <div class="mini-progress-fill" style="--fill-color: var(--status-backlog); width: 15%;"></div>
+                                </div>
+                                <span class="progress-text">15%</span>
+                            </div>
+                        </td>
+                        <td>$180K</td>
+                        <td>Dec 15, 2024</td>
+                        <td>High</td>
+                    </tr>
+                    <tr>
+                        <td class="table-project-name">SSO Implementation</td>
+                        <td><span class="status-badge done"><span class="status-dot"></span> Done</span></td>
+                        <td>Victor Unwin</td>
+                        <td>
+                            <div class="progress-cell">
+                                <div class="mini-progress">
+                                    <div class="mini-progress-fill" style="--fill-color: var(--status-done); width: 100%;"></div>
+                                </div>
+                                <span class="progress-text">100%</span>
+                            </div>
+                        </td>
+                        <td>$105K</td>
+                        <td>Nov 10, 2024</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr>
+                        <td class="table-project-name">Infrastructure Scaling</td>
+                        <td><span class="status-badge risk"><span class="status-dot"></span> At Risk</span></td>
+                        <td>Zack Xerxes</td>
+                        <td>
+                            <div class="progress-cell">
+                                <div class="mini-progress">
+                                    <div class="mini-progress-fill" style="--fill-color: var(--status-risk); width: 42%;"></div>
+                                </div>
+                                <span class="progress-text">42%</span>
+                            </div>
+                        </td>
+                        <td>$245K</td>
+                        <td>Dec 8, 2024</td>
+                        <td>Critical</td>
+                    </tr>
+                    <tr>
+                        <td class="table-project-name">Security Audit Q4</td>
+                        <td><span class="status-badge progress"><span class="status-dot"></span> In Progress</span></td>
+                        <td>Paula Sanders</td>
+                        <td>
+                            <div class="progress-cell">
+                                <div class="mini-progress">
+                                    <div class="mini-progress-fill" style="--fill-color: var(--status-progress); width: 55%;"></div>
+                                </div>
+                                <span class="progress-text">55%</span>
+                            </div>
+                        </td>
+                        <td>$68K</td>
+                        <td>Nov 30, 2024</td>
+                        <td>High</td>
+                    </tr>
+                    <tr>
+                        <td class="table-project-name">API v3 Migration</td>
+                        <td><span class="status-badge backlog"><span class="status-dot"></span> Backlog</span></td>
+                        <td>Robert Davis</td>
+                        <td>
+                            <div class="progress-cell">
+                                <div class="mini-progress">
+                                    <div class="mini-progress-fill" style="--fill-color: var(--status-backlog); width: 8%;"></div>
+                                </div>
+                                <span class="progress-text">8%</span>
+                            </div>
+                        </td>
+                        <td>$155K</td>
+                        <td>Jan 10, 2025</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr>
+                        <td class="table-project-name">Onboarding Flow Redesign</td>
+                        <td><span class="status-badge done"><span class="status-dot"></span> Done</span></td>
+                        <td>Iris Jackson</td>
+                        <td>
+                            <div class="progress-cell">
+                                <div class="mini-progress">
+                                    <div class="mini-progress-fill" style="--fill-color: var(--status-done); width: 100%;"></div>
+                                </div>
+                                <span class="progress-text">100%</span>
+                            </div>
+                        </td>
+                        <td>$52K</td>
+                        <td>Nov 8, 2024</td>
+                        <td>Low</td>
+                    </tr>
+                    <tr>
+                        <td class="table-project-name">Mobile Push Notifications</td>
+                        <td><span class="status-badge risk"><span class="status-dot"></span> At Risk</span></td>
+                        <td>Grace Hall</td>
+                        <td>
+                            <div class="progress-cell">
+                                <div class="mini-progress">
+                                    <div class="mini-progress-fill" style="--fill-color: var(--status-risk); width: 28%;"></div>
+                                </div>
+                                <span class="progress-text">28%</span>
+                            </div>
+                        </td>
+                        <td>$42K</td>
+                        <td>Dec 1, 2024</td>
+                        <td>High</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">T</div>
+                <p class="footer-text">Designed by <strong>TEEQA</strong> • Portfolio Command Center • Round 2 Light Mode</p>
+            </div>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Documentation</a>
+                <a href="#" class="footer-link">Settings</a>
+                <a href="#" class="footer-link">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Lightweight interactions for delightful UX
+
+        // Card tilt effect on mouse move
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', function(e) {
+                this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+
+            card.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+
+                this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+            });
+        });
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Metric cards animation on page load
+        window.addEventListener('load', function() {
+            const metrics = document.querySelectorAll('.metric-card');
+            metrics.forEach((metric, index) => {
+                setTimeout(() => {
+                    metric.style.opacity = '0';
+                    metric.style.transform = 'translateY(20px)';
+                    metric.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+
+                    setTimeout(() => {
+                        metric.style.opacity = '1';
+                        metric.style.transform = 'translateY(0)';
+                    }, 50);
+                }, index * 100);
+            });
+        });
+
+        // Table row highlight
+        document.querySelectorAll('.data-table tbody tr').forEach(row => {
+            row.addEventListener('click', function() {
+                document.querySelectorAll('.data-table tbody tr').forEach(r => {
+                    r.style.background = '';
+                });
+                this.style.background = 'var(--bg-tertiary)';
+            });
+        });
+
+        // View controls toggle
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Progress bar animation on scroll into view
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const progressObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressFills = entry.target.querySelectorAll('.progress-fill, .mini-progress-fill, .bar-fill');
+                    progressFills.forEach(fill => {
+                        const width = fill.style.width || fill.style.height;
+                        fill.style.width = '0';
+                        fill.style.height = '0';
+                        setTimeout(() => {
+                            fill.style.width = width.includes('%') ? width : '';
+                            fill.style.height = !width.includes('%') ? width : '';
+                        }, 100);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card, .data-table, .chart-card').forEach(el => {
+            progressObserver.observe(el);
+        });
+
+        // Search box focus effect
+        const searchInput = document.querySelector('.search-box input');
+        searchInput.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'scale(1.02)';
+            this.parentElement.style.transition = 'transform 0.2s ease';
+        });
+
+        searchInput.addEventListener('blur', function() {
+            this.parentElement.style.transform = 'scale(1)';
+        });
+
+        // Button ripple effect
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s ease-out';
+                ripple.style.pointerEvents = 'none';
+
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        console.log('🎨 TEEQA Portfolio Command Center - Round 2 Light Mode loaded successfully!');
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dark Ops Command Center | Teeqa v2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Agent: Teeqa | Theme: Dark Ops Command Center | Intent: Mission-critical monitoring dashboard with dark aesthetic -->
+  <style>
+    :root { --black: #050509; --dark: #0a0d14; --panel: #0f1218; --cyan: #00f5ff; --lime: #39ff14; --magenta: #ff006e; --red: #ff073a; --text: #e0e6ed; --dim: #6b7280; --accent: #ff006e; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    body { font-family: 'Courier New', monospace; background: var(--black); color: var(--text); min-height: 100vh; }
+    body::before { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,245,255,0.02) 2px, rgba(0,245,255,0.02) 4px); pointer-events: none; }
+    .app { max-width: 1800px; margin: 0 auto; padding: 30px; position: relative; z-index: 1; }
+    .top { background: rgba(15,18,24,0.8); border: 1px solid rgba(0,245,255,0.2); padding: 18px 24px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+    .brand { font-size: 18px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; }
+    .brand span { display: block; font-size: 9px; color: var(--dim); margin-top: 4px; letter-spacing: 1px; }
+    .meta { text-align: right; font-size: 10px; color: var(--dim); }
+    .agent { display: inline-block; margin-top: 6px; padding: 4px 10px; background: rgba(255,0,110,0.15); border: 1px solid var(--accent); font-size: 9px; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; }
+    .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+    .kpi { background: rgba(15,18,24,0.8); border: 1px solid rgba(0,245,255,0.15); border-left: 2px solid var(--accent); padding: 16px; }
+    .kpi-label { font-size: 9px; color: var(--dim); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+    .kpi-value { font-size: 32px; font-weight: 700; color: var(--accent); margin-bottom: 6px; line-height: 1; text-shadow: 0 0 8px var(--accent); }
+    .kpi-delta { font-size: 11px; color: var(--lime); }
+    .kpi-meta { font-size: 9px; color: var(--dim); margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(107,114,128,0.2); }
+    .panels { display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; margin-bottom: 20px; }
+    .panel { background: rgba(15,18,24,0.8); border: 1px solid rgba(0,245,255,0.15); padding: 20px; }
+    .panel-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; }
+    .chart { height: 240px; background: linear-gradient(180deg, rgba(0,245,255,0.04), transparent); border: 1px dashed rgba(0,245,255,0.2); position: relative; }
+    .chart-line { position: absolute; bottom: 10%; left: 6%; right: 6%; height: 58%; border: 2px solid var(--accent); clip-path: polygon(0 100%, 0 48%, 25% 58%, 50% 32%, 75% 38%, 100% 18%, 100% 100%); filter: drop-shadow(0 0 12px var(--accent)); }
+    .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .data-item { display: flex; justify-content: space-between; padding: 8px; background: rgba(10,13,20,0.6); font-size: 10px; }
+    .data-label { color: var(--dim); }
+    .data-value { color: var(--text); font-weight: 600; }
+    .table { width: 100%; border-collapse: collapse; font-size: 11px; }
+    .table thead { border-bottom: 1px solid rgba(0,245,255,0.2); }
+    .table th { padding: 10px; text-align: left; font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); font-weight: 700; }
+    .table td { padding: 10px; border-bottom: 1px solid rgba(107,114,128,0.1); color: var(--dim); }
+    .table .primary { color: var(--text); font-weight: 600; }
+    .status { padding: 3px 8px; font-size: 9px; text-transform: uppercase; font-weight: 700; }
+    .status.on { background: rgba(57,255,20,0.15); color: var(--lime); border: 1px solid rgba(57,255,20,0.3); }
+    .status.off { background: rgba(255,7,58,0.15); color: var(--red); border: 1px solid rgba(255,7,58,0.3); }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="top">
+      <div class="brand">MONITORING.INTERFACE<span>Teeqa Operations Dashboard</span></div>
+      <div class="meta"><div>Q4 2025 MONITORING</div><div>OCT 1 – DEC 31, 2025</div><div class="agent">Teeqa · Round 2</div></div>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><div class="kpi-label">Uptime</div><div class="kpi-value">99.96%</div><div class="kpi-delta">↑ 0.06%</div><div class="kpi-meta">SLA: 99.9%</div></div>
+      <div class="kpi"><div class="kpi-label">Throughput</div><div class="kpi-value">7.2M</div><div class="kpi-delta">↑ 18.4%</div><div class="kpi-meta">REQ/HR</div></div>
+      <div class="kpi"><div class="kpi-label">Response</div><div class="kpi-value">48ms</div><div class="kpi-delta">↓ 12ms</div><div class="kpi-meta">P95 LATENCY</div></div>
+      <div class="kpi"><div class="kpi-label">Errors</div><div class="kpi-value">0.02%</div><div class="kpi-delta">↓ 0.03%</div><div class="kpi-meta">ERROR RATE</div></div>
+    </div>
+    <div class="panels">
+      <div class="panel"><div class="panel-title">System Metrics</div><div class="chart"><div class="chart-line"></div></div></div>
+      <div class="panel"><div class="panel-title">System Health</div><div class="data-grid">
+        <div class="data-item"><span class="data-label">CPU</span><span class="data-value">42%</span></div>
+        <div class="data-item"><span class="data-label">Memory</span><span class="data-value">68%</span></div>
+        <div class="data-item"><span class="data-label">Disk</span><span class="data-value">54%</span></div>
+        <div class="data-item"><span class="data-label">Network</span><span class="data-value">2.4GB/s</span></div>
+        <div class="data-item"><span class="data-label">Requests</span><span class="data-value">8.2M</span></div>
+        <div class="data-item"><span class="data-label">Errors</span><span class="data-value">124</span></div>
+      </div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Service Status</div>
+      <table class="table">
+        <thead><tr><th>SERVICE</th><th>REGION</th><th>UPTIME</th><th>LATENCY</th><th>STATUS</th></tr></thead>
+        <tbody>
+          <tr><td class="primary">Core API</td><td>US-EAST-1</td><td>99.99%</td><td>36ms</td><td><span class="status on">ONLINE</span></td></tr>
+          <tr><td class="primary">Database</td><td>US-WEST-2</td><td>99.98%</td><td>14ms</td><td><span class="status on">ONLINE</span></td></tr>
+          <tr><td class="primary">Cache Layer</td><td>EU-WEST-1</td><td>100.00%</td><td>8ms</td><td><span class="status on">ONLINE</span></td></tr>
+          <tr><td class="primary">Worker Queue</td><td>AP-SOUTH-1</td><td>99.96%</td><td>52ms</td><td><span class="status on">ONLINE</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

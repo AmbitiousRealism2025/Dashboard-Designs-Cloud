@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Modern Startup Pitch Dashboard | Zeeqa v2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Agent: Zeeqa | Theme: Modern Startup Pitch | Intent: Minimalist startup dashboard with refined gradient accents and typographic clarity -->
+  <style>
+    :root {
+      --white: #ffffff;
+      --off-white: #fafbfc;
+      --purple: #6366f1;
+      --text: #18181b;
+      --mid: #71717a;
+      --light: #a1a1aa;
+      --border: #e4e4e7;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--off-white);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 60px 80px;
+    }
+
+    .header {
+      margin-bottom: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 30px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, var(--purple), #818cf8);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 26px;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .title {
+      font-size: 42px;
+      font-weight: 300;
+      letter-spacing: -1px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: var(--mid);
+    }
+
+    .meta {
+      text-align: right;
+      font-size: 14px;
+      color: var(--mid);
+    }
+
+    .agent {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 14px;
+      background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(129,140,248,0.1));
+      border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 6px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--purple);
+      font-weight: 600;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .metric {
+      position: relative;
+    }
+
+    .metric::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 0;
+      width: 32px;
+      height: 2px;
+      background: var(--purple);
+    }
+
+    .metric-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--mid);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .metric-value {
+      font-size: 52px;
+      font-weight: 200;
+      letter-spacing: -2px;
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+
+    .metric-change {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--purple);
+    }
+
+    .metric-note {
+      font-size: 12px;
+      color: var(--light);
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .block-title {
+      font-size: 18px;
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+
+    .chart-frame {
+      height: 300px;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .chart-line {
+      position: absolute;
+      bottom: 12%;
+      left: 6%;
+      right: 6%;
+      height: 55%;
+      background: linear-gradient(135deg, var(--purple), #818cf8);
+      clip-path: polygon(0 100%, 0 50%, 22% 60%, 42% 32%, 62% 42%, 82% 22%, 100% 18%, 100% 100%);
+      opacity: 0.85;
+    }
+
+    .insights {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .insight {
+      padding: 20px 0;
+      border-left: 2px solid var(--purple);
+      padding-left: 16px;
+    }
+
+    .insight-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .insight-body {
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .table thead {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .table th {
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--purple);
+      font-weight: 600;
+    }
+
+    .table td {
+      padding: 16px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--mid);
+    }
+
+    .table .primary {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .status {
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .status.go {
+      background: rgba(99,102,241,0.1);
+      color: var(--purple);
+    }
+
+    @media (max-width: 1200px) {
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+      .content { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div>
+        <div class="logo">Z</div>
+        <h1 class="title">Growth Dashboard</h1>
+        <p class="subtitle">Startup Performance · Q4 2025</p>
+      </div>
+      <div class="meta">
+        <div>October – December 2025</div>
+        <div>Live Metrics</div>
+        <div class="agent">Zeeqa · Round 2</div>
+      </div>
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-label">Revenue</div>
+        <div class="metric-value">$380K</div>
+        <div class="metric-change">+31.2%</div>
+        <div class="metric-note">Monthly recurring</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Users</div>
+        <div class="metric-value">14.8K</div>
+        <div class="metric-change">+26.4%</div>
+        <div class="metric-note">Active accounts</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Conversion</div>
+        <div class="metric-value">9.2%</div>
+        <div class="metric-change">+1.8 pts</div>
+        <div class="metric-note">Trial to paid</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Retention</div>
+        <div class="metric-value">94%</div>
+        <div class="metric-change">+2.1 pts</div>
+        <div class="metric-note">90-day cohort</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div>
+        <h2 class="block-title">Revenue Growth</h2>
+        <div class="chart-frame">
+          <div class="chart-line"></div>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="block-title">Key Insights</h2>
+        <div class="insights">
+          <div class="insight">
+            <div class="insight-title">Strong Growth Momentum</div>
+            <div class="insight-body">Revenue acceleration driven by improved conversion and expansion revenue.</div>
+          </div>
+          <div class="insight">
+            <div class="insight-title">Product Market Fit</div>
+            <div class="insight-body">High retention indicates strong value delivery and user satisfaction.</div>
+          </div>
+          <div class="insight">
+            <div class="insight-title">Efficient Scaling</div>
+            <div class="insight-body">CAC payback period reduced to 4.8 months enabling rapid growth.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="block-title">Growth Initiatives</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Initiative</th>
+            <th>Owner</th>
+            <th>Impact</th>
+            <th>Progress</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="primary">Self-Serve Platform</td>
+            <td>Product</td>
+            <td>$140K MRR</td>
+            <td>89%</td>
+            <td><span class="status go">Active</span></td>
+          </tr>
+          <tr>
+            <td class="primary">Enterprise Program</td>
+            <td>Sales</td>
+            <td>$105K MRR</td>
+            <td>84%</td>
+            <td><span class="status go">Active</span></td>
+          </tr>
+          <tr>
+            <td class="primary">Referral System</td>
+            <td>Growth</td>
+            <td>$72K MRR</td>
+            <td>76%</td>
+            <td><span class="status go">Active</span></td>
+          </tr>
+          <tr>
+            <td class="primary">Content Strategy</td>
+            <td>Marketing</td>
+            <td>$63K MRR</td>
+            <td>68%</td>
+            <td><span class="status go">Active</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

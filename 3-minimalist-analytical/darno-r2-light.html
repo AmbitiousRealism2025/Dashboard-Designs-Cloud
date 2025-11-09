@@ -1,0 +1,1591 @@
+<!-- Agent: Darno | Round: 2 - Light Mode Masterpiece | Theme: Minimalist Analytical | Intent: Maximum data density with spreadsheet precision - analysts' dream dashboard -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darno - Minimalist Analytical Dashboard</title>
+    <style>
+        /* ===== CSS RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+        }
+
+        :root {
+            /* Grayscale Palette */
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #eeeeee;
+            --gray-300: #e0e0e0;
+            --gray-400: #bdbdbd;
+            --gray-500: #9e9e9e;
+            --gray-600: #757575;
+            --gray-700: #616161;
+            --gray-800: #424242;
+            --gray-900: #212121;
+
+            /* Single Accent Color - Blue */
+            --accent-blue: #2962ff;
+            --accent-blue-light: #768fff;
+            --accent-blue-dark: #0039cb;
+
+            /* Semantic Colors (muted) */
+            --success-muted: #66bb6a;
+            --warning-muted: #ffa726;
+            --danger-muted: #ef5350;
+
+            /* Typography */
+            --font-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+
+            /* Spacing (tight) */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 12px;
+            --space-lg: 16px;
+            --space-xl: 24px;
+            --space-2xl: 32px;
+
+            /* Borders */
+            --border-thin: 1px solid var(--gray-300);
+            --border-accent: 1px solid var(--accent-blue);
+        }
+
+        body {
+            font-family: var(--font-base);
+            font-size: 13px;
+            line-height: 1.4;
+            color: var(--gray-900);
+            background: var(--gray-50);
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: white;
+            border-bottom: var(--border-thin);
+            padding: var(--space-md) var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+
+        .header-logo {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--gray-900);
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border: var(--border-thin);
+            background: var(--gray-100);
+        }
+
+        .header-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .header-subtitle {
+            font-size: 11px;
+            color: var(--gray-600);
+            margin-left: var(--space-sm);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+
+        .header-meta {
+            font-size: 11px;
+            color: var(--gray-600);
+            font-family: var(--font-mono);
+        }
+
+        .header-btn {
+            padding: 6px 12px;
+            font-size: 11px;
+            border: var(--border-thin);
+            background: white;
+            color: var(--gray-700);
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .header-btn:hover {
+            background: var(--gray-100);
+        }
+
+        .header-btn.primary {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+
+        .header-btn.primary:hover {
+            background: var(--accent-blue-dark);
+        }
+
+        /* ===== MAIN LAYOUT ===== */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+        }
+
+        /* ===== KPI STRIP ===== */
+        .kpi-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .kpi-card {
+            background: white;
+            border: var(--border-thin);
+            padding: var(--space-md);
+        }
+
+        .kpi-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-600);
+            margin-bottom: var(--space-xs);
+            font-weight: 600;
+        }
+
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gray-900);
+            font-family: var(--font-mono);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-delta {
+            font-size: 11px;
+            font-family: var(--font-mono);
+            font-weight: 500;
+        }
+
+        .kpi-delta.positive { color: var(--success-muted); }
+        .kpi-delta.negative { color: var(--danger-muted); }
+        .kpi-delta.neutral { color: var(--gray-600); }
+
+        .kpi-meta {
+            font-size: 10px;
+            color: var(--gray-500);
+            margin-top: var(--space-xs);
+        }
+
+        .kpi-sparkline {
+            height: 24px;
+            margin-top: var(--space-sm);
+            background: linear-gradient(to right,
+                var(--gray-200) 0%,
+                var(--gray-200) 20%,
+                var(--accent-blue-light) 50%,
+                var(--accent-blue) 100%);
+            opacity: 0.3;
+        }
+
+        /* ===== SECTION GRID ===== */
+        .section-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .section {
+            background: white;
+            border: var(--border-thin);
+        }
+
+        .section-header {
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: var(--border-thin);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--gray-50);
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-900);
+        }
+
+        .section-action {
+            font-size: 10px;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .section-action:hover {
+            text-decoration: underline;
+        }
+
+        .section-body {
+            padding: var(--space-lg);
+        }
+
+        /* ===== DATA TABLE ===== */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+
+        .data-table thead {
+            background: var(--gray-100);
+        }
+
+        .data-table th {
+            padding: 6px 8px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: var(--gray-700);
+            border-bottom: var(--border-thin);
+        }
+
+        .data-table th.align-right,
+        .data-table td.align-right {
+            text-align: right;
+        }
+
+        .data-table th.align-center,
+        .data-table td.align-center {
+            text-align: center;
+        }
+
+        .data-table tbody tr {
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--gray-50);
+        }
+
+        .data-table td {
+            padding: 8px;
+            color: var(--gray-900);
+            font-family: var(--font-mono);
+        }
+
+        .data-table td.label {
+            font-family: var(--font-base);
+            font-weight: 500;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 2px 6px;
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border: var(--border-thin);
+        }
+
+        .status-pill.success {
+            color: var(--success-muted);
+            border-color: var(--success-muted);
+            background: rgba(102, 187, 106, 0.05);
+        }
+
+        .status-pill.warning {
+            color: var(--warning-muted);
+            border-color: var(--warning-muted);
+            background: rgba(255, 167, 38, 0.05);
+        }
+
+        .status-pill.danger {
+            color: var(--danger-muted);
+            border-color: var(--danger-muted);
+            background: rgba(239, 83, 80, 0.05);
+        }
+
+        .status-pill.neutral {
+            color: var(--gray-600);
+            border-color: var(--gray-400);
+            background: var(--gray-100);
+        }
+
+        /* ===== CHART PLACEHOLDER ===== */
+        .chart-container {
+            height: 280px;
+            position: relative;
+            background: white;
+            border: var(--border-thin);
+            padding: var(--space-lg);
+        }
+
+        .chart-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: var(--space-md);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .chart-canvas {
+            height: calc(100% - 30px);
+            position: relative;
+            background:
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent,
+                    transparent 19.5%,
+                    var(--gray-200) 19.5%,
+                    var(--gray-200) 20%
+                );
+        }
+
+        .chart-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to bottom,
+                transparent 0%,
+                rgba(41, 98, 255, 0.03) 100%);
+            clip-path: polygon(
+                0% 80%,
+                10% 75%,
+                20% 60%,
+                30% 65%,
+                40% 45%,
+                50% 40%,
+                60% 30%,
+                70% 25%,
+                80% 20%,
+                90% 15%,
+                100% 10%,
+                100% 100%,
+                0% 100%
+            );
+        }
+
+        .chart-line-stroke {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            border-top: 2px solid var(--accent-blue);
+            clip-path: polygon(
+                0% 80%,
+                10% 75%,
+                20% 60%,
+                30% 65%,
+                40% 45%,
+                50% 40%,
+                60% 30%,
+                70% 25%,
+                80% 20%,
+                90% 15%,
+                100% 10%
+            );
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 100%;
+            gap: 2px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: var(--gray-300);
+            position: relative;
+        }
+
+        .chart-bar.accent {
+            background: var(--accent-blue);
+        }
+
+        .chart-bar:hover {
+            opacity: 0.7;
+        }
+
+        /* ===== COMPACT METRICS GRID ===== */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--gray-300);
+            border: var(--border-thin);
+        }
+
+        .metric-cell {
+            background: white;
+            padding: var(--space-md);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .metric-cell-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            color: var(--gray-600);
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .metric-cell-value {
+            font-size: 20px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            color: var(--gray-900);
+        }
+
+        .metric-cell-value.accent {
+            color: var(--accent-blue);
+        }
+
+        .metric-cell-sub {
+            font-size: 10px;
+            color: var(--gray-500);
+            font-family: var(--font-mono);
+        }
+
+        /* ===== THREE COLUMN GRID ===== */
+        .three-col-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+        }
+
+        /* ===== DENSE LIST ===== */
+        .dense-list {
+            list-style: none;
+        }
+
+        .dense-list-item {
+            padding: var(--space-sm);
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+        }
+
+        .dense-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .dense-list-item:hover {
+            background: var(--gray-50);
+        }
+
+        .dense-list-label {
+            color: var(--gray-900);
+            font-weight: 500;
+        }
+
+        .dense-list-value {
+            font-family: var(--font-mono);
+            color: var(--gray-700);
+            font-weight: 600;
+        }
+
+        .dense-list-value.accent {
+            color: var(--accent-blue);
+        }
+
+        /* ===== MINI STATS ROW ===== */
+        .mini-stats-row {
+            display: flex;
+            gap: 1px;
+            background: var(--gray-300);
+            border: var(--border-thin);
+            margin-bottom: var(--space-lg);
+        }
+
+        .mini-stat {
+            flex: 1;
+            background: white;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .mini-stat-value {
+            font-size: 16px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            color: var(--gray-900);
+        }
+
+        .mini-stat-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            color: var(--gray-600);
+            margin-top: 2px;
+            font-weight: 600;
+        }
+
+        /* ===== COMPARISON TABLE ===== */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10px;
+        }
+
+        .comparison-table th {
+            padding: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 9px;
+            color: var(--gray-700);
+            border-bottom: var(--border-thin);
+            background: var(--gray-100);
+        }
+
+        .comparison-table td {
+            padding: 6px;
+            border-bottom: 1px solid var(--gray-200);
+            font-family: var(--font-mono);
+            color: var(--gray-900);
+        }
+
+        .comparison-table tr:hover {
+            background: var(--gray-50);
+        }
+
+        .comparison-label {
+            font-family: var(--font-base);
+            font-weight: 500;
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-bar-container {
+            height: 4px;
+            background: var(--gray-200);
+            margin-top: var(--space-xs);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--accent-blue);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: white;
+            border-top: var(--border-thin);
+            padding: var(--space-lg) var(--space-xl);
+            margin-top: var(--space-2xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            color: var(--gray-600);
+        }
+
+        .footer-agent {
+            font-weight: 700;
+            color: var(--gray-900);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-meta {
+            font-family: var(--font-mono);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 960px) {
+            .section-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .three-col-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-strip {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: var(--space-md);
+            }
+
+            .kpi-strip {
+                grid-template-columns: 1fr;
+            }
+
+            .header-left,
+            .header-right {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-sm);
+            }
+
+            .mini-stats-row {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .text-accent { color: var(--accent-blue); }
+        .text-muted { color: var(--gray-600); }
+        .font-mono { font-family: var(--font-mono); }
+        .font-bold { font-weight: 700; }
+        .text-upper { text-transform: uppercase; }
+        .mb-0 { margin-bottom: 0; }
+        .mb-sm { margin-bottom: var(--space-sm); }
+        .mb-md { margin-bottom: var(--space-md); }
+        .mb-lg { margin-bottom: var(--space-lg); }
+        .mb-xl { margin-bottom: var(--space-xl); }
+
+        /* ===== DETAILED DATA GRID ===== */
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1px;
+            background: var(--gray-300);
+            border: var(--border-thin);
+        }
+
+        .data-grid-cell {
+            background: white;
+            padding: 8px;
+        }
+
+        .data-grid-cell-label {
+            font-size: 9px;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .data-grid-cell-value {
+            font-size: 14px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            color: var(--gray-900);
+        }
+
+        /* ===== ANALYTICAL INSIGHTS ===== */
+        .insight-box {
+            background: var(--gray-100);
+            border-left: 3px solid var(--accent-blue);
+            padding: var(--space-md);
+            font-size: 11px;
+            line-height: 1.5;
+            color: var(--gray-800);
+        }
+
+        .insight-title {
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-left">
+            <div class="header-logo">DARNO</div>
+            <div>
+                <span class="header-title">Executive Operations Dashboard</span>
+                <span class="header-subtitle">Q4 2025 Performance Analysis</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <span class="header-meta">Last Updated: 2025-11-09 14:32:18 UTC</span>
+            <button class="header-btn">Export Data</button>
+            <button class="header-btn primary">Configure</button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+
+        <!-- KPI STRIP -->
+        <div class="kpi-strip">
+            <div class="kpi-card">
+                <div class="kpi-label">Total Revenue</div>
+                <div class="kpi-value">$8.42M</div>
+                <div class="kpi-delta positive">+12.4% MoM</div>
+                <div class="kpi-meta">Target: $8.2M (102.7%)</div>
+                <div class="kpi-sparkline"></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Active Users</div>
+                <div class="kpi-value">47,293</div>
+                <div class="kpi-delta positive">+8.1% WoW</div>
+                <div class="kpi-meta">Peak: 52,847 (Oct 18)</div>
+                <div class="kpi-sparkline"></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Conversion Rate</div>
+                <div class="kpi-value">3.84%</div>
+                <div class="kpi-delta negative">-0.3% MoM</div>
+                <div class="kpi-meta">Industry Avg: 3.2%</div>
+                <div class="kpi-sparkline"></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">CLTV</div>
+                <div class="kpi-value">$1,847</div>
+                <div class="kpi-delta positive">+5.2% QoQ</div>
+                <div class="kpi-meta">CAC: $342 (5.4x)</div>
+                <div class="kpi-sparkline"></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Churn Rate</div>
+                <div class="kpi-value">2.14%</div>
+                <div class="kpi-delta positive">-0.8% MoM</div>
+                <div class="kpi-meta">12Mo Avg: 2.6%</div>
+                <div class="kpi-sparkline"></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Net Margin</div>
+                <div class="kpi-value">24.8%</div>
+                <div class="kpi-delta neutral">+0.1% MoM</div>
+                <div class="kpi-meta">EBITDA: $2.09M</div>
+                <div class="kpi-sparkline"></div>
+            </div>
+        </div>
+
+        <!-- PRIMARY SECTION GRID -->
+        <div class="section-grid">
+            <!-- REVENUE BREAKDOWN TABLE -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">Revenue Breakdown by Segment</div>
+                    <a href="#" class="section-action">View Details →</a>
+                </div>
+                <div class="section-body" style="padding: 0;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Segment</th>
+                                <th class="align-right">Oct 2025</th>
+                                <th class="align-right">Sep 2025</th>
+                                <th class="align-right">MoM Δ</th>
+                                <th class="align-right">% Total</th>
+                                <th class="align-right">Target</th>
+                                <th class="align-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="label">Enterprise</td>
+                                <td class="align-right">$3,847,250</td>
+                                <td class="align-right">$3,421,100</td>
+                                <td class="align-right">+12.5%</td>
+                                <td class="align-right">45.7%</td>
+                                <td class="align-right">$3,600,000</td>
+                                <td class="align-center"><span class="status-pill success">On Track</span></td>
+                            </tr>
+                            <tr>
+                                <td class="label">Mid-Market</td>
+                                <td class="align-right">$2,134,800</td>
+                                <td class="align-right">$1,982,500</td>
+                                <td class="align-right">+7.7%</td>
+                                <td class="align-right">25.4%</td>
+                                <td class="align-right">$2,100,000</td>
+                                <td class="align-center"><span class="status-pill success">On Track</span></td>
+                            </tr>
+                            <tr>
+                                <td class="label">SMB</td>
+                                <td class="align-right">$1,621,450</td>
+                                <td class="align-right">$1,547,200</td>
+                                <td class="align-right">+4.8%</td>
+                                <td class="align-right">19.3%</td>
+                                <td class="align-right">$1,700,000</td>
+                                <td class="align-center"><span class="status-pill warning">Below</span></td>
+                            </tr>
+                            <tr>
+                                <td class="label">Self-Serve</td>
+                                <td class="align-right">$816,500</td>
+                                <td class="align-right">$799,200</td>
+                                <td class="align-right">+2.2%</td>
+                                <td class="align-right">9.7%</td>
+                                <td class="align-right">$800,000</td>
+                                <td class="align-center"><span class="status-pill success">On Track</span></td>
+                            </tr>
+                            <tr style="background: var(--gray-100); font-weight: 700;">
+                                <td class="label">Total</td>
+                                <td class="align-right">$8,420,000</td>
+                                <td class="align-right">$7,750,000</td>
+                                <td class="align-right">+8.6%</td>
+                                <td class="align-right">100.0%</td>
+                                <td class="align-right">$8,200,000</td>
+                                <td class="align-center"><span class="status-pill success">On Track</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- METRICS GRID -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">Key Performance Indicators</div>
+                    <a href="#" class="section-action">Customize →</a>
+                </div>
+                <div class="section-body">
+                    <div class="metrics-grid">
+                        <div class="metric-cell">
+                            <div class="metric-cell-label">MRR</div>
+                            <div class="metric-cell-value accent">$842K</div>
+                            <div class="metric-cell-sub">+$94K MoM</div>
+                        </div>
+                        <div class="metric-cell">
+                            <div class="metric-cell-label">ARR</div>
+                            <div class="metric-cell-value">$10.1M</div>
+                            <div class="metric-cell-sub">+$1.1M YoY</div>
+                        </div>
+                        <div class="metric-cell">
+                            <div class="metric-cell-label">Gross Margin</div>
+                            <div class="metric-cell-value">78.4%</div>
+                            <div class="metric-cell-sub">-0.2% MoM</div>
+                        </div>
+                        <div class="metric-cell">
+                            <div class="metric-cell-label">Net Margin</div>
+                            <div class="metric-cell-value">24.8%</div>
+                            <div class="metric-cell-sub">+0.1% MoM</div>
+                        </div>
+                        <div class="metric-cell">
+                            <div class="metric-cell-label">CAC</div>
+                            <div class="metric-cell-value">$342</div>
+                            <div class="metric-cell-sub">-$18 MoM</div>
+                        </div>
+                        <div class="metric-cell">
+                            <div class="metric-cell-label">Payback</div>
+                            <div class="metric-cell-value accent">4.2mo</div>
+                            <div class="metric-cell-sub">-0.3mo MoM</div>
+                        </div>
+                        <div class="metric-cell">
+                            <div class="metric-cell-label">NPS</div>
+                            <div class="metric-cell-value">68</div>
+                            <div class="metric-cell-sub">+3 pts MoM</div>
+                        </div>
+                        <div class="metric-cell">
+                            <div class="metric-cell-label">CSAT</div>
+                            <div class="metric-cell-value">4.6/5.0</div>
+                            <div class="metric-cell-sub">+0.1 MoM</div>
+                        </div>
+                    </div>
+
+                    <div class="insight-box mb-md" style="margin-top: 16px;">
+                        <div class="insight-title">Key Insight</div>
+                        CAC reduction of $18 driven by improved organic acquisition (SEO +31% MoM). Payback period decreased to 4.2 months, below target of 5.0 months.
+                    </div>
+
+                    <div class="mini-stats-row">
+                        <div class="mini-stat">
+                            <div class="mini-stat-value">127</div>
+                            <div class="mini-stat-label">New Deals</div>
+                        </div>
+                        <div class="mini-stat">
+                            <div class="mini-stat-value">94.2%</div>
+                            <div class="mini-stat-label">Uptime</div>
+                        </div>
+                        <div class="mini-stat">
+                            <div class="mini-stat-value">38min</div>
+                            <div class="mini-stat-label">Avg Response</div>
+                        </div>
+                        <div class="mini-stat">
+                            <div class="mini-stat-value">847</div>
+                            <div class="mini-stat-label">Support Tickets</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- THREE COLUMN SECTION -->
+        <div class="three-col-grid">
+            <!-- CHART 1: TREND ANALYSIS -->
+            <div class="chart-container">
+                <div class="chart-title">Revenue Trend (Last 90 Days)</div>
+                <div class="chart-canvas">
+                    <div class="chart-line"></div>
+                    <div class="chart-line-stroke"></div>
+                </div>
+            </div>
+
+            <!-- CHART 2: SEGMENT DISTRIBUTION -->
+            <div class="chart-container">
+                <div class="chart-title">Segment Distribution (Oct 2025)</div>
+                <div class="chart-canvas">
+                    <div class="chart-bars">
+                        <div class="chart-bar accent" style="height: 88%;"></div>
+                        <div class="chart-bar" style="height: 52%;"></div>
+                        <div class="chart-bar" style="height: 38%;"></div>
+                        <div class="chart-bar" style="height: 19%;"></div>
+                        <div class="chart-bar accent" style="height: 72%;"></div>
+                        <div class="chart-bar" style="height: 61%;"></div>
+                        <div class="chart-bar" style="height: 45%;"></div>
+                        <div class="chart-bar accent" style="height: 94%;"></div>
+                        <div class="chart-bar" style="height: 58%;"></div>
+                        <div class="chart-bar" style="height: 42%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHART 3: CONVERSION FUNNEL -->
+            <div class="chart-container">
+                <div class="chart-title">Conversion Funnel (Oct 2025)</div>
+                <div class="chart-canvas">
+                    <div class="chart-bars">
+                        <div class="chart-bar accent" style="height: 100%;"></div>
+                        <div class="chart-bar accent" style="height: 78%;"></div>
+                        <div class="chart-bar accent" style="height: 56%;"></div>
+                        <div class="chart-bar accent" style="height: 38%;"></div>
+                        <div class="chart-bar accent" style="height: 24%;"></div>
+                        <div class="chart-bar" style="height: 45%;"></div>
+                        <div class="chart-bar" style="height: 62%;"></div>
+                        <div class="chart-bar" style="height: 51%;"></div>
+                        <div class="chart-bar" style="height: 33%;"></div>
+                        <div class="chart-bar" style="height: 28%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DETAILED PERFORMANCE TABLES -->
+        <div class="section-grid">
+            <!-- REGIONAL PERFORMANCE -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">Regional Performance Analysis</div>
+                    <a href="#" class="section-action">Export CSV →</a>
+                </div>
+                <div class="section-body" style="padding: 0;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Region</th>
+                                <th class="align-right">Revenue</th>
+                                <th class="align-right">Growth</th>
+                                <th class="align-right">Customers</th>
+                                <th class="align-right">ARPU</th>
+                                <th class="align-right">Churn</th>
+                                <th class="align-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="label">North America</td>
+                                <td class="align-right">$4,294,200</td>
+                                <td class="align-right">+14.2%</td>
+                                <td class="align-right">1,847</td>
+                                <td class="align-right">$2,325</td>
+                                <td class="align-right">1.8%</td>
+                                <td class="align-center"><span class="status-pill success">Excellent</span></td>
+                            </tr>
+                            <tr>
+                                <td class="label">Europe</td>
+                                <td class="align-right">$2,610,300</td>
+                                <td class="align-right">+11.8%</td>
+                                <td class="align-right">1,342</td>
+                                <td class="align-right">$1,945</td>
+                                <td class="align-right">2.1%</td>
+                                <td class="align-center"><span class="status-pill success">Good</span></td>
+                            </tr>
+                            <tr>
+                                <td class="label">APAC</td>
+                                <td class="align-right">$1,179,800</td>
+                                <td class="align-right">+8.4%</td>
+                                <td class="align-right">894</td>
+                                <td class="align-right">$1,320</td>
+                                <td class="align-right">2.9%</td>
+                                <td class="align-center"><span class="status-pill warning">Watch</span></td>
+                            </tr>
+                            <tr>
+                                <td class="label">Latin America</td>
+                                <td class="align-right">$235,400</td>
+                                <td class="align-right">+5.2%</td>
+                                <td class="align-right">247</td>
+                                <td class="align-right">$953</td>
+                                <td class="align-right">3.4%</td>
+                                <td class="align-center"><span class="status-pill warning">Watch</span></td>
+                            </tr>
+                            <tr>
+                                <td class="label">Middle East</td>
+                                <td class="align-right">$100,300</td>
+                                <td class="align-right">+18.7%</td>
+                                <td class="align-right">89</td>
+                                <td class="align-right">$1,127</td>
+                                <td class="align-right">1.5%</td>
+                                <td class="align-center"><span class="status-pill success">Growing</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TOP ACCOUNTS -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">Top 10 Accounts by Revenue</div>
+                    <a href="#" class="section-action">View All →</a>
+                </div>
+                <div class="section-body" style="padding: 0;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Account</th>
+                                <th class="align-right">MRR</th>
+                                <th class="align-right">Growth</th>
+                                <th class="align-center">Health</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="label">Acme Corp</td>
+                                <td class="align-right">$124,500</td>
+                                <td class="align-right">+8%</td>
+                                <td class="align-center"><span class="status-pill success">High</span></td>
+                            </tr>
+                            <tr>
+                                <td class="label">TechVision Inc</td>
+                                <td class="align-right">$98,200</td>
+                                <td class="align-right">+12%</td>
+                                <td class="align-center"><span class="status-pill success">High</span></td>
+                            </tr>
+                            <tr>
+                                <td class="label">Global Systems</td>
+                                <td class="align-right">$87,400</td>
+                                <td class="align-right">-2%</td>
+                                <td class="align-center"><span class="status-pill warning">Medium</span></td>
+                            </tr>
+                            <tr>
+                                <td class="label">DataFlow Co</td>
+                                <td class="align-right">$76,800</td>
+                                <td class="align-right">+15%</td>
+                                <td class="align-center"><span class="status-pill success">High</span></td>
+                            </tr>
+                            <tr>
+                                <td class="label">CloudFirst Ltd</td>
+                                <td class="align-right">$68,300</td>
+                                <td class="align-right">+5%</td>
+                                <td class="align-center"><span class="status-pill success">High</span></td>
+                            </tr>
+                            <tr>
+                                <td class="label">NexGen Solutions</td>
+                                <td class="align-right">$62,100</td>
+                                <td class="align-right">+9%</td>
+                                <td class="align-center"><span class="status-pill success">High</span></td>
+                            </tr>
+                            <tr>
+                                <td class="label">Innovate Group</td>
+                                <td class="align-right">$58,900</td>
+                                <td class="align-right">+3%</td>
+                                <td class="align-center"><span class="status-pill success">High</span></td>
+                            </tr>
+                            <tr>
+                                <td class="label">Apex Industries</td>
+                                <td class="align-right">$54,200</td>
+                                <td class="align-right">-5%</td>
+                                <td class="align-center"><span class="status-pill warning">Medium</span></td>
+                            </tr>
+                            <tr>
+                                <td class="label">MetaScale Inc</td>
+                                <td class="align-right">$51,700</td>
+                                <td class="align-right">+11%</td>
+                                <td class="align-center"><span class="status-pill success">High</span></td>
+                            </tr>
+                            <tr>
+                                <td class="label">FutureWorks</td>
+                                <td class="align-right">$48,400</td>
+                                <td class="align-right">+7%</td>
+                                <td class="align-center"><span class="status-pill success">High</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- OPERATIONAL METRICS -->
+        <div class="section-grid">
+            <!-- PRODUCT METRICS -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">Product Usage Metrics</div>
+                    <a href="#" class="section-action">Deep Dive →</a>
+                </div>
+                <div class="section-body">
+                    <div class="data-grid mb-lg">
+                        <div class="data-grid-cell">
+                            <div class="data-grid-cell-label">DAU</div>
+                            <div class="data-grid-cell-value">18,427</div>
+                        </div>
+                        <div class="data-grid-cell">
+                            <div class="data-grid-cell-label">WAU</div>
+                            <div class="data-grid-cell-value">38,942</div>
+                        </div>
+                        <div class="data-grid-cell">
+                            <div class="data-grid-cell-label">MAU</div>
+                            <div class="data-grid-cell-value">47,293</div>
+                        </div>
+                        <div class="data-grid-cell">
+                            <div class="data-grid-cell-label">Stickiness</div>
+                            <div class="data-grid-cell-value">38.9%</div>
+                        </div>
+                        <div class="data-grid-cell">
+                            <div class="data-grid-cell-label">Sessions/User</div>
+                            <div class="data-grid-cell-value">4.7</div>
+                        </div>
+                        <div class="data-grid-cell">
+                            <div class="data-grid-cell-label">Avg Duration</div>
+                            <div class="data-grid-cell-value">12m 34s</div>
+                        </div>
+                        <div class="data-grid-cell">
+                            <div class="data-grid-cell-label">Feature Adoption</div>
+                            <div class="data-grid-cell-value">67.2%</div>
+                        </div>
+                        <div class="data-grid-cell">
+                            <div class="data-grid-cell-label">API Calls</div>
+                            <div class="data-grid-cell-value">8.4M</div>
+                        </div>
+                    </div>
+
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th class="align-right">Users</th>
+                                <th class="align-right">Adoption %</th>
+                                <th class="align-right">7d Δ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="comparison-label">Dashboard Builder</td>
+                                <td class="align-right">32,847</td>
+                                <td class="align-right">69.5%</td>
+                                <td class="align-right">+2.1%</td>
+                            </tr>
+                            <tr>
+                                <td class="comparison-label">Data Export</td>
+                                <td class="align-right">28,492</td>
+                                <td class="align-right">60.3%</td>
+                                <td class="align-right">+1.8%</td>
+                            </tr>
+                            <tr>
+                                <td class="comparison-label">Team Collaboration</td>
+                                <td class="align-right">24,183</td>
+                                <td class="align-right">51.1%</td>
+                                <td class="align-right">+5.4%</td>
+                            </tr>
+                            <tr>
+                                <td class="comparison-label">API Access</td>
+                                <td class="align-right">18,921</td>
+                                <td class="align-right">40.0%</td>
+                                <td class="align-right">+3.2%</td>
+                            </tr>
+                            <tr>
+                                <td class="comparison-label">Custom Reports</td>
+                                <td class="align-right">15,647</td>
+                                <td class="align-right">33.1%</td>
+                                <td class="align-right">+1.5%</td>
+                            </tr>
+                            <tr>
+                                <td class="comparison-label">Alerts & Notifications</td>
+                                <td class="align-right">41,284</td>
+                                <td class="align-right">87.3%</td>
+                                <td class="align-right">+0.9%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- FINANCIAL COHORT ANALYSIS -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">Cohort Retention Analysis</div>
+                    <a href="#" class="section-action">Full Report →</a>
+                </div>
+                <div class="section-body" style="padding: 0;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Cohort</th>
+                                <th class="align-right">Size</th>
+                                <th class="align-right">M1</th>
+                                <th class="align-right">M3</th>
+                                <th class="align-right">M6</th>
+                                <th class="align-right">M12</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="label">Oct 2024</td>
+                                <td class="align-right">847</td>
+                                <td class="align-right">94.2%</td>
+                                <td class="align-right">88.3%</td>
+                                <td class="align-right">82.1%</td>
+                                <td class="align-right">76.8%</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Nov 2024</td>
+                                <td class="align-right">923</td>
+                                <td class="align-right">95.1%</td>
+                                <td class="align-right">89.7%</td>
+                                <td class="align-right">83.4%</td>
+                                <td class="align-right">—</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Dec 2024</td>
+                                <td class="align-right">1,042</td>
+                                <td class="align-right">93.8%</td>
+                                <td class="align-right">87.2%</td>
+                                <td class="align-right">81.9%</td>
+                                <td class="align-right">—</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Jan 2025</td>
+                                <td class="align-right">1,184</td>
+                                <td class="align-right">96.3%</td>
+                                <td class="align-right">91.4%</td>
+                                <td class="align-right">—</td>
+                                <td class="align-right">—</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Feb 2025</td>
+                                <td class="align-right">987</td>
+                                <td class="align-right">94.7%</td>
+                                <td class="align-right">88.9%</td>
+                                <td class="align-right">—</td>
+                                <td class="align-right">—</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Mar 2025</td>
+                                <td class="align-right">1,127</td>
+                                <td class="align-right">95.8%</td>
+                                <td class="align-right">—</td>
+                                <td class="align-right">—</td>
+                                <td class="align-right">—</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Apr 2025</td>
+                                <td class="align-right">1,234</td>
+                                <td class="align-right">97.2%</td>
+                                <td class="align-right">—</td>
+                                <td class="align-right">—</td>
+                                <td class="align-right">—</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div style="padding: 16px;">
+                        <div class="insight-box">
+                            <div class="insight-title">Analysis</div>
+                            12-month retention at 76.8% exceeds industry benchmark (68%). Recent cohorts show improved M1 retention (95-97%), indicating product-market fit strengthening. Focus on M3-M6 drop-off to maintain 80%+ retention.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PIPELINE & FORECASTING -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-title">Sales Pipeline & Forecasting (Q4 2025)</div>
+                <a href="#" class="section-action">Refresh Data →</a>
+            </div>
+            <div class="section-body" style="padding: 0;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Stage</th>
+                            <th class="align-right">Count</th>
+                            <th class="align-right">Total Value</th>
+                            <th class="align-right">Avg Deal Size</th>
+                            <th class="align-right">Win Rate</th>
+                            <th class="align-right">Avg Cycle</th>
+                            <th class="align-right">Weighted Value</th>
+                            <th class="align-center">Trend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="label">Lead</td>
+                            <td class="align-right">847</td>
+                            <td class="align-right">$12,847,200</td>
+                            <td class="align-right">$15,167</td>
+                            <td class="align-right">8%</td>
+                            <td class="align-right">—</td>
+                            <td class="align-right">$1,027,776</td>
+                            <td class="align-center"><span class="status-pill neutral">Stable</span></td>
+                        </tr>
+                        <tr>
+                            <td class="label">Qualified</td>
+                            <td class="align-right">342</td>
+                            <td class="align-right">$8,247,600</td>
+                            <td class="align-right">$24,113</td>
+                            <td class="align-right">18%</td>
+                            <td class="align-right">87d</td>
+                            <td class="align-right">$1,484,568</td>
+                            <td class="align-center"><span class="status-pill success">Up</span></td>
+                        </tr>
+                        <tr>
+                            <td class="label">Demo Scheduled</td>
+                            <td class="align-right">189</td>
+                            <td class="align-right">$5,642,300</td>
+                            <td class="align-right">$29,853</td>
+                            <td class="align-right">32%</td>
+                            <td class="align-right">64d</td>
+                            <td class="align-right">$1,805,536</td>
+                            <td class="align-center"><span class="status-pill success">Up</span></td>
+                        </tr>
+                        <tr>
+                            <td class="label">Proposal Sent</td>
+                            <td class="align-right">127</td>
+                            <td class="align-right">$4,234,800</td>
+                            <td class="align-right">$33,345</td>
+                            <td class="align-right">48%</td>
+                            <td class="align-right">42d</td>
+                            <td class="align-right">$2,032,704</td>
+                            <td class="align-center"><span class="status-pill success">Up</span></td>
+                        </tr>
+                        <tr>
+                            <td class="label">Negotiation</td>
+                            <td class="align-right">68</td>
+                            <td class="align-right">$2,847,200</td>
+                            <td class="align-right">$41,871</td>
+                            <td class="align-right">72%</td>
+                            <td class="align-right">28d</td>
+                            <td class="align-right">$2,049,984</td>
+                            <td class="align-center"><span class="status-pill warning">Flat</span></td>
+                        </tr>
+                        <tr>
+                            <td class="label">Closed Won</td>
+                            <td class="align-right">94</td>
+                            <td class="align-right">$3,842,700</td>
+                            <td class="align-right">$40,879</td>
+                            <td class="align-right">100%</td>
+                            <td class="align-right">—</td>
+                            <td class="align-right">$3,842,700</td>
+                            <td class="align-center"><span class="status-pill success">Won</span></td>
+                        </tr>
+                        <tr style="background: var(--gray-100); font-weight: 700;">
+                            <td class="label">Total Pipeline</td>
+                            <td class="align-right">1,667</td>
+                            <td class="align-right">$37,661,800</td>
+                            <td class="align-right">$22,594</td>
+                            <td class="align-right">—</td>
+                            <td class="align-right">—</td>
+                            <td class="align-right">$12,243,268</td>
+                            <td class="align-center">—</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- DENSE COMPARATIVE ANALYSIS -->
+        <div class="three-col-grid">
+            <!-- CHANNEL PERFORMANCE -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">Acquisition Channels</div>
+                </div>
+                <div class="section-body">
+                    <ul class="dense-list">
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Organic Search</span>
+                            <span class="dense-list-value accent">34.2%</span>
+                        </li>
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Direct Traffic</span>
+                            <span class="dense-list-value">18.7%</span>
+                        </li>
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Paid Search</span>
+                            <span class="dense-list-value">14.8%</span>
+                        </li>
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Social Media</span>
+                            <span class="dense-list-value">11.3%</span>
+                        </li>
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Referral</span>
+                            <span class="dense-list-value">9.4%</span>
+                        </li>
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Email Campaign</span>
+                            <span class="dense-list-value">7.2%</span>
+                        </li>
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Content Marketing</span>
+                            <span class="dense-list-value">4.4%</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- TEAM PERFORMANCE -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">Team Performance</div>
+                </div>
+                <div class="section-body">
+                    <ul class="dense-list">
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Sarah Chen</span>
+                            <span class="dense-list-value accent">$847K</span>
+                        </li>
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Michael Torres</span>
+                            <span class="dense-list-value accent">$782K</span>
+                        </li>
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Jennifer Park</span>
+                            <span class="dense-list-value">$694K</span>
+                        </li>
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">David Kim</span>
+                            <span class="dense-list-value">$621K</span>
+                        </li>
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Alex Rivera</span>
+                            <span class="dense-list-value">$587K</span>
+                        </li>
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Emily Watson</span>
+                            <span class="dense-list-value">$542K</span>
+                        </li>
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Marcus Johnson</span>
+                            <span class="dense-list-value">$498K</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- RISK FACTORS -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">Risk Indicators</div>
+                </div>
+                <div class="section-body">
+                    <ul class="dense-list">
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Payment Failures</span>
+                            <span class="dense-list-value">2.4%</span>
+                        </li>
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Support Escalations</span>
+                            <span class="dense-list-value">18</span>
+                        </li>
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Low Engagement</span>
+                            <span class="dense-list-value">347</span>
+                        </li>
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Contract Expiring 30d</span>
+                            <span class="dense-list-value">124</span>
+                        </li>
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Downgrade Requests</span>
+                            <span class="dense-list-value">8</span>
+                        </li>
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Negative Feedback</span>
+                            <span class="dense-list-value">23</span>
+                        </li>
+                        <li class="dense-list-item">
+                            <span class="dense-list-label">Usage Decline &gt;30%</span>
+                            <span class="dense-list-value">41</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div>
+            <span class="footer-agent">DARNO</span> | Data-First Analytical UX | Round 2 - Light Mode Masterpiece | Theme: Minimalist Analytical
+        </div>
+        <div class="footer-meta">
+            Generated: 2025-11-09 14:32:18 UTC | Refresh: Auto (5min) | Data Source: Production DB
+        </div>
+    </footer>
+
+    <script>
+        // Minimal JavaScript for demonstration
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Darno Dashboard - Minimalist Analytical Theme Loaded');
+
+            // Simulate live updates with subtle animations
+            const kpiValues = document.querySelectorAll('.kpi-value');
+            kpiValues.forEach(function(element) {
+                element.style.transition = 'opacity 0.15s ease-out';
+            });
+
+            // Add hover effects for table rows
+            const tableRows = document.querySelectorAll('.data-table tbody tr');
+            tableRows.forEach(function(row) {
+                row.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.002)';
+                });
+                row.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            // Simple sorting indicators (visual only)
+            const tableHeaders = document.querySelectorAll('.data-table th');
+            tableHeaders.forEach(function(header) {
+                header.style.cursor = 'pointer';
+                header.addEventListener('click', function() {
+                    this.style.opacity = '0.7';
+                    setTimeout(() => {
+                        this.style.opacity = '1';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

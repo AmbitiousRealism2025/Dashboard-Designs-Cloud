@@ -1,0 +1,1822 @@
+<!-- Agent: Teeqa | Round: 2 - Light Mode Masterpiece | Theme: Workshop Discovery Session | Intent: Create a delightfully interactive workshop canvas with vibrant post-it note cards, playful animations, and friendly facilitation-first UX that makes strategy sessions feel engaging and productive -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Discovery Workshop - TEEQA Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Workshop Color Palette - Vibrant Post-its */
+            --sticky-yellow: #FDDB3A;
+            --sticky-pink: #FF6B9D;
+            --sticky-blue: #6CD4FF;
+            --sticky-mint: #7BFFB5;
+            --sticky-purple: #9B5DE5;
+            --sticky-orange: #FF9F1C;
+            --sticky-coral: #FF8B94;
+            --sticky-lime: #CAFF8A;
+
+            /* Backgrounds */
+            --bg-main: #FAFBFC;
+            --bg-white: #FFFFFF;
+            --bg-cream: #FFF9F0;
+
+            /* Text Colors */
+            --text-primary: #2D3748;
+            --text-secondary: #4A5568;
+            --text-muted: #718096;
+            --text-dark: #1A202C;
+
+            /* Semantic */
+            --success: #48BB78;
+            --warning: #F6AD55;
+            --danger: #FC8181;
+            --info: #4299E1;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 0.75rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Fredoka', 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, var(--bg-cream) 0%, var(--bg-main) 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Section */
+        .workshop-header {
+            background: linear-gradient(135deg, var(--sticky-purple) 0%, var(--sticky-pink) 100%);
+            color: white;
+            padding: var(--space-xl) var(--space-2xl);
+            border-bottom: 6px solid var(--sticky-yellow);
+            box-shadow: 0 8px 32px rgba(155, 93, 229, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .workshop-title-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .workshop-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: var(--space-xs);
+        }
+
+        .workshop-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .workshop-meta {
+            font-size: 1rem;
+            opacity: 0.95;
+            display: flex;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+            margin-top: var(--space-sm);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .meta-icon {
+            font-size: 1.2rem;
+        }
+
+        .live-timer {
+            background: rgba(255, 255, 255, 0.25);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--radius-lg);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .timer-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-bottom: var(--space-xs);
+        }
+
+        .timer-value {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: 'Comic Neue', monospace;
+            letter-spacing: 2px;
+        }
+
+        .agent-badge {
+            background: var(--sticky-yellow);
+            color: var(--text-dark);
+            padding: var(--space-xs) var(--space-md);
+            border-radius: var(--radius-lg);
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 3px solid white;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-lg);
+        }
+
+        /* Workshop Stats Strip */
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .stat-card {
+            background: var(--bg-white);
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            border: 4px solid;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            transform: rotate(-1deg);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+        }
+
+        .stat-card:nth-child(1) {
+            border-color: var(--sticky-yellow);
+            background: linear-gradient(135deg, #FFF9E6 0%, white 100%);
+        }
+
+        .stat-card:nth-child(2) {
+            border-color: var(--sticky-pink);
+            background: linear-gradient(135deg, #FFF0F5 0%, white 100%);
+            transform: rotate(1deg);
+        }
+
+        .stat-card:nth-child(3) {
+            border-color: var(--sticky-blue);
+            background: linear-gradient(135deg, #E6F7FF 0%, white 100%);
+            transform: rotate(-2deg);
+        }
+
+        .stat-card:nth-child(4) {
+            border-color: var(--sticky-mint);
+            background: linear-gradient(135deg, #E6FFF9 0%, white 100%);
+            transform: rotate(1.5deg);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px) rotate(0deg) scale(1.05);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-sm);
+            display: block;
+        }
+
+        .stat-value {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: var(--space-xs);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .stat-trend {
+            font-size: 0.85rem;
+            color: var(--success);
+            margin-top: var(--space-xs);
+            font-weight: 600;
+        }
+
+        /* Section Headers */
+        .section-header {
+            margin-bottom: var(--space-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .section-icon {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--sticky-purple), var(--sticky-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--sticky-yellow), var(--sticky-orange));
+            border-radius: 2px;
+        }
+
+        /* Insights Board - Sticky Note Grid */
+        .insights-board {
+            margin-bottom: var(--space-2xl);
+        }
+
+        .sticky-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-lg);
+        }
+
+        .sticky-note {
+            background: var(--sticky-yellow);
+            padding: var(--space-lg);
+            border-radius: var(--radius-md);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            position: relative;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            transform: rotate(-2deg);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            animation: dropIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes dropIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-100px) rotate(-10deg) scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotate(-2deg) scale(1);
+            }
+        }
+
+        .sticky-note:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .sticky-note:nth-child(3n) {
+            transform: rotate(-3deg);
+        }
+
+        .sticky-note.pink {
+            background: var(--sticky-pink);
+            color: white;
+        }
+
+        .sticky-note.blue {
+            background: var(--sticky-blue);
+            color: var(--text-dark);
+        }
+
+        .sticky-note.mint {
+            background: var(--sticky-mint);
+            color: var(--text-dark);
+        }
+
+        .sticky-note.purple {
+            background: var(--sticky-purple);
+            color: white;
+        }
+
+        .sticky-note.coral {
+            background: var(--sticky-coral);
+            color: white;
+        }
+
+        .sticky-note:hover {
+            transform: translateY(-12px) rotate(0deg) scale(1.08);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        .sticky-note::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 20px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 2px;
+            opacity: 0.6;
+        }
+
+        .sticky-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            opacity: 0.8;
+            margin-bottom: var(--space-sm);
+        }
+
+        .sticky-content {
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.5;
+            flex: 1;
+            margin-bottom: var(--space-md);
+        }
+
+        .sticky-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            padding-top: var(--space-sm);
+            border-top: 2px dashed rgba(0,0,0,0.2);
+        }
+
+        .sticky-note:hover .sticky-meta {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .sticky-owner {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-weight: 600;
+        }
+
+        .owner-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        /* Decisions & Actions Board */
+        .decisions-board {
+            margin-bottom: var(--space-2xl);
+        }
+
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+
+        .kanban-column {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            border: 3px solid;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .kanban-column.decided {
+            border-color: var(--success);
+        }
+
+        .kanban-column.in-progress {
+            border-color: var(--warning);
+        }
+
+        .kanban-column.next-up {
+            border-color: var(--info);
+        }
+
+        .column-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 3px dashed currentColor;
+        }
+
+        .column-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .column-count {
+            background: var(--sticky-yellow);
+            color: var(--text-dark);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .action-cards {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .action-card {
+            background: linear-gradient(135deg, #FAFBFC 0%, white 100%);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            border-left: 6px solid;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        .action-card.high {
+            border-left-color: var(--danger);
+        }
+
+        .action-card.medium {
+            border-left-color: var(--warning);
+        }
+
+        .action-card.low {
+            border-left-color: var(--info);
+        }
+
+        .action-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .action-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: var(--space-xs);
+        }
+
+        .action-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+            line-height: 1.5;
+        }
+
+        .action-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+
+        .action-owner-badge {
+            background: var(--sticky-blue);
+            color: var(--text-dark);
+            padding: 4px var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .action-due {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Workshop Timeline */
+        .workshop-timeline {
+            margin-bottom: var(--space-2xl);
+        }
+
+        .timeline-chart {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+            border: 3px solid var(--sticky-purple);
+        }
+
+        .timeline-stages {
+            display: flex;
+            justify-content: space-between;
+            gap: var(--space-md);
+            position: relative;
+            padding-top: var(--space-lg);
+        }
+
+        .timeline-stages::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg,
+                var(--sticky-yellow) 0%,
+                var(--sticky-pink) 25%,
+                var(--sticky-blue) 50%,
+                var(--sticky-mint) 75%,
+                var(--sticky-purple) 100%);
+            border-radius: 3px;
+            z-index: 0;
+        }
+
+        .timeline-stage {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stage-marker {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--bg-white);
+            border: 6px solid;
+            margin: 0 auto var(--space-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-stage:nth-child(1) .stage-marker {
+            border-color: var(--sticky-yellow);
+        }
+
+        .timeline-stage:nth-child(2) .stage-marker {
+            border-color: var(--sticky-pink);
+        }
+
+        .timeline-stage:nth-child(3) .stage-marker {
+            border-color: var(--sticky-blue);
+        }
+
+        .timeline-stage:nth-child(4) .stage-marker {
+            border-color: var(--sticky-mint);
+        }
+
+        .timeline-stage:nth-child(5) .stage-marker {
+            border-color: var(--sticky-purple);
+        }
+
+        .stage-marker:hover {
+            transform: scale(1.2) rotate(360deg);
+        }
+
+        .stage-label {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: var(--space-xs);
+        }
+
+        .stage-time {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .stage-energy {
+            margin-top: var(--space-xs);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--sticky-purple);
+        }
+
+        /* Parking Lot Section */
+        .parking-lot {
+            margin-bottom: var(--space-2xl);
+        }
+
+        .parking-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+
+        .parking-card {
+            background: linear-gradient(135deg, #F7FAFC 0%, white 100%);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            border: 3px dashed var(--text-muted);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .parking-card:hover {
+            border-style: solid;
+            border-color: var(--sticky-orange);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(255, 159, 28, 0.2);
+        }
+
+        .parking-priority {
+            position: absolute;
+            top: -12px;
+            right: var(--space-md);
+            background: var(--sticky-orange);
+            color: white;
+            padding: 4px var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .parking-content {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: var(--space-sm);
+        }
+
+        .parking-tags {
+            display: flex;
+            gap: var(--space-xs);
+            flex-wrap: wrap;
+        }
+
+        .parking-tag {
+            background: var(--sticky-yellow);
+            color: var(--text-dark);
+            padding: 3px var(--space-xs);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Next Steps Checklist */
+        .next-steps {
+            margin-bottom: var(--space-2xl);
+        }
+
+        .checklist-container {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 4px solid var(--sticky-mint);
+        }
+
+        .checklist-items {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            background: linear-gradient(135deg, #F0FFF8 0%, white 100%);
+            border-radius: var(--radius-md);
+            border-left: 5px solid var(--sticky-mint);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .checklist-item:hover {
+            transform: translateX(12px);
+            box-shadow: 0 4px 16px rgba(123, 255, 181, 0.3);
+        }
+
+        .checkbox {
+            width: 32px;
+            height: 32px;
+            border: 4px solid var(--sticky-mint);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .checklist-item:hover .checkbox {
+            background: var(--sticky-mint);
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .checklist-content {
+            flex: 1;
+        }
+
+        .checklist-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: var(--space-xs);
+        }
+
+        .checklist-details {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .checklist-deadline {
+            background: var(--sticky-yellow);
+            color: var(--text-dark);
+            padding: 4px var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: var(--space-xs);
+        }
+
+        /* Participants Table */
+        .participants-section {
+            margin-bottom: var(--space-2xl);
+        }
+
+        .participants-table-wrapper {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+            border: 3px solid var(--sticky-blue);
+        }
+
+        .participants-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .participants-table thead {
+            background: linear-gradient(135deg, var(--sticky-blue), var(--sticky-purple));
+            color: white;
+        }
+
+        .participants-table th {
+            padding: var(--space-md) var(--space-lg);
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .participants-table td {
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 2px solid var(--bg-main);
+            font-size: 0.95rem;
+        }
+
+        .participants-table tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        .participants-table tbody tr:hover {
+            background: linear-gradient(135deg, #F0F9FF 0%, #FFF9F0 100%);
+            transform: scale(1.02);
+        }
+
+        .participant-name {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .participant-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--sticky-pink), var(--sticky-orange));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+        }
+
+        .contribution-badge {
+            display: inline-block;
+            padding: 4px var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .contribution-badge.high {
+            background: var(--sticky-mint);
+            color: var(--text-dark);
+        }
+
+        .contribution-badge.medium {
+            background: var(--sticky-yellow);
+            color: var(--text-dark);
+        }
+
+        .contribution-badge.low {
+            background: var(--sticky-coral);
+            color: white;
+        }
+
+        /* Footer */
+        .workshop-footer {
+            background: linear-gradient(135deg, var(--text-dark) 0%, var(--sticky-purple) 100%);
+            color: white;
+            padding: var(--space-xl) var(--space-2xl);
+            border-top: 6px solid var(--sticky-yellow);
+            margin-top: var(--space-2xl);
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .footer-branding {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--sticky-yellow);
+            color: var(--text-dark);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .footer-meta {
+            text-align: right;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 960px) {
+            .workshop-title {
+                font-size: 1.8rem;
+            }
+
+            .stats-strip {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .sticky-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+
+            .kanban-board {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-stages {
+                flex-direction: column;
+                gap: var(--space-xl);
+            }
+
+            .timeline-stages::before {
+                display: none;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: var(--space-lg) var(--space-md);
+            }
+
+            .workshop-header {
+                padding: var(--space-lg) var(--space-md);
+            }
+
+            .workshop-title {
+                font-size: 1.5rem;
+            }
+
+            .stats-strip {
+                grid-template-columns: 1fr;
+            }
+
+            .sticky-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Fun Animation Effects */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes wiggle {
+            0%, 100% {
+                transform: rotate(-2deg);
+            }
+            50% {
+                transform: rotate(2deg);
+            }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Confetti Background Effect */
+        .confetti-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+            opacity: 0.15;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--sticky-yellow);
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Confetti Background -->
+    <div class="confetti-bg" id="confettiBg"></div>
+
+    <!-- Header -->
+    <header class="workshop-header">
+        <div class="header-content">
+            <div class="workshop-title-section">
+                <div class="workshop-label">🎨 Discovery Workshop</div>
+                <h1 class="workshop-title">Product Strategy Sprint - Q4 2025</h1>
+                <div class="workshop-meta">
+                    <div class="meta-item">
+                        <span class="meta-icon">📅</span>
+                        <span>November 9, 2025</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-icon">👥</span>
+                        <span>12 Participants</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-icon">📍</span>
+                        <span>Innovation Lab, Building B</span>
+                    </div>
+                </div>
+            </div>
+            <div class="live-timer">
+                <div class="timer-label">Workshop Duration</div>
+                <div class="timer-value" id="liveTimer">02:47:33</div>
+            </div>
+            <div class="agent-badge">⭐ TEEQA DESIGN</div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Workshop Stats -->
+        <div class="stats-strip">
+            <div class="stat-card">
+                <span class="stat-icon">💡</span>
+                <div class="stat-value">47</div>
+                <div class="stat-label">Insights Captured</div>
+                <div class="stat-trend">↑ 12 in last hour</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">✅</span>
+                <div class="stat-value">23</div>
+                <div class="stat-label">Decisions Made</div>
+                <div class="stat-trend">↑ 8 finalized</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🎯</span>
+                <div class="stat-value">31</div>
+                <div class="stat-label">Action Items</div>
+                <div class="stat-trend">↑ 19 assigned</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🔥</span>
+                <div class="stat-value">89%</div>
+                <div class="stat-label">Team Energy</div>
+                <div class="stat-trend">↑ High engagement</div>
+            </div>
+        </div>
+
+        <!-- Key Insights Board -->
+        <section class="insights-board">
+            <div class="section-header">
+                <span class="section-icon">💡</span>
+                <h2 class="section-title">Key Insights & Discoveries</h2>
+            </div>
+            <div class="sticky-grid">
+                <div class="sticky-note">
+                    <div class="sticky-category">🎯 Customer Pain Point</div>
+                    <div class="sticky-content">"Users abandon checkout when shipping costs appear too late in the flow"</div>
+                    <div class="sticky-meta">
+                        <div class="sticky-owner">
+                            <div class="owner-avatar">SK</div>
+                            <span>Sarah K.</span>
+                        </div>
+                        <div>10:45 AM</div>
+                    </div>
+                </div>
+
+                <div class="sticky-note pink">
+                    <div class="sticky-category">💰 Revenue Opportunity</div>
+                    <div class="sticky-content">"Premium tier users willing to pay 3x more for white-label features"</div>
+                    <div class="sticky-meta">
+                        <div class="sticky-owner">
+                            <div class="owner-avatar">MJ</div>
+                            <span>Marcus J.</span>
+                        </div>
+                        <div>11:12 AM</div>
+                    </div>
+                </div>
+
+                <div class="sticky-note blue">
+                    <div class="sticky-category">🔧 Technical Constraint</div>
+                    <div class="sticky-content">"Current API rate limits block enterprise use cases - need upgrade path"</div>
+                    <div class="sticky-meta">
+                        <div class="sticky-owner">
+                            <div class="owner-avatar">AL</div>
+                            <span>Alex L.</span>
+                        </div>
+                        <div>11:34 AM</div>
+                    </div>
+                </div>
+
+                <div class="sticky-note mint">
+                    <div class="sticky-category">🌟 User Delight</div>
+                    <div class="sticky-content">"Beta testers LOVE the real-time collaboration features - it's our differentiator"</div>
+                    <div class="sticky-meta">
+                        <div class="sticky-owner">
+                            <div class="owner-avatar">PR</div>
+                            <span>Priya R.</span>
+                        </div>
+                        <div>12:08 PM</div>
+                    </div>
+                </div>
+
+                <div class="sticky-note purple">
+                    <div class="sticky-category">📊 Market Trend</div>
+                    <div class="sticky-content">"Competitors moving to AI-first positioning - we need to catch up fast"</div>
+                    <div class="sticky-meta">
+                        <div class="sticky-owner">
+                            <div class="owner-avatar">TC</div>
+                            <span>Taylor C.</span>
+                        </div>
+                        <div>12:45 PM</div>
+                    </div>
+                </div>
+
+                <div class="sticky-note coral">
+                    <div class="sticky-category">⚠️ Risk Factor</div>
+                    <div class="sticky-content">"Mobile experience is 2 years behind - losing millennial/Gen-Z adoption"</div>
+                    <div class="sticky-meta">
+                        <div class="sticky-owner">
+                            <div class="owner-avatar">JW</div>
+                            <span>Jordan W.</span>
+                        </div>
+                        <div>01:15 PM</div>
+                    </div>
+                </div>
+
+                <div class="sticky-note">
+                    <div class="sticky-category">🎨 UX Insight</div>
+                    <div class="sticky-content">"Dashboard customization is #1 requested feature across all customer segments"</div>
+                    <div class="sticky-meta">
+                        <div class="sticky-owner">
+                            <div class="owner-avatar">DM</div>
+                            <span>Dana M.</span>
+                        </div>
+                        <div>01:42 PM</div>
+                    </div>
+                </div>
+
+                <div class="sticky-note blue">
+                    <div class="sticky-category">🔍 Research Finding</div>
+                    <div class="sticky-content">"Onboarding drop-off at 60% suggests setup is too complex for SMB users"</div>
+                    <div class="sticky-meta">
+                        <div class="sticky-owner">
+                            <div class="owner-avatar">RB</div>
+                            <span>Riley B.</span>
+                        </div>
+                        <div>02:03 PM</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Decisions & Actions Kanban -->
+        <section class="decisions-board">
+            <div class="section-header">
+                <span class="section-icon">✅</span>
+                <h2 class="section-title">Decisions & Action Items</h2>
+            </div>
+            <div class="kanban-board">
+                <div class="kanban-column decided">
+                    <div class="column-header">
+                        <div class="column-title" style="color: var(--success);">
+                            <span>✓</span> Decided
+                        </div>
+                        <div class="column-count">8</div>
+                    </div>
+                    <div class="action-cards">
+                        <div class="action-card high">
+                            <div class="action-title">Implement upfront shipping calculator</div>
+                            <div class="action-description">Add shipping cost estimator to product pages before checkout starts</div>
+                            <div class="action-footer">
+                                <div class="action-owner-badge">Sarah K.</div>
+                                <div class="action-due">🗓 Due: Nov 20</div>
+                            </div>
+                        </div>
+                        <div class="action-card high">
+                            <div class="action-title">Launch premium white-label tier</div>
+                            <div class="action-description">Create new pricing tier at $299/mo with branding removal & custom domains</div>
+                            <div class="action-footer">
+                                <div class="action-owner-badge">Marcus J.</div>
+                                <div class="action-due">🗓 Due: Dec 1</div>
+                            </div>
+                        </div>
+                        <div class="action-card medium">
+                            <div class="action-title">Mobile app redesign sprint</div>
+                            <div class="action-description">2-week design sprint to modernize mobile UX with Gen-Z focus</div>
+                            <div class="action-footer">
+                                <div class="action-owner-badge">Jordan W.</div>
+                                <div class="action-due">🗓 Due: Nov 25</div>
+                            </div>
+                        </div>
+                        <div class="action-card low">
+                            <div class="action-title">Dashboard customization beta</div>
+                            <div class="action-description">Build drag-drop widget system for power users to test</div>
+                            <div class="action-footer">
+                                <div class="action-owner-badge">Dana M.</div>
+                                <div class="action-due">🗓 Due: Dec 10</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kanban-column in-progress">
+                    <div class="column-header">
+                        <div class="column-title" style="color: var(--warning);">
+                            <span>⏳</span> In Progress
+                        </div>
+                        <div class="column-count">5</div>
+                    </div>
+                    <div class="action-cards">
+                        <div class="action-card high">
+                            <div class="action-title">Research API upgrade requirements</div>
+                            <div class="action-description">Document current limits, enterprise needs, and scaling strategy</div>
+                            <div class="action-footer">
+                                <div class="action-owner-badge">Alex L.</div>
+                                <div class="action-due">🗓 Due: Nov 12</div>
+                            </div>
+                        </div>
+                        <div class="action-card medium">
+                            <div class="action-title">Competitive AI positioning audit</div>
+                            <div class="action-description">Analyze 5 top competitors' AI features and messaging strategies</div>
+                            <div class="action-footer">
+                                <div class="action-owner-badge">Taylor C.</div>
+                                <div class="action-due">🗓 Due: Nov 15</div>
+                            </div>
+                        </div>
+                        <div class="action-card medium">
+                            <div class="action-title">Onboarding flow analysis</div>
+                            <div class="action-description">User testing with 10 SMB customers to identify friction points</div>
+                            <div class="action-footer">
+                                <div class="action-owner-badge">Riley B.</div>
+                                <div class="action-due">🗓 Due: Nov 18</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kanban-column next-up">
+                    <div class="column-header">
+                        <div class="column-title" style="color: var(--info);">
+                            <span>📋</span> Next Up
+                        </div>
+                        <div class="column-count">6</div>
+                    </div>
+                    <div class="action-cards">
+                        <div class="action-card low">
+                            <div class="action-title">Collaboration features roadmap</div>
+                            <div class="action-description">Prioritize real-time features based on beta feedback</div>
+                            <div class="action-footer">
+                                <div class="action-owner-badge">Priya R.</div>
+                                <div class="action-due">🗓 Due: Nov 22</div>
+                            </div>
+                        </div>
+                        <div class="action-card low">
+                            <div class="action-title">Enterprise sales playbook</div>
+                            <div class="action-description">Document objection handling for API limits conversation</div>
+                            <div class="action-footer">
+                                <div class="action-owner-badge">Marcus J.</div>
+                                <div class="action-due">🗓 Due: Dec 5</div>
+                            </div>
+                        </div>
+                        <div class="action-card low">
+                            <div class="action-title">Mobile beta recruitment</div>
+                            <div class="action-description">Recruit 50 Gen-Z users for redesign testing program</div>
+                            <div class="action-footer">
+                                <div class="action-owner-badge">Jordan W.</div>
+                                <div class="action-due">🗓 Due: Nov 28</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workshop Timeline -->
+        <section class="workshop-timeline">
+            <div class="section-header">
+                <span class="section-icon">⏱️</span>
+                <h2 class="section-title">Workshop Energy Timeline</h2>
+            </div>
+            <div class="timeline-chart">
+                <div class="timeline-stages">
+                    <div class="timeline-stage">
+                        <div class="stage-marker">🚀</div>
+                        <div class="stage-label">Kickoff</div>
+                        <div class="stage-time">9:00 - 9:30 AM</div>
+                        <div class="stage-energy">⚡ 85% Energy</div>
+                    </div>
+                    <div class="timeline-stage">
+                        <div class="stage-marker">💡</div>
+                        <div class="stage-label">Brainstorm</div>
+                        <div class="stage-time">9:30 - 11:00 AM</div>
+                        <div class="stage-energy">⚡ 92% Energy</div>
+                    </div>
+                    <div class="timeline-stage">
+                        <div class="stage-marker">🍕</div>
+                        <div class="stage-label">Lunch Break</div>
+                        <div class="stage-time">11:00 - 12:00 PM</div>
+                        <div class="stage-energy">⚡ 70% Energy</div>
+                    </div>
+                    <div class="timeline-stage">
+                        <div class="stage-marker">✅</div>
+                        <div class="stage-label">Decisions</div>
+                        <div class="stage-time">12:00 - 2:00 PM</div>
+                        <div class="stage-energy">⚡ 88% Energy</div>
+                    </div>
+                    <div class="timeline-stage">
+                        <div class="stage-marker">🎯</div>
+                        <div class="stage-label">Action Planning</div>
+                        <div class="stage-time">2:00 - 3:00 PM</div>
+                        <div class="stage-energy">⚡ 89% Energy</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Parking Lot -->
+        <section class="parking-lot">
+            <div class="section-header">
+                <span class="section-icon">🅿️</span>
+                <h2 class="section-title">Parking Lot - Revisit Later</h2>
+            </div>
+            <div class="parking-cards">
+                <div class="parking-card">
+                    <div class="parking-priority">Later</div>
+                    <div class="parking-content">Explore blockchain integration for transaction transparency</div>
+                    <div class="parking-tags">
+                        <span class="parking-tag">Tech</span>
+                        <span class="parking-tag">Q1 2026</span>
+                    </div>
+                </div>
+                <div class="parking-card">
+                    <div class="parking-priority">Q4</div>
+                    <div class="parking-content">International expansion strategy (EMEA markets first)</div>
+                    <div class="parking-tags">
+                        <span class="parking-tag">Growth</span>
+                        <span class="parking-tag">Sales</span>
+                    </div>
+                </div>
+                <div class="parking-card">
+                    <div class="parking-priority">TBD</div>
+                    <div class="parking-content">Partner program with revenue sharing model</div>
+                    <div class="parking-tags">
+                        <span class="parking-tag">Partnerships</span>
+                        <span class="parking-tag">Legal Review</span>
+                    </div>
+                </div>
+                <div class="parking-card">
+                    <div class="parking-priority">Later</div>
+                    <div class="parking-content">Voice interface for hands-free dashboard navigation</div>
+                    <div class="parking-tags">
+                        <span class="parking-tag">Innovation</span>
+                        <span class="parking-tag">R&D</span>
+                    </div>
+                </div>
+                <div class="parking-card">
+                    <div class="parking-priority">Q1</div>
+                    <div class="parking-content">Customer advisory board creation (8-10 strategic accounts)</div>
+                    <div class="parking-tags">
+                        <span class="parking-tag">Community</span>
+                        <span class="parking-tag">Product</span>
+                    </div>
+                </div>
+                <div class="parking-card">
+                    <div class="parking-priority">TBD</div>
+                    <div class="parking-content">Acquisition strategy for analytics startup (due diligence needed)</div>
+                    <div class="parking-tags">
+                        <span class="parking-tag">M&A</span>
+                        <span class="parking-tag">Finance</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Steps Checklist -->
+        <section class="next-steps">
+            <div class="section-header">
+                <span class="section-icon">🎯</span>
+                <h2 class="section-title">Immediate Next Steps</h2>
+            </div>
+            <div class="checklist-container">
+                <div class="checklist-items">
+                    <div class="checklist-item">
+                        <div class="checkbox">✓</div>
+                        <div class="checklist-content">
+                            <div class="checklist-title">Circulate workshop summary to all participants</div>
+                            <div class="checklist-details">Compile insights, decisions, and action items into executive brief for leadership review</div>
+                            <div class="checklist-deadline">📅 Monday, Nov 11</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox">✓</div>
+                        <div class="checklist-content">
+                            <div class="checklist-title">Schedule follow-up sprint planning session</div>
+                            <div class="checklist-details">Book 2-hour session with engineering, design, and product teams to scope Q4 priorities</div>
+                            <div class="checklist-deadline">📅 Wednesday, Nov 13</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox">○</div>
+                        <div class="checklist-content">
+                            <div class="checklist-title">Finalize premium tier pricing model</div>
+                            <div class="checklist-details">Work with finance to validate $299/mo price point and margin requirements</div>
+                            <div class="checklist-deadline">📅 Friday, Nov 15</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox">○</div>
+                        <div class="checklist-content">
+                            <div class="checklist-title">Kickoff mobile redesign sprint</div>
+                            <div class="checklist-details">Assemble cross-functional team and set up design critique sessions</div>
+                            <div class="checklist-deadline">📅 Monday, Nov 18</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox">○</div>
+                        <div class="checklist-content">
+                            <div class="checklist-title">Present findings to board of directors</div>
+                            <div class="checklist-details">Prepare 15-minute deck highlighting key opportunities and resource requests</div>
+                            <div class="checklist-deadline">📅 Tuesday, Nov 26</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Participants Table -->
+        <section class="participants-section">
+            <div class="section-header">
+                <span class="section-icon">👥</span>
+                <h2 class="section-title">Workshop Participants</h2>
+            </div>
+            <div class="participants-table-wrapper">
+                <table class="participants-table">
+                    <thead>
+                        <tr>
+                            <th>Participant</th>
+                            <th>Role</th>
+                            <th>Department</th>
+                            <th>Contributions</th>
+                            <th>Engagement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="participant-name">
+                                    <div class="participant-avatar">SK</div>
+                                    <span>Sarah Kim</span>
+                                </div>
+                            </td>
+                            <td>Senior Product Manager</td>
+                            <td>Product</td>
+                            <td>8 insights, 3 actions</td>
+                            <td><span class="contribution-badge high">Very High</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="participant-name">
+                                    <div class="participant-avatar">MJ</div>
+                                    <span>Marcus Johnson</span>
+                                </div>
+                            </td>
+                            <td>VP of Sales</td>
+                            <td>Revenue</td>
+                            <td>6 insights, 5 actions</td>
+                            <td><span class="contribution-badge high">Very High</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="participant-name">
+                                    <div class="participant-avatar">AL</div>
+                                    <span>Alex Lopez</span>
+                                </div>
+                            </td>
+                            <td>Lead Engineer</td>
+                            <td>Engineering</td>
+                            <td>5 insights, 2 actions</td>
+                            <td><span class="contribution-badge high">Very High</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="participant-name">
+                                    <div class="participant-avatar">PR</div>
+                                    <span>Priya Reddy</span>
+                                </div>
+                            </td>
+                            <td>Customer Success Lead</td>
+                            <td>Customer Experience</td>
+                            <td>7 insights, 4 actions</td>
+                            <td><span class="contribution-badge high">Very High</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="participant-name">
+                                    <div class="participant-avatar">TC</div>
+                                    <span>Taylor Chen</span>
+                                </div>
+                            </td>
+                            <td>Marketing Director</td>
+                            <td>Marketing</td>
+                            <td>4 insights, 3 actions</td>
+                            <td><span class="contribution-badge medium">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="participant-name">
+                                    <div class="participant-avatar">JW</div>
+                                    <span>Jordan Williams</span>
+                                </div>
+                            </td>
+                            <td>UX Designer</td>
+                            <td>Design</td>
+                            <td>6 insights, 2 actions</td>
+                            <td><span class="contribution-badge high">Very High</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="participant-name">
+                                    <div class="participant-avatar">DM</div>
+                                    <span>Dana Martinez</span>
+                                </div>
+                            </td>
+                            <td>Data Analyst</td>
+                            <td>Analytics</td>
+                            <td>5 insights, 1 action</td>
+                            <td><span class="contribution-badge medium">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="participant-name">
+                                    <div class="participant-avatar">RB</div>
+                                    <span>Riley Brown</span>
+                                </div>
+                            </td>
+                            <td>User Researcher</td>
+                            <td>Research</td>
+                            <td>4 insights, 3 actions</td>
+                            <td><span class="contribution-badge medium">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="participant-name">
+                                    <div class="participant-avatar">CM</div>
+                                    <span>Casey Miller</span>
+                                </div>
+                            </td>
+                            <td>Chief Product Officer</td>
+                            <td>Executive</td>
+                            <td>2 insights, 6 actions</td>
+                            <td><span class="contribution-badge medium">High</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="participant-name">
+                                    <div class="participant-avatar">AV</div>
+                                    <span>Avery Vance</span>
+                                </div>
+                            </td>
+                            <td>Finance Manager</td>
+                            <td>Finance</td>
+                            <td>2 insights, 2 actions</td>
+                            <td><span class="contribution-badge medium">Medium</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="participant-name">
+                                    <div class="participant-avatar">JS</div>
+                                    <span>Jamie Sullivan</span>
+                                </div>
+                            </td>
+                            <td>Operations Lead</td>
+                            <td>Operations</td>
+                            <td>3 insights, 1 action</td>
+                            <td><span class="contribution-badge medium">Medium</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="participant-name">
+                                    <div class="participant-avatar">KP</div>
+                                    <span>Kai Patel</span>
+                                </div>
+                            </td>
+                            <td>Engineering Manager</td>
+                            <td>Engineering</td>
+                            <td>1 insight, 2 actions</td>
+                            <td><span class="contribution-badge low">Medium</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="workshop-footer">
+        <div class="footer-content">
+            <div class="footer-branding">
+                <div class="footer-logo">TEEQA</div>
+                <div class="footer-text">
+                    Playful Product UI Specialist<br>
+                    Making workshops delightful since 2025
+                </div>
+            </div>
+            <div class="footer-meta">
+                Workshop Dashboard v2.0<br>
+                Generated: November 9, 2025 at 3:00 PM<br>
+                Next Review: November 16, 2025
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Live Timer Update
+        function updateTimer() {
+            const timerElement = document.getElementById('liveTimer');
+            const startTime = new Date();
+            startTime.setHours(9, 0, 0); // Workshop started at 9 AM
+
+            setInterval(() => {
+                const now = new Date();
+                const diff = now - startTime;
+
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                timerElement.textContent =
+                    `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        // Generate Confetti Background
+        function generateConfetti() {
+            const confettiBg = document.getElementById('confettiBg');
+            const colors = [
+                'var(--sticky-yellow)',
+                'var(--sticky-pink)',
+                'var(--sticky-blue)',
+                'var(--sticky-mint)',
+                'var(--sticky-purple)',
+                'var(--sticky-orange)'
+            ];
+
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                confetti.style.animationDelay = Math.random() * 5 + 's';
+                confetti.style.opacity = Math.random() * 0.3 + 0.1;
+                confettiBg.appendChild(confetti);
+            }
+        }
+
+        // Sticky Note Drop Animation Stagger
+        function staggerStickyNotes() {
+            const stickyNotes = document.querySelectorAll('.sticky-note');
+            stickyNotes.forEach((note, index) => {
+                note.style.animationDelay = `${index * 0.1}s`;
+            });
+        }
+
+        // Checklist Item Toggle
+        document.querySelectorAll('.checklist-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const checkbox = this.querySelector('.checkbox');
+                if (checkbox.textContent === '✓') {
+                    checkbox.textContent = '○';
+                    this.style.opacity = '0.6';
+                } else {
+                    checkbox.textContent = '✓';
+                    this.style.opacity = '1';
+                }
+            });
+        });
+
+        // Interactive Stats Card Effects
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const value = this.querySelector('.stat-value');
+                const currentValue = parseInt(value.textContent);
+
+                // Animate number on hover
+                let increment = 0;
+                const interval = setInterval(() => {
+                    if (increment >= 5) {
+                        clearInterval(interval);
+                        value.textContent = currentValue;
+                    } else {
+                        value.textContent = currentValue + increment;
+                        increment++;
+                    }
+                }, 50);
+            });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateTimer();
+            generateConfetti();
+            staggerStickyNotes();
+
+            // Add floating animation to certain elements
+            const floatElements = document.querySelectorAll('.stat-icon, .section-icon');
+            floatElements.forEach((el, index) => {
+                el.classList.add('float-animation');
+                el.style.animationDelay = `${index * 0.2}s`;
+            });
+        });
+
+        // Action Card Drag and Drop Simulation
+        let draggedCard = null;
+
+        document.querySelectorAll('.action-card').forEach(card => {
+            card.addEventListener('dragstart', function(e) {
+                draggedCard = this;
+                this.style.opacity = '0.5';
+            });
+
+            card.addEventListener('dragend', function(e) {
+                this.style.opacity = '1';
+            });
+        });
+
+        document.querySelectorAll('.kanban-column').forEach(column => {
+            column.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.style.background = 'rgba(155, 93, 229, 0.1)';
+            });
+
+            column.addEventListener('dragleave', function(e) {
+                this.style.background = '';
+            });
+
+            column.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.style.background = '';
+                if (draggedCard) {
+                    const actionCards = this.querySelector('.action-cards');
+                    actionCards.appendChild(draggedCard);
+
+                    // Update count
+                    const count = this.querySelector('.column-count');
+                    count.textContent = actionCards.children.length;
+                }
+            });
+        });
+
+        // Parking Lot Card Expand on Click
+        document.querySelectorAll('.parking-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = this.style.transform === 'scale(1.1)' ? 'translateY(-4px)' : 'scale(1.1)';
+            });
+        });
+    </script>
+</body>
+</html>

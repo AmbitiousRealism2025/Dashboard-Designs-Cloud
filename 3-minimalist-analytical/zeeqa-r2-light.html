@@ -1,0 +1,1411 @@
+<!-- Agent: Zeeqa | Round: 2 - Light Mode Masterpiece | Theme: Minimalist Analytical | Intent: Pure analytical clarity through extreme reduction and typographic precision -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytical Overview · Zeeqa</title>
+    <style>
+        /* ═══════════════════════════════════════════════════════════
+           ZEEQA MINIMALIST ANALYTICAL - LIGHT MODE
+           Design Philosophy: Reduction to essence, one accent, vast space
+           ═══════════════════════════════════════════════════════════ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Near-monochrome palette */
+            --white: #FFFFFF;
+            --gray-50: #FAFAFA;
+            --gray-100: #F5F5F5;
+            --gray-200: #EEEEEE;
+            --gray-300: #E0E0E0;
+            --gray-400: #BDBDBD;
+            --gray-500: #9E9E9E;
+            --gray-600: #757575;
+            --gray-700: #616161;
+            --gray-800: #424242;
+            --gray-900: #212121;
+            --black: #000000;
+
+            /* Single accent color - used extremely sparingly */
+            --accent: #2962FF;
+            --accent-light: #768FFF;
+            --accent-subtle: #E3F2FD;
+
+            /* Semantic (grayscale-first) */
+            --success: #424242;
+            --warn: #757575;
+            --danger: #616161;
+
+            /* Typography */
+            --font-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
+
+            /* Spacing system - generous */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+            --space-3xl: 64px;
+            --space-4xl: 96px;
+
+            /* Border */
+            --border: 1px solid var(--gray-300);
+            --border-light: 1px solid var(--gray-200);
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--white);
+            color: var(--gray-900);
+            line-height: 1.4;
+            font-size: 13px;
+            letter-spacing: -0.01em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           LAYOUT GRID
+           ═══════════════════════════════════════════════════════════ */
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: var(--space-3xl) var(--space-2xl);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: var(--space-2xl);
+            border-bottom: var(--border-light);
+            margin-bottom: var(--space-4xl);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: baseline;
+            gap: var(--space-md);
+        }
+
+        .logo {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray-900);
+        }
+
+        .page-title {
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--gray-600);
+            letter-spacing: -0.02em;
+        }
+
+        .header-right {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .header-meta {
+            font-size: 11px;
+            color: var(--gray-500);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .header-action {
+            font-size: 11px;
+            color: var(--gray-700);
+            text-decoration: none;
+            padding: 6px 12px;
+            border: var(--border);
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.15s ease-out;
+        }
+
+        .header-action:hover {
+            border-color: var(--gray-900);
+            background: var(--gray-50);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           KPI METRICS - Ultra minimal grid
+           ═══════════════════════════════════════════════════════════ */
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1px;
+            background: var(--gray-200);
+            border: var(--border-light);
+            margin-bottom: var(--space-4xl);
+        }
+
+        .metric {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-md);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+            transition: background 0.15s ease-out;
+        }
+
+        .metric:hover {
+            background: var(--gray-50);
+        }
+
+        .metric-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gray-500);
+            font-weight: 500;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: 300;
+            color: var(--gray-900);
+            letter-spacing: -0.03em;
+            font-variant-numeric: tabular-nums;
+            line-height: 1.1;
+        }
+
+        .metric-delta {
+            font-size: 11px;
+            font-variant-numeric: tabular-nums;
+            color: var(--gray-600);
+        }
+
+        .metric-delta.positive {
+            color: var(--gray-900);
+        }
+
+        .metric-delta.accent {
+            color: var(--accent);
+        }
+
+        .metric-trend {
+            height: 20px;
+            margin-top: var(--space-xs);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trend-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(to right, var(--gray-200) 0%, var(--gray-300) 100%);
+            clip-path: polygon(0% 60%, 15% 55%, 30% 70%, 45% 40%, 60% 45%, 75% 30%, 90% 35%, 100% 20%, 100% 100%, 0% 100%);
+        }
+
+        .metric.highlight .trend-line {
+            background: linear-gradient(to right, var(--accent-subtle) 0%, var(--accent-light) 100%);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           MAIN CONTENT SECTIONS
+           ═══════════════════════════════════════════════════════════ */
+
+        .content-section {
+            margin-bottom: var(--space-4xl);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: var(--space-xl);
+            padding-bottom: var(--space-md);
+            border-bottom: var(--border-light);
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray-700);
+        }
+
+        .section-meta {
+            font-size: 11px;
+            color: var(--gray-500);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           CHART CONTAINERS - Minimal line charts
+           ═══════════════════════════════════════════════════════════ */
+
+        .charts-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-2xl);
+            margin-bottom: var(--space-4xl);
+        }
+
+        .chart-container {
+            background: var(--white);
+            border: var(--border-light);
+            padding: var(--space-lg);
+            transition: border-color 0.15s ease-out;
+        }
+
+        .chart-container:hover {
+            border-color: var(--gray-400);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: var(--space-lg);
+        }
+
+        .chart-title {
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gray-700);
+        }
+
+        .chart-value {
+            font-size: 13px;
+            color: var(--gray-900);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .chart-canvas {
+            height: 240px;
+            position: relative;
+            border-left: var(--border-light);
+            border-bottom: var(--border-light);
+            background:
+                linear-gradient(to top, var(--gray-200) 1px, transparent 1px),
+                linear-gradient(to top, var(--gray-200) 1px, transparent 1px),
+                linear-gradient(to top, var(--gray-200) 1px, transparent 1px),
+                linear-gradient(to top, var(--gray-200) 1px, transparent 1px);
+            background-size: 100% 25%;
+            background-position: 0 100%, 0 75%, 0 50%, 0 25%;
+            background-repeat: no-repeat;
+        }
+
+        .chart-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+        }
+
+        .line-path {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(to right,
+                var(--gray-400) 0%,
+                var(--gray-400) 2%,
+                transparent 2%,
+                transparent 100%);
+            clip-path: polygon(
+                0% 45%, 5% 42%, 10% 48%, 15% 40%, 20% 38%, 25% 42%, 30% 35%,
+                35% 32%, 40% 38%, 45% 30%, 50% 28%, 55% 32%, 60% 25%, 65% 22%,
+                70% 28%, 75% 20%, 80% 18%, 85% 22%, 90% 15%, 95% 12%, 100% 10%,
+                100% 100%, 0% 100%
+            );
+        }
+
+        .chart-container.accent .line-path {
+            background: linear-gradient(to right,
+                var(--accent) 0%,
+                var(--accent) 2%,
+                transparent 2%,
+                transparent 100%);
+        }
+
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--space-sm);
+            font-size: 10px;
+            color: var(--gray-500);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           DISTRIBUTION CHART - Vertical bars
+           ═══════════════════════════════════════════════════════════ */
+
+        .distribution-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 240px;
+            gap: 4px;
+            padding: var(--space-md) 0;
+        }
+
+        .bar-item {
+            flex: 1;
+            background: var(--gray-300);
+            transition: all 0.15s ease-out;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .bar-item:hover {
+            background: var(--gray-600);
+        }
+
+        .bar-item.accent {
+            background: var(--accent);
+        }
+
+        .bar-item.accent:hover {
+            opacity: 0.8;
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 9px;
+            color: var(--gray-500);
+            white-space: nowrap;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           DATA TABLE - Dense analytical table
+           ═══════════════════════════════════════════════════════════ */
+
+        .table-container {
+            border: var(--border-light);
+            background: var(--white);
+            overflow: hidden;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        thead {
+            background: var(--gray-50);
+            border-bottom: var(--border);
+        }
+
+        th {
+            text-align: left;
+            padding: var(--space-sm) var(--space-md);
+            font-size: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gray-700);
+            white-space: nowrap;
+        }
+
+        th.align-right,
+        td.align-right {
+            text-align: right;
+        }
+
+        th.align-center,
+        td.align-center {
+            text-align: center;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--gray-200);
+            transition: background 0.12s ease-out;
+        }
+
+        tbody tr:hover {
+            background: var(--gray-50);
+        }
+
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        td {
+            padding: var(--space-md);
+            color: var(--gray-900);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .table-id {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--gray-600);
+        }
+
+        .table-name {
+            font-weight: 500;
+            color: var(--gray-900);
+        }
+
+        .status-pill {
+            display: inline-block;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 3px 8px;
+            background: var(--gray-200);
+            color: var(--gray-700);
+            font-weight: 500;
+        }
+
+        .status-pill.active {
+            background: var(--gray-900);
+            color: var(--white);
+        }
+
+        .status-pill.pending {
+            background: var(--gray-300);
+            color: var(--gray-700);
+        }
+
+        .status-pill.accent {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .metric-change {
+            font-size: 11px;
+            color: var(--gray-600);
+        }
+
+        .metric-change.positive {
+            color: var(--gray-900);
+        }
+
+        .metric-change.accent {
+            color: var(--accent);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           SECONDARY METRICS GRID
+           ═══════════════════════════════════════════════════════════ */
+
+        .secondary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--gray-200);
+            border: var(--border-light);
+            margin-bottom: var(--space-4xl);
+        }
+
+        .secondary-metric {
+            background: var(--white);
+            padding: var(--space-xl) var(--space-lg);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .secondary-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gray-500);
+            font-weight: 500;
+        }
+
+        .secondary-value {
+            font-size: 28px;
+            font-weight: 300;
+            color: var(--gray-900);
+            letter-spacing: -0.03em;
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+        }
+
+        .secondary-detail {
+            font-size: 11px;
+            color: var(--gray-600);
+            margin-top: var(--space-xs);
+        }
+
+        .progress-bar {
+            height: 2px;
+            background: var(--gray-200);
+            margin-top: var(--space-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            background: var(--gray-900);
+            transition: width 0.3s ease-out;
+        }
+
+        .progress-fill.accent {
+            background: var(--accent);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           COMPARISON TABLE
+           ═══════════════════════════════════════════════════════════ */
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--gray-200);
+            border: var(--border-light);
+            margin-bottom: var(--space-4xl);
+        }
+
+        .comparison-card {
+            background: var(--white);
+            padding: var(--space-xl);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        .comparison-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding-bottom: var(--space-md);
+            border-bottom: var(--border-light);
+        }
+
+        .comparison-title {
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gray-700);
+        }
+
+        .comparison-badge {
+            font-size: 9px;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .comparison-metrics {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .comparison-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .comparison-label {
+            font-size: 11px;
+            color: var(--gray-600);
+        }
+
+        .comparison-value {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--gray-900);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           FOOTER
+           ═══════════════════════════════════════════════════════════ */
+
+        footer {
+            margin-top: var(--space-4xl);
+            padding-top: var(--space-2xl);
+            border-top: var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-brand {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray-500);
+        }
+
+        .footer-meta {
+            font-size: 10px;
+            color: var(--gray-500);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           RESPONSIVE DESIGN
+           ═══════════════════════════════════════════════════════════ */
+
+        @media (max-width: 1200px) {
+            .metrics-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .charts-row {
+                grid-template-columns: 1fr;
+            }
+
+            .secondary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--space-xl) var(--space-md);
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-md);
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .secondary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 11px;
+            }
+
+            th, td {
+                padding: var(--space-sm);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-right {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-sm);
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           MICRO-INTERACTIONS
+           ═══════════════════════════════════════════════════════════ */
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .metric,
+        .chart-container,
+        .secondary-metric,
+        .comparison-card {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        /* Stagger animation */
+        .metric:nth-child(1) { animation-delay: 0.05s; }
+        .metric:nth-child(2) { animation-delay: 0.10s; }
+        .metric:nth-child(3) { animation-delay: 0.15s; }
+        .metric:nth-child(4) { animation-delay: 0.20s; }
+        .metric:nth-child(5) { animation-delay: 0.25s; }
+        .metric:nth-child(6) { animation-delay: 0.30s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ═══════════════════════════════════════════════════════════
+             HEADER
+             ═══════════════════════════════════════════════════════════ -->
+        <header>
+            <div class="header-left">
+                <div class="logo">ZEEQA</div>
+                <div class="page-title">Analytical Overview</div>
+            </div>
+            <div class="header-right">
+                <div class="header-meta">Last updated: 2025-11-09 14:32 UTC</div>
+                <a href="#" class="header-action">Export Data</a>
+                <a href="#" class="header-action">Configure</a>
+            </div>
+        </header>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             PRIMARY METRICS
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="metrics-grid">
+            <div class="metric">
+                <div class="metric-label">Total Revenue</div>
+                <div class="metric-value">$2.4M</div>
+                <div class="metric-delta positive">+12.3%</div>
+                <div class="metric-trend">
+                    <div class="trend-line"></div>
+                </div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Active Users</div>
+                <div class="metric-value">18,492</div>
+                <div class="metric-delta">+8.1%</div>
+                <div class="metric-trend">
+                    <div class="trend-line"></div>
+                </div>
+            </div>
+
+            <div class="metric highlight">
+                <div class="metric-label">Conversion</div>
+                <div class="metric-value">3.82%</div>
+                <div class="metric-delta accent">+0.4pp</div>
+                <div class="metric-trend">
+                    <div class="trend-line"></div>
+                </div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Avg Order</div>
+                <div class="metric-value">$128</div>
+                <div class="metric-delta">+5.2%</div>
+                <div class="metric-trend">
+                    <div class="trend-line"></div>
+                </div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Sessions</div>
+                <div class="metric-value">42,108</div>
+                <div class="metric-delta">−2.1%</div>
+                <div class="metric-trend">
+                    <div class="trend-line"></div>
+                </div>
+            </div>
+
+            <div class="metric">
+                <div class="metric-label">Bounce Rate</div>
+                <div class="metric-value">38.2%</div>
+                <div class="metric-delta">−1.8pp</div>
+                <div class="metric-trend">
+                    <div class="trend-line"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             CHARTS - Time series and distribution
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="charts-row">
+            <div class="chart-container accent">
+                <div class="chart-header">
+                    <div class="chart-title">Revenue Trend (90 days)</div>
+                    <div class="chart-value">Peak: $94,200 / day</div>
+                </div>
+                <div class="chart-canvas">
+                    <div class="chart-line">
+                        <div class="line-path"></div>
+                    </div>
+                </div>
+                <div class="chart-labels">
+                    <span>Aug 1</span>
+                    <span>Aug 15</span>
+                    <span>Sep 1</span>
+                    <span>Sep 15</span>
+                    <span>Oct 1</span>
+                    <span>Oct 15</span>
+                    <span>Nov 1</span>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Daily Distribution</div>
+                    <div class="chart-value">7-day view</div>
+                </div>
+                <div class="distribution-chart">
+                    <div class="bar-item" style="height: 65%;">
+                        <div class="bar-label">Mon</div>
+                    </div>
+                    <div class="bar-item" style="height: 72%;">
+                        <div class="bar-label">Tue</div>
+                    </div>
+                    <div class="bar-item" style="height: 58%;">
+                        <div class="bar-label">Wed</div>
+                    </div>
+                    <div class="bar-item accent" style="height: 88%;">
+                        <div class="bar-label">Thu</div>
+                    </div>
+                    <div class="bar-item" style="height: 75%;">
+                        <div class="bar-label">Fri</div>
+                    </div>
+                    <div class="bar-item" style="height: 42%;">
+                        <div class="bar-label">Sat</div>
+                    </div>
+                    <div class="bar-item" style="height: 38%;">
+                        <div class="bar-label">Sun</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECONDARY ANALYTICS
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="content-section">
+            <div class="section-header">
+                <div class="section-title">Performance Indicators</div>
+                <div class="section-meta">Quarter-to-date</div>
+            </div>
+
+            <div class="secondary-grid">
+                <div class="secondary-metric">
+                    <div class="secondary-label">Customer LTV</div>
+                    <div class="secondary-value">$1,842</div>
+                    <div class="secondary-detail">+$124 vs. last quarter</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 73%;"></div>
+                    </div>
+                </div>
+
+                <div class="secondary-metric">
+                    <div class="secondary-label">CAC Ratio</div>
+                    <div class="secondary-value">4.2:1</div>
+                    <div class="secondary-detail">Target: 3.5:1 or higher</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill accent" style="width: 84%;"></div>
+                    </div>
+                </div>
+
+                <div class="secondary-metric">
+                    <div class="secondary-label">Churn Rate</div>
+                    <div class="secondary-value">2.8%</div>
+                    <div class="secondary-detail">−0.4pp improvement</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 28%;"></div>
+                    </div>
+                </div>
+
+                <div class="secondary-metric">
+                    <div class="secondary-label">NPS Score</div>
+                    <div class="secondary-value">62</div>
+                    <div class="secondary-detail">+8 points since Q2</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 62%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             DETAILED DATA TABLE
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="content-section">
+            <div class="section-header">
+                <div class="section-title">Transaction Analysis</div>
+                <div class="section-meta">Top 25 by volume</div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th class="align-right">Units</th>
+                                <th class="align-right">Revenue</th>
+                                <th class="align-right">Margin</th>
+                                <th class="align-right">Δ 7D</th>
+                                <th class="align-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="table-id">PRD-4821</td>
+                                <td class="table-name">Enterprise Analytics Suite</td>
+                                <td>Software</td>
+                                <td class="align-right">1,284</td>
+                                <td class="align-right">$428,200</td>
+                                <td class="align-right">68%</td>
+                                <td class="align-right"><span class="metric-change accent">+18.2%</span></td>
+                                <td class="align-center"><span class="status-pill accent">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="table-id">PRD-3192</td>
+                                <td class="table-name">Cloud Infrastructure Bundle</td>
+                                <td>Services</td>
+                                <td class="align-right">892</td>
+                                <td class="align-right">$312,400</td>
+                                <td class="align-right">52%</td>
+                                <td class="align-right"><span class="metric-change positive">+12.8%</span></td>
+                                <td class="align-center"><span class="status-pill active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="table-id">PRD-5647</td>
+                                <td class="table-name">Security Compliance Package</td>
+                                <td>Software</td>
+                                <td class="align-right">1,045</td>
+                                <td class="align-right">$298,100</td>
+                                <td class="align-right">71%</td>
+                                <td class="align-right"><span class="metric-change positive">+9.4%</span></td>
+                                <td class="align-center"><span class="status-pill active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="table-id">PRD-2834</td>
+                                <td class="table-name">API Gateway Professional</td>
+                                <td>Services</td>
+                                <td class="align-right">2,182</td>
+                                <td class="align-right">$284,600</td>
+                                <td class="align-right">64%</td>
+                                <td class="align-right"><span class="metric-change">+5.1%</span></td>
+                                <td class="align-center"><span class="status-pill active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="table-id">PRD-7129</td>
+                                <td class="table-name">Data Warehouse Starter</td>
+                                <td>Software</td>
+                                <td class="align-right">634</td>
+                                <td class="align-right">$247,800</td>
+                                <td class="align-right">58%</td>
+                                <td class="align-right"><span class="metric-change">+3.2%</span></td>
+                                <td class="align-center"><span class="status-pill active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="table-id">PRD-8921</td>
+                                <td class="table-name">ML Model Training Credits</td>
+                                <td>Services</td>
+                                <td class="align-right">1,893</td>
+                                <td class="align-right">$234,200</td>
+                                <td class="align-right">45%</td>
+                                <td class="align-right"><span class="metric-change positive">+14.7%</span></td>
+                                <td class="align-center"><span class="status-pill active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="table-id">PRD-4512</td>
+                                <td class="table-name">DevOps Automation Tools</td>
+                                <td>Software</td>
+                                <td class="align-right">1,127</td>
+                                <td class="align-right">$198,400</td>
+                                <td class="align-right">62%</td>
+                                <td class="align-right"><span class="metric-change">+2.8%</span></td>
+                                <td class="align-center"><span class="status-pill active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="table-id">PRD-6283</td>
+                                <td class="table-name">Monitoring & Alerts Premium</td>
+                                <td>Services</td>
+                                <td class="align-right">2,451</td>
+                                <td class="align-right">$186,700</td>
+                                <td class="align-right">69%</td>
+                                <td class="align-right"><span class="metric-change">+7.3%</span></td>
+                                <td class="align-center"><span class="status-pill active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="table-id">PRD-3947</td>
+                                <td class="table-name">Container Orchestration</td>
+                                <td>Software</td>
+                                <td class="align-right">847</td>
+                                <td class="align-right">$172,300</td>
+                                <td class="align-right">55%</td>
+                                <td class="align-right"><span class="metric-change">+1.9%</span></td>
+                                <td class="align-center"><span class="status-pill active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="table-id">PRD-5128</td>
+                                <td class="table-name">Backup & Recovery Suite</td>
+                                <td>Services</td>
+                                <td class="align-right">1,592</td>
+                                <td class="align-right">$164,800</td>
+                                <td class="align-right">51%</td>
+                                <td class="align-right"><span class="metric-change">−0.8%</span></td>
+                                <td class="align-center"><span class="status-pill pending">Monitor</span></td>
+                            </tr>
+                            <tr>
+                                <td class="table-id">PRD-7634</td>
+                                <td class="table-name">Identity Access Management</td>
+                                <td>Software</td>
+                                <td class="align-right">923</td>
+                                <td class="align-right">$158,200</td>
+                                <td class="align-right">73%</td>
+                                <td class="align-right"><span class="metric-change positive">+11.4%</span></td>
+                                <td class="align-center"><span class="status-pill active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="table-id">PRD-2491</td>
+                                <td class="table-name">CDN Global Distribution</td>
+                                <td>Services</td>
+                                <td class="align-right">3,124</td>
+                                <td class="align-right">$142,600</td>
+                                <td class="align-right">48%</td>
+                                <td class="align-right"><span class="metric-change">+4.2%</span></td>
+                                <td class="align-center"><span class="status-pill active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="table-id">PRD-8273</td>
+                                <td class="table-name">Email Campaign Manager</td>
+                                <td>Software</td>
+                                <td class="align-right">2,847</td>
+                                <td class="align-right">$136,900</td>
+                                <td class="align-right">67%</td>
+                                <td class="align-right"><span class="metric-change">+6.1%</span></td>
+                                <td class="align-center"><span class="status-pill active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="table-id">PRD-4856</td>
+                                <td class="table-name">Search Optimization Engine</td>
+                                <td>Services</td>
+                                <td class="align-right">1,234</td>
+                                <td class="align-right">$128,400</td>
+                                <td class="align-right">59%</td>
+                                <td class="align-right"><span class="metric-change">+2.3%</span></td>
+                                <td class="align-center"><span class="status-pill active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="table-id">PRD-9182</td>
+                                <td class="table-name">Workflow Automation Pro</td>
+                                <td>Software</td>
+                                <td class="align-right">781</td>
+                                <td class="align-right">$118,200</td>
+                                <td class="align-right">61%</td>
+                                <td class="align-right"><span class="metric-change positive">+9.8%</span></td>
+                                <td class="align-center"><span class="status-pill active">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             COMPARISON CARDS
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="content-section">
+            <div class="section-header">
+                <div class="section-title">Channel Performance</div>
+                <div class="section-meta">Monthly comparison</div>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <div class="comparison-header">
+                        <div class="comparison-title">Direct Sales</div>
+                        <div class="comparison-badge">Primary</div>
+                    </div>
+                    <div class="comparison-metrics">
+                        <div class="comparison-row">
+                            <div class="comparison-label">Revenue</div>
+                            <div class="comparison-value">$1,284,200</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-label">Transactions</div>
+                            <div class="comparison-value">8,421</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-label">Avg Deal Size</div>
+                            <div class="comparison-value">$152.50</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-label">Growth</div>
+                            <div class="comparison-value">+14.2%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="comparison-header">
+                        <div class="comparison-title">Partner Network</div>
+                        <div class="comparison-badge">Secondary</div>
+                    </div>
+                    <div class="comparison-metrics">
+                        <div class="comparison-row">
+                            <div class="comparison-label">Revenue</div>
+                            <div class="comparison-value">$847,600</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-label">Transactions</div>
+                            <div class="comparison-value">6,234</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-label">Avg Deal Size</div>
+                            <div class="comparison-value">$136.00</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-label">Growth</div>
+                            <div class="comparison-value">+8.7%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="comparison-header">
+                        <div class="comparison-title">Digital Channel</div>
+                        <div class="comparison-badge">Growing</div>
+                    </div>
+                    <div class="comparison-metrics">
+                        <div class="comparison-row">
+                            <div class="comparison-label">Revenue</div>
+                            <div class="comparison-value">$492,800</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-label">Transactions</div>
+                            <div class="comparison-value">12,847</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-label">Avg Deal Size</div>
+                            <div class="comparison-value">$38.40</div>
+                        </div>
+                        <div class="comparison-row">
+                            <div class="comparison-label">Growth</div>
+                            <div class="comparison-value">+28.3%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             ADDITIONAL CHART - Segmentation
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="content-section">
+            <div class="section-header">
+                <div class="section-title">Customer Segmentation</div>
+                <div class="section-meta">By revenue contribution</div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Segment Performance (30 days)</div>
+                    <div class="chart-value">Total: $2,624,600</div>
+                </div>
+                <div class="chart-canvas">
+                    <div class="chart-line">
+                        <div class="line-path" style="clip-path: polygon(
+                            0% 50%, 5% 48%, 10% 52%, 15% 45%, 20% 43%, 25% 47%, 30% 40%,
+                            35% 38%, 40% 42%, 45% 35%, 50% 32%, 55% 36%, 60% 28%, 65% 25%,
+                            70% 30%, 75% 22%, 80% 20%, 85% 24%, 90% 18%, 95% 15%, 100% 12%,
+                            100% 100%, 0% 100%
+                        );"></div>
+                    </div>
+                </div>
+                <div class="chart-labels">
+                    <span>Day 1</span>
+                    <span>Day 6</span>
+                    <span>Day 12</span>
+                    <span>Day 18</span>
+                    <span>Day 24</span>
+                    <span>Day 30</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             FOOTER
+             ═══════════════════════════════════════════════════════════ -->
+        <footer>
+            <div class="footer-brand">ZEEQA · Minimalist Analytical</div>
+            <div class="footer-meta">Generated: 2025-11-09 14:32:18 UTC · Data refresh: Real-time</div>
+        </footer>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════
+        // MINIMAL INTERACTIONS - Subtle enhancements only
+        // ═══════════════════════════════════════════════════════════
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Table row click handler - subtle feedback
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', function() {
+                    // Minimal visual feedback
+                    this.style.background = 'var(--gray-100)';
+                    setTimeout(() => {
+                        this.style.background = '';
+                    }, 200);
+                });
+            });
+
+            // Metric card hover - display additional context
+            const metrics = document.querySelectorAll('.metric');
+            metrics.forEach(metric => {
+                metric.addEventListener('mouseenter', function() {
+                    const delta = this.querySelector('.metric-delta');
+                    if (delta) {
+                        delta.style.opacity = '1';
+                    }
+                });
+            });
+
+            // Chart containers - subtle scale on hover
+            const charts = document.querySelectorAll('.chart-container');
+            charts.forEach(chart => {
+                chart.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.002)';
+                });
+                chart.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            // Table sorting simulation (visual only)
+            const headers = document.querySelectorAll('th');
+            let currentSort = null;
+
+            headers.forEach(header => {
+                header.style.cursor = 'pointer';
+                header.addEventListener('click', function() {
+                    // Remove previous sort indicator
+                    headers.forEach(h => {
+                        h.textContent = h.textContent.replace(' ↑', '').replace(' ↓', '');
+                    });
+
+                    // Add sort indicator
+                    if (currentSort === this) {
+                        this.textContent += ' ↓';
+                        currentSort = null;
+                    } else {
+                        this.textContent += ' ↑';
+                        currentSort = this;
+                    }
+                });
+            });
+
+            // Progress bars - animate on scroll into view
+            const progressBars = document.querySelectorAll('.progress-fill');
+            const observerOptions = {
+                threshold: 0.5,
+                rootMargin: '0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const fill = entry.target;
+                        const targetWidth = fill.style.width;
+                        fill.style.width = '0%';
+                        setTimeout(() => {
+                            fill.style.width = targetWidth;
+                        }, 100);
+                    }
+                });
+            }, observerOptions);
+
+            progressBars.forEach(bar => {
+                observer.observe(bar);
+            });
+
+            // Bar chart items - highlight on hover
+            const barItems = document.querySelectorAll('.bar-item');
+            barItems.forEach(bar => {
+                bar.addEventListener('mouseenter', function() {
+                    this.style.opacity = '0.7';
+                });
+                bar.addEventListener('mouseleave', function() {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Live timestamp update
+            function updateTimestamp() {
+                const now = new Date();
+                const utcString = now.toISOString().slice(0, 19).replace('T', ' ') + ' UTC';
+                const footerMeta = document.querySelector('.footer-meta');
+                if (footerMeta) {
+                    footerMeta.innerHTML = `Generated: ${utcString} · Data refresh: Real-time`;
+                }
+            }
+
+            // Update timestamp every minute
+            setInterval(updateTimestamp, 60000);
+
+            // Comparison cards - subtle interaction
+            const comparisonCards = document.querySelectorAll('.comparison-card');
+            comparisonCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Minimal flash feedback
+                    this.style.background = 'var(--gray-50)';
+                    setTimeout(() => {
+                        this.style.background = 'var(--white)';
+                    }, 150);
+                });
+            });
+
+            // Keyboard navigation for table
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                    const focusedRow = document.activeElement.closest('tr');
+                    if (focusedRow && focusedRow.parentElement.tagName === 'TBODY') {
+                        e.preventDefault();
+                        let targetRow;
+                        if (e.key === 'ArrowDown') {
+                            targetRow = focusedRow.nextElementSibling;
+                        } else {
+                            targetRow = focusedRow.previousElementSibling;
+                        }
+                        if (targetRow) {
+                            targetRow.focus();
+                            targetRow.style.background = 'var(--gray-50)';
+                            if (focusedRow !== targetRow) {
+                                focusedRow.style.background = '';
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Make table rows focusable
+            tableRows.forEach(row => {
+                row.setAttribute('tabindex', '0');
+            });
+
+        });
+    </script>
+</body>
+</html>

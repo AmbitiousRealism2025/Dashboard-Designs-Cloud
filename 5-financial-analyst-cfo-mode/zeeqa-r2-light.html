@@ -1,0 +1,1309 @@
+<!-- Agent: Zeeqa | Round: 2 - Light Mode Masterpiece | Theme: Financial Analyst CFO Mode | Intent: Institutional minimalism through extreme whitespace and typographic precision for financial clarity -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Overview Q4 2025 | CFO Dashboard</title>
+    <style>
+        /* ═══════════════════════════════════════════════════════════
+           ZEEQA FINANCIAL ANALYST DASHBOARD - LIGHT MODE MASTERPIECE
+           Extreme minimalism meets institutional finance
+           ═══════════════════════════════════════════════════════════ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Light Mode Financial Palette */
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #FAFBFC;
+            --bg-tertiary: #F5F7F9;
+
+            /* Institutional Colors - Used Sparingly */
+            --navy-primary: #1A2B4A;
+            --navy-secondary: #2C4166;
+            --green-primary: #0F5132;
+            --green-secondary: #1A6F4A;
+            --grey-primary: #4A5568;
+            --grey-secondary: #718096;
+            --grey-light: #CBD5E0;
+            --grey-ultralight: #E2E8F0;
+
+            /* Semantic Colors */
+            --positive: #0F5132;
+            --negative: #8B1538;
+            --neutral: #4A5568;
+            --warning: #B45309;
+
+            /* Borders - Minimal */
+            --border-thin: 1px solid #E2E8F0;
+            --border-medium: 1px solid #CBD5E0;
+
+            /* Spacing - Generous */
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 32px;
+            --space-lg: 48px;
+            --space-xl: 64px;
+            --space-xxl: 96px;
+
+            /* Typography */
+            --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            --font-mono: 'SF Mono', 'Monaco', 'Courier New', monospace;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-primary);
+            color: var(--navy-primary);
+            line-height: 1.6;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           HEADER - Extreme Minimalism
+           ═══════════════════════════════════════════════════════════ */
+
+        header {
+            background: var(--bg-primary);
+            border-bottom: var(--border-thin);
+            padding: var(--space-lg) var(--space-xl);
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .header-title {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .company-name {
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--grey-secondary);
+        }
+
+        .report-title {
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: -0.5px;
+            color: var(--navy-primary);
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: baseline;
+            gap: var(--space-md);
+            font-size: 13px;
+            color: var(--grey-primary);
+        }
+
+        .agent-badge {
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: var(--navy-primary);
+            padding: 4px 12px;
+            border: var(--border-medium);
+            background: var(--bg-tertiary);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           MAIN CONTAINER - Maximum Breathing Room
+           ═══════════════════════════════════════════════════════════ */
+
+        main {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+        }
+
+        .section {
+            margin-bottom: var(--space-xxl);
+        }
+
+        .section-header {
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-title {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--grey-secondary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .section-subtitle {
+            font-size: 13px;
+            color: var(--grey-primary);
+            font-weight: 400;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           KPI STRIP - Tabular Numerals & Perfect Alignment
+           ═══════════════════════════════════════════════════════════ */
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .kpi-card {
+            background: var(--bg-primary);
+            border: var(--border-thin);
+            padding: var(--space-md);
+            transition: border-color 0.2s ease;
+        }
+
+        .kpi-card:hover {
+            border-color: var(--grey-light);
+        }
+
+        .kpi-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--grey-secondary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-value {
+            font-size: 40px;
+            font-weight: 300;
+            letter-spacing: -1px;
+            color: var(--navy-primary);
+            font-variant-numeric: tabular-nums;
+            margin-bottom: var(--space-xs);
+            line-height: 1;
+        }
+
+        .kpi-value.animate {
+            display: inline-block;
+        }
+
+        .kpi-change {
+            font-size: 13px;
+            font-variant-numeric: tabular-nums;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .kpi-change.positive {
+            color: var(--positive);
+        }
+
+        .kpi-change.negative {
+            color: var(--negative);
+        }
+
+        .kpi-change.neutral {
+            color: var(--neutral);
+        }
+
+        .kpi-arrow {
+            font-size: 10px;
+        }
+
+        .kpi-meta {
+            font-size: 12px;
+            color: var(--grey-primary);
+            margin-top: var(--space-xs);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           FINANCIAL TABLES - Typography Excellence
+           ═══════════════════════════════════════════════════════════ */
+
+        .table-container {
+            background: var(--bg-primary);
+            border: var(--border-thin);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-variant-numeric: tabular-nums;
+        }
+
+        thead {
+            background: var(--bg-tertiary);
+            border-bottom: var(--border-medium);
+        }
+
+        th {
+            text-align: left;
+            padding: var(--space-sm) var(--space-md);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--grey-secondary);
+        }
+
+        th.align-right,
+        td.align-right {
+            text-align: right;
+        }
+
+        tbody tr {
+            border-bottom: var(--border-thin);
+            transition: background-color 0.15s ease;
+        }
+
+        tbody tr:hover {
+            background: var(--bg-secondary);
+        }
+
+        tbody tr:hover td {
+            color: var(--navy-primary);
+        }
+
+        td {
+            padding: var(--space-sm) var(--space-md);
+            font-size: 14px;
+            color: var(--grey-primary);
+            transition: color 0.15s ease;
+        }
+
+        td.amount {
+            font-weight: 500;
+            color: var(--navy-primary);
+        }
+
+        td.positive-amount {
+            color: var(--positive);
+        }
+
+        td.negative-amount {
+            color: var(--negative);
+        }
+
+        .row-label {
+            font-weight: 500;
+            color: var(--navy-secondary);
+        }
+
+        .row-label.indent-1 {
+            padding-left: calc(var(--space-md) + 16px);
+            font-weight: 400;
+        }
+
+        .row-label.indent-2 {
+            padding-left: calc(var(--space-md) + 32px);
+            font-weight: 400;
+            color: var(--grey-primary);
+        }
+
+        .row-total {
+            font-weight: 600;
+            background: var(--bg-tertiary);
+        }
+
+        .row-total td {
+            padding-top: var(--space-sm);
+            padding-bottom: var(--space-sm);
+            color: var(--navy-primary);
+            font-weight: 600;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           CHART CONTAINERS - Minimal & Precise
+           ═══════════════════════════════════════════════════════════ */
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .chart-box {
+            background: var(--bg-primary);
+            border: var(--border-thin);
+            padding: var(--space-md);
+            min-height: 320px;
+        }
+
+        .chart-header {
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: var(--border-thin);
+        }
+
+        .chart-title {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--grey-secondary);
+            margin-bottom: 4px;
+        }
+
+        .chart-subtitle {
+            font-size: 12px;
+            color: var(--grey-primary);
+            font-weight: 400;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           WATERFALL CHART - CSS-Only Financial Visualization
+           ═══════════════════════════════════════════════════════════ */
+
+        .waterfall-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 220px;
+            padding: var(--space-sm) 0;
+            position: relative;
+        }
+
+        .waterfall-chart::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--grey-light);
+        }
+
+        .waterfall-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
+            position: relative;
+        }
+
+        .waterfall-bar {
+            width: 60%;
+            background: var(--grey-ultralight);
+            position: relative;
+            transition: opacity 0.2s ease;
+        }
+
+        .waterfall-bar.positive {
+            background: linear-gradient(to top, #D1FAE5, #A7F3D0);
+            border: 1px solid var(--positive);
+        }
+
+        .waterfall-bar.negative {
+            background: linear-gradient(to top, #FEE2E2, #FECACA);
+            border: 1px solid var(--negative);
+        }
+
+        .waterfall-bar.total {
+            background: linear-gradient(to top, #DBEAFE, #BFDBFE);
+            border: 2px solid var(--navy-primary);
+        }
+
+        .waterfall-item:hover .waterfall-bar {
+            opacity: 0.8;
+        }
+
+        .waterfall-label {
+            font-size: 10px;
+            color: var(--grey-secondary);
+            text-align: center;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .waterfall-value {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--navy-primary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           RATIO BARS - Minimalist Progress Indicators
+           ═══════════════════════════════════════════════════════════ */
+
+        .ratio-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .ratio-item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .ratio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .ratio-name {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--grey-primary);
+            letter-spacing: 0.3px;
+        }
+
+        .ratio-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--navy-primary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .ratio-bar-container {
+            height: 6px;
+            background: var(--grey-ultralight);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ratio-bar-fill {
+            height: 100%;
+            background: var(--navy-primary);
+            transition: width 1s ease-out;
+        }
+
+        .ratio-bar-fill.excellent {
+            background: linear-gradient(to right, var(--positive), var(--green-secondary));
+        }
+
+        .ratio-bar-fill.good {
+            background: var(--navy-primary);
+        }
+
+        .ratio-bar-fill.warning {
+            background: var(--warning);
+        }
+
+        .ratio-context {
+            font-size: 11px;
+            color: var(--grey-secondary);
+            margin-top: 2px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           FORECAST TABLE - Detailed Projection View
+           ═══════════════════════════════════════════════════════════ */
+
+        .forecast-table-container {
+            margin-top: var(--space-xl);
+        }
+
+        .forecast-table {
+            font-size: 13px;
+        }
+
+        .forecast-table th {
+            font-size: 10px;
+        }
+
+        .forecast-table td {
+            font-size: 13px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            padding: 3px 10px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 2px;
+        }
+
+        .status-on-track {
+            background: #D1FAE5;
+            color: var(--positive);
+        }
+
+        .status-at-risk {
+            background: #FEF3C7;
+            color: var(--warning);
+        }
+
+        .status-off-track {
+            background: #FEE2E2;
+            color: var(--negative);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           FOOTER - Subtle Timestamp
+           ═══════════════════════════════════════════════════════════ */
+
+        footer {
+            max-width: 1600px;
+            margin: var(--space-xxl) auto 0;
+            padding: var(--space-lg) var(--space-xl);
+            border-top: var(--border-thin);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--grey-secondary);
+        }
+
+        .footer-meta {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        .footer-agent {
+            font-weight: 600;
+            color: var(--navy-primary);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           RESPONSIVE DESIGN
+           ═══════════════════════════════════════════════════════════ */
+
+        @media (max-width: 960px) {
+            main {
+                padding: var(--space-lg);
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: var(--space-md) var(--space-lg);
+            }
+
+            .section {
+                margin-bottom: var(--space-lg);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+
+            .report-title {
+                font-size: 24px;
+            }
+
+            main {
+                padding: var(--space-md);
+            }
+
+            footer {
+                flex-direction: column;
+                gap: var(--space-sm);
+                align-items: flex-start;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           ANIMATIONS - Subtle & Institutional
+           ═══════════════════════════════════════════════════════════ */
+
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .kpi-value.animate {
+            animation: countUp 0.4s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .ratio-bar-fill {
+            animation: slideIn 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- ═══════════════════════════════════════════════════════════
+         HEADER
+         ═══════════════════════════════════════════════════════════ -->
+    <header>
+        <div class="header-content">
+            <div class="header-title">
+                <div class="company-name">Meridian Capital Group</div>
+                <h1 class="report-title">Financial Performance Dashboard</h1>
+            </div>
+            <div class="header-meta">
+                <div class="agent-badge">ZEEQA</div>
+                <span>Q4 2025 Forecast</span>
+                <span>Updated: Nov 9, 2025</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         MAIN CONTENT
+         ═══════════════════════════════════════════════════════════ -->
+    <main>
+        <!-- KPI Strip -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-title">Executive Summary</div>
+                <div class="section-subtitle">Key financial metrics and performance indicators</div>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Revenue</div>
+                    <div class="kpi-value animate">$42.8M</div>
+                    <div class="kpi-change positive">
+                        <span class="kpi-arrow">▲</span>
+                        <span>18.4% YoY</span>
+                    </div>
+                    <div class="kpi-meta">vs $36.2M prior year</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">EBITDA Margin</div>
+                    <div class="kpi-value animate">28.6%</div>
+                    <div class="kpi-change positive">
+                        <span class="kpi-arrow">▲</span>
+                        <span>+3.2pp</span>
+                    </div>
+                    <div class="kpi-meta">Target: 27.0%</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Free Cash Flow</div>
+                    <div class="kpi-value animate">$8.4M</div>
+                    <div class="kpi-change positive">
+                        <span class="kpi-arrow">▲</span>
+                        <span>22.1% YoY</span>
+                    </div>
+                    <div class="kpi-meta">vs $6.9M prior year</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Cash Runway</div>
+                    <div class="kpi-value animate">18.2</div>
+                    <div class="kpi-change neutral">
+                        <span>months</span>
+                    </div>
+                    <div class="kpi-meta">Based on current burn rate</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Operating Ratio</div>
+                    <div class="kpi-value animate">0.71</div>
+                    <div class="kpi-change positive">
+                        <span class="kpi-arrow">▼</span>
+                        <span>-4.2% improvement</span>
+                    </div>
+                    <div class="kpi-meta">Industry avg: 0.78</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Net Profit Margin</div>
+                    <div class="kpi-value animate">18.3%</div>
+                    <div class="kpi-change positive">
+                        <span class="kpi-arrow">▲</span>
+                        <span>+2.8pp</span>
+                    </div>
+                    <div class="kpi-meta">vs 15.5% prior year</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- P&L Summary Table -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-title">Profit & Loss Statement</div>
+                <div class="section-subtitle">Year-to-date performance through Q4 2025</div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Line Item</th>
+                            <th class="align-right">Q4 2025</th>
+                            <th class="align-right">Q3 2025</th>
+                            <th class="align-right">Q4 2024</th>
+                            <th class="align-right">YoY Change</th>
+                            <th class="align-right">% of Revenue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="row-total">
+                            <td class="row-label">Total Revenue</td>
+                            <td class="align-right amount">$42,847,200</td>
+                            <td class="align-right">$41,235,800</td>
+                            <td class="align-right">$36,182,400</td>
+                            <td class="align-right positive-amount">+18.4%</td>
+                            <td class="align-right">100.0%</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label indent-1">Product Revenue</td>
+                            <td class="align-right amount">$28,423,600</td>
+                            <td class="align-right">$27,418,200</td>
+                            <td class="align-right">$24,127,700</td>
+                            <td class="align-right positive-amount">+17.8%</td>
+                            <td class="align-right">66.3%</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label indent-1">Service Revenue</td>
+                            <td class="align-right amount">$14,423,600</td>
+                            <td class="align-right">$13,817,600</td>
+                            <td class="align-right">$12,054,700</td>
+                            <td class="align-right positive-amount">+19.7%</td>
+                            <td class="align-right">33.7%</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Cost of Revenue</td>
+                            <td class="align-right amount">$18,376,700</td>
+                            <td class="align-right">$17,729,100</td>
+                            <td class="align-right">$16,643,400</td>
+                            <td class="align-right negative-amount">+10.4%</td>
+                            <td class="align-right">42.9%</td>
+                        </tr>
+                        <tr class="row-total">
+                            <td class="row-label">Gross Profit</td>
+                            <td class="align-right amount">$24,470,500</td>
+                            <td class="align-right">$23,506,700</td>
+                            <td class="align-right">$19,539,000</td>
+                            <td class="align-right positive-amount">+25.2%</td>
+                            <td class="align-right">57.1%</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Operating Expenses</td>
+                            <td class="align-right amount">$12,196,300</td>
+                            <td class="align-right">$11,942,800</td>
+                            <td class="align-right">$10,854,700</td>
+                            <td class="align-right negative-amount">+12.4%</td>
+                            <td class="align-right">28.5%</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label indent-1">Sales & Marketing</td>
+                            <td class="align-right amount">$5,141,700</td>
+                            <td class="align-right">$4,948,300</td>
+                            <td class="align-right">$4,703,900</td>
+                            <td class="align-right negative-amount">+9.3%</td>
+                            <td class="align-right">12.0%</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label indent-1">R&D</td>
+                            <td class="align-right amount">$4,284,700</td>
+                            <td class="align-right">$4,123,600</td>
+                            <td class="align-right">$3,618,200</td>
+                            <td class="align-right negative-amount">+18.4%</td>
+                            <td class="align-right">10.0%</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label indent-1">G&A</td>
+                            <td class="align-right amount">$2,769,900</td>
+                            <td class="align-right">$2,870,900</td>
+                            <td class="align-right">$2,532,600</td>
+                            <td class="align-right negative-amount">+9.4%</td>
+                            <td class="align-right">6.5%</td>
+                        </tr>
+                        <tr class="row-total">
+                            <td class="row-label">EBITDA</td>
+                            <td class="align-right amount">$12,274,200</td>
+                            <td class="align-right">$11,563,900</td>
+                            <td class="align-right">$8,684,300</td>
+                            <td class="align-right positive-amount">+41.4%</td>
+                            <td class="align-right">28.6%</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">D&A</td>
+                            <td class="align-right amount">$1,713,900</td>
+                            <td class="align-right">$1,649,400</td>
+                            <td class="align-right">$1,447,300</td>
+                            <td class="align-right negative-amount">+18.4%</td>
+                            <td class="align-right">4.0%</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Interest Expense</td>
+                            <td class="align-right amount">$428,500</td>
+                            <td class="align-right">$412,400</td>
+                            <td class="align-right">$361,800</td>
+                            <td class="align-right negative-amount">+18.4%</td>
+                            <td class="align-right">1.0%</td>
+                        </tr>
+                        <tr class="row-total">
+                            <td class="row-label">Net Income</td>
+                            <td class="align-right amount">$7,840,900</td>
+                            <td class="align-right">$7,414,600</td>
+                            <td class="align-right">$5,608,300</td>
+                            <td class="align-right positive-amount">+39.8%</td>
+                            <td class="align-right">18.3%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Charts Grid -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-title">Financial Analysis</div>
+                <div class="section-subtitle">Cash flow bridge and key performance ratios</div>
+            </div>
+
+            <div class="charts-grid">
+                <!-- Cash Flow Waterfall -->
+                <div class="chart-box">
+                    <div class="chart-header">
+                        <div class="chart-title">Cash Flow Bridge</div>
+                        <div class="chart-subtitle">Q4 2025 reconciliation ($M)</div>
+                    </div>
+                    <div class="waterfall-chart">
+                        <div class="waterfall-item">
+                            <div class="waterfall-bar total" style="height: 180px;"></div>
+                            <div class="waterfall-value">$12.3</div>
+                            <div class="waterfall-label">Opening<br>Cash</div>
+                        </div>
+                        <div class="waterfall-item">
+                            <div class="waterfall-bar positive" style="height: 145px;"></div>
+                            <div class="waterfall-value">+$7.8</div>
+                            <div class="waterfall-label">Net<br>Income</div>
+                        </div>
+                        <div class="waterfall-item">
+                            <div class="waterfall-bar positive" style="height: 32px;"></div>
+                            <div class="waterfall-value">+$1.7</div>
+                            <div class="waterfall-label">D&A</div>
+                        </div>
+                        <div class="waterfall-item">
+                            <div class="waterfall-bar negative" style="height: 25px;"></div>
+                            <div class="waterfall-value">-$1.4</div>
+                            <div class="waterfall-label">Working<br>Capital</div>
+                        </div>
+                        <div class="waterfall-item">
+                            <div class="waterfall-bar negative" style="height: 42px;"></div>
+                            <div class="waterfall-value">-$2.3</div>
+                            <div class="waterfall-label">Capex</div>
+                        </div>
+                        <div class="waterfall-item">
+                            <div class="waterfall-bar positive" style="height: 15px;"></div>
+                            <div class="waterfall-value">+$0.8</div>
+                            <div class="waterfall-label">Other</div>
+                        </div>
+                        <div class="waterfall-item">
+                            <div class="waterfall-bar total" style="height: 165px;"></div>
+                            <div class="waterfall-value">$18.9</div>
+                            <div class="waterfall-label">Closing<br>Cash</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Ratios -->
+                <div class="chart-box">
+                    <div class="chart-header">
+                        <div class="chart-title">Key Performance Ratios</div>
+                        <div class="chart-subtitle">Current quarter vs industry benchmarks</div>
+                    </div>
+                    <div class="ratio-list">
+                        <div class="ratio-item">
+                            <div class="ratio-header">
+                                <div class="ratio-name">Gross Margin</div>
+                                <div class="ratio-value">57.1%</div>
+                            </div>
+                            <div class="ratio-bar-container">
+                                <div class="ratio-bar-fill excellent" style="width: 57.1%;"></div>
+                            </div>
+                            <div class="ratio-context">Industry median: 52.3%</div>
+                        </div>
+
+                        <div class="ratio-item">
+                            <div class="ratio-header">
+                                <div class="ratio-name">Operating Margin</div>
+                                <div class="ratio-value">28.6%</div>
+                            </div>
+                            <div class="ratio-bar-container">
+                                <div class="ratio-bar-fill excellent" style="width: 28.6%;"></div>
+                            </div>
+                            <div class="ratio-context">Industry median: 22.1%</div>
+                        </div>
+
+                        <div class="ratio-item">
+                            <div class="ratio-header">
+                                <div class="ratio-name">Current Ratio</div>
+                                <div class="ratio-value">2.4:1</div>
+                            </div>
+                            <div class="ratio-bar-container">
+                                <div class="ratio-bar-fill excellent" style="width: 80%;"></div>
+                            </div>
+                            <div class="ratio-context">Target range: 1.5-3.0</div>
+                        </div>
+
+                        <div class="ratio-item">
+                            <div class="ratio-header">
+                                <div class="ratio-name">Return on Equity (ROE)</div>
+                                <div class="ratio-value">24.8%</div>
+                            </div>
+                            <div class="ratio-bar-container">
+                                <div class="ratio-bar-fill good" style="width: 62%;"></div>
+                            </div>
+                            <div class="ratio-context">Industry median: 18.6%</div>
+                        </div>
+
+                        <div class="ratio-item">
+                            <div class="ratio-header">
+                                <div class="ratio-name">Debt-to-Equity</div>
+                                <div class="ratio-value">0.38:1</div>
+                            </div>
+                            <div class="ratio-bar-container">
+                                <div class="ratio-bar-fill excellent" style="width: 38%;"></div>
+                            </div>
+                            <div class="ratio-context">Conservative leverage position</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Forecast Table -->
+        <section class="section forecast-table-container">
+            <div class="section-header">
+                <div class="section-title">2026 Financial Forecast</div>
+                <div class="section-subtitle">Quarterly projections and variance analysis</div>
+            </div>
+
+            <div class="table-container">
+                <table class="forecast-table">
+                    <thead>
+                        <tr>
+                            <th>Quarter</th>
+                            <th class="align-right">Revenue Forecast</th>
+                            <th class="align-right">EBITDA Forecast</th>
+                            <th class="align-right">EBITDA %</th>
+                            <th class="align-right">FCF Forecast</th>
+                            <th class="align-right">Growth Rate</th>
+                            <th>Confidence</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="row-label">Q1 2026</td>
+                            <td class="align-right amount">$44,820,000</td>
+                            <td class="align-right amount">$12,852,000</td>
+                            <td class="align-right">28.7%</td>
+                            <td class="align-right amount">$8,740,000</td>
+                            <td class="align-right positive-amount">+4.6%</td>
+                            <td>High</td>
+                            <td><span class="status-indicator status-on-track">On Track</span></td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Q2 2026</td>
+                            <td class="align-right amount">$47,056,000</td>
+                            <td class="align-right amount">$13,496,000</td>
+                            <td class="align-right">28.7%</td>
+                            <td class="align-right amount">$9,180,000</td>
+                            <td class="align-right positive-amount">+5.0%</td>
+                            <td>High</td>
+                            <td><span class="status-indicator status-on-track">On Track</span></td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Q3 2026</td>
+                            <td class="align-right amount">$49,408,000</td>
+                            <td class="align-right amount">$14,177,000</td>
+                            <td class="align-right">28.7%</td>
+                            <td class="align-right amount">$9,640,000</td>
+                            <td class="align-right positive-amount">+5.0%</td>
+                            <td>Medium</td>
+                            <td><span class="status-indicator status-on-track">On Track</span></td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Q4 2026</td>
+                            <td class="align-right amount">$51,878,000</td>
+                            <td class="align-right amount">$14,886,000</td>
+                            <td class="align-right">28.7%</td>
+                            <td class="align-right amount">$10,120,000</td>
+                            <td class="align-right positive-amount">+5.0%</td>
+                            <td>Medium</td>
+                            <td><span class="status-indicator status-at-risk">At Risk</span></td>
+                        </tr>
+                        <tr class="row-total">
+                            <td class="row-label">FY 2026 Total</td>
+                            <td class="align-right amount">$193,162,000</td>
+                            <td class="align-right amount">$55,411,000</td>
+                            <td class="align-right">28.7%</td>
+                            <td class="align-right amount">$37,680,000</td>
+                            <td class="align-right positive-amount">+19.9%</td>
+                            <td>High</td>
+                            <td><span class="status-indicator status-on-track">On Track</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Risk Summary Table -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-title">Financial Risk Assessment</div>
+                <div class="section-subtitle">Key risk factors and mitigation strategies</div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Risk Category</th>
+                            <th>Description</th>
+                            <th>Probability</th>
+                            <th class="align-right">Est. Impact</th>
+                            <th>Mitigation</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="row-label">Revenue Concentration</td>
+                            <td>Top 3 customers represent 42% of revenue</td>
+                            <td>Medium</td>
+                            <td class="align-right amount">$8.1M</td>
+                            <td>Diversification strategy in progress</td>
+                            <td><span class="status-indicator status-at-risk">Monitor</span></td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">FX Exposure</td>
+                            <td>23% of revenue in foreign currencies</td>
+                            <td>High</td>
+                            <td class="align-right amount">$2.3M</td>
+                            <td>Hedging instruments deployed</td>
+                            <td><span class="status-indicator status-on-track">Covered</span></td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Supply Chain</td>
+                            <td>Critical component lead times extended</td>
+                            <td>Medium</td>
+                            <td class="align-right amount">$3.7M</td>
+                            <td>Increased inventory buffers</td>
+                            <td><span class="status-indicator status-at-risk">Monitor</span></td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Market Competition</td>
+                            <td>New entrants in core product segments</td>
+                            <td>Low</td>
+                            <td class="align-right amount">$1.2M</td>
+                            <td>Accelerated R&D investment</td>
+                            <td><span class="status-indicator status-on-track">Controlled</span></td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">Regulatory Change</td>
+                            <td>Pending compliance requirements 2026</td>
+                            <td>Medium</td>
+                            <td class="align-right amount">$1.8M</td>
+                            <td>Compliance team expansion</td>
+                            <td><span class="status-indicator status-on-track">Prepared</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         FOOTER
+         ═══════════════════════════════════════════════════════════ -->
+    <footer>
+        <div class="footer-meta">
+            <span class="footer-agent">ZEEQA Design System</span>
+            <span>Minimalist Financial Analytics</span>
+        </div>
+        <div class="footer-meta">
+            <span>Last Updated: November 9, 2025 at 14:32 EST</span>
+            <span>Data Source: Internal ERP & Forecasting Models</span>
+        </div>
+    </footer>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         JAVASCRIPT - Animated Counter & Ratio Bars
+         ═══════════════════════════════════════════════════════════ -->
+    <script>
+        // Animated value counter for KPIs
+        function animateValue(element, start, end, duration, suffix = '') {
+            const range = end - start;
+            const increment = range / (duration / 16);
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+                    element.textContent = formatNumber(end) + suffix;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = formatNumber(current) + suffix;
+                }
+            }, 16);
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return '$' + (num / 1000000).toFixed(1) + 'M';
+            } else if (num >= 1000) {
+                return (num / 1000).toFixed(1);
+            } else {
+                return num.toFixed(1);
+            }
+        }
+
+        // Initialize animations on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animate KPI values
+            const kpiValues = [
+                { element: document.querySelectorAll('.kpi-value')[0], start: 0, end: 42800000, suffix: '' },
+                { element: document.querySelectorAll('.kpi-value')[1], start: 0, end: 28.6, suffix: '%' },
+                { element: document.querySelectorAll('.kpi-value')[2], start: 0, end: 8400000, suffix: '' },
+                { element: document.querySelectorAll('.kpi-value')[3], start: 0, end: 18.2, suffix: '' },
+                { element: document.querySelectorAll('.kpi-value')[4], start: 0, end: 0.71, suffix: '' },
+                { element: document.querySelectorAll('.kpi-value')[5], start: 0, end: 18.3, suffix: '%' }
+            ];
+
+            kpiValues.forEach((kpi, index) => {
+                setTimeout(() => {
+                    if (index === 0 || index === 2) {
+                        // Revenue and FCF - use M format
+                        animateValue(kpi.element, kpi.start, kpi.end, 1000, kpi.suffix);
+                    } else if (index === 4) {
+                        // Operating ratio - two decimals
+                        let current = kpi.start;
+                        const end = kpi.end;
+                        const increment = (end - kpi.start) / 60;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= end) {
+                                kpi.element.textContent = end.toFixed(2);
+                                clearInterval(timer);
+                            } else {
+                                kpi.element.textContent = current.toFixed(2);
+                            }
+                        }, 16);
+                    } else if (index === 3) {
+                        // Months - one decimal
+                        let current = kpi.start;
+                        const end = kpi.end;
+                        const increment = (end - kpi.start) / 60;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= end) {
+                                kpi.element.textContent = end.toFixed(1);
+                                clearInterval(timer);
+                            } else {
+                                kpi.element.textContent = current.toFixed(1);
+                            }
+                        }, 16);
+                    } else {
+                        // Percentages
+                        let current = kpi.start;
+                        const end = kpi.end;
+                        const increment = (end - kpi.start) / 60;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= end) {
+                                kpi.element.textContent = end.toFixed(1) + kpi.suffix;
+                                clearInterval(timer);
+                            } else {
+                                kpi.element.textContent = current.toFixed(1) + kpi.suffix;
+                            }
+                        }, 16);
+                    }
+                }, index * 100);
+            });
+
+            // Animate ratio bars on scroll into view
+            const ratioObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const fills = entry.target.querySelectorAll('.ratio-bar-fill');
+                        fills.forEach(fill => {
+                            const width = fill.style.width;
+                            fill.style.width = '0%';
+                            setTimeout(() => {
+                                fill.style.width = width;
+                            }, 100);
+                        });
+                        ratioObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            document.querySelectorAll('.ratio-list').forEach(list => {
+                ratioObserver.observe(list);
+            });
+
+            // Waterfall chart animation
+            const waterfallBars = document.querySelectorAll('.waterfall-bar');
+            waterfallBars.forEach((bar, index) => {
+                const originalHeight = bar.style.height;
+                bar.style.height = '0px';
+                setTimeout(() => {
+                    bar.style.transition = 'height 0.6s ease-out';
+                    bar.style.height = originalHeight;
+                }, 200 + (index * 80));
+            });
+
+            // Add subtle hover effects to table rows
+            const tableRows = document.querySelectorAll('tbody tr:not(.row-total)');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseenter', () => {
+                    const cells = row.querySelectorAll('td');
+                    cells.forEach(cell => {
+                        cell.style.transform = 'translateX(2px)';
+                        cell.style.transition = 'transform 0.15s ease';
+                    });
+                });
+
+                row.addEventListener('mouseleave', () => {
+                    const cells = row.querySelectorAll('td');
+                    cells.forEach(cell => {
+                        cell.style.transform = 'translateX(0)';
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

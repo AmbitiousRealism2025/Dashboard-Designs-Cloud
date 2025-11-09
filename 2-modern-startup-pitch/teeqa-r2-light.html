@@ -1,0 +1,1548 @@
+<!-- Agent: Teeqa | Round: 2 - Light Mode Masterpiece | Theme: Modern Startup Pitch | Intent: Create the most vibrant, gradient-rich SaaS growth dashboard that makes investors reach for their checkbooks -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growth Dashboard - Modern Startup Pitch</title>
+    <style>
+        /* ========================================
+           TEEQA'S MODERN STARTUP PITCH - LIGHT MODE
+           Vibrant, gradient-rich, investor-ready SaaS dashboard
+           ======================================== */
+
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Light Mode Base Colors */
+            --bg-primary: #FAFBFC;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #F5F7FA;
+
+            /* Vibrant Accent Gradients */
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-warning: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+
+            /* Solid Bold Colors */
+            --electric-blue: #667eea;
+            --vivid-purple: #764ba2;
+            --hot-pink: #f5576c;
+            --cyber-cyan: #00f2fe;
+            --sunshine-yellow: #fee140;
+
+            /* Text Colors */
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-tertiary: #718096;
+            --text-on-gradient: #ffffff;
+
+            /* Status Colors */
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(102, 126, 234, 0.08);
+            --shadow-md: 0 4px 16px rgba(102, 126, 234, 0.12);
+            --shadow-lg: 0 8px 32px rgba(102, 126, 234, 0.16);
+            --shadow-glow: 0 0 32px rgba(102, 126, 234, 0.3);
+
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-pill: 999px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           ANIMATED GRADIENT HEADER
+           ======================================== */
+
+        .app-header {
+            background: var(--bg-secondary);
+            padding: var(--space-md) var(--space-xl);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .brand-logo {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: var(--shadow-md);
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .brand-text h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .brand-text p {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--space-sm);
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius-pill);
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+            animation: breathe 3s ease-in-out infinite;
+        }
+
+        .btn-primary:hover {
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-2px);
+        }
+
+        @keyframes breathe {
+            0%, 100% {
+                box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+            }
+            50% {
+                box-shadow: 0 8px 32px rgba(102, 126, 234, 0.5);
+            }
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--electric-blue);
+            color: var(--electric-blue);
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        /* ========================================
+           HERO SECTION WITH GRADIENT BACKGROUND
+           ======================================== */
+
+        .hero-section {
+            background: var(--gradient-hero);
+            padding: var(--space-xl) var(--space-xl);
+            position: relative;
+            overflow: hidden;
+            animation: gradientShift 10s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-tagline {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .hero-tagline h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: var(--space-sm);
+            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-tagline p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+
+        .hero-metric-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-lg);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            animation: shimmer 2s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .hero-metric-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(102, 126, 234, 0.25);
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-xs);
+        }
+
+        .metric-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-xs);
+        }
+
+        .metric-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+
+        .metric-change.positive {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .metric-change.negative {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .metric-context {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* ========================================
+           MAIN CONTENT AREA
+           ======================================== */
+
+        .main-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+        }
+
+        .section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .section-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        /* ========================================
+           GRADIENT-BORDERED KPI CARDS
+           ======================================== */
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: var(--radius-lg);
+            padding: 2px;
+            background: var(--gradient-primary);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .kpi-card:hover::before {
+            opacity: 1;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .kpi-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-icon.blue {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(102, 126, 234, 0.2));
+            color: var(--electric-blue);
+        }
+
+        .kpi-icon.purple {
+            background: linear-gradient(135deg, rgba(118, 75, 162, 0.1), rgba(118, 75, 162, 0.2));
+            color: var(--vivid-purple);
+        }
+
+        .kpi-icon.pink {
+            background: linear-gradient(135deg, rgba(245, 87, 108, 0.1), rgba(245, 87, 108, 0.2));
+            color: var(--hot-pink);
+        }
+
+        .kpi-icon.cyan {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.1), rgba(0, 242, 254, 0.2));
+            color: var(--cyber-cyan);
+        }
+
+        .kpi-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-delta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .kpi-delta .arrow {
+            font-size: 1rem;
+        }
+
+        .kpi-delta.up {
+            color: var(--success);
+        }
+
+        .kpi-delta.down {
+            color: var(--danger);
+        }
+
+        .sparkline {
+            height: 40px;
+            margin-top: var(--space-sm);
+            background: linear-gradient(to right,
+                rgba(102, 126, 234, 0.1) 0%,
+                rgba(102, 126, 234, 0.2) 50%,
+                rgba(102, 126, 234, 0.1) 100%);
+            border-radius: var(--radius-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sparkline::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                transparent,
+                rgba(102, 126, 234, 0.3),
+                transparent);
+            animation: sparklineMove 2s ease-in-out infinite;
+        }
+
+        @keyframes sparklineMove {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* ========================================
+           COLORFUL CHART VISUALIZATIONS
+           ======================================== */
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .chart-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .chart-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .chart-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .chart-period {
+            padding: 0.5rem 1rem;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-pill);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .chart-period:hover {
+            border-color: var(--electric-blue);
+            color: var(--electric-blue);
+        }
+
+        .chart-container {
+            height: 280px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            position: relative;
+            overflow: hidden;
+            padding: var(--space-md);
+        }
+
+        /* Growth Line Chart */
+        .line-chart {
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+
+        .line-chart-bar {
+            flex: 1;
+            background: var(--gradient-success);
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .line-chart-bar:hover {
+            transform: scaleY(1.05);
+            filter: brightness(1.1);
+        }
+
+        .line-chart-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+        }
+
+        /* Revenue Bar Chart */
+        .bar-chart {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .bar-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xs);
+        }
+
+        .bar-label {
+            width: 80px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .bar-visual {
+            flex: 1;
+            height: 32px;
+            border-radius: var(--radius-pill);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .bar-visual:hover {
+            transform: scaleX(1.02);
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: var(--radius-pill);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: var(--space-sm);
+            color: white;
+            font-weight: 700;
+            font-size: 0.875rem;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Funnel Chart */
+        .funnel-chart {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            padding: var(--space-sm);
+        }
+
+        .funnel-stage {
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .funnel-stage:hover {
+            transform: scale(1.02);
+        }
+
+        .funnel-bar {
+            height: 48px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--space-md);
+            color: white;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ========================================
+           MODERN DATA TABLE
+           ======================================== */
+
+        .table-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .table-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .table-filters {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .filter-pill {
+            padding: 0.5rem 1rem;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-pill);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-pill:hover, .filter-pill.active {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: transparent;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .data-table thead {
+            background: var(--bg-tertiary);
+        }
+
+        .data-table th {
+            padding: var(--space-md);
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .data-table th:first-child {
+            border-radius: var(--radius-md) 0 0 0;
+        }
+
+        .data-table th:last-child {
+            border-radius: 0 var(--radius-md) 0 0;
+        }
+
+        .data-table tbody tr {
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.05);
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(102, 126, 234, 0.03);
+            transform: scale(1.01);
+        }
+
+        .data-table td {
+            padding: var(--space-md);
+            color: var(--text-primary);
+            font-size: 0.9375rem;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.375rem 0.875rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .status-pill.active {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-pill.trial {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--info);
+        }
+
+        .status-pill.churned {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .user-email {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+
+        .app-footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid rgba(102, 126, 234, 0.1);
+            padding: var(--space-lg) var(--space-xl);
+            margin-top: var(--space-xl);
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-brand {
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.125rem;
+        }
+
+        .footer-meta {
+            display: flex;
+            gap: var(--space-lg);
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
+
+        @media (max-width: 960px) {
+            .hero-tagline h2 {
+                font-size: 2rem;
+            }
+
+            .hero-metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-sm);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .app-header {
+                padding: var(--space-md);
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: var(--space-md);
+            }
+
+            .hero-section {
+                padding: var(--space-lg) var(--space-md);
+            }
+
+            .main-content {
+                padding: var(--space-md);
+            }
+
+            .hero-tagline h2 {
+                font-size: 1.75rem;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .table-card {
+                overflow-x: auto;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: var(--space-md);
+                text-align: center;
+            }
+
+            .footer-meta {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+        }
+
+        /* ========================================
+           LOADING ANIMATIONS
+           ======================================== */
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         HEADER
+         ======================================== -->
+    <header class="app-header">
+        <div class="header-content">
+            <div class="brand">
+                <div class="brand-logo">T</div>
+                <div class="brand-text">
+                    <h1>TEEQA Dashboard</h1>
+                    <p>Modern Startup Growth Analytics</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-ghost">📊 Export Data</button>
+                <button class="btn btn-primary">🚀 Upgrade Plan</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================
+         HERO SECTION
+         ======================================== -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-tagline">
+                <h2>🚀 Explosive Growth Mode</h2>
+                <p>Your startup metrics are crushing it this quarter</p>
+            </div>
+            <div class="hero-metrics">
+                <div class="hero-metric-card fade-in-up stagger-1">
+                    <div class="metric-label">Monthly Recurring Revenue</div>
+                    <div class="metric-value">$847K</div>
+                    <span class="metric-change positive">↗ +34% MoM</span>
+                    <div class="metric-context">On track to hit $1M ARR by Q4</div>
+                </div>
+                <div class="hero-metric-card fade-in-up stagger-2">
+                    <div class="metric-label">Active Users</div>
+                    <div class="metric-value">127K</div>
+                    <span class="metric-change positive">↗ +58% Growth</span>
+                    <div class="metric-context">12.3K new users this week</div>
+                </div>
+                <div class="hero-metric-card fade-in-up stagger-3">
+                    <div class="metric-label">Net Promoter Score</div>
+                    <div class="metric-value">72</div>
+                    <span class="metric-change positive">↗ +8 points</span>
+                    <div class="metric-context">Top quartile for SaaS companies</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         MAIN CONTENT
+         ======================================== -->
+    <main class="main-content">
+        <!-- KPI Cards Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Key Performance Indicators</h2>
+                <div class="section-actions">
+                    <button class="btn btn-ghost">Last 7 Days</button>
+                </div>
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon blue">💰</div>
+                    <div class="kpi-label">Average Revenue Per User</div>
+                    <div class="kpi-value">$6.67</div>
+                    <div class="kpi-delta up">
+                        <span class="arrow">↗</span>
+                        <span>+12.3% vs last month</span>
+                    </div>
+                    <div class="sparkline"></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon purple">📈</div>
+                    <div class="kpi-label">Conversion Rate</div>
+                    <div class="kpi-value">4.2%</div>
+                    <div class="kpi-delta up">
+                        <span class="arrow">↗</span>
+                        <span>+0.8% improvement</span>
+                    </div>
+                    <div class="sparkline"></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon pink">⏱️</div>
+                    <div class="kpi-label">Avg Session Duration</div>
+                    <div class="kpi-value">8m 34s</div>
+                    <div class="kpi-delta up">
+                        <span class="arrow">↗</span>
+                        <span>+23% engagement</span>
+                    </div>
+                    <div class="sparkline"></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon cyan">🔄</div>
+                    <div class="kpi-label">Churn Rate</div>
+                    <div class="kpi-value">2.1%</div>
+                    <div class="kpi-delta down">
+                        <span class="arrow">↘</span>
+                        <span>-0.4% (good!)</span>
+                    </div>
+                    <div class="sparkline"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Growth Analytics</h2>
+                <div class="section-actions">
+                    <button class="btn btn-ghost">📅 This Month</button>
+                </div>
+            </div>
+            <div class="charts-grid">
+                <!-- User Growth Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">User Acquisition Trend</h3>
+                        <div class="chart-period">Last 30 Days</div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="line-chart">
+                            <div class="line-chart-bar" style="height: 45%;"></div>
+                            <div class="line-chart-bar" style="height: 52%;"></div>
+                            <div class="line-chart-bar" style="height: 48%;"></div>
+                            <div class="line-chart-bar" style="height: 61%;"></div>
+                            <div class="line-chart-bar" style="height: 58%;"></div>
+                            <div class="line-chart-bar" style="height: 67%;"></div>
+                            <div class="line-chart-bar" style="height: 73%;"></div>
+                            <div class="line-chart-bar" style="height: 70%;"></div>
+                            <div class="line-chart-bar" style="height: 78%;"></div>
+                            <div class="line-chart-bar" style="height: 85%;"></div>
+                            <div class="line-chart-bar" style="height: 82%;"></div>
+                            <div class="line-chart-bar" style="height: 92%;"></div>
+                            <div class="line-chart-bar" style="height: 88%;"></div>
+                            <div class="line-chart-bar" style="height: 95%;"></div>
+                            <div class="line-chart-bar" style="height: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Revenue by Source -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Revenue by Channel</h3>
+                        <div class="chart-period">This Quarter</div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="bar-chart">
+                            <div class="bar-row">
+                                <div class="bar-label">Organic</div>
+                                <div class="bar-visual" style="background: rgba(102, 126, 234, 0.1);">
+                                    <div class="bar-fill" style="width: 85%; background: linear-gradient(135deg, #667eea, #764ba2);">$718K</div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <div class="bar-label">Paid Ads</div>
+                                <div class="bar-visual" style="background: rgba(245, 87, 108, 0.1);">
+                                    <div class="bar-fill" style="width: 68%; background: linear-gradient(135deg, #f093fb, #f5576c);">$576K</div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <div class="bar-label">Referrals</div>
+                                <div class="bar-visual" style="background: rgba(0, 242, 254, 0.1);">
+                                    <div class="bar-fill" style="width: 52%; background: linear-gradient(135deg, #4facfe, #00f2fe);">$440K</div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <div class="bar-label">Partners</div>
+                                <div class="bar-visual" style="background: rgba(254, 225, 64, 0.1);">
+                                    <div class="bar-fill" style="width: 38%; background: linear-gradient(135deg, #fa709a, #fee140);">$322K</div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <div class="bar-label">Other</div>
+                                <div class="bar-visual" style="background: rgba(16, 185, 129, 0.1);">
+                                    <div class="bar-fill" style="width: 25%; background: linear-gradient(135deg, #10b981, #34d399);">$212K</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conversion Funnel -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Conversion Funnel</h3>
+                        <div class="chart-period">This Month</div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="funnel-chart">
+                            <div class="funnel-stage">
+                                <div class="funnel-bar" style="background: linear-gradient(135deg, #667eea, #764ba2); width: 100%;">
+                                    <span>Website Visitors</span>
+                                    <span>245,000</span>
+                                </div>
+                            </div>
+                            <div class="funnel-stage">
+                                <div class="funnel-bar" style="background: linear-gradient(135deg, #764ba2, #f093fb); width: 65%;">
+                                    <span>Sign Ups</span>
+                                    <span>159,250</span>
+                                </div>
+                            </div>
+                            <div class="funnel-stage">
+                                <div class="funnel-bar" style="background: linear-gradient(135deg, #f093fb, #f5576c); width: 42%;">
+                                    <span>Active Users</span>
+                                    <span>102,900</span>
+                                </div>
+                            </div>
+                            <div class="funnel-stage">
+                                <div class="funnel-bar" style="background: linear-gradient(135deg, #4facfe, #00f2fe); width: 28%;">
+                                    <span>Paid Conversions</span>
+                                    <span>68,600</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Table Section -->
+        <section class="section">
+            <div class="table-card">
+                <div class="table-header">
+                    <h2 class="table-title">Top Enterprise Customers</h2>
+                    <div class="table-filters">
+                        <div class="filter-pill active">All</div>
+                        <div class="filter-pill">Active</div>
+                        <div class="filter-pill">Trial</div>
+                        <div class="filter-pill">Enterprise</div>
+                    </div>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Plan</th>
+                            <th>MRR</th>
+                            <th>Users</th>
+                            <th>Status</th>
+                            <th>Health Score</th>
+                            <th>Next Renewal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar" style="background: linear-gradient(135deg, #667eea, #764ba2);">TC</div>
+                                    <div class="user-info">
+                                        <div class="user-name">TechCorp Industries</div>
+                                        <div class="user-email">contact@techcorp.io</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><strong>Enterprise Pro</strong></td>
+                            <td><strong>$12,500</strong></td>
+                            <td>285 users</td>
+                            <td><span class="status-pill active"><span class="status-dot"></span>Active</span></td>
+                            <td><strong style="color: var(--success);">98/100</strong></td>
+                            <td>Dec 15, 2025</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar" style="background: linear-gradient(135deg, #f093fb, #f5576c);">GS</div>
+                                    <div class="user-info">
+                                        <div class="user-name">Global Solutions LLC</div>
+                                        <div class="user-email">admin@globalsol.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><strong>Enterprise</strong></td>
+                            <td><strong>$8,900</strong></td>
+                            <td>176 users</td>
+                            <td><span class="status-pill active"><span class="status-dot"></span>Active</span></td>
+                            <td><strong style="color: var(--success);">92/100</strong></td>
+                            <td>Jan 8, 2026</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">ID</div>
+                                    <div class="user-info">
+                                        <div class="user-name">InnovateDev Studio</div>
+                                        <div class="user-email">team@innovatedev.co</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><strong>Business</strong></td>
+                            <td><strong>$5,400</strong></td>
+                            <td>98 users</td>
+                            <td><span class="status-pill trial"><span class="status-dot"></span>Trial</span></td>
+                            <td><strong style="color: var(--info);">85/100</strong></td>
+                            <td>Nov 30, 2025</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar" style="background: linear-gradient(135deg, #fa709a, #fee140);">DW</div>
+                                    <div class="user-info">
+                                        <div class="user-name">Digital Wave Agency</div>
+                                        <div class="user-email">hello@digitalwave.net</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><strong>Enterprise</strong></td>
+                            <td><strong>$9,200</strong></td>
+                            <td>214 users</td>
+                            <td><span class="status-pill active"><span class="status-dot"></span>Active</span></td>
+                            <td><strong style="color: var(--success);">96/100</strong></td>
+                            <td>Dec 22, 2025</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar" style="background: linear-gradient(135deg, #667eea, #764ba2);">SG</div>
+                                    <div class="user-info">
+                                        <div class="user-name">StartupGrowth Partners</div>
+                                        <div class="user-email">ops@startupgrowth.vc</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><strong>Business</strong></td>
+                            <td><strong>$4,200</strong></td>
+                            <td>67 users</td>
+                            <td><span class="status-pill active"><span class="status-dot"></span>Active</span></td>
+                            <td><strong style="color: var(--warning);">78/100</strong></td>
+                            <td>Jan 15, 2026</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar" style="background: linear-gradient(135deg, #10b981, #34d399);">CV</div>
+                                    <div class="user-info">
+                                        <div class="user-name">CloudVision Systems</div>
+                                        <div class="user-email">contact@cloudvision.io</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><strong>Enterprise Pro</strong></td>
+                            <td><strong>$15,800</strong></td>
+                            <td>342 users</td>
+                            <td><span class="status-pill active"><span class="status-dot"></span>Active</span></td>
+                            <td><strong style="color: var(--success);">99/100</strong></td>
+                            <td>Feb 1, 2026</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar" style="background: linear-gradient(135deg, #f093fb, #f5576c);">NE</div>
+                                    <div class="user-info">
+                                        <div class="user-name">NextGen Enterprises</div>
+                                        <div class="user-email">admin@nextgen-ent.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><strong>Business</strong></td>
+                            <td><strong>$3,600</strong></td>
+                            <td>52 users</td>
+                            <td><span class="status-pill churned"><span class="status-dot"></span>Churned</span></td>
+                            <td><strong style="color: var(--danger);">34/100</strong></td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <div class="user-avatar" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">PM</div>
+                                    <div class="user-info">
+                                        <div class="user-name">ProductMinds Inc</div>
+                                        <div class="user-email">team@productminds.co</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><strong>Enterprise</strong></td>
+                            <td><strong>$7,300</strong></td>
+                            <td>145 users</td>
+                            <td><span class="status-pill active"><span class="status-dot"></span>Active</span></td>
+                            <td><strong style="color: var(--success);">91/100</strong></td>
+                            <td>Jan 20, 2026</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                TEEQA - Playful Product UI Specialist
+            </div>
+            <div class="footer-meta">
+                <span>Last updated: Nov 9, 2025 @ 14:23 UTC</span>
+                <span>|</span>
+                <span>Data refreshes every 5 minutes</span>
+                <span>|</span>
+                <span>Round 2: Light Mode Masterpiece</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ========================================
+        // TEEQA's Playful Interactions
+        // ========================================
+
+        // Animate numbers on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animate hero metrics
+            const heroValues = document.querySelectorAll('.hero-metric-card .metric-value');
+            heroValues.forEach(element => {
+                const finalValue = element.textContent;
+                element.style.opacity = '0';
+                setTimeout(() => {
+                    element.style.transition = 'opacity 0.6s ease';
+                    element.style.opacity = '1';
+                }, 300);
+            });
+
+            // Add interactive tooltips to KPI cards
+            const kpiCards = document.querySelectorAll('.kpi-card');
+            kpiCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Interactive chart bars
+            const chartBars = document.querySelectorAll('.line-chart-bar');
+            chartBars.forEach((bar, index) => {
+                bar.style.opacity = '0';
+                bar.style.transform = 'scaleY(0)';
+                setTimeout(() => {
+                    bar.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                    bar.style.opacity = '1';
+                    bar.style.transform = 'scaleY(1)';
+                }, index * 50);
+            });
+
+            // Animate bar chart fills
+            const barFills = document.querySelectorAll('.bar-fill');
+            barFills.forEach((fill, index) => {
+                const targetWidth = fill.style.width;
+                fill.style.width = '0%';
+                setTimeout(() => {
+                    fill.style.width = targetWidth;
+                }, 500 + (index * 100));
+            });
+
+            // Interactive filter pills
+            const filterPills = document.querySelectorAll('.filter-pill');
+            filterPills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    filterPills.forEach(p => p.classList.remove('active'));
+                    pill.classList.add('active');
+                });
+            });
+
+            // Table row click interactions
+            const tableRows = document.querySelectorAll('.data-table tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', () => {
+                    const customerName = row.querySelector('.user-name').textContent;
+                    console.log('Selected customer:', customerName);
+                    // Add visual feedback
+                    row.style.background = 'rgba(102, 126, 234, 0.08)';
+                    setTimeout(() => {
+                        row.style.background = '';
+                    }, 500);
+                });
+            });
+
+            // Add sparkle effect to primary buttons
+            const primaryButtons = document.querySelectorAll('.btn-primary');
+            primaryButtons.forEach(button => {
+                button.addEventListener('mouseenter', () => {
+                    button.style.transform = 'translateY(-2px) scale(1.05)';
+                });
+                button.addEventListener('mouseleave', () => {
+                    button.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Funnel stage interactions
+            const funnelStages = document.querySelectorAll('.funnel-stage');
+            funnelStages.forEach((stage, index) => {
+                stage.style.opacity = '0';
+                stage.style.transform = 'translateX(-50px)';
+                setTimeout(() => {
+                    stage.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                    stage.style.opacity = '1';
+                    stage.style.transform = 'translateX(0)';
+                }, 800 + (index * 150));
+            });
+
+            // Add gradient animation to hero section
+            const heroSection = document.querySelector('.hero-section');
+            let gradientPosition = 0;
+            setInterval(() => {
+                gradientPosition = (gradientPosition + 1) % 200;
+            }, 50);
+
+            // Dynamic time update in footer
+            const updateTime = () => {
+                const now = new Date();
+                const timeString = now.toLocaleString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    timeZone: 'UTC'
+                });
+                const footerMeta = document.querySelector('.footer-meta span:first-child');
+                if (footerMeta) {
+                    footerMeta.textContent = `Last updated: ${timeString} UTC`;
+                }
+            };
+
+            updateTime();
+            setInterval(updateTime, 60000); // Update every minute
+
+            console.log('🎨 TEEQA Dashboard initialized - Modern Startup Pitch theme activated!');
+            console.log('✨ Vibrant gradients, playful interactions, and delightful UX ready!');
+        });
+
+        // Add scroll-based animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe chart cards for scroll animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const chartCards = document.querySelectorAll('.chart-card');
+            chartCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s ease-out';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>

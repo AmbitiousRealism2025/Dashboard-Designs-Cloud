@@ -1,0 +1,2027 @@
+<!-- Agent: Darno | Round: 2 - Light Mode Masterpiece | Theme: Project Portfolio Kanban | Intent: Ultra-dense PMO command center with granular resource, budget, and timeline analytics alongside visual swimlane board -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Portfolio Command Center - DARNO PMO Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Status Colors */
+            --status-backlog: #9CA3AF;
+            --status-in-progress: #3B82F6;
+            --status-at-risk: #F59E0B;
+            --status-done: #10B981;
+            --status-blocked: #EF4444;
+
+            /* Base Palette */
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F9FAFB;
+            --bg-tertiary: #F3F4F6;
+            --border-light: #E5E7EB;
+            --border-medium: #D1D5DB;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --text-muted: #9CA3AF;
+
+            /* Accents */
+            --accent-blue: #2563EB;
+            --accent-green: #059669;
+            --accent-amber: #D97706;
+            --accent-red: #DC2626;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+            /* Spacing */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 13px;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-primary);
+            border-bottom: 2px solid var(--border-medium);
+            padding: var(--space-md) var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .agent-badge {
+            background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 1px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .pmo-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .period-selector {
+            display: flex;
+            gap: var(--space-xs);
+            background: var(--bg-tertiary);
+            padding: 4px;
+            border-radius: 6px;
+            border: 1px solid var(--border-light);
+        }
+
+        .period-option {
+            padding: 6px 12px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .period-option.active {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .sync-status {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sync-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* KPI Strip */
+        .kpi-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            padding: var(--space-lg) var(--space-xl);
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: var(--space-md);
+            transition: all 0.2s ease;
+        }
+
+        .kpi-card:hover {
+            border-color: var(--border-medium);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .kpi-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 8px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .kpi-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+        }
+
+        .kpi-delta {
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .kpi-delta.positive {
+            color: var(--accent-green);
+            background: rgba(5, 150, 105, 0.1);
+        }
+
+        .kpi-delta.negative {
+            color: var(--accent-red);
+            background: rgba(220, 38, 38, 0.1);
+        }
+
+        .kpi-trend {
+            color: var(--text-muted);
+        }
+
+        /* Main Layout */
+        .dashboard-body {
+            padding: var(--space-lg) var(--space-xl);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            border: 1px solid var(--border-medium);
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            font-size: 11px;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-sm:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--text-secondary);
+        }
+
+        /* Resource Allocation Grid */
+        .resource-grid {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .resource-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .resource-table thead {
+            background: var(--bg-tertiary);
+            border-bottom: 2px solid var(--border-medium);
+        }
+
+        .resource-table th {
+            padding: 10px 12px;
+            text-align: left;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+        }
+
+        .resource-table th.numeric {
+            text-align: right;
+        }
+
+        .resource-table tbody tr {
+            border-bottom: 1px solid var(--border-light);
+            transition: background 0.15s ease;
+        }
+
+        .resource-table tbody tr:hover {
+            background: var(--bg-secondary);
+        }
+
+        .resource-table td {
+            padding: 12px;
+            font-size: 12px;
+            color: var(--text-primary);
+        }
+
+        .resource-table td.numeric {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            font-weight: 600;
+        }
+
+        .resource-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .resource-role {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .utilization-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .utilization-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .util-optimal {
+            background: linear-gradient(90deg, #059669 0%, #10B981 100%);
+        }
+
+        .util-high {
+            background: linear-gradient(90deg, #D97706 0%, #F59E0B 100%);
+        }
+
+        .util-over {
+            background: linear-gradient(90deg, #DC2626 0%, #EF4444 100%);
+        }
+
+        .project-pills {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .project-pill {
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 600;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-light);
+        }
+
+        /* Analytics Grid */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: var(--space-md);
+        }
+
+        .chart-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: var(--space-md);
+        }
+
+        .chart-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .chart-placeholder {
+            height: 220px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Budget Burn Chart */
+        .budget-burn-chart {
+            padding: var(--space-md);
+            position: relative;
+        }
+
+        .burn-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: var(--space-md);
+        }
+
+        .burn-gridline {
+            border-top: 1px dashed var(--border-light);
+            position: relative;
+        }
+
+        .burn-label {
+            position: absolute;
+            left: -40px;
+            top: -8px;
+            font-size: 10px;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .burn-curve {
+            position: absolute;
+            bottom: var(--space-md);
+            left: var(--space-md);
+            right: var(--space-md);
+            height: 60%;
+            border-left: 2px solid var(--accent-blue);
+            border-bottom: 2px solid var(--accent-blue);
+            border-bottom-left-radius: 8px;
+        }
+
+        .burn-actual {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 75%;
+            background: linear-gradient(to top, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0) 100%);
+            border-top: 3px solid var(--accent-blue);
+        }
+
+        /* Timeline Gantt Placeholder */
+        .gantt-placeholder {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: var(--space-md);
+        }
+
+        .gantt-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .gantt-label {
+            width: 80px;
+            font-size: 10px;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .gantt-track {
+            flex: 1;
+            height: 20px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gantt-bar {
+            position: absolute;
+            height: 100%;
+            border-radius: 3px;
+            top: 0;
+        }
+
+        /* Risk Distribution */
+        .risk-distribution {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            padding: var(--space-md);
+        }
+
+        .risk-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .risk-info {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .risk-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+        }
+
+        .risk-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .risk-count {
+            font-size: 18px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .risk-bar {
+            flex: 1;
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            margin: 0 var(--space-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .risk-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            border-radius: 3px;
+        }
+
+        /* Master Project Table */
+        .master-table-container {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        .master-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        .master-table thead {
+            background: var(--bg-tertiary);
+            border-bottom: 2px solid var(--border-medium);
+            position: sticky;
+            top: 0;
+        }
+
+        .master-table th {
+            padding: 10px 12px;
+            text-align: left;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .master-table th.sortable {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .master-table th.sortable:hover {
+            color: var(--text-primary);
+        }
+
+        .master-table tbody tr {
+            border-bottom: 1px solid var(--border-light);
+            transition: all 0.15s ease;
+        }
+
+        .master-table tbody tr:hover {
+            background: var(--bg-secondary);
+        }
+
+        .master-table td {
+            padding: 12px;
+            color: var(--text-primary);
+        }
+
+        .project-id {
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .project-name-cell {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .owner-cell {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .status-backlog {
+            background: rgba(156, 163, 175, 0.15);
+            color: #6B7280;
+        }
+
+        .status-in-progress {
+            background: rgba(59, 130, 246, 0.15);
+            color: #2563EB;
+        }
+
+        .status-at-risk {
+            background: rgba(245, 158, 11, 0.15);
+            color: #D97706;
+        }
+
+        .status-done {
+            background: rgba(16, 185, 129, 0.15);
+            color: #059669;
+        }
+
+        .status-blocked {
+            background: rgba(239, 68, 68, 0.15);
+            color: #DC2626;
+        }
+
+        .progress-cell {
+            min-width: 120px;
+        }
+
+        .progress-bar-wrapper {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .health-score {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .health-excellent {
+            color: var(--accent-green);
+        }
+
+        .health-good {
+            color: #3B82F6;
+        }
+
+        .health-fair {
+            color: var(--accent-amber);
+        }
+
+        .health-poor {
+            color: var(--accent-red);
+        }
+
+        /* Kanban Swimlanes */
+        .kanban-section {
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            padding: var(--space-lg);
+        }
+
+        .swimlanes {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            min-height: 500px;
+        }
+
+        .swimlane {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: var(--space-md);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .swimlane-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .swimlane-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+        }
+
+        .swimlane-count {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .kanban-cards {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            flex: 1;
+        }
+
+        .kanban-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: var(--space-md);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .kanban-card:hover {
+            transform: translateY(-2px) rotate(0.5deg);
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-medium);
+        }
+
+        .kanban-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+        }
+
+        .kanban-card.backlog::before {
+            background: var(--status-backlog);
+        }
+
+        .kanban-card.in-progress::before {
+            background: var(--status-in-progress);
+        }
+
+        .kanban-card.at-risk::before {
+            background: var(--status-at-risk);
+        }
+
+        .kanban-card.done::before {
+            background: var(--status-done);
+        }
+
+        .kanban-card.blocked::before {
+            background: var(--status-blocked);
+        }
+
+        .card-id {
+            font-family: 'Courier New', monospace;
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .card-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .card-meta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+        }
+
+        .meta-label {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .meta-value {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .card-progress {
+            margin-bottom: 8px;
+        }
+
+        .card-progress-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card-progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .card-progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            color: var(--text-muted);
+            padding-top: 8px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .card-owner {
+            font-weight: 600;
+        }
+
+        .card-due {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border-light);
+            padding: var(--space-md) var(--space-xl);
+            margin-top: var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .footer-left {
+            display: flex;
+            gap: var(--space-lg);
+        }
+
+        .footer-stat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-stat-label {
+            color: var(--text-muted);
+        }
+
+        .footer-stat-value {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .analytics-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .swimlanes {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .kpi-strip {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .swimlanes {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-body {
+                padding: var(--space-md);
+            }
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .kanban-card {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        /* Utility Classes */
+        .numeric {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="logo-section">
+                <div class="agent-badge">DARNO</div>
+                <div class="pmo-title">Portfolio Command Center</div>
+            </div>
+            <div class="period-selector">
+                <button class="period-option">Q3 2025</button>
+                <button class="period-option active">Q4 2025</button>
+                <button class="period-option">FY 2025</button>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="sync-status">
+                <div class="sync-dot"></div>
+                <span>Live sync • Last: 2 min ago</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="kpi-strip">
+        <div class="kpi-card">
+            <div class="kpi-label">Total Projects</div>
+            <div class="kpi-value">47</div>
+            <div class="kpi-meta">
+                <span class="kpi-delta positive">+3</span>
+                <span class="kpi-trend">vs. last quarter</span>
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">At Risk / Blocked</div>
+            <div class="kpi-value">8</div>
+            <div class="kpi-meta">
+                <span class="kpi-delta negative">+2</span>
+                <span class="kpi-trend">requiring attention</span>
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Budget Utilization</div>
+            <div class="kpi-value">78.4%</div>
+            <div class="kpi-meta">
+                <span class="kpi-delta positive">On track</span>
+                <span class="kpi-trend">$12.1M of $15.4M</span>
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Resource Utilization</div>
+            <div class="kpi-value">86.2%</div>
+            <div class="kpi-meta">
+                <span class="kpi-delta positive">Optimal</span>
+                <span class="kpi-trend">across 124 FTEs</span>
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">On-Time Delivery</div>
+            <div class="kpi-value">74%</div>
+            <div class="kpi-meta">
+                <span class="kpi-delta negative">-4%</span>
+                <span class="kpi-trend">vs. target 85%</span>
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Avg Health Score</div>
+            <div class="kpi-value">7.3</div>
+            <div class="kpi-meta">
+                <span class="kpi-delta positive">+0.2</span>
+                <span class="kpi-trend">out of 10</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-body">
+        <!-- Resource Allocation Table -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title">Resource Allocation Matrix</h2>
+                <div class="section-actions">
+                    <button class="btn-sm">Export CSV</button>
+                    <button class="btn-sm">Rebalance</button>
+                </div>
+            </div>
+            <div class="resource-grid">
+                <table class="resource-table">
+                    <thead>
+                        <tr>
+                            <th>Resource Name</th>
+                            <th>Assigned Projects</th>
+                            <th class="numeric">Utilization %</th>
+                            <th class="numeric">Capacity (hrs/wk)</th>
+                            <th class="numeric">Allocated</th>
+                            <th class="numeric">Available</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="resource-name">Sarah Chen</div>
+                                <div class="resource-role">Senior PM • Strategy</div>
+                            </td>
+                            <td>
+                                <div class="project-pills">
+                                    <span class="project-pill">PRJ-445</span>
+                                    <span class="project-pill">PRJ-892</span>
+                                    <span class="project-pill">PRJ-671</span>
+                                </div>
+                            </td>
+                            <td class="numeric">
+                                <div>92%</div>
+                                <div class="utilization-bar">
+                                    <div class="utilization-fill util-high" style="width: 92%;"></div>
+                                </div>
+                            </td>
+                            <td class="numeric">40</td>
+                            <td class="numeric">36.8</td>
+                            <td class="numeric">3.2</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="resource-name">Marcus Williams</div>
+                                <div class="resource-role">Tech Lead • Infrastructure</div>
+                            </td>
+                            <td>
+                                <div class="project-pills">
+                                    <span class="project-pill">PRJ-734</span>
+                                    <span class="project-pill">PRJ-289</span>
+                                </div>
+                            </td>
+                            <td class="numeric">
+                                <div>78%</div>
+                                <div class="utilization-bar">
+                                    <div class="utilization-fill util-optimal" style="width: 78%;"></div>
+                                </div>
+                            </td>
+                            <td class="numeric">40</td>
+                            <td class="numeric">31.2</td>
+                            <td class="numeric">8.8</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="resource-name">Priya Kapoor</div>
+                                <div class="resource-role">Design Lead • UX/Product</div>
+                            </td>
+                            <td>
+                                <div class="project-pills">
+                                    <span class="project-pill">PRJ-156</span>
+                                    <span class="project-pill">PRJ-892</span>
+                                    <span class="project-pill">PRJ-523</span>
+                                    <span class="project-pill">PRJ-401</span>
+                                </div>
+                            </td>
+                            <td class="numeric">
+                                <div>105%</div>
+                                <div class="utilization-bar">
+                                    <div class="utilization-fill util-over" style="width: 100%;"></div>
+                                </div>
+                            </td>
+                            <td class="numeric">40</td>
+                            <td class="numeric">42.0</td>
+                            <td class="numeric">-2.0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="resource-name">James O'Connor</div>
+                                <div class="resource-role">Senior Engineer • Backend</div>
+                            </td>
+                            <td>
+                                <div class="project-pills">
+                                    <span class="project-pill">PRJ-734</span>
+                                    <span class="project-pill">PRJ-671</span>
+                                </div>
+                            </td>
+                            <td class="numeric">
+                                <div>85%</div>
+                                <div class="utilization-bar">
+                                    <div class="utilization-fill util-optimal" style="width: 85%;"></div>
+                                </div>
+                            </td>
+                            <td class="numeric">40</td>
+                            <td class="numeric">34.0</td>
+                            <td class="numeric">6.0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="resource-name">Elena Rodriguez</div>
+                                <div class="resource-role">Product Manager • Consumer</div>
+                            </td>
+                            <td>
+                                <div class="project-pills">
+                                    <span class="project-pill">PRJ-156</span>
+                                    <span class="project-pill">PRJ-523</span>
+                                </div>
+                            </td>
+                            <td class="numeric">
+                                <div>68%</div>
+                                <div class="utilization-bar">
+                                    <div class="utilization-fill util-optimal" style="width: 68%;"></div>
+                                </div>
+                            </td>
+                            <td class="numeric">40</td>
+                            <td class="numeric">27.2</td>
+                            <td class="numeric">12.8</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="resource-name">David Kim</div>
+                                <div class="resource-role">QA Lead • Testing</div>
+                            </td>
+                            <td>
+                                <div class="project-pills">
+                                    <span class="project-pill">PRJ-445</span>
+                                    <span class="project-pill">PRJ-289</span>
+                                    <span class="project-pill">PRJ-734</span>
+                                </div>
+                            </td>
+                            <td class="numeric">
+                                <div>96%</div>
+                                <div class="utilization-bar">
+                                    <div class="utilization-fill util-high" style="width: 96%;"></div>
+                                </div>
+                            </td>
+                            <td class="numeric">40</td>
+                            <td class="numeric">38.4</td>
+                            <td class="numeric">1.6</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Analytics Grid -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title">Portfolio Analytics</h2>
+                <div class="section-actions">
+                    <button class="btn-sm">View Trends</button>
+                </div>
+            </div>
+            <div class="analytics-grid">
+                <div class="chart-card">
+                    <div class="chart-title">Budget Burn Rate</div>
+                    <div class="chart-placeholder budget-burn-chart">
+                        <div class="burn-grid">
+                            <div class="burn-gridline"><span class="burn-label">$15M</span></div>
+                            <div class="burn-gridline"><span class="burn-label">$10M</span></div>
+                            <div class="burn-gridline"><span class="burn-label">$5M</span></div>
+                            <div class="burn-gridline"><span class="burn-label">$0</span></div>
+                        </div>
+                        <div class="burn-curve">
+                            <div class="burn-actual"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-title">Timeline Overview (Q4 2025)</div>
+                    <div class="chart-placeholder gantt-placeholder">
+                        <div class="gantt-row">
+                            <div class="gantt-label">Oct</div>
+                            <div class="gantt-track">
+                                <div class="gantt-bar" style="left: 0%; width: 60%; background: linear-gradient(90deg, #3B82F6, #60A5FA);"></div>
+                            </div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-label">Nov</div>
+                            <div class="gantt-track">
+                                <div class="gantt-bar" style="left: 20%; width: 50%; background: linear-gradient(90deg, #10B981, #34D399);"></div>
+                            </div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-label">Dec</div>
+                            <div class="gantt-track">
+                                <div class="gantt-bar" style="left: 40%; width: 45%; background: linear-gradient(90deg, #F59E0B, #FBBF24);"></div>
+                            </div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-label">PRJ-445</div>
+                            <div class="gantt-track">
+                                <div class="gantt-bar" style="left: 10%; width: 35%; background: #3B82F6;"></div>
+                            </div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-label">PRJ-892</div>
+                            <div class="gantt-track">
+                                <div class="gantt-bar" style="left: 30%; width: 40%; background: #10B981;"></div>
+                            </div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-label">PRJ-734</div>
+                            <div class="gantt-track">
+                                <div class="gantt-bar" style="left: 5%; width: 70%; background: #F59E0B;"></div>
+                            </div>
+                        </div>
+                        <div class="gantt-row">
+                            <div class="gantt-label">PRJ-156</div>
+                            <div class="gantt-track">
+                                <div class="gantt-bar" style="left: 50%; width: 30%; background: #EF4444;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-title">Risk Distribution</div>
+                    <div class="chart-placeholder">
+                        <div class="risk-distribution">
+                            <div class="risk-item">
+                                <div class="risk-info">
+                                    <div class="risk-indicator" style="background: var(--status-done);"></div>
+                                    <div class="risk-name">On Track</div>
+                                </div>
+                                <div class="risk-bar">
+                                    <div class="risk-fill" style="width: 68%; background: var(--status-done);"></div>
+                                </div>
+                                <div class="risk-count">32</div>
+                            </div>
+                            <div class="risk-item">
+                                <div class="risk-info">
+                                    <div class="risk-indicator" style="background: var(--status-in-progress);"></div>
+                                    <div class="risk-name">In Progress</div>
+                                </div>
+                                <div class="risk-bar">
+                                    <div class="risk-fill" style="width: 15%; background: var(--status-in-progress);"></div>
+                                </div>
+                                <div class="risk-count">7</div>
+                            </div>
+                            <div class="risk-item">
+                                <div class="risk-info">
+                                    <div class="risk-indicator" style="background: var(--status-at-risk);"></div>
+                                    <div class="risk-name">At Risk</div>
+                                </div>
+                                <div class="risk-bar">
+                                    <div class="risk-fill" style="width: 11%; background: var(--status-at-risk);"></div>
+                                </div>
+                                <div class="risk-count">5</div>
+                            </div>
+                            <div class="risk-item">
+                                <div class="risk-info">
+                                    <div class="risk-indicator" style="background: var(--status-blocked);"></div>
+                                    <div class="risk-name">Blocked</div>
+                                </div>
+                                <div class="risk-bar">
+                                    <div class="risk-fill" style="width: 6%; background: var(--status-blocked);"></div>
+                                </div>
+                                <div class="risk-count">3</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Master Project Table -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title">Project Master List (47 Active)</h2>
+                <div class="section-actions">
+                    <button class="btn-sm">Filter</button>
+                    <button class="btn-sm">Export</button>
+                    <button class="btn-sm">+ New Project</button>
+                </div>
+            </div>
+            <div class="master-table-container">
+                <table class="master-table">
+                    <thead>
+                        <tr>
+                            <th class="sortable">ID</th>
+                            <th class="sortable">Project Name</th>
+                            <th class="sortable">Owner</th>
+                            <th class="sortable">Status</th>
+                            <th class="sortable">Budget</th>
+                            <th class="sortable">Spent</th>
+                            <th class="sortable">Progress</th>
+                            <th class="sortable">Timeline</th>
+                            <th class="sortable">Health</th>
+                            <th>Resources</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="project-id">PRJ-445</span></td>
+                            <td class="project-name-cell">API Gateway Modernization</td>
+                            <td class="owner-cell">S. Chen</td>
+                            <td><span class="status-badge status-in-progress">In Progress</span></td>
+                            <td class="numeric">$340K</td>
+                            <td class="numeric">$267K</td>
+                            <td class="progress-cell">
+                                <span class="numeric">78%</span>
+                                <div class="progress-bar-wrapper">
+                                    <div class="progress-bar-fill" style="width: 78%; background: var(--status-in-progress);"></div>
+                                </div>
+                            </td>
+                            <td class="owner-cell">Oct 15 - Dec 20</td>
+                            <td class="numeric health-score health-good">8.2</td>
+                            <td class="owner-cell">4 FTE</td>
+                        </tr>
+                        <tr>
+                            <td><span class="project-id">PRJ-892</span></td>
+                            <td class="project-name-cell">Mobile App Redesign Phase 2</td>
+                            <td class="owner-cell">P. Kapoor</td>
+                            <td><span class="status-badge status-at-risk">At Risk</span></td>
+                            <td class="numeric">$520K</td>
+                            <td class="numeric">$498K</td>
+                            <td class="progress-cell">
+                                <span class="numeric">89%</span>
+                                <div class="progress-bar-wrapper">
+                                    <div class="progress-bar-fill" style="width: 89%; background: var(--status-at-risk);"></div>
+                                </div>
+                            </td>
+                            <td class="owner-cell">Sep 01 - Nov 30</td>
+                            <td class="numeric health-score health-fair">6.1</td>
+                            <td class="owner-cell">6 FTE</td>
+                        </tr>
+                        <tr>
+                            <td><span class="project-id">PRJ-734</span></td>
+                            <td class="project-name-cell">Cloud Infrastructure Migration</td>
+                            <td class="owner-cell">M. Williams</td>
+                            <td><span class="status-badge status-in-progress">In Progress</span></td>
+                            <td class="numeric">$1.2M</td>
+                            <td class="numeric">$856K</td>
+                            <td class="progress-cell">
+                                <span class="numeric">62%</span>
+                                <div class="progress-bar-wrapper">
+                                    <div class="progress-bar-fill" style="width: 62%; background: var(--status-in-progress);"></div>
+                                </div>
+                            </td>
+                            <td class="owner-cell">Aug 01 - Jan 15</td>
+                            <td class="numeric health-score health-good">7.8</td>
+                            <td class="owner-cell">12 FTE</td>
+                        </tr>
+                        <tr>
+                            <td><span class="project-id">PRJ-156</span></td>
+                            <td class="project-name-cell">Customer Portal Enhancement</td>
+                            <td class="owner-cell">E. Rodriguez</td>
+                            <td><span class="status-badge status-blocked">Blocked</span></td>
+                            <td class="numeric">$280K</td>
+                            <td class="numeric">$189K</td>
+                            <td class="progress-cell">
+                                <span class="numeric">45%</span>
+                                <div class="progress-bar-wrapper">
+                                    <div class="progress-bar-fill" style="width: 45%; background: var(--status-blocked);"></div>
+                                </div>
+                            </td>
+                            <td class="owner-cell">Oct 01 - Dec 31</td>
+                            <td class="numeric health-score health-poor">4.2</td>
+                            <td class="owner-cell">5 FTE</td>
+                        </tr>
+                        <tr>
+                            <td><span class="project-id">PRJ-671</span></td>
+                            <td class="project-name-cell">Data Warehouse Optimization</td>
+                            <td class="owner-cell">S. Chen</td>
+                            <td><span class="status-badge status-in-progress">In Progress</span></td>
+                            <td class="numeric">$445K</td>
+                            <td class="numeric">$301K</td>
+                            <td class="progress-cell">
+                                <span class="numeric">71%</span>
+                                <div class="progress-bar-wrapper">
+                                    <div class="progress-bar-fill" style="width: 71%; background: var(--status-in-progress);"></div>
+                                </div>
+                            </td>
+                            <td class="owner-cell">Sep 15 - Nov 30</td>
+                            <td class="numeric health-score health-excellent">8.9</td>
+                            <td class="owner-cell">3 FTE</td>
+                        </tr>
+                        <tr>
+                            <td><span class="project-id">PRJ-523</span></td>
+                            <td class="project-name-cell">Security Audit Remediation</td>
+                            <td class="owner-cell">E. Rodriguez</td>
+                            <td><span class="status-badge status-at-risk">At Risk</span></td>
+                            <td class="numeric">$175K</td>
+                            <td class="numeric">$156K</td>
+                            <td class="progress-cell">
+                                <span class="numeric">84%</span>
+                                <div class="progress-bar-wrapper">
+                                    <div class="progress-bar-fill" style="width: 84%; background: var(--status-at-risk);"></div>
+                                </div>
+                            </td>
+                            <td class="owner-cell">Oct 10 - Nov 20</td>
+                            <td class="numeric health-score health-fair">6.5</td>
+                            <td class="owner-cell">2 FTE</td>
+                        </tr>
+                        <tr>
+                            <td><span class="project-id">PRJ-289</span></td>
+                            <td class="project-name-cell">Analytics Dashboard v3</td>
+                            <td class="owner-cell">M. Williams</td>
+                            <td><span class="status-badge status-done">Done</span></td>
+                            <td class="numeric">$220K</td>
+                            <td class="numeric">$218K</td>
+                            <td class="progress-cell">
+                                <span class="numeric">100%</span>
+                                <div class="progress-bar-wrapper">
+                                    <div class="progress-bar-fill" style="width: 100%; background: var(--status-done);"></div>
+                                </div>
+                            </td>
+                            <td class="owner-cell">Jul 01 - Oct 15</td>
+                            <td class="numeric health-score health-excellent">9.1</td>
+                            <td class="owner-cell">4 FTE</td>
+                        </tr>
+                        <tr>
+                            <td><span class="project-id">PRJ-401</span></td>
+                            <td class="project-name-cell">Payment Gateway Integration</td>
+                            <td class="owner-cell">P. Kapoor</td>
+                            <td><span class="status-badge status-backlog">Backlog</span></td>
+                            <td class="numeric">$380K</td>
+                            <td class="numeric">$42K</td>
+                            <td class="progress-cell">
+                                <span class="numeric">12%</span>
+                                <div class="progress-bar-wrapper">
+                                    <div class="progress-bar-fill" style="width: 12%; background: var(--status-backlog);"></div>
+                                </div>
+                            </td>
+                            <td class="owner-cell">Nov 01 - Feb 15</td>
+                            <td class="numeric health-score health-good">7.3</td>
+                            <td class="owner-cell">7 FTE</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Kanban Swimlanes -->
+        <section class="kanban-section">
+            <div class="section-header">
+                <h2 class="section-title">Kanban Board View</h2>
+                <div class="section-actions">
+                    <button class="btn-sm">Compact View</button>
+                    <button class="btn-sm">Expand All</button>
+                </div>
+            </div>
+            <div class="swimlanes">
+                <!-- Backlog Column -->
+                <div class="swimlane">
+                    <div class="swimlane-header">
+                        <div class="swimlane-title">Backlog</div>
+                        <div class="swimlane-count">8</div>
+                    </div>
+                    <div class="kanban-cards">
+                        <div class="kanban-card backlog">
+                            <div class="card-id">PRJ-401</div>
+                            <div class="card-title">Payment Gateway Integration</div>
+                            <div class="card-meta">
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Budget:</span>
+                                    <span class="meta-value">$380K</span>
+                                </div>
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Spent:</span>
+                                    <span class="meta-value">$42K (11%)</span>
+                                </div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-label">
+                                    <span>Progress</span>
+                                    <span>12%</span>
+                                </div>
+                                <div class="card-progress-bar">
+                                    <div class="card-progress-fill" style="width: 12%; background: var(--status-backlog);"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-owner">P. Kapoor</span>
+                                <span class="card-due">📅 Start: Nov 1</span>
+                            </div>
+                        </div>
+                        <div class="kanban-card backlog">
+                            <div class="card-id">PRJ-612</div>
+                            <div class="card-title">Email Campaign Automation</div>
+                            <div class="card-meta">
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Budget:</span>
+                                    <span class="meta-value">$125K</span>
+                                </div>
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Spent:</span>
+                                    <span class="meta-value">$18K (14%)</span>
+                                </div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-label">
+                                    <span>Progress</span>
+                                    <span>8%</span>
+                                </div>
+                                <div class="card-progress-bar">
+                                    <div class="card-progress-fill" style="width: 8%; background: var(--status-backlog);"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-owner">E. Rodriguez</span>
+                                <span class="card-due">📅 Start: Nov 15</span>
+                            </div>
+                        </div>
+                        <div class="kanban-card backlog">
+                            <div class="card-id">PRJ-788</div>
+                            <div class="card-title">CRM System Upgrade</div>
+                            <div class="card-meta">
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Budget:</span>
+                                    <span class="meta-value">$560K</span>
+                                </div>
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Spent:</span>
+                                    <span class="meta-value">$89K (16%)</span>
+                                </div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-label">
+                                    <span>Progress</span>
+                                    <span>15%</span>
+                                </div>
+                                <div class="card-progress-bar">
+                                    <div class="card-progress-fill" style="width: 15%; background: var(--status-backlog);"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-owner">S. Chen</span>
+                                <span class="card-due">📅 Start: Dec 1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- In Progress Column -->
+                <div class="swimlane">
+                    <div class="swimlane-header">
+                        <div class="swimlane-title">In Progress</div>
+                        <div class="swimlane-count">15</div>
+                    </div>
+                    <div class="kanban-cards">
+                        <div class="kanban-card in-progress">
+                            <div class="card-id">PRJ-445</div>
+                            <div class="card-title">API Gateway Modernization</div>
+                            <div class="card-meta">
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Budget:</span>
+                                    <span class="meta-value">$340K</span>
+                                </div>
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Spent:</span>
+                                    <span class="meta-value">$267K (79%)</span>
+                                </div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-label">
+                                    <span>Progress</span>
+                                    <span>78%</span>
+                                </div>
+                                <div class="card-progress-bar">
+                                    <div class="card-progress-fill" style="width: 78%; background: var(--status-in-progress);"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-owner">S. Chen</span>
+                                <span class="card-due">📅 Due: Dec 20</span>
+                            </div>
+                        </div>
+                        <div class="kanban-card in-progress">
+                            <div class="card-id">PRJ-734</div>
+                            <div class="card-title">Cloud Infrastructure Migration</div>
+                            <div class="card-meta">
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Budget:</span>
+                                    <span class="meta-value">$1.2M</span>
+                                </div>
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Spent:</span>
+                                    <span class="meta-value">$856K (71%)</span>
+                                </div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-label">
+                                    <span>Progress</span>
+                                    <span>62%</span>
+                                </div>
+                                <div class="card-progress-bar">
+                                    <div class="card-progress-fill" style="width: 62%; background: var(--status-in-progress);"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-owner">M. Williams</span>
+                                <span class="card-due">📅 Due: Jan 15</span>
+                            </div>
+                        </div>
+                        <div class="kanban-card in-progress">
+                            <div class="card-id">PRJ-671</div>
+                            <div class="card-title">Data Warehouse Optimization</div>
+                            <div class="card-meta">
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Budget:</span>
+                                    <span class="meta-value">$445K</span>
+                                </div>
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Spent:</span>
+                                    <span class="meta-value">$301K (68%)</span>
+                                </div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-label">
+                                    <span>Progress</span>
+                                    <span>71%</span>
+                                </div>
+                                <div class="card-progress-bar">
+                                    <div class="card-progress-fill" style="width: 71%; background: var(--status-in-progress);"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-owner">S. Chen</span>
+                                <span class="card-due">📅 Due: Nov 30</span>
+                            </div>
+                        </div>
+                        <div class="kanban-card in-progress">
+                            <div class="card-id">PRJ-925</div>
+                            <div class="card-title">Compliance & GDPR Update</div>
+                            <div class="card-meta">
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Budget:</span>
+                                    <span class="meta-value">$198K</span>
+                                </div>
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Spent:</span>
+                                    <span class="meta-value">$142K (72%)</span>
+                                </div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-label">
+                                    <span>Progress</span>
+                                    <span>67%</span>
+                                </div>
+                                <div class="card-progress-bar">
+                                    <div class="card-progress-fill" style="width: 67%; background: var(--status-in-progress);"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-owner">J. O'Connor</span>
+                                <span class="card-due">📅 Due: Nov 25</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- At Risk Column -->
+                <div class="swimlane">
+                    <div class="swimlane-header">
+                        <div class="swimlane-title">At Risk / Blocked</div>
+                        <div class="swimlane-count">8</div>
+                    </div>
+                    <div class="kanban-cards">
+                        <div class="kanban-card at-risk">
+                            <div class="card-id">PRJ-892</div>
+                            <div class="card-title">Mobile App Redesign Phase 2</div>
+                            <div class="card-meta">
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Budget:</span>
+                                    <span class="meta-value">$520K</span>
+                                </div>
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Spent:</span>
+                                    <span class="meta-value">$498K (96%)</span>
+                                </div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-label">
+                                    <span>Progress</span>
+                                    <span>89%</span>
+                                </div>
+                                <div class="card-progress-bar">
+                                    <div class="card-progress-fill" style="width: 89%; background: var(--status-at-risk);"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-owner">P. Kapoor</span>
+                                <span class="card-due">⚠️ Due: Nov 30</span>
+                            </div>
+                        </div>
+                        <div class="kanban-card blocked">
+                            <div class="card-id">PRJ-156</div>
+                            <div class="card-title">Customer Portal Enhancement</div>
+                            <div class="card-meta">
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Budget:</span>
+                                    <span class="meta-value">$280K</span>
+                                </div>
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Spent:</span>
+                                    <span class="meta-value">$189K (68%)</span>
+                                </div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-label">
+                                    <span>Progress</span>
+                                    <span>45%</span>
+                                </div>
+                                <div class="card-progress-bar">
+                                    <div class="card-progress-fill" style="width: 45%; background: var(--status-blocked);"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-owner">E. Rodriguez</span>
+                                <span class="card-due">🚫 Blocked</span>
+                            </div>
+                        </div>
+                        <div class="kanban-card at-risk">
+                            <div class="card-id">PRJ-523</div>
+                            <div class="card-title">Security Audit Remediation</div>
+                            <div class="card-meta">
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Budget:</span>
+                                    <span class="meta-value">$175K</span>
+                                </div>
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Spent:</span>
+                                    <span class="meta-value">$156K (89%)</span>
+                                </div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-label">
+                                    <span>Progress</span>
+                                    <span>84%</span>
+                                </div>
+                                <div class="card-progress-bar">
+                                    <div class="card-progress-fill" style="width: 84%; background: var(--status-at-risk);"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-owner">E. Rodriguez</span>
+                                <span class="card-due">⚠️ Due: Nov 20</span>
+                            </div>
+                        </div>
+                        <div class="kanban-card blocked">
+                            <div class="card-id">PRJ-337</div>
+                            <div class="card-title">Legacy System Decommission</div>
+                            <div class="card-meta">
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Budget:</span>
+                                    <span class="meta-value">$410K</span>
+                                </div>
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Spent:</span>
+                                    <span class="meta-value">$278K (68%)</span>
+                                </div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-label">
+                                    <span>Progress</span>
+                                    <span>52%</span>
+                                </div>
+                                <div class="card-progress-bar">
+                                    <div class="card-progress-fill" style="width: 52%; background: var(--status-blocked);"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-owner">M. Williams</span>
+                                <span class="card-due">🚫 Vendor delay</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Done Column -->
+                <div class="swimlane">
+                    <div class="swimlane-header">
+                        <div class="swimlane-title">Completed</div>
+                        <div class="swimlane-count">16</div>
+                    </div>
+                    <div class="kanban-cards">
+                        <div class="kanban-card done">
+                            <div class="card-id">PRJ-289</div>
+                            <div class="card-title">Analytics Dashboard v3</div>
+                            <div class="card-meta">
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Budget:</span>
+                                    <span class="meta-value">$220K</span>
+                                </div>
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Spent:</span>
+                                    <span class="meta-value">$218K (99%)</span>
+                                </div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-label">
+                                    <span>Progress</span>
+                                    <span>100%</span>
+                                </div>
+                                <div class="card-progress-bar">
+                                    <div class="card-progress-fill" style="width: 100%; background: var(--status-done);"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-owner">M. Williams</span>
+                                <span class="card-due">✅ Oct 15</span>
+                            </div>
+                        </div>
+                        <div class="kanban-card done">
+                            <div class="card-id">PRJ-112</div>
+                            <div class="card-title">Q3 Marketing Campaign</div>
+                            <div class="card-meta">
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Budget:</span>
+                                    <span class="meta-value">$385K</span>
+                                </div>
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Spent:</span>
+                                    <span class="meta-value">$372K (97%)</span>
+                                </div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-label">
+                                    <span>Progress</span>
+                                    <span>100%</span>
+                                </div>
+                                <div class="card-progress-bar">
+                                    <div class="card-progress-fill" style="width: 100%; background: var(--status-done);"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-owner">E. Rodriguez</span>
+                                <span class="card-due">✅ Sep 30</span>
+                            </div>
+                        </div>
+                        <div class="kanban-card done">
+                            <div class="card-id">PRJ-203</div>
+                            <div class="card-title">Performance Monitoring Tool</div>
+                            <div class="card-meta">
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Budget:</span>
+                                    <span class="meta-value">$145K</span>
+                                </div>
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Spent:</span>
+                                    <span class="meta-value">$141K (97%)</span>
+                                </div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-label">
+                                    <span>Progress</span>
+                                    <span>100%</span>
+                                </div>
+                                <div class="card-progress-bar">
+                                    <div class="card-progress-fill" style="width: 100%; background: var(--status-done);"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-owner">D. Kim</span>
+                                <span class="card-due">✅ Oct 8</span>
+                            </div>
+                        </div>
+                        <div class="kanban-card done">
+                            <div class="card-id">PRJ-067</div>
+                            <div class="card-title">User Onboarding Flow Redesign</div>
+                            <div class="card-meta">
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Budget:</span>
+                                    <span class="meta-value">$92K</span>
+                                </div>
+                                <div class="card-meta-row">
+                                    <span class="meta-label">Spent:</span>
+                                    <span class="meta-value">$88K (96%)</span>
+                                </div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-label">
+                                    <span>Progress</span>
+                                    <span>100%</span>
+                                </div>
+                                <div class="card-progress-bar">
+                                    <div class="card-progress-fill" style="width: 100%; background: var(--status-done);"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span class="card-owner">P. Kapoor</span>
+                                <span class="card-due">✅ Sep 22</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-left">
+            <div class="footer-stat">
+                <span class="footer-stat-label">Portfolio Snapshot:</span>
+                <span class="footer-stat-value">Q4 2025</span>
+            </div>
+            <div class="footer-stat">
+                <span class="footer-stat-label">Total Budget:</span>
+                <span class="footer-stat-value">$15.4M</span>
+            </div>
+            <div class="footer-stat">
+                <span class="footer-stat-label">Active FTEs:</span>
+                <span class="footer-stat-value">124</span>
+            </div>
+            <div class="footer-stat">
+                <span class="footer-stat-label">Avg Velocity:</span>
+                <span class="footer-stat-value">8.3 pts/sprint</span>
+            </div>
+        </div>
+        <div class="footer-right">
+            <span>Designed by DARNO • Data-First PMO Intelligence • Updated: 2 min ago</span>
+        </div>
+    </footer>
+
+    <script>
+        // Kanban card hover tilt effect
+        document.querySelectorAll('.kanban-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px) rotate(0.5deg)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) rotate(0deg)';
+            });
+        });
+
+        // Table row click handler
+        document.querySelectorAll('.master-table tbody tr, .resource-table tbody tr').forEach(row => {
+            row.addEventListener('click', function() {
+                console.log('Row clicked:', this);
+                // Could expand to show detailed project view
+            });
+        });
+
+        // Period selector
+        document.querySelectorAll('.period-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.period-option').forEach(opt => {
+                    opt.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        // Sortable table headers
+        document.querySelectorAll('.sortable').forEach(header => {
+            header.addEventListener('click', function() {
+                console.log('Sort by:', this.textContent);
+                // Could implement actual sorting logic
+            });
+        });
+
+        // Initialize dashboard
+        console.log('DARNO PMO Dashboard initialized');
+        console.log('Projects loaded: 47');
+        console.log('Resources tracked: 124 FTEs');
+        console.log('Budget allocated: $15.4M');
+    </script>
+</body>
+</html>

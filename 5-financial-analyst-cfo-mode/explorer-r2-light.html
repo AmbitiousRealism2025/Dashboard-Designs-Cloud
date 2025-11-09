@@ -1,0 +1,1616 @@
+<!-- Agent: Explorer | Round: 2 - Light Mode Masterpiece | Theme: Financial Analyst CFO Mode | Intent: Asymmetric diagonal-zone layout with radical financial data architecture -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Command Center | EXPLORER</title>
+    <style>
+        /* ========================================
+           EXPLORER EXPERIMENTAL FINANCIAL DASHBOARD
+           Theme 5: Financial Analyst / CFO Mode - Light
+           ======================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        :root {
+            /* Financial Institutional Palette - Light Mode */
+            --white: #FFFFFF;
+            --off-white: #FAFBFC;
+            --light-grey: #F4F6F8;
+            --medium-grey: #E1E6EB;
+            --border-grey: #D0D7DE;
+            --text-grey: #57606A;
+
+            /* Primary Finance Colors */
+            --navy-dark: #0A2540;
+            --navy: #1B3A5F;
+            --navy-light: #2E5180;
+            --navy-pale: #E8EDF3;
+
+            --forest-dark: #0F4C3A;
+            --forest: #1A6B54;
+            --forest-light: #2A8B6F;
+            --forest-pale: #E8F3EF;
+
+            --steel: #5B6B7C;
+            --steel-light: #8A98A8;
+            --steel-pale: #EFF1F4;
+
+            /* Semantic Colors */
+            --success: #0F7D4E;
+            --success-light: #D5F0E3;
+            --warning: #D97706;
+            --warning-light: #FEF3C7;
+            --danger: #B91C1C;
+            --danger-light: #FEE2E2;
+
+            /* Typography */
+            --font-main: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+            --font-numeric: 'SF Mono', 'Monaco', 'Consolas', monospace;
+
+            /* Spacing System */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+            --space-3xl: 64px;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(10, 37, 64, 0.08);
+            --shadow-md: 0 4px 6px rgba(10, 37, 64, 0.1);
+            --shadow-lg: 0 10px 20px rgba(10, 37, 64, 0.12);
+            --shadow-xl: 0 20px 40px rgba(10, 37, 64, 0.15);
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: linear-gradient(135deg, var(--off-white) 0%, var(--light-grey) 100%);
+            color: var(--navy-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ========================================
+           EXPERIMENTAL ASYMMETRIC GRID LAYOUT
+           ======================================== */
+
+        .page-container {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            grid-template-rows: auto 1fr auto;
+            min-height: 100vh;
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        /* ========================================
+           HEADER - INSTITUTIONAL FINANCE BAR
+           ======================================== */
+
+        header {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%);
+            color: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 2000px;
+            margin: 0 auto;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .logo-box {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--forest) 0%, var(--forest-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: 900;
+            font-size: 24px;
+            box-shadow: var(--shadow-md);
+            letter-spacing: -1px;
+        }
+
+        .header-titles h1 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 2px;
+        }
+
+        .header-titles .subtitle {
+            font-size: 13px;
+            opacity: 0.85;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
+
+        .period-selector {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 10px 20px;
+            border-radius: 6px;
+            color: var(--white);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        .period-selector:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .last-updated {
+            font-size: 12px;
+            opacity: 0.75;
+            font-family: var(--font-numeric);
+        }
+
+        /* ========================================
+           SIDEBAR - VERTICAL METRIC TOWER
+           ======================================== */
+
+        aside {
+            background: var(--white);
+            padding: var(--space-xl);
+            border-right: 3px solid var(--navy-pale);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            margin-bottom: var(--space-2xl);
+        }
+
+        .section-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--steel);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 2px solid var(--border-grey);
+        }
+
+        /* Experimental Vertical KPI Cards */
+        .vertical-kpi {
+            background: linear-gradient(135deg, var(--off-white) 0%, var(--white) 100%);
+            border: 2px solid var(--border-grey);
+            border-left: 5px solid var(--navy);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vertical-kpi::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, var(--navy-pale) 100%);
+            opacity: 0.5;
+        }
+
+        .vertical-kpi:hover {
+            border-left-width: 8px;
+            box-shadow: var(--shadow-md);
+            transform: translateX(4px);
+        }
+
+        .vertical-kpi.positive {
+            border-left-color: var(--forest);
+        }
+
+        .vertical-kpi.negative {
+            border-left-color: var(--danger);
+        }
+
+        .vertical-kpi.neutral {
+            border-left-color: var(--steel);
+        }
+
+        .kpi-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-grey);
+            margin-bottom: var(--space-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .kpi-value {
+            font-size: 32px;
+            font-weight: 800;
+            font-family: var(--font-numeric);
+            color: var(--navy-dark);
+            line-height: 1;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-delta {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: var(--font-numeric);
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-delta.positive {
+            color: var(--success);
+            background: var(--success-light);
+        }
+
+        .kpi-delta.negative {
+            color: var(--danger);
+            background: var(--danger-light);
+        }
+
+        .kpi-delta.neutral {
+            color: var(--steel);
+            background: var(--steel-pale);
+        }
+
+        .kpi-meta {
+            font-size: 11px;
+            color: var(--text-grey);
+            font-family: var(--font-numeric);
+        }
+
+        /* Mini Sparkline */
+        .mini-spark {
+            height: 24px;
+            margin-top: var(--space-sm);
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+        }
+
+        .spark-bar {
+            flex: 1;
+            background: var(--navy-light);
+            opacity: 0.3;
+            border-radius: 2px 2px 0 0;
+            min-height: 4px;
+        }
+
+        .spark-bar:last-child {
+            opacity: 1;
+            background: var(--forest);
+        }
+
+        /* Navigation Links */
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .nav-link {
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--navy);
+            background: transparent;
+            border: 1px solid transparent;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .nav-link:hover {
+            background: var(--navy-pale);
+            border-color: var(--navy-light);
+            transform: translateX(4px);
+        }
+
+        .nav-link.active {
+            background: var(--navy);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           MAIN CONTENT - DIAGONAL SPLIT ZONES
+           ======================================== */
+
+        main {
+            padding: var(--space-xl);
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* Experimental Diagonal Grid */
+        .diagonal-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(8, minmax(120px, auto));
+            gap: var(--space-lg);
+            position: relative;
+        }
+
+        /* Floating KPI Banner - Spans Diagonally */
+        .floating-kpi-banner {
+            grid-column: 1 / 13;
+            grid-row: 1 / 2;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .banner-kpi {
+            background: var(--white);
+            border: 2px solid var(--border-grey);
+            border-radius: 10px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner-kpi::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--navy) 0%, var(--forest) 100%);
+        }
+
+        .banner-kpi:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--navy);
+        }
+
+        .banner-kpi-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-grey);
+            margin-bottom: var(--space-sm);
+        }
+
+        .banner-kpi-value {
+            font-size: 36px;
+            font-weight: 900;
+            font-family: var(--font-numeric);
+            color: var(--navy-dark);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+
+        .banner-kpi-change {
+            font-size: 13px;
+            font-weight: 600;
+            font-family: var(--font-numeric);
+        }
+
+        .banner-kpi-change.up {
+            color: var(--success);
+        }
+
+        .banner-kpi-change.down {
+            color: var(--danger);
+        }
+
+        /* Upper Left Zone - P&L Summary */
+        .zone-pl-summary {
+            grid-column: 1 / 8;
+            grid-row: 2 / 5;
+            background: var(--white);
+            border: 2px solid var(--navy-pale);
+            border-radius: 12px;
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .zone-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--navy-dark);
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 3px solid var(--navy-pale);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .zone-subtitle {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-grey);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Financial Table Styling */
+        .financial-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-family: var(--font-numeric);
+        }
+
+        .financial-table thead {
+            background: linear-gradient(135deg, var(--navy-pale) 0%, var(--steel-pale) 100%);
+        }
+
+        .financial-table th {
+            padding: var(--space-md);
+            text-align: right;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--navy-dark);
+            border-bottom: 2px solid var(--navy-light);
+        }
+
+        .financial-table th:first-child {
+            text-align: left;
+        }
+
+        .financial-table tbody tr {
+            border-bottom: 1px solid var(--medium-grey);
+        }
+
+        .financial-table tbody tr:hover {
+            background: var(--light-grey);
+        }
+
+        .financial-table tbody tr:hover td {
+            color: var(--navy-dark);
+            font-weight: 600;
+        }
+
+        .financial-table td {
+            padding: var(--space-md);
+            text-align: right;
+            font-size: 14px;
+            color: var(--navy);
+        }
+
+        .financial-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .financial-table .row-header {
+            background: var(--off-white);
+            font-weight: 700;
+            color: var(--navy-dark);
+        }
+
+        .financial-table .row-total {
+            background: var(--navy-pale);
+            font-weight: 800;
+            font-size: 15px;
+            border-top: 3px solid var(--navy);
+            border-bottom: 3px solid var(--navy);
+        }
+
+        .financial-table .positive-value {
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .financial-table .negative-value {
+            color: var(--danger);
+            font-weight: 700;
+        }
+
+        /* Upper Right Zone - Cash Runway Radial */
+        .zone-runway {
+            grid-column: 8 / 13;
+            grid-row: 2 / 5;
+            background: linear-gradient(135deg, var(--white) 0%, var(--off-white) 100%);
+            border: 2px solid var(--forest-pale);
+            border-radius: 12px;
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .runway-visual {
+            width: 240px;
+            height: 240px;
+            position: relative;
+            margin: var(--space-lg) 0;
+        }
+
+        .runway-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--forest) 0deg,
+                var(--forest-light) 120deg,
+                var(--warning) 240deg,
+                var(--danger) 300deg,
+                var(--medium-grey) 300deg
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-xl);
+            animation: rotate-pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes rotate-pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.05) rotate(5deg); }
+        }
+
+        .runway-center {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: var(--white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset var(--shadow-lg);
+        }
+
+        .runway-months {
+            font-size: 56px;
+            font-weight: 900;
+            font-family: var(--font-numeric);
+            color: var(--navy-dark);
+            line-height: 1;
+        }
+
+        .runway-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-grey);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: var(--space-sm);
+        }
+
+        .runway-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+            width: 100%;
+            margin-top: var(--space-lg);
+        }
+
+        .runway-metric {
+            text-align: center;
+            padding: var(--space-md);
+            background: var(--white);
+            border: 2px solid var(--border-grey);
+            border-radius: 8px;
+        }
+
+        .runway-metric-value {
+            font-size: 20px;
+            font-weight: 800;
+            font-family: var(--font-numeric);
+            color: var(--navy-dark);
+        }
+
+        .runway-metric-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-grey);
+            margin-top: 4px;
+        }
+
+        /* Middle Zone - Waterfall Chart */
+        .zone-waterfall {
+            grid-column: 1 / 9;
+            grid-row: 5 / 7;
+            background: var(--white);
+            border: 2px solid var(--navy-pale);
+            border-radius: 12px;
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .waterfall-chart {
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            gap: var(--space-md);
+            padding: var(--space-lg) 0;
+            position: relative;
+            border-bottom: 2px solid var(--navy-dark);
+        }
+
+        .waterfall-bar {
+            flex: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .waterfall-column {
+            width: 100%;
+            border-radius: 6px 6px 0 0;
+            position: relative;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .waterfall-bar:hover .waterfall-column {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .waterfall-column.positive {
+            background: linear-gradient(180deg, var(--forest-light) 0%, var(--forest) 100%);
+        }
+
+        .waterfall-column.negative {
+            background: linear-gradient(180deg, var(--danger) 0%, #991B1B 100%);
+        }
+
+        .waterfall-column.total {
+            background: linear-gradient(180deg, var(--navy-light) 0%, var(--navy-dark) 100%);
+        }
+
+        .waterfall-value {
+            position: absolute;
+            top: -24px;
+            font-size: 12px;
+            font-weight: 700;
+            font-family: var(--font-numeric);
+            color: var(--navy-dark);
+            white-space: nowrap;
+        }
+
+        .waterfall-label {
+            margin-top: var(--space-sm);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-grey);
+            text-align: center;
+            transform: rotate(-15deg);
+            white-space: nowrap;
+        }
+
+        /* Bottom Right - Revenue Breakdown */
+        .zone-revenue {
+            grid-column: 9 / 13;
+            grid-row: 5 / 7;
+            background: var(--white);
+            border: 2px solid var(--forest-pale);
+            border-radius: 12px;
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stacked-bars {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+
+        .stacked-bar-row {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .stacked-bar-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--navy);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .stacked-bar-label-value {
+            font-family: var(--font-numeric);
+            font-weight: 800;
+        }
+
+        .stacked-bar {
+            height: 32px;
+            display: flex;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stacked-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--white);
+            font-family: var(--font-numeric);
+            transition: all 0.3s ease;
+        }
+
+        .stacked-segment:hover {
+            filter: brightness(1.2);
+            transform: scaleY(1.15);
+        }
+
+        /* Bottom Zone - Key Ratios Matrix */
+        .zone-ratios {
+            grid-column: 1 / 13;
+            grid-row: 7 / 9;
+            background: linear-gradient(135deg, var(--white) 0%, var(--light-grey) 100%);
+            border: 2px solid var(--navy-pale);
+            border-radius: 12px;
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .ratios-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+
+        .ratio-card {
+            background: var(--white);
+            border: 2px solid var(--border-grey);
+            border-radius: 8px;
+            padding: var(--space-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ratio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--navy) 0%, var(--forest) 100%);
+        }
+
+        .ratio-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--navy);
+        }
+
+        .ratio-card.excellent::before {
+            background: var(--success);
+        }
+
+        .ratio-card.good::before {
+            background: var(--forest);
+        }
+
+        .ratio-card.warning::before {
+            background: var(--warning);
+        }
+
+        .ratio-card.poor::before {
+            background: var(--danger);
+        }
+
+        .ratio-name {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-grey);
+            margin-bottom: var(--space-sm);
+        }
+
+        .ratio-value {
+            font-size: 28px;
+            font-weight: 900;
+            font-family: var(--font-numeric);
+            color: var(--navy-dark);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+
+        .ratio-benchmark {
+            font-size: 10px;
+            color: var(--steel);
+            font-family: var(--font-numeric);
+        }
+
+        /* ========================================
+           FOOTER - AGENT SIGNATURE
+           ======================================== */
+
+        footer {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--forest-dark) 100%);
+            color: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 2000px;
+            margin: 0 auto;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .agent-badge {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--forest-light) 100%);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 14px;
+            letter-spacing: 1px;
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--forest-light);
+        }
+
+        .footer-info {
+            font-size: 12px;
+            opacity: 0.85;
+        }
+
+        .footer-meta {
+            text-align: right;
+            font-size: 12px;
+            opacity: 0.75;
+            font-family: var(--font-numeric);
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
+
+        @media (max-width: 1400px) {
+            .diagonal-grid {
+                grid-template-columns: repeat(6, 1fr);
+                grid-template-rows: auto;
+            }
+
+            .floating-kpi-banner {
+                grid-column: 1 / 7;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .zone-pl-summary {
+                grid-column: 1 / 7;
+                grid-row: 2 / 3;
+            }
+
+            .zone-runway {
+                grid-column: 1 / 7;
+                grid-row: 3 / 4;
+            }
+
+            .zone-waterfall {
+                grid-column: 1 / 7;
+                grid-row: 4 / 5;
+            }
+
+            .zone-revenue {
+                grid-column: 1 / 7;
+                grid-row: 5 / 6;
+            }
+
+            .zone-ratios {
+                grid-column: 1 / 7;
+                grid-row: 6 / 7;
+            }
+
+            .ratios-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 960px) {
+            .page-container {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                border-right: none;
+                border-bottom: 3px solid var(--navy-pale);
+            }
+
+            .diagonal-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-kpi-banner {
+                grid-column: 1;
+                grid-template-columns: 1fr;
+            }
+
+            .zone-pl-summary,
+            .zone-runway,
+            .zone-waterfall,
+            .zone-revenue,
+            .zone-ratios {
+                grid-column: 1;
+            }
+
+            .ratios-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header-content {
+                flex-direction: column;
+                gap: var(--space-md);
+                text-align: center;
+            }
+
+            .ratios-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: var(--space-md);
+                text-align: center;
+            }
+        }
+
+        /* ========================================
+           ANIMATIONS & COUNTERS
+           ======================================== */
+
+        @keyframes shimmer {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        .animate-value {
+            animation: shimmer 2s ease-in-out infinite;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light-grey);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--navy-light);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--navy);
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- HEADER -->
+        <header>
+            <div class="header-content">
+                <div class="header-brand">
+                    <div class="logo-box">E</div>
+                    <div class="header-titles">
+                        <h1>Financial Command Center</h1>
+                        <div class="subtitle">EXPLORER Experimental CFO Dashboard</div>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <select class="period-selector">
+                        <option>Q4 2024</option>
+                        <option>Q3 2024</option>
+                        <option>FY 2024</option>
+                        <option>YTD 2024</option>
+                    </select>
+                    <div class="last-updated">Updated: 2024-11-09 14:23 UTC</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- SIDEBAR - VERTICAL METRIC TOWER -->
+        <aside>
+            <div class="sidebar-section">
+                <div class="section-title">Executive Metrics</div>
+
+                <div class="vertical-kpi positive">
+                    <div class="kpi-label">Annual Recurring Revenue</div>
+                    <div class="kpi-value">$18.4M</div>
+                    <div class="kpi-delta positive">↑ +32.5%</div>
+                    <div class="kpi-meta">vs. LY: $13.9M</div>
+                    <div class="mini-spark">
+                        <div class="spark-bar" style="height: 40%;"></div>
+                        <div class="spark-bar" style="height: 55%;"></div>
+                        <div class="spark-bar" style="height: 48%;"></div>
+                        <div class="spark-bar" style="height: 72%;"></div>
+                        <div class="spark-bar" style="height: 100%;"></div>
+                    </div>
+                </div>
+
+                <div class="vertical-kpi positive">
+                    <div class="kpi-label">EBITDA Margin</div>
+                    <div class="kpi-value">28.3%</div>
+                    <div class="kpi-delta positive">↑ +4.8pp</div>
+                    <div class="kpi-meta">Target: 25.0%</div>
+                </div>
+
+                <div class="vertical-kpi positive">
+                    <div class="kpi-label">Free Cash Flow</div>
+                    <div class="kpi-value">$4.2M</div>
+                    <div class="kpi-delta positive">↑ +127%</div>
+                    <div class="kpi-meta">TTM: $1.9M</div>
+                </div>
+
+                <div class="vertical-kpi neutral">
+                    <div class="kpi-label">Customer LTV</div>
+                    <div class="kpi-value">$84.2K</div>
+                    <div class="kpi-delta neutral">→ +2.1%</div>
+                    <div class="kpi-meta">CAC: $12.4K (6.8x)</div>
+                </div>
+
+                <div class="vertical-kpi negative">
+                    <div class="kpi-label">Burn Rate</div>
+                    <div class="kpi-value">$285K</div>
+                    <div class="kpi-delta negative">↑ +18%</div>
+                    <div class="kpi-meta">Monthly Average</div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="section-title">Navigation</div>
+                <div class="nav-links">
+                    <button class="nav-link active">Overview Dashboard</button>
+                    <button class="nav-link">P&L Statement</button>
+                    <button class="nav-link">Cash Flow Analysis</button>
+                    <button class="nav-link">Balance Sheet</button>
+                    <button class="nav-link">Revenue Breakdown</button>
+                    <button class="nav-link">Expense Management</button>
+                    <button class="nav-link">Forecasting Model</button>
+                    <button class="nav-link">Investment Tracking</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT - DIAGONAL ZONES -->
+        <main>
+            <div class="diagonal-grid">
+                <!-- Floating KPI Banner -->
+                <div class="floating-kpi-banner">
+                    <div class="banner-kpi">
+                        <div class="banner-kpi-label">Total Revenue</div>
+                        <div class="banner-kpi-value">$21.8M</div>
+                        <div class="banner-kpi-change up">↑ 28.4% YoY</div>
+                    </div>
+                    <div class="banner-kpi">
+                        <div class="banner-kpi-label">Gross Profit</div>
+                        <div class="banner-kpi-value">$16.9M</div>
+                        <div class="banner-kpi-change up">↑ 31.2% YoY</div>
+                    </div>
+                    <div class="banner-kpi">
+                        <div class="banner-kpi-label">Operating Income</div>
+                        <div class="banner-kpi-value">$6.2M</div>
+                        <div class="banner-kpi-change up">↑ 45.8% YoY</div>
+                    </div>
+                    <div class="banner-kpi">
+                        <div class="banner-kpi-label">Net Income</div>
+                        <div class="banner-kpi-value">$4.8M</div>
+                        <div class="banner-kpi-change up">↑ 52.1% YoY</div>
+                    </div>
+                </div>
+
+                <!-- P&L Summary Table -->
+                <div class="zone-pl-summary">
+                    <div class="zone-title">
+                        <span>Profit & Loss Statement</span>
+                        <span class="zone-subtitle">Q4 2024 | In Thousands USD</span>
+                    </div>
+                    <table class="financial-table">
+                        <thead>
+                            <tr>
+                                <th>Line Item</th>
+                                <th>Q4 2024</th>
+                                <th>Q3 2024</th>
+                                <th>Q4 2023</th>
+                                <th>QoQ %</th>
+                                <th>YoY %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row-header">
+                                <td>Revenue</td>
+                                <td>$5,842</td>
+                                <td>$5,326</td>
+                                <td>$4,285</td>
+                                <td class="positive-value">+9.7%</td>
+                                <td class="positive-value">+36.3%</td>
+                            </tr>
+                            <tr>
+                                <td>- Subscriptions</td>
+                                <td>$4,624</td>
+                                <td>$4,184</td>
+                                <td>$3,348</td>
+                                <td class="positive-value">+10.5%</td>
+                                <td class="positive-value">+38.1%</td>
+                            </tr>
+                            <tr>
+                                <td>- Services</td>
+                                <td>$1,218</td>
+                                <td>$1,142</td>
+                                <td>$937</td>
+                                <td class="positive-value">+6.7%</td>
+                                <td class="positive-value">+30.0%</td>
+                            </tr>
+                            <tr class="row-header">
+                                <td>Cost of Revenue</td>
+                                <td>$1,226</td>
+                                <td>$1,198</td>
+                                <td>$1,071</td>
+                                <td class="negative-value">+2.3%</td>
+                                <td class="negative-value">+14.5%</td>
+                            </tr>
+                            <tr class="row-total">
+                                <td>Gross Profit</td>
+                                <td>$4,616</td>
+                                <td>$4,128</td>
+                                <td>$3,214</td>
+                                <td class="positive-value">+11.8%</td>
+                                <td class="positive-value">+43.6%</td>
+                            </tr>
+                            <tr>
+                                <td>Gross Margin</td>
+                                <td>79.0%</td>
+                                <td>77.5%</td>
+                                <td>75.0%</td>
+                                <td class="positive-value">+1.5pp</td>
+                                <td class="positive-value">+4.0pp</td>
+                            </tr>
+                            <tr class="row-header">
+                                <td>Operating Expenses</td>
+                                <td>$2,964</td>
+                                <td>$2,842</td>
+                                <td>$2,571</td>
+                                <td class="negative-value">+4.3%</td>
+                                <td class="negative-value">+15.3%</td>
+                            </tr>
+                            <tr>
+                                <td>- Sales & Marketing</td>
+                                <td>$1,285</td>
+                                <td>$1,224</td>
+                                <td>$1,114</td>
+                                <td class="negative-value">+5.0%</td>
+                                <td class="negative-value">+15.4%</td>
+                            </tr>
+                            <tr>
+                                <td>- R&D</td>
+                                <td>$1,168</td>
+                                <td>$1,142</td>
+                                <td>$1,028</td>
+                                <td class="negative-value">+2.3%</td>
+                                <td class="negative-value">+13.6%</td>
+                            </tr>
+                            <tr>
+                                <td>- G&A</td>
+                                <td>$511</td>
+                                <td>$476</td>
+                                <td>$429</td>
+                                <td class="negative-value">+7.4%</td>
+                                <td class="negative-value">+19.1%</td>
+                            </tr>
+                            <tr class="row-total">
+                                <td>EBITDA</td>
+                                <td>$1,652</td>
+                                <td>$1,286</td>
+                                <td>$643</td>
+                                <td class="positive-value">+28.5%</td>
+                                <td class="positive-value">+157%</td>
+                            </tr>
+                            <tr>
+                                <td>EBITDA Margin</td>
+                                <td>28.3%</td>
+                                <td>24.2%</td>
+                                <td>15.0%</td>
+                                <td class="positive-value">+4.1pp</td>
+                                <td class="positive-value">+13.3pp</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Cash Runway Radial -->
+                <div class="zone-runway">
+                    <div class="zone-title" style="width: 100%;">
+                        <span>Cash Runway Analysis</span>
+                    </div>
+                    <div class="runway-visual">
+                        <div class="runway-circle">
+                            <div class="runway-center">
+                                <div class="runway-months">18.2</div>
+                                <div class="runway-label">Months</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="runway-metrics">
+                        <div class="runway-metric">
+                            <div class="runway-metric-value">$5.2M</div>
+                            <div class="runway-metric-label">Cash Balance</div>
+                        </div>
+                        <div class="runway-metric">
+                            <div class="runway-metric-value">$285K</div>
+                            <div class="runway-metric-label">Monthly Burn</div>
+                        </div>
+                        <div class="runway-metric">
+                            <div class="runway-metric-value">$8.4M</div>
+                            <div class="runway-metric-label">AR Balance</div>
+                        </div>
+                        <div class="runway-metric">
+                            <div class="runway-metric-value">94.2%</div>
+                            <div class="runway-metric-label">Collection Rate</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Waterfall Chart -->
+                <div class="zone-waterfall">
+                    <div class="zone-title">
+                        <span>Cash Flow Waterfall</span>
+                        <span class="zone-subtitle">Q4 2024 Movement | In Thousands</span>
+                    </div>
+                    <div class="waterfall-chart">
+                        <div class="waterfall-bar">
+                            <div class="waterfall-column total" style="height: 85%;">
+                                <div class="waterfall-value">$4,248</div>
+                            </div>
+                            <div class="waterfall-label">Opening<br/>Cash</div>
+                        </div>
+                        <div class="waterfall-bar">
+                            <div class="waterfall-column positive" style="height: 95%;">
+                                <div class="waterfall-value">+$1,824</div>
+                            </div>
+                            <div class="waterfall-label">Operating<br/>Cash</div>
+                        </div>
+                        <div class="waterfall-bar">
+                            <div class="waterfall-column negative" style="height: 35%;">
+                                <div class="waterfall-value">-$485</div>
+                            </div>
+                            <div class="waterfall-label">CapEx</div>
+                        </div>
+                        <div class="waterfall-bar">
+                            <div class="waterfall-column negative" style="height: 28%;">
+                                <div class="waterfall-value">-$324</div>
+                            </div>
+                            <div class="waterfall-label">Debt<br/>Service</div>
+                        </div>
+                        <div class="waterfall-bar">
+                            <div class="waterfall-column positive" style="height: 42%;">
+                                <div class="waterfall-value">+$620</div>
+                            </div>
+                            <div class="waterfall-label">Equity<br/>Raise</div>
+                        </div>
+                        <div class="waterfall-bar">
+                            <div class="waterfall-column negative" style="height: 18%;">
+                                <div class="waterfall-value">-$128</div>
+                            </div>
+                            <div class="waterfall-label">Other</div>
+                        </div>
+                        <div class="waterfall-bar">
+                            <div class="waterfall-column total" style="height: 100%;">
+                                <div class="waterfall-value">$5,184</div>
+                            </div>
+                            <div class="waterfall-label">Closing<br/>Cash</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Revenue Breakdown -->
+                <div class="zone-revenue">
+                    <div class="zone-title">
+                        <span>Revenue Composition</span>
+                        <span class="zone-subtitle">Q4 2024 Analysis</span>
+                    </div>
+                    <div class="stacked-bars">
+                        <div class="stacked-bar-row">
+                            <div class="stacked-bar-label">
+                                <span>By Product Line</span>
+                                <span class="stacked-bar-label-value">$5,842K</span>
+                            </div>
+                            <div class="stacked-bar">
+                                <div class="stacked-segment" style="width: 42%; background: #1B3A5F;">Enterprise ($2,454K)</div>
+                                <div class="stacked-segment" style="width: 37%; background: #2E5180;">Professional ($2,162K)</div>
+                                <div class="stacked-segment" style="width: 21%; background: #4A6A94;">Starter ($1,226K)</div>
+                            </div>
+                        </div>
+
+                        <div class="stacked-bar-row">
+                            <div class="stacked-bar-label">
+                                <span>By Customer Segment</span>
+                                <span class="stacked-bar-label-value">$5,842K</span>
+                            </div>
+                            <div class="stacked-bar">
+                                <div class="stacked-segment" style="width: 58%; background: #1A6B54;">New Customers ($3,388K)</div>
+                                <div class="stacked-segment" style="width: 42%; background: #2A8B6F;">Expansion ($2,454K)</div>
+                            </div>
+                        </div>
+
+                        <div class="stacked-bar-row">
+                            <div class="stacked-bar-label">
+                                <span>By Geography</span>
+                                <span class="stacked-bar-label-value">$5,842K</span>
+                            </div>
+                            <div class="stacked-bar">
+                                <div class="stacked-segment" style="width: 52%; background: #0A2540;">North America ($3,038K)</div>
+                                <div class="stacked-segment" style="width: 31%; background: #1B3A5F;">EMEA ($1,811K)</div>
+                                <div class="stacked-segment" style="width: 17%; background: #2E5180;">APAC ($993K)</div>
+                            </div>
+                        </div>
+
+                        <div class="stacked-bar-row">
+                            <div class="stacked-bar-label">
+                                <span>By Contract Type</span>
+                                <span class="stacked-bar-label-value">$5,842K</span>
+                            </div>
+                            <div class="stacked-bar">
+                                <div class="stacked-segment" style="width: 68%; background: #0F4C3A;">Annual ($3,973K)</div>
+                                <div class="stacked-segment" style="width: 24%; background: #1A6B54;">Multi-Year ($1,402K)</div>
+                                <div class="stacked-segment" style="width: 8%; background: #2A8B6F;">Monthly ($467K)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Financial Ratios -->
+                <div class="zone-ratios">
+                    <div class="zone-title">
+                        <span>Key Financial Ratios & Performance Indicators</span>
+                        <span class="zone-subtitle">Q4 2024 Metrics</span>
+                    </div>
+                    <div class="ratios-grid">
+                        <div class="ratio-card excellent">
+                            <div class="ratio-name">Quick Ratio</div>
+                            <div class="ratio-value">2.8</div>
+                            <div class="ratio-benchmark">Benchmark: 1.5+</div>
+                        </div>
+                        <div class="ratio-card excellent">
+                            <div class="ratio-name">Current Ratio</div>
+                            <div class="ratio-value">3.4</div>
+                            <div class="ratio-benchmark">Benchmark: 2.0+</div>
+                        </div>
+                        <div class="ratio-card good">
+                            <div class="ratio-name">Debt-to-Equity</div>
+                            <div class="ratio-value">0.42</div>
+                            <div class="ratio-benchmark">Benchmark: <0.5</div>
+                        </div>
+                        <div class="ratio-card excellent">
+                            <div class="ratio-name">ROE</div>
+                            <div class="ratio-value">34.2%</div>
+                            <div class="ratio-benchmark">Benchmark: 15%+</div>
+                        </div>
+                        <div class="ratio-card excellent">
+                            <div class="ratio-name">ROA</div>
+                            <div class="ratio-value">18.7%</div>
+                            <div class="ratio-benchmark">Benchmark: 10%+</div>
+                        </div>
+                        <div class="ratio-card good">
+                            <div class="ratio-name">Asset Turnover</div>
+                            <div class="ratio-value">1.42</div>
+                            <div class="ratio-benchmark">Benchmark: 1.0+</div>
+                        </div>
+                        <div class="ratio-card excellent">
+                            <div class="ratio-name">Gross Margin</div>
+                            <div class="ratio-value">79.0%</div>
+                            <div class="ratio-benchmark">Benchmark: 70%+</div>
+                        </div>
+                        <div class="ratio-card excellent">
+                            <div class="ratio-name">Op. Margin</div>
+                            <div class="ratio-value">28.3%</div>
+                            <div class="ratio-benchmark">Benchmark: 20%+</div>
+                        </div>
+                        <div class="ratio-card excellent">
+                            <div class="ratio-name">Net Margin</div>
+                            <div class="ratio-value">22.0%</div>
+                            <div class="ratio-benchmark">Benchmark: 15%+</div>
+                        </div>
+                        <div class="ratio-card good">
+                            <div class="ratio-name">CAC Payback</div>
+                            <div class="ratio-value">8.4</div>
+                            <div class="ratio-benchmark">Months (Target: <12)</div>
+                        </div>
+                        <div class="ratio-card excellent">
+                            <div class="ratio-name">LTV:CAC</div>
+                            <div class="ratio-value">6.8</div>
+                            <div class="ratio-benchmark">Benchmark: 3.0+</div>
+                        </div>
+                        <div class="ratio-card excellent">
+                            <div class="ratio-name">Rule of 40</div>
+                            <div class="ratio-value">60.6</div>
+                            <div class="ratio-benchmark">Benchmark: 40+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="agent-badge">EXPLORER</div>
+                    <div class="footer-info">
+                        Experimental Systems UX | Round 2 Light Mode | Theme 5: Financial Analyst CFO Mode
+                    </div>
+                </div>
+                <div class="footer-meta">
+                    <div>Dashboard v2.0 | Generated 2024-11-09</div>
+                    <div>Confidential Financial Data | CFO Use Only</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Animated Counter for Large Numbers
+        function animateValue(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = progress * (end - start) + start;
+                element.textContent = formatNumber(value);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return '$' + (num / 1000000).toFixed(1) + 'M';
+            } else if (num >= 1000) {
+                return '$' + (num / 1000).toFixed(1) + 'K';
+            }
+            return '$' + num.toFixed(0);
+        }
+
+        // Animate key metrics on load
+        window.addEventListener('load', () => {
+            const bannerValues = document.querySelectorAll('.banner-kpi-value');
+            bannerValues.forEach((el, index) => {
+                const text = el.textContent;
+                const match = text.match(/[\d.]+/);
+                if (match) {
+                    const value = parseFloat(match[0]);
+                    const multiplier = text.includes('M') ? 1000000 : 1000;
+                    animateValue(el, 0, value * multiplier, 1500 + (index * 200));
+                }
+            });
+        });
+
+        // Row highlight on table hover
+        const tableRows = document.querySelectorAll('.financial-table tbody tr');
+        tableRows.forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(8px)';
+                this.style.boxShadow = '-4px 0 8px rgba(10, 37, 64, 0.1)';
+            });
+            row.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+                this.style.boxShadow = 'none';
+            });
+        });
+
+        // Stacked segment hover info
+        const segments = document.querySelectorAll('.stacked-segment');
+        segments.forEach(segment => {
+            segment.addEventListener('mouseenter', function() {
+                this.style.cursor = 'pointer';
+                this.style.filter = 'brightness(1.3)';
+            });
+            segment.addEventListener('mouseleave', function() {
+                this.style.filter = 'brightness(1.2)';
+            });
+        });
+
+        // Ratio card click feedback
+        const ratioCards = document.querySelectorAll('.ratio-card');
+        ratioCards.forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-4px)';
+                }, 200);
+            });
+        });
+
+        // Navigation link interactions
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Waterfall bar pulse on hover
+        const waterfallBars = document.querySelectorAll('.waterfall-bar');
+        waterfallBars.forEach(bar => {
+            bar.addEventListener('mouseenter', function() {
+                const column = this.querySelector('.waterfall-column');
+                column.style.filter = 'brightness(1.2)';
+            });
+            bar.addEventListener('mouseleave', function() {
+                const column = this.querySelector('.waterfall-column');
+                column.style.filter = 'brightness(1)';
+            });
+        });
+
+        // Console signature
+        console.log('%c EXPLORER Financial Dashboard', 'background: #0A2540; color: #FFFFFF; font-size: 20px; font-weight: bold; padding: 10px;');
+        console.log('%c Experimental Systems UX | Round 2 Light Mode', 'background: #1A6B54; color: #FFFFFF; font-size: 14px; padding: 5px;');
+        console.log('%c Theme 5: Financial Analyst CFO Mode', 'color: #0A2540; font-size: 12px; font-weight: bold;');
+    </script>
+</body>
+</html>

@@ -1,0 +1,1729 @@
+<!-- Agent: Explorer | Round: 2 - Light Mode Masterpiece | Theme: Minimalist Analytical | Intent: Radical asymmetric minimalism with typographic data hierarchy and deconstructed grid systems -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytical Command // Explorer Minimalist Dashboard</title>
+    <style>
+        /* ============================================
+           EXPLORER - MINIMALIST ANALYTICAL (Light Mode)
+           Asymmetric experimental layout system
+           ============================================ */
+
+        :root {
+            /* Grayscale Foundation */
+            --white: #FFFFFF;
+            --gray-50: #FAFAFA;
+            --gray-100: #F5F5F5;
+            --gray-200: #E5E5E5;
+            --gray-300: #D4D4D4;
+            --gray-400: #A3A3A3;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --gray-700: #404040;
+            --gray-800: #262626;
+            --gray-900: #171717;
+            --black: #000000;
+
+            /* Single Accent - Reserved for Critical Data */
+            --accent-blue: #2563EB;
+            --accent-blue-light: #3B82F6;
+            --accent-blue-pale: #DBEAFE;
+
+            /* Semantic Colors (Grayscale-first) */
+            --success: #404040;
+            --warning: #737373;
+            --danger: var(--accent-blue);
+
+            /* Typography Scale */
+            --font-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+
+            --text-xs: 0.6875rem;    /* 11px */
+            --text-sm: 0.8125rem;    /* 13px */
+            --text-base: 0.9375rem;  /* 15px */
+            --text-lg: 1.125rem;     /* 18px */
+            --text-xl: 1.5rem;       /* 24px */
+            --text-2xl: 2rem;        /* 32px */
+            --text-3xl: 2.75rem;     /* 44px */
+
+            /* Spacing System */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-24: 6rem;
+
+            /* Border Weights */
+            --border-thin: 0.5px;
+            --border-normal: 1px;
+            --border-thick: 2px;
+        }
+
+        /* ============================================
+           GLOBAL RESET & BASE STYLES
+           ============================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-system);
+            font-size: var(--text-sm);
+            line-height: 1.4;
+            color: var(--gray-800);
+            background: var(--white);
+            overflow-x: hidden;
+            letter-spacing: -0.01em;
+        }
+
+        /* Minimal, fast transitions */
+        * {
+            transition: opacity 0.12s ease, transform 0.12s ease;
+        }
+
+        /* ============================================
+           EXPERIMENTAL ASYMMETRIC LAYOUT GRID
+           ============================================ */
+
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas:
+                "header header"
+                "sidebar main"
+                "footer footer";
+            min-height: 100vh;
+            max-width: 2000px;
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           HEADER - Ultra Minimal Top Bar
+           ============================================ */
+
+        header {
+            grid-area: header;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-6) var(--space-8);
+            border-bottom: var(--border-thin) solid var(--gray-200);
+            background: var(--white);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: baseline;
+            gap: var(--space-4);
+        }
+
+        .brand {
+            font-size: var(--text-base);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--black);
+            text-transform: uppercase;
+        }
+
+        .agent-badge {
+            font-size: var(--text-xs);
+            font-family: var(--font-mono);
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: var(--space-1) var(--space-2);
+            border: var(--border-thin) solid var(--gray-300);
+            background: var(--gray-50);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-6);
+        }
+
+        .timestamp {
+            font-size: var(--text-xs);
+            font-family: var(--font-mono);
+            color: var(--gray-500);
+            letter-spacing: 0.02em;
+        }
+
+        .action-group {
+            display: flex;
+            gap: var(--space-2);
+        }
+
+        .btn-minimal {
+            padding: var(--space-2) var(--space-4);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: var(--border-thin) solid var(--gray-300);
+            background: var(--white);
+            color: var(--gray-700);
+            cursor: pointer;
+        }
+
+        .btn-minimal:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-400);
+        }
+
+        .btn-minimal.primary {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+
+        .btn-minimal.primary:hover {
+            background: var(--gray-800);
+        }
+
+        /* ============================================
+           SIDEBAR - Minimal Navigation
+           ============================================ */
+
+        aside {
+            grid-area: sidebar;
+            background: var(--gray-50);
+            border-right: var(--border-thin) solid var(--gray-200);
+            padding: var(--space-8) 0;
+        }
+
+        .nav-section {
+            margin-bottom: var(--space-8);
+        }
+
+        .nav-label {
+            font-size: var(--text-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gray-500);
+            padding: 0 var(--space-6);
+            margin-bottom: var(--space-3);
+        }
+
+        .nav-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-2) var(--space-6);
+            font-size: var(--text-sm);
+            color: var(--gray-700);
+            cursor: pointer;
+            border-left: var(--border-thick) solid transparent;
+        }
+
+        .nav-item:hover {
+            background: var(--gray-100);
+            color: var(--black);
+        }
+
+        .nav-item.active {
+            background: var(--white);
+            color: var(--black);
+            font-weight: 500;
+            border-left-color: var(--black);
+        }
+
+        .nav-count {
+            font-size: var(--text-xs);
+            font-family: var(--font-mono);
+            color: var(--gray-500);
+        }
+
+        .filter-zone {
+            padding: 0 var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        .filter-title {
+            font-size: var(--text-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gray-500);
+            margin-bottom: var(--space-4);
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2) 0;
+            font-size: var(--text-sm);
+            color: var(--gray-700);
+            cursor: pointer;
+        }
+
+        .checkbox-minimal {
+            width: 14px;
+            height: 14px;
+            border: var(--border-thin) solid var(--gray-400);
+            background: var(--white);
+            cursor: pointer;
+        }
+
+        .checkbox-minimal.checked {
+            background: var(--black);
+            border-color: var(--black);
+        }
+
+        /* ============================================
+           MAIN CONTENT - Asymmetric Experimental Grid
+           ============================================ */
+
+        main {
+            grid-area: main;
+            padding: var(--space-8);
+            background: var(--white);
+        }
+
+        /* Hero Metrics - Deconstructed Layout */
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 0;
+            margin-bottom: var(--space-12);
+            border: var(--border-thin) solid var(--gray-200);
+        }
+
+        .metric-primary {
+            padding: var(--space-8);
+            border-right: var(--border-thin) solid var(--gray-200);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .metric-secondary {
+            padding: var(--space-6);
+            border-right: var(--border-thin) solid var(--gray-200);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .metric-secondary:last-child {
+            border-right: none;
+        }
+
+        .metric-label {
+            font-size: var(--text-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gray-500);
+            margin-bottom: var(--space-6);
+        }
+
+        .metric-value {
+            font-size: var(--text-3xl);
+            font-weight: 300;
+            color: var(--black);
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: var(--space-2);
+        }
+
+        .metric-value.accent {
+            color: var(--accent-blue);
+        }
+
+        .metric-delta {
+            font-size: var(--text-xs);
+            font-family: var(--font-mono);
+            color: var(--gray-600);
+            margin-top: var(--space-3);
+        }
+
+        .metric-sparkline {
+            height: 32px;
+            margin-top: var(--space-4);
+            background: linear-gradient(to right, var(--gray-100) 0%, var(--gray-200) 100%);
+            position: relative;
+        }
+
+        .metric-sparkline::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to top, var(--gray-300) 0%, transparent 100%);
+            clip-path: polygon(
+                0% 100%,
+                10% 80%,
+                20% 85%,
+                30% 60%,
+                40% 65%,
+                50% 40%,
+                60% 50%,
+                70% 30%,
+                80% 35%,
+                90% 20%,
+                100% 25%,
+                100% 100%
+            );
+        }
+
+        .metric-meta {
+            font-size: var(--text-xs);
+            color: var(--gray-500);
+            margin-top: var(--space-3);
+        }
+
+        /* KPI Grid - Asymmetric Layout */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--border-thin);
+            margin-bottom: var(--space-12);
+            background: var(--gray-200);
+            border: var(--border-thin) solid var(--gray-200);
+        }
+
+        .kpi-card {
+            padding: var(--space-6);
+            background: var(--white);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .kpi-card:hover {
+            background: var(--gray-50);
+        }
+
+        .kpi-title {
+            font-size: var(--text-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--gray-500);
+        }
+
+        .kpi-number {
+            font-size: var(--text-2xl);
+            font-weight: 300;
+            color: var(--black);
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        .kpi-trend {
+            font-size: var(--text-xs);
+            font-family: var(--font-mono);
+            color: var(--gray-600);
+        }
+
+        .kpi-trend.up { color: var(--gray-800); }
+        .kpi-trend.down { color: var(--gray-500); }
+
+        /* Content Split - Two Column Asymmetric */
+        .content-split {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: var(--space-8);
+            margin-bottom: var(--space-12);
+        }
+
+        /* Chart Section */
+        .chart-container {
+            background: var(--white);
+            border: var(--border-thin) solid var(--gray-200);
+            padding: var(--space-8);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: var(--space-8);
+            padding-bottom: var(--space-4);
+            border-bottom: var(--border-thin) solid var(--gray-200);
+        }
+
+        .chart-title {
+            font-size: var(--text-base);
+            font-weight: 600;
+            color: var(--black);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .chart-subtitle {
+            font-size: var(--text-xs);
+            font-family: var(--font-mono);
+            color: var(--gray-500);
+        }
+
+        .chart-canvas {
+            height: 280px;
+            position: relative;
+            background: var(--white);
+            border: var(--border-thin) solid var(--gray-200);
+        }
+
+        /* Minimal Line Chart Visualization */
+        .line-chart {
+            position: relative;
+            height: 100%;
+            padding: var(--space-4);
+        }
+
+        .chart-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: var(--space-4);
+        }
+
+        .grid-line {
+            height: var(--border-thin);
+            background: var(--gray-200);
+        }
+
+        .chart-line-path {
+            position: absolute;
+            bottom: var(--space-4);
+            left: var(--space-4);
+            right: var(--space-4);
+            height: 70%;
+            background: linear-gradient(to bottom, var(--gray-100) 0%, transparent 40%);
+            clip-path: polygon(
+                0% 80%,
+                8% 70%,
+                16% 75%,
+                24% 55%,
+                32% 60%,
+                40% 45%,
+                48% 50%,
+                56% 35%,
+                64% 40%,
+                72% 25%,
+                80% 30%,
+                88% 20%,
+                96% 25%,
+                100% 20%,
+                100% 100%,
+                0% 100%
+            );
+        }
+
+        .chart-accent-line {
+            position: absolute;
+            bottom: calc(var(--space-4) + 20%);
+            left: var(--space-4);
+            right: var(--space-4);
+            height: var(--border-thick);
+            background: var(--accent-blue);
+            clip-path: polygon(
+                0% 50%,
+                8% 35%,
+                16% 40%,
+                24% 18%,
+                32% 23%,
+                40% 8%,
+                48% 13%,
+                56% 0%,
+                64% 5%,
+                72% 0%,
+                80% 0%,
+                88% 0%,
+                96% 0%,
+                100% 0%,
+                100% 100%,
+                0% 100%
+            );
+        }
+
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--space-3);
+            padding: 0 var(--space-4);
+        }
+
+        .chart-label {
+            font-size: var(--text-xs);
+            font-family: var(--font-mono);
+            color: var(--gray-500);
+        }
+
+        /* Minimal Bar Chart */
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: var(--space-2);
+            height: 100%;
+            padding: var(--space-4);
+        }
+
+        .bar {
+            flex: 1;
+            background: var(--gray-300);
+            position: relative;
+            min-height: 20%;
+        }
+
+        .bar:nth-child(3),
+        .bar:nth-child(7) {
+            background: var(--accent-blue);
+        }
+
+        .bar:hover {
+            opacity: 0.7;
+        }
+
+        /* Insight Panel */
+        .insight-panel {
+            background: var(--gray-50);
+            border: var(--border-thin) solid var(--gray-200);
+            padding: var(--space-8);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-6);
+        }
+
+        .insight-title {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--black);
+        }
+
+        .insight-item {
+            display: flex;
+            gap: var(--space-3);
+            padding: var(--space-4);
+            background: var(--white);
+            border-left: var(--border-thick) solid var(--gray-300);
+        }
+
+        .insight-item.critical {
+            border-left-color: var(--accent-blue);
+        }
+
+        .insight-icon {
+            font-size: var(--text-lg);
+            color: var(--gray-400);
+            font-weight: 300;
+        }
+
+        .insight-content {
+            flex: 1;
+        }
+
+        .insight-label {
+            font-size: var(--text-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gray-600);
+            margin-bottom: var(--space-1);
+        }
+
+        .insight-text {
+            font-size: var(--text-sm);
+            color: var(--gray-800);
+            line-height: 1.5;
+        }
+
+        .insight-value {
+            font-family: var(--font-mono);
+            color: var(--black);
+            font-weight: 500;
+        }
+
+        /* Data Table - Dense Analytical */
+        .table-section {
+            margin-bottom: var(--space-12);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: var(--space-6);
+        }
+
+        .section-title {
+            font-size: var(--text-lg);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            color: var(--black);
+        }
+
+        .section-actions {
+            display: flex;
+            gap: var(--space-3);
+        }
+
+        .btn-icon {
+            width: 24px;
+            height: 24px;
+            border: var(--border-thin) solid var(--gray-300);
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: var(--text-xs);
+            color: var(--gray-600);
+        }
+
+        .btn-icon:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-400);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: var(--border-thin) solid var(--gray-200);
+            background: var(--white);
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: var(--space-3) var(--space-4);
+            font-size: var(--text-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gray-600);
+            background: var(--gray-50);
+            border-bottom: var(--border-thin) solid var(--gray-300);
+        }
+
+        .data-table th.sortable {
+            cursor: pointer;
+        }
+
+        .data-table th.sortable:hover {
+            background: var(--gray-100);
+            color: var(--black);
+        }
+
+        .data-table td {
+            padding: var(--space-4);
+            font-size: var(--text-sm);
+            color: var(--gray-800);
+            border-bottom: var(--border-thin) solid var(--gray-200);
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--gray-50);
+        }
+
+        .table-id {
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            color: var(--gray-500);
+        }
+
+        .table-name {
+            font-weight: 500;
+            color: var(--black);
+        }
+
+        .table-number {
+            font-family: var(--font-mono);
+            font-weight: 500;
+            text-align: right;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: var(--space-1) var(--space-3);
+            font-size: var(--text-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: var(--border-thin) solid;
+        }
+
+        .status-pill.active {
+            background: var(--gray-800);
+            color: var(--white);
+            border-color: var(--gray-800);
+        }
+
+        .status-pill.pending {
+            background: var(--white);
+            color: var(--gray-600);
+            border-color: var(--gray-300);
+        }
+
+        .status-pill.critical {
+            background: var(--accent-blue);
+            color: var(--white);
+            border-color: var(--accent-blue);
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background: var(--gray-200);
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--gray-700);
+            transition: width 0.3s ease;
+        }
+
+        .progress-bar-fill.accent {
+            background: var(--accent-blue);
+        }
+
+        /* Secondary Grid - Matrix Layout */
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--border-thin);
+            background: var(--gray-200);
+            border: var(--border-thin) solid var(--gray-200);
+            margin-bottom: var(--space-12);
+        }
+
+        .matrix-cell {
+            background: var(--white);
+            padding: var(--space-6);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            min-height: 140px;
+        }
+
+        .matrix-cell:hover {
+            background: var(--gray-50);
+        }
+
+        .matrix-label {
+            font-size: var(--text-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--gray-500);
+        }
+
+        .matrix-value-large {
+            font-size: var(--text-xl);
+            font-weight: 300;
+            color: var(--black);
+            letter-spacing: -0.02em;
+        }
+
+        .matrix-detail {
+            font-size: var(--text-xs);
+            font-family: var(--font-mono);
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        .matrix-indicator {
+            width: 100%;
+            height: 3px;
+            background: var(--gray-300);
+            margin-top: auto;
+        }
+
+        .matrix-indicator.high {
+            background: var(--black);
+        }
+
+        .matrix-indicator.medium {
+            background: var(--gray-500);
+        }
+
+        .matrix-indicator.accent {
+            background: var(--accent-blue);
+        }
+
+        /* Footer */
+        footer {
+            grid-area: footer;
+            padding: var(--space-6) var(--space-8);
+            border-top: var(--border-thin) solid var(--gray-200);
+            background: var(--gray-50);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-meta {
+            font-size: var(--text-xs);
+            font-family: var(--font-mono);
+            color: var(--gray-500);
+            letter-spacing: 0.02em;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--space-6);
+            font-size: var(--text-xs);
+            color: var(--gray-600);
+        }
+
+        .footer-link {
+            color: var(--gray-600);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-link:hover {
+            color: var(--black);
+        }
+
+        /* ============================================
+           RESPONSIVE BREAKPOINTS
+           ============================================ */
+
+        @media (max-width: 1200px) {
+            .hero-metrics {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .metric-primary {
+                grid-column: 1 / -1;
+            }
+
+            .content-split {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .matrix-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 960px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "footer";
+            }
+
+            aside {
+                display: none;
+            }
+
+            .hero-metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .metric-primary {
+                grid-column: 1;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            header {
+                padding: var(--space-4);
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-3);
+            }
+
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            main {
+                padding: var(--space-4);
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .matrix-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-group {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* ============================================
+           EXPERIMENTAL INTERACTIONS
+           ============================================ */
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .data-table tbody tr {
+            animation: fadeIn 0.2s ease;
+        }
+
+        .metric-value.accent {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.85;
+            }
+        }
+
+        /* Hover States */
+        .chart-canvas:hover .chart-accent-line {
+            opacity: 0.8;
+        }
+
+        .kpi-card:hover .kpi-number {
+            color: var(--accent-blue);
+        }
+
+        /* Selection Highlight */
+        ::selection {
+            background: var(--accent-blue-pale);
+            color: var(--black);
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- ============================================
+             HEADER
+             ============================================ -->
+        <header>
+            <div class="header-left">
+                <div class="brand">Analytical Command</div>
+                <div class="agent-badge">EXPLORER</div>
+            </div>
+            <div class="header-right">
+                <div class="timestamp">2025-11-09 14:32:17 UTC</div>
+                <div class="action-group">
+                    <button class="btn-minimal">Export</button>
+                    <button class="btn-minimal">Filter</button>
+                    <button class="btn-minimal primary">Refresh</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- ============================================
+             SIDEBAR
+             ============================================ -->
+        <aside>
+            <div class="nav-section">
+                <div class="nav-label">Views</div>
+                <div class="nav-item active">
+                    <span>Overview</span>
+                    <span class="nav-count">1</span>
+                </div>
+                <div class="nav-item">
+                    <span>Performance</span>
+                    <span class="nav-count">8</span>
+                </div>
+                <div class="nav-item">
+                    <span>Operations</span>
+                    <span class="nav-count">24</span>
+                </div>
+                <div class="nav-item">
+                    <span>Financial</span>
+                    <span class="nav-count">12</span>
+                </div>
+                <div class="nav-item">
+                    <span>Forecasts</span>
+                    <span class="nav-count">5</span>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-label">Reports</div>
+                <div class="nav-item">
+                    <span>Weekly Digest</span>
+                </div>
+                <div class="nav-item">
+                    <span>Monthly Trends</span>
+                </div>
+                <div class="nav-item">
+                    <span>Quarterly Review</span>
+                </div>
+                <div class="nav-item">
+                    <span>Annual Summary</span>
+                </div>
+            </div>
+
+            <div class="filter-zone">
+                <div class="filter-title">Filters</div>
+                <div class="filter-option">
+                    <div class="checkbox-minimal checked"></div>
+                    <span>Active Only</span>
+                </div>
+                <div class="filter-option">
+                    <div class="checkbox-minimal checked"></div>
+                    <span>Critical Alerts</span>
+                </div>
+                <div class="filter-option">
+                    <div class="checkbox-minimal"></div>
+                    <span>Anomalies</span>
+                </div>
+                <div class="filter-option">
+                    <div class="checkbox-minimal"></div>
+                    <span>Historical</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ============================================
+             MAIN CONTENT
+             ============================================ -->
+        <main>
+            <!-- Hero Metrics - Asymmetric -->
+            <div class="hero-metrics">
+                <div class="metric-primary">
+                    <div>
+                        <div class="metric-label">Total Revenue</div>
+                        <div class="metric-value">$4,287,192</div>
+                        <div class="metric-delta">+12.4% vs previous period</div>
+                    </div>
+                    <div class="metric-sparkline"></div>
+                    <div class="metric-meta">Last updated: 2 minutes ago</div>
+                </div>
+                <div class="metric-secondary">
+                    <div>
+                        <div class="metric-label">Active Users</div>
+                        <div class="metric-value accent">18,429</div>
+                        <div class="metric-delta">+8.1%</div>
+                    </div>
+                    <div class="metric-meta">Peak: 19,204</div>
+                </div>
+                <div class="metric-secondary">
+                    <div>
+                        <div class="metric-label">Conversion</div>
+                        <div class="metric-value">3.74%</div>
+                        <div class="metric-delta">-0.3%</div>
+                    </div>
+                    <div class="metric-meta">Target: 4.0%</div>
+                </div>
+            </div>
+
+            <!-- KPI Grid - 5 Column -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-title">Sessions</div>
+                    <div class="kpi-number">142,847</div>
+                    <div class="kpi-trend up">↑ 6.2%</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title">Bounce Rate</div>
+                    <div class="kpi-number">34.2%</div>
+                    <div class="kpi-trend down">↓ 2.1%</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title">Avg. Duration</div>
+                    <div class="kpi-number">4:32</div>
+                    <div class="kpi-trend up">↑ 0:18</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title">Transactions</div>
+                    <div class="kpi-number">5,341</div>
+                    <div class="kpi-trend up">↑ 11.3%</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title">Avg. Order</div>
+                    <div class="kpi-number">$802</div>
+                    <div class="kpi-trend up">↑ 1.2%</div>
+                </div>
+            </div>
+
+            <!-- Content Split - Charts + Insights -->
+            <div class="content-split">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Revenue Trend</div>
+                        <div class="chart-subtitle">Last 14 days</div>
+                    </div>
+                    <div class="chart-canvas">
+                        <div class="line-chart">
+                            <div class="chart-grid">
+                                <div class="grid-line"></div>
+                                <div class="grid-line"></div>
+                                <div class="grid-line"></div>
+                                <div class="grid-line"></div>
+                                <div class="grid-line"></div>
+                            </div>
+                            <div class="chart-line-path"></div>
+                            <div class="chart-accent-line"></div>
+                        </div>
+                    </div>
+                    <div class="chart-labels">
+                        <span class="chart-label">OCT 26</span>
+                        <span class="chart-label">OCT 30</span>
+                        <span class="chart-label">NOV 03</span>
+                        <span class="chart-label">NOV 07</span>
+                        <span class="chart-label">TODAY</span>
+                    </div>
+                </div>
+
+                <div class="insight-panel">
+                    <div class="insight-title">Key Insights</div>
+                    <div class="insight-item critical">
+                        <div class="insight-icon">◆</div>
+                        <div class="insight-content">
+                            <div class="insight-label">Critical Alert</div>
+                            <div class="insight-text">
+                                Conversion rate dropped <span class="insight-value">0.3%</span> below target threshold
+                            </div>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon">○</div>
+                        <div class="insight-content">
+                            <div class="insight-label">Trend</div>
+                            <div class="insight-text">
+                                Mobile sessions increased <span class="insight-value">14.2%</span> week-over-week
+                            </div>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon">△</div>
+                        <div class="insight-content">
+                            <div class="insight-label">Performance</div>
+                            <div class="insight-text">
+                                Average order value reached <span class="insight-value">all-time high</span> of $802
+                            </div>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon">▽</div>
+                        <div class="insight-content">
+                            <div class="insight-label">Anomaly</div>
+                            <div class="insight-text">
+                                Bounce rate improved by <span class="insight-value">2.1%</span> after UX optimization
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Matrix Grid - 4x2 -->
+            <div class="matrix-grid">
+                <div class="matrix-cell">
+                    <div class="matrix-label">New Customers</div>
+                    <div class="matrix-value-large">1,847</div>
+                    <div class="matrix-detail">
+                        Target: 1,600<br>
+                        +15.4% vs target
+                    </div>
+                    <div class="matrix-indicator high"></div>
+                </div>
+                <div class="matrix-cell">
+                    <div class="matrix-label">Returning Rate</div>
+                    <div class="matrix-value-large">67.3%</div>
+                    <div class="matrix-detail">
+                        Avg: 64.8%<br>
+                        +2.5pp improvement
+                    </div>
+                    <div class="matrix-indicator high"></div>
+                </div>
+                <div class="matrix-cell">
+                    <div class="matrix-label">Churn Risk</div>
+                    <div class="matrix-value-large">234</div>
+                    <div class="matrix-detail">
+                        Last week: 289<br>
+                        -19% reduction
+                    </div>
+                    <div class="matrix-indicator medium"></div>
+                </div>
+                <div class="matrix-cell">
+                    <div class="matrix-label">Lifetime Value</div>
+                    <div class="matrix-value-large">$3,421</div>
+                    <div class="matrix-detail">
+                        Median: $2,987<br>
+                        +14.5% increase
+                    </div>
+                    <div class="matrix-indicator accent"></div>
+                </div>
+                <div class="matrix-cell">
+                    <div class="matrix-label">Support Tickets</div>
+                    <div class="matrix-value-large">892</div>
+                    <div class="matrix-detail">
+                        Open: 127<br>
+                        Avg response: 2.3h
+                    </div>
+                    <div class="matrix-indicator medium"></div>
+                </div>
+                <div class="matrix-cell">
+                    <div class="matrix-label">NPS Score</div>
+                    <div class="matrix-value-large">72</div>
+                    <div class="matrix-detail">
+                        Previous: 68<br>
+                        +4 point gain
+                    </div>
+                    <div class="matrix-indicator high"></div>
+                </div>
+                <div class="matrix-cell">
+                    <div class="matrix-label">Server Uptime</div>
+                    <div class="matrix-value-large">99.97%</div>
+                    <div class="matrix-detail">
+                        SLA: 99.9%<br>
+                        Within target
+                    </div>
+                    <div class="matrix-indicator high"></div>
+                </div>
+                <div class="matrix-cell">
+                    <div class="matrix-label">API Latency</div>
+                    <div class="matrix-value-large">142ms</div>
+                    <div class="matrix-detail">
+                        P95: 287ms<br>
+                        -12% improvement
+                    </div>
+                    <div class="matrix-indicator medium"></div>
+                </div>
+            </div>
+
+            <!-- Chart Section 2 -->
+            <div class="chart-container" style="margin-bottom: var(--space-12);">
+                <div class="chart-header">
+                    <div class="chart-title">Channel Performance</div>
+                    <div class="chart-subtitle">Conversion by source</div>
+                </div>
+                <div class="chart-canvas">
+                    <div class="bar-chart">
+                        <div class="bar" style="height: 45%;"></div>
+                        <div class="bar" style="height: 62%;"></div>
+                        <div class="bar" style="height: 78%;"></div>
+                        <div class="bar" style="height: 34%;"></div>
+                        <div class="bar" style="height: 56%;"></div>
+                        <div class="bar" style="height: 41%;"></div>
+                        <div class="bar" style="height: 89%;"></div>
+                        <div class="bar" style="height: 52%;"></div>
+                        <div class="bar" style="height: 67%;"></div>
+                        <div class="bar" style="height: 43%;"></div>
+                    </div>
+                </div>
+                <div class="chart-labels">
+                    <span class="chart-label">Organic</span>
+                    <span class="chart-label">Paid</span>
+                    <span class="chart-label">Social</span>
+                    <span class="chart-label">Email</span>
+                    <span class="chart-label">Direct</span>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="table-section">
+                <div class="section-header">
+                    <div class="section-title">Top Performing Segments</div>
+                    <div class="section-actions">
+                        <button class="btn-icon" title="Download">↓</button>
+                        <button class="btn-icon" title="Filter">⊕</button>
+                        <button class="btn-icon" title="Sort">↕</button>
+                    </div>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th class="sortable">ID</th>
+                            <th class="sortable">Segment Name</th>
+                            <th class="sortable">Users</th>
+                            <th class="sortable">Revenue</th>
+                            <th class="sortable">Conversion</th>
+                            <th class="sortable">Avg. Order</th>
+                            <th>Status</th>
+                            <th>Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="table-id">SEG-001</span></td>
+                            <td><span class="table-name">High-Value Enterprise</span></td>
+                            <td class="table-number">2,847</td>
+                            <td class="table-number">$1,247,890</td>
+                            <td class="table-number">8.42%</td>
+                            <td class="table-number">$1,284</td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill accent" style="width: 84%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-id">SEG-002</span></td>
+                            <td><span class="table-name">SMB Growth Tier</span></td>
+                            <td class="table-number">8,421</td>
+                            <td class="table-number">$982,145</td>
+                            <td class="table-number">5.67%</td>
+                            <td class="table-number">$687</td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: 67%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-id">SEG-003</span></td>
+                            <td><span class="table-name">Startup Early Adopters</span></td>
+                            <td class="table-number">3,214</td>
+                            <td class="table-number">$543,287</td>
+                            <td class="table-number">4.23%</td>
+                            <td class="table-number">$512</td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: 42%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-id">SEG-004</span></td>
+                            <td><span class="table-name">Mid-Market Standard</span></td>
+                            <td class="table-number">5,672</td>
+                            <td class="table-number">$789,432</td>
+                            <td class="table-number">3.89%</td>
+                            <td class="table-number">$824</td>
+                            <td><span class="status-pill critical">Critical</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill accent" style="width: 92%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-id">SEG-005</span></td>
+                            <td><span class="table-name">Consumer Direct</span></td>
+                            <td class="table-number">24,891</td>
+                            <td class="table-number">$1,142,678</td>
+                            <td class="table-number">2.14%</td>
+                            <td class="table-number">$342</td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: 56%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-id">SEG-006</span></td>
+                            <td><span class="table-name">Partner Channel</span></td>
+                            <td class="table-number">1,247</td>
+                            <td class="table-number">$284,921</td>
+                            <td class="table-number">6.78%</td>
+                            <td class="table-number">$1,542</td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill accent" style="width: 78%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-id">SEG-007</span></td>
+                            <td><span class="table-name">Trial Conversions</span></td>
+                            <td class="table-number">4,521</td>
+                            <td class="table-number">$321,847</td>
+                            <td class="table-number">3.42%</td>
+                            <td class="table-number">$428</td>
+                            <td><span class="status-pill pending">Pending</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: 34%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-id">SEG-008</span></td>
+                            <td><span class="table-name">Reactivation Campaign</span></td>
+                            <td class="table-number">2,183</td>
+                            <td class="table-number">$187,234</td>
+                            <td class="table-number">2.89%</td>
+                            <td class="table-number">$624</td>
+                            <td><span class="status-pill pending">Pending</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: 29%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-id">SEG-009</span></td>
+                            <td><span class="table-name">Educational Institutions</span></td>
+                            <td class="table-number">892</td>
+                            <td class="table-number">$412,567</td>
+                            <td class="table-number">7.12%</td>
+                            <td class="table-number">$2,187</td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill accent" style="width: 89%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-id">SEG-010</span></td>
+                            <td><span class="table-name">Government & Public Sector</span></td>
+                            <td class="table-number">421</td>
+                            <td class="table-number">$672,891</td>
+                            <td class="table-number">9.34%</td>
+                            <td class="table-number">$3,847</td>
+                            <td><span class="status-pill critical">Critical</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill accent" style="width: 96%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Secondary Data Table - Operational Metrics -->
+            <div class="table-section">
+                <div class="section-header">
+                    <div class="section-title">Operational Health Matrix</div>
+                    <div class="section-actions">
+                        <button class="btn-icon" title="Download">↓</button>
+                        <button class="btn-icon" title="Refresh">⟳</button>
+                    </div>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th class="sortable">Service</th>
+                            <th class="sortable">Uptime</th>
+                            <th class="sortable">Requests/min</th>
+                            <th class="sortable">Avg. Latency</th>
+                            <th class="sortable">Error Rate</th>
+                            <th class="sortable">CPU Usage</th>
+                            <th class="sortable">Memory</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="table-name">API Gateway</span></td>
+                            <td class="table-number">99.98%</td>
+                            <td class="table-number">14,247</td>
+                            <td class="table-number">89ms</td>
+                            <td class="table-number">0.04%</td>
+                            <td class="table-number">42%</td>
+                            <td class="table-number">3.2GB</td>
+                            <td><span class="status-pill active">Healthy</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-name">Auth Service</span></td>
+                            <td class="table-number">99.99%</td>
+                            <td class="table-number">8,421</td>
+                            <td class="table-number">42ms</td>
+                            <td class="table-number">0.01%</td>
+                            <td class="table-number">28%</td>
+                            <td class="table-number">1.8GB</td>
+                            <td><span class="status-pill active">Healthy</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-name">Database Cluster</span></td>
+                            <td class="table-number">99.97%</td>
+                            <td class="table-number">22,841</td>
+                            <td class="table-number">124ms</td>
+                            <td class="table-number">0.02%</td>
+                            <td class="table-number">67%</td>
+                            <td class="table-number">12.4GB</td>
+                            <td><span class="status-pill active">Healthy</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-name">Cache Layer</span></td>
+                            <td class="table-number">99.94%</td>
+                            <td class="table-number">42,187</td>
+                            <td class="table-number">12ms</td>
+                            <td class="table-number">0.12%</td>
+                            <td class="table-number">54%</td>
+                            <td class="table-number">8.7GB</td>
+                            <td><span class="status-pill pending">Warning</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-name">Search Engine</span></td>
+                            <td class="table-number">99.96%</td>
+                            <td class="table-number">5,672</td>
+                            <td class="table-number">187ms</td>
+                            <td class="table-number">0.08%</td>
+                            <td class="table-number">71%</td>
+                            <td class="table-number">6.2GB</td>
+                            <td><span class="status-pill active">Healthy</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-name">Analytics Pipeline</span></td>
+                            <td class="table-number">99.92%</td>
+                            <td class="table-number">3,241</td>
+                            <td class="table-number">342ms</td>
+                            <td class="table-number">0.18%</td>
+                            <td class="table-number">82%</td>
+                            <td class="table-number">14.1GB</td>
+                            <td><span class="status-pill critical">Alert</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <!-- ============================================
+             FOOTER
+             ============================================ -->
+        <footer>
+            <div class="footer-meta">
+                Dashboard-Designs-Cloud // Explorer Agent R2 // Minimalist Analytical Theme // Generated 2025-11-09
+            </div>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Documentation</a>
+                <a href="#" class="footer-link">API</a>
+                <a href="#" class="footer-link">Settings</a>
+                <a href="#" class="footer-link">Help</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ============================================
+         MINIMAL INTERACTION LAYER
+         ============================================ -->
+    <script>
+        // Minimal interactions for analytical clarity
+
+        // Table sorting simulation
+        document.querySelectorAll('.sortable').forEach(header => {
+            header.addEventListener('click', function() {
+                console.log('Sort by:', this.textContent);
+                // Visual feedback only
+                this.style.fontWeight = '700';
+                setTimeout(() => {
+                    this.style.fontWeight = '600';
+                }, 200);
+            });
+        });
+
+        // Filter checkbox toggles
+        document.querySelectorAll('.filter-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const checkbox = this.querySelector('.checkbox-minimal');
+                checkbox.classList.toggle('checked');
+            });
+        });
+
+        // Navigation item selection
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Button interactions
+        document.querySelectorAll('.btn-minimal, .btn-icon').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Minimal visual feedback
+                this.style.transform = 'scale(0.96)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 120);
+            });
+        });
+
+        // KPI card highlighting
+        document.querySelectorAll('.kpi-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.kpi-card').forEach(c => {
+                    c.style.background = 'var(--white)';
+                });
+                this.style.background = 'var(--gray-50)';
+            });
+        });
+
+        // Matrix cell interactions
+        document.querySelectorAll('.matrix-cell').forEach(cell => {
+            cell.addEventListener('click', function() {
+                console.log('Matrix cell selected:', this.querySelector('.matrix-label').textContent);
+            });
+        });
+
+        // Real-time timestamp update
+        function updateTimestamp() {
+            const now = new Date();
+            const timestamp = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+            const timestampEl = document.querySelector('.timestamp');
+            if (timestampEl) {
+                timestampEl.textContent = timestamp;
+            }
+        }
+
+        // Update every minute
+        setInterval(updateTimestamp, 60000);
+
+        // Simulate data refresh animation
+        function simulateRefresh() {
+            const numbers = document.querySelectorAll('.metric-value, .kpi-number, .matrix-value-large, .table-number');
+            numbers.forEach(num => {
+                num.style.opacity = '0.5';
+                setTimeout(() => {
+                    num.style.opacity = '1';
+                }, 150);
+            });
+        }
+
+        // Refresh button handler
+        document.querySelectorAll('.btn-minimal.primary').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                simulateRefresh();
+            });
+        });
+
+        // Analytics event tracking (console only for demo)
+        console.log('Explorer Minimalist Analytical Dashboard - Round 2 Light Mode');
+        console.log('Dashboard loaded successfully');
+        console.log('Total components rendered: KPIs, Charts, Tables, Matrix Grid');
+    </script>
+</body>
+</html>

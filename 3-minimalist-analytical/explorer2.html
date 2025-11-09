@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Minimalist Analytical Dashboard | Explorer v2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Agent: Explorer | Theme: Minimalist Analytical | Intent: Bold minimalist data dashboard with experimental layouts and precision-focused hierarchy -->
+  <style>
+    :root {
+      --white: #ffffff;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-300: #d1d5db;
+      --gray-500: #6b7280;
+      --gray-700: #374151;
+      --gray-900: #111827;
+      --blue: #2563eb;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-900);
+      line-height: 1.4;
+      font-size: 14px;
+    }
+
+    .page { max-width: 1600px; margin: 0 auto; padding: 60px 80px; }
+
+    .header {
+      margin-bottom: 60px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--gray-300);
+    }
+
+    .header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      background: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 20px;
+      color: white;
+      margin-bottom: 16px;
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: 300;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--gray-500);
+    }
+
+    .meta {
+      text-align: right;
+      font-size: 12px;
+      color: var(--gray-500);
+      line-height: 1.8;
+    }
+
+    .agent {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 10px;
+      background: var(--gray-100);
+      border: 1px solid var(--gray-300);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray-700);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .metric { position: relative; }
+
+    .metric::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 0;
+      width: 24px;
+      height: 1px;
+      background: var(--blue);
+    }
+
+    .metric-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray-500);
+      margin-bottom: 10px;
+    }
+
+    .metric-value {
+      font-size: 40px;
+      font-weight: 300;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+
+    .metric-delta {
+      font-size: 13px;
+      color: var(--blue);
+      font-weight: 500;
+    }
+
+    .metric-note {
+      font-size: 11px;
+      color: var(--gray-500);
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--gray-300);
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1.8fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+
+    .block-title {
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray-700);
+      margin-bottom: 20px;
+    }
+
+    .chart {
+      height: 280px;
+      border: 1px solid var(--gray-300);
+      position: relative;
+    }
+
+    .chart-line {
+      position: absolute;
+      bottom: 8%;
+      left: 5%;
+      right: 5%;
+      height: 65%;
+      border: 1px solid var(--blue);
+      clip-path: polygon(0 100%, 0 42%, 20% 52%, 40% 28%, 60% 36%, 80% 18%, 100% 12%, 100% 100%);
+    }
+
+    .insights {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .insight {
+      padding-left: 12px;
+      border-left: 2px solid var(--blue);
+    }
+
+    .insight-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .insight-body {
+      font-size: 12px;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .table thead {
+      border-bottom: 1px solid var(--gray-300);
+    }
+
+    .table th {
+      padding: 10px 12px;
+      text-align: left;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray-700);
+      font-weight: 600;
+    }
+
+    .table td {
+      padding: 12px 12px;
+      border-bottom: 1px solid var(--gray-300);
+      color: var(--gray-500);
+    }
+
+    .table .primary {
+      color: var(--gray-900);
+      font-weight: 500;
+    }
+
+    .status {
+      padding: 3px 8px;
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .status.active {
+      background: var(--gray-100);
+      color: var(--blue);
+    }
+
+    .status.pending {
+      background: var(--gray-100);
+      color: var(--gray-500);
+    }
+
+    @media (max-width: 1200px) {
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+      .content { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="logo">E</div>
+      <div class="header-top">
+        <div>
+          <h1 class="title">Analytical Dashboard</h1>
+          <p class="subtitle">Performance Analysis · Q4 2025</p>
+        </div>
+        <div class="meta">
+          <div>Period: Oct 1 – Dec 31</div>
+          <div>Report Generated: Dec 31</div>
+          <div class="agent">Explorer · Round 2</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-label">Revenue</div>
+        <div class="metric-value">$2.4M</div>
+        <div class="metric-delta">+14.2%</div>
+        <div class="metric-note">Quarterly total</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Margin</div>
+        <div class="metric-value">32.4%</div>
+        <div class="metric-delta">+2.8 pts</div>
+        <div class="metric-note">Operating margin</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Customers</div>
+        <div class="metric-value">1,847</div>
+        <div class="metric-delta">+11.3%</div>
+        <div class="metric-note">Active accounts</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Efficiency</div>
+        <div class="metric-value">1.24</div>
+        <div class="metric-delta">+0.14</div>
+        <div class="metric-note">Sales efficiency</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div>
+        <div class="block-title">Revenue Trend</div>
+        <div class="chart">
+          <div class="chart-line"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="block-title">Analysis</div>
+        <div class="insights">
+          <div class="insight">
+            <div class="insight-title">Revenue Performance</div>
+            <div class="insight-body">Quarterly growth driven by improved retention and expansion revenue.</div>
+          </div>
+          <div class="insight">
+            <div class="insight-title">Margin Improvement</div>
+            <div class="insight-body">Operating leverage gains from scale and operational efficiency.</div>
+          </div>
+          <div class="insight">
+            <div class="insight-title">Customer Growth</div>
+            <div class="insight-body">Steady acquisition with improving unit economics.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="block-title">Initiatives</div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Initiative</th>
+            <th>Owner</th>
+            <th>Budget</th>
+            <th>Progress</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="primary">Platform Development</td>
+            <td>Engineering</td>
+            <td>$840K</td>
+            <td>87%</td>
+            <td><span class="status active">Active</span></td>
+          </tr>
+          <tr>
+            <td class="primary">Market Expansion</td>
+            <td>Sales</td>
+            <td>$620K</td>
+            <td>74%</td>
+            <td><span class="status active">Active</span></td>
+          </tr>
+          <tr>
+            <td class="primary">Product Enhancement</td>
+            <td>Product</td>
+            <td>$480K</td>
+            <td>92%</td>
+            <td><span class="status active">Active</span></td>
+          </tr>
+          <tr>
+            <td class="primary">Operational Optimization</td>
+            <td>Operations</td>
+            <td>$320K</td>
+            <td>58%</td>
+            <td><span class="status pending">Pending</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
