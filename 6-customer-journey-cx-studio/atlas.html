@@ -1,0 +1,1807 @@
+<!-- Agent: Atlas | Theme: Customer Journey CX Studio | Intent: Operational command center for multi-stakeholder CX monitoring with real-time customer health triage and lifecycle stage visibility -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CX Command Center | Atlas Dashboard</title>
+    <style>
+        /* CSS Variables - Warm CX Theme with Operational Status */
+        :root {
+            --bg-base: #fafaf9;
+            --bg-elevated: #ffffff;
+            --bg-subdued: #f5f5f4;
+
+            --text-primary: #292524;
+            --text-secondary: #57534e;
+            --text-muted: #78716c;
+
+            --accent-coral: #fb7185;
+            --accent-amber: #fb923c;
+            --accent-teal: #14b8a6;
+            --accent-warm: #f97316;
+
+            --status-healthy: #10b981;
+            --status-warning: #f59e0b;
+            --status-critical: #ef4444;
+            --status-neutral: #6b7280;
+
+            --border-light: #e7e5e4;
+            --border-medium: #d6d3d1;
+
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+
+            --spacing-xs: 8px;
+            --spacing-sm: 12px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-base);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: grid;
+            grid-template-areas:
+                "header header"
+                "aside main"
+                "footer footer";
+            grid-template-columns: 260px 1fr;
+            grid-template-rows: auto 1fr auto;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            grid-area: header;
+            background: var(--bg-elevated);
+            border-bottom: 2px solid var(--border-light);
+            padding: var(--spacing-md) var(--spacing-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .header-title h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .header-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: var(--bg-subdued);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .status-dot.healthy { background: var(--status-healthy); }
+        .status-dot.warning { background: var(--status-warning); }
+        .status-dot.critical { background: var(--status-critical); }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .agent-badge {
+            padding: 6px 14px;
+            background: linear-gradient(135deg, var(--accent-coral) 0%, var(--accent-amber) 100%);
+            color: white;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .refresh-time {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Aside Navigation */
+        aside {
+            grid-area: aside;
+            background: var(--bg-elevated);
+            border-right: 1px solid var(--border-light);
+            padding: var(--spacing-lg) 0;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .nav-section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            color: var(--text-muted);
+            padding: 0 var(--spacing-lg);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-subdued);
+            color: var(--text-primary);
+            border-left-color: var(--accent-coral);
+        }
+
+        .nav-item.active {
+            background: var(--bg-subdued);
+            color: var(--text-primary);
+            border-left-color: var(--accent-coral);
+            font-weight: 600;
+        }
+
+        .nav-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 24px;
+            height: 20px;
+            padding: 0 6px;
+            background: var(--bg-subdued);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .nav-count.alert {
+            background: var(--status-critical);
+            color: white;
+            border-color: var(--status-critical);
+        }
+
+        /* Main Content */
+        main {
+            grid-area: main;
+            padding: var(--spacing-xl);
+            overflow-y: auto;
+        }
+
+        .dashboard-section {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .section-badge {
+            display: inline-flex;
+            padding: 2px 8px;
+            background: var(--accent-teal);
+            color: white;
+            border-radius: var(--radius-sm);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* Alert Banner */
+        .alert-banner {
+            background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+            border: 2px solid var(--status-warning);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .alert-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--status-warning);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert-title {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+
+        .alert-message {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .alert-action {
+            padding: 6px 16px;
+            background: var(--status-warning);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .alert-action:hover {
+            background: #d97706;
+            transform: translateY(-1px);
+        }
+
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .kpi-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-coral), var(--accent-amber));
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .kpi-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .kpi-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .kpi-delta {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+        }
+
+        .kpi-delta.positive {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .kpi-delta.negative {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .kpi-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: var(--spacing-xs);
+        }
+
+        .kpi-sparkline {
+            margin-top: var(--spacing-sm);
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(20, 184, 166, 0.1), transparent);
+            border-bottom: 2px solid var(--accent-teal);
+            border-radius: var(--radius-sm);
+            position: relative;
+        }
+
+        .kpi-sparkline::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(135deg, transparent 0%, rgba(20, 184, 166, 0.2) 50%, transparent 100%);
+        }
+
+        /* Lifecycle Stages */
+        .lifecycle-stages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .stage-card {
+            background: var(--bg-elevated);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .stage-card:hover {
+            border-color: var(--accent-coral);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stage-card:hover .stage-details {
+            max-height: 200px;
+            opacity: 1;
+        }
+
+        .stage-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .stage-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .stage-card.acquire .stage-icon {
+            background: linear-gradient(135deg, #fef3c7, #fed7aa);
+        }
+
+        .stage-card.onboard .stage-icon {
+            background: linear-gradient(135deg, #ddd6fe, #c4b5fd);
+        }
+
+        .stage-card.engage .stage-icon {
+            background: linear-gradient(135deg, #a7f3d0, #6ee7b7);
+        }
+
+        .stage-card.retain .stage-icon {
+            background: linear-gradient(135deg, #fecaca, #fca5a5);
+        }
+
+        .stage-info {
+            flex: 1;
+        }
+
+        .stage-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .stage-count {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .stage-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .stage-metric {
+            padding: var(--spacing-sm);
+            background: var(--bg-subdued);
+            border-radius: var(--radius-sm);
+        }
+
+        .stage-metric-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .stage-metric-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .stage-status-bar {
+            height: 8px;
+            background: var(--bg-subdued);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .stage-status-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--status-healthy), var(--accent-teal));
+            border-radius: 4px;
+            transition: width 0.6s ease-out;
+        }
+
+        .stage-details {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+        }
+
+        .stage-detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-xs) 0;
+            font-size: 12px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-light);
+        }
+
+        .stage-detail-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Triage Section */
+        .triage-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .triage-list {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .triage-header {
+            background: var(--bg-subdued);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .triage-header-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .triage-item {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--border-light);
+            display: grid;
+            grid-template-columns: auto 1fr auto auto;
+            gap: var(--spacing-md);
+            align-items: center;
+        }
+
+        .triage-item:hover {
+            background: var(--bg-subdued);
+        }
+
+        .triage-priority {
+            width: 6px;
+            height: 40px;
+            border-radius: 3px;
+        }
+
+        .triage-priority.critical { background: var(--status-critical); }
+        .triage-priority.high { background: var(--status-warning); }
+        .triage-priority.medium { background: var(--accent-amber); }
+
+        .triage-customer {
+            flex: 1;
+        }
+
+        .triage-customer-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .triage-customer-issue {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .triage-health {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            background: var(--bg-subdued);
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .triage-health-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .triage-action-btn {
+            padding: 6px 12px;
+            background: var(--accent-coral);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .triage-action-btn:hover {
+            background: #e11d48;
+            transform: scale(1.05);
+        }
+
+        /* Team Status */
+        .team-status {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .team-status-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .team-member {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .team-member:last-child {
+            border-bottom: none;
+        }
+
+        .team-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-coral), var(--accent-amber));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .team-info {
+            flex: 1;
+        }
+
+        .team-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .team-role {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .team-workload {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+        }
+
+        .team-workload.high {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .team-workload.normal {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        /* Chart Placeholder */
+        .chart-container {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .chart-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .chart-filters {
+            display: flex;
+            gap: var(--spacing-xs);
+        }
+
+        .chart-filter-btn {
+            padding: 4px 12px;
+            background: var(--bg-subdued);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .chart-filter-btn.active {
+            background: var(--accent-coral);
+            color: white;
+            border-color: var(--accent-coral);
+        }
+
+        .chart-placeholder {
+            height: 240px;
+            background: linear-gradient(to bottom, rgba(20, 184, 166, 0.05), transparent);
+            border: 2px dashed var(--border-medium);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-placeholder::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            right: 10%;
+            height: 60%;
+            background: linear-gradient(135deg,
+                transparent 0%,
+                rgba(251, 113, 133, 0.2) 25%,
+                transparent 50%,
+                rgba(20, 184, 166, 0.2) 75%,
+                transparent 100%);
+            clip-path: polygon(0% 100%, 10% 60%, 25% 70%, 40% 40%, 60% 50%, 75% 30%, 90% 45%, 100% 20%, 100% 100%);
+        }
+
+        /* Customer Voices */
+        .voices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .voice-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            animation: fadeInUp 0.4s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .voice-card:nth-child(1) { animation-delay: 0.1s; }
+        .voice-card:nth-child(2) { animation-delay: 0.2s; }
+        .voice-card:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .voice-card:hover {
+            border-color: var(--accent-teal);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .voice-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .voice-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-coral));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .voice-customer-info {
+            flex: 1;
+        }
+
+        .voice-customer-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .voice-customer-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .voice-sentiment {
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .voice-sentiment.positive {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .voice-sentiment.neutral {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .voice-quote {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-style: italic;
+            margin-bottom: var(--spacing-md);
+            padding-left: var(--spacing-md);
+            border-left: 3px solid var(--accent-coral);
+        }
+
+        .voice-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+        }
+
+        .voice-tag {
+            padding: 3px 8px;
+            background: var(--bg-subdued);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* Data Table */
+        .data-table-container {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .table-header {
+            background: var(--bg-subdued);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .table-search {
+            padding: 6px 12px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            background: var(--bg-elevated);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            background: var(--bg-subdued);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            text-align: left;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            border-bottom: 2px solid var(--border-medium);
+        }
+
+        tbody td {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--border-light);
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        tbody tr:hover {
+            background: var(--bg-subdued);
+        }
+
+        .table-customer {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .table-status-pill {
+            display: inline-flex;
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .table-status-pill.healthy {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .table-status-pill.at-risk {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .table-status-pill.critical {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Footer */
+        footer {
+            grid-area: footer;
+            background: var(--bg-elevated);
+            border-top: 1px solid var(--border-light);
+            padding: var(--spacing-md) var(--spacing-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .footer-left {
+            display: flex;
+            gap: var(--spacing-lg);
+        }
+
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-coral);
+        }
+
+        /* Responsive */
+        @media (max-width: 960px) {
+            body {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "footer";
+            }
+
+            aside {
+                display: none;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .triage-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lifecycle-stages {
+                grid-template-columns: 1fr;
+            }
+
+            .voices-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="header-title">
+                <h1>CX Command Center</h1>
+                <div class="header-subtitle">Multi-Stakeholder Customer Operations Dashboard</div>
+            </div>
+            <div class="status-badge">
+                <span class="status-dot warning"></span>
+                <span>7 Customers Require Attention</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="agent-badge">Atlas</div>
+            <div class="refresh-time">Last sync: 14:32:18 UTC</div>
+        </div>
+    </header>
+
+    <aside>
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Overview</div>
+                <a href="#" class="nav-item active">
+                    <span>Command Center</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span>Journey Analytics</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span>Segment Health</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Operations</div>
+                <a href="#" class="nav-item">
+                    <span>Triage Queue</span>
+                    <span class="nav-count alert">7</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span>Escalations</span>
+                    <span class="nav-count">3</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span>Team Workload</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span>SLA Status</span>
+                    <span class="nav-count">12</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Lifecycle</div>
+                <a href="#" class="nav-item">
+                    <span>Acquisition</span>
+                    <span class="nav-count">342</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span>Onboarding</span>
+                    <span class="nav-count">127</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span>Engagement</span>
+                    <span class="nav-count">1,894</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span>Retention</span>
+                    <span class="nav-count">2,341</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Insights</div>
+                <a href="#" class="nav-item">
+                    <span>Customer Voices</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span>Sentiment Trends</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span>Cohort Analysis</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <main>
+        <!-- Alert Banner -->
+        <div class="alert-banner">
+            <div class="alert-icon">!</div>
+            <div class="alert-content">
+                <div class="alert-title">7 High-Priority Customers Require Immediate Attention</div>
+                <div class="alert-message">3 critical health scores, 4 escalated support cases - recommended action within 2 hours</div>
+            </div>
+            <button class="alert-action">View Queue</button>
+        </div>
+
+        <!-- KPI Section -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    Operational Health Metrics
+                    <span class="section-badge">Live</span>
+                </h2>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Overall Health Score</div>
+                    <div class="kpi-value">87.3</div>
+                    <span class="kpi-delta positive">↑ 2.4%</span>
+                    <div class="kpi-meta">Across 4,704 active customers</div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">NPS (30-Day)</div>
+                    <div class="kpi-value">+42</div>
+                    <span class="kpi-delta positive">↑ 5 pts</span>
+                    <div class="kpi-meta">478 responses · 71% response rate</div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">CSAT Average</div>
+                    <div class="kpi-value">4.6/5</div>
+                    <span class="kpi-delta positive">↑ 0.2</span>
+                    <div class="kpi-meta">Last 7 days · 823 surveys</div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Churn Risk</div>
+                    <div class="kpi-value">2.8%</div>
+                    <span class="kpi-delta positive">↓ 0.4%</span>
+                    <div class="kpi-meta">132 customers flagged · -18 vs last month</div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Avg Resolution Time</div>
+                    <div class="kpi-value">4.2h</div>
+                    <span class="kpi-delta negative">↑ 0.8h</span>
+                    <div class="kpi-meta">SLA target: 6h · 87% compliance</div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Active Escalations</div>
+                    <div class="kpi-value">3</div>
+                    <span class="kpi-delta positive">↓ 2</span>
+                    <div class="kpi-meta">2 critical · 1 high priority</div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lifecycle Stages -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Customer Lifecycle Stages</h2>
+            </div>
+
+            <div class="lifecycle-stages">
+                <div class="stage-card acquire">
+                    <div class="stage-header">
+                        <div class="stage-icon">🎯</div>
+                        <div class="stage-info">
+                            <div class="stage-name">Acquire</div>
+                            <div class="stage-count">342 customers</div>
+                        </div>
+                    </div>
+                    <div class="stage-metrics">
+                        <div class="stage-metric">
+                            <div class="stage-metric-label">Conv. Rate</div>
+                            <div class="stage-metric-value">23%</div>
+                        </div>
+                        <div class="stage-metric">
+                            <div class="stage-metric-label">Avg. Time</div>
+                            <div class="stage-metric-value">14d</div>
+                        </div>
+                    </div>
+                    <div class="stage-status-bar">
+                        <div class="stage-status-fill" style="width: 78%"></div>
+                    </div>
+                    <div class="stage-details">
+                        <div class="stage-detail-item">
+                            <span>Trial signups (7d)</span>
+                            <span class="stage-detail-value">89</span>
+                        </div>
+                        <div class="stage-detail-item">
+                            <span>Demo requests</span>
+                            <span class="stage-detail-value">34</span>
+                        </div>
+                        <div class="stage-detail-item">
+                            <span>Health score avg</span>
+                            <span class="stage-detail-value">68.2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stage-card onboard">
+                    <div class="stage-header">
+                        <div class="stage-icon">🚀</div>
+                        <div class="stage-info">
+                            <div class="stage-name">Onboard</div>
+                            <div class="stage-count">127 customers</div>
+                        </div>
+                    </div>
+                    <div class="stage-metrics">
+                        <div class="stage-metric">
+                            <div class="stage-metric-label">Completion</div>
+                            <div class="stage-metric-value">71%</div>
+                        </div>
+                        <div class="stage-metric">
+                            <div class="stage-metric-label">Avg. Time</div>
+                            <div class="stage-metric-value">8d</div>
+                        </div>
+                    </div>
+                    <div class="stage-status-bar">
+                        <div class="stage-status-fill" style="width: 71%"></div>
+                    </div>
+                    <div class="stage-details">
+                        <div class="stage-detail-item">
+                            <span>Setup complete</span>
+                            <span class="stage-detail-value">90/127</span>
+                        </div>
+                        <div class="stage-detail-item">
+                            <span>First value achieved</span>
+                            <span class="stage-detail-value">78/127</span>
+                        </div>
+                        <div class="stage-detail-item">
+                            <span>Health score avg</span>
+                            <span class="stage-detail-value">74.8</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stage-card engage">
+                    <div class="stage-header">
+                        <div class="stage-icon">⚡</div>
+                        <div class="stage-info">
+                            <div class="stage-name">Engage</div>
+                            <div class="stage-count">1,894 customers</div>
+                        </div>
+                    </div>
+                    <div class="stage-metrics">
+                        <div class="stage-metric">
+                            <div class="stage-metric-label">Active</div>
+                            <div class="stage-metric-value">92%</div>
+                        </div>
+                        <div class="stage-metric">
+                            <div class="stage-metric-label">Feature Use</div>
+                            <div class="stage-metric-value">6.4</div>
+                        </div>
+                    </div>
+                    <div class="stage-status-bar">
+                        <div class="stage-status-fill" style="width: 92%"></div>
+                    </div>
+                    <div class="stage-details">
+                        <div class="stage-detail-item">
+                            <span>Daily active users</span>
+                            <span class="stage-detail-value">1,742</span>
+                        </div>
+                        <div class="stage-detail-item">
+                            <span>Support tickets (30d)</span>
+                            <span class="stage-detail-value">234</span>
+                        </div>
+                        <div class="stage-detail-item">
+                            <span>Health score avg</span>
+                            <span class="stage-detail-value">88.6</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stage-card retain">
+                    <div class="stage-header">
+                        <div class="stage-icon">💎</div>
+                        <div class="stage-info">
+                            <div class="stage-name">Retain</div>
+                            <div class="stage-count">2,341 customers</div>
+                        </div>
+                    </div>
+                    <div class="stage-metrics">
+                        <div class="stage-metric">
+                            <div class="stage-metric-label">Renewal</div>
+                            <div class="stage-metric-value">94%</div>
+                        </div>
+                        <div class="stage-metric">
+                            <div class="stage-metric-label">Expansion</div>
+                            <div class="stage-metric-value">31%</div>
+                        </div>
+                    </div>
+                    <div class="stage-status-bar">
+                        <div class="stage-status-fill" style="width: 94%"></div>
+                    </div>
+                    <div class="stage-details">
+                        <div class="stage-detail-item">
+                            <span>Renewals (next 30d)</span>
+                            <span class="stage-detail-value">187</span>
+                        </div>
+                        <div class="stage-detail-item">
+                            <span>Upsell opportunities</span>
+                            <span class="stage-detail-value">94</span>
+                        </div>
+                        <div class="stage-detail-item">
+                            <span>Health score avg</span>
+                            <span class="stage-detail-value">91.3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Triage & Team Status -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    Customer Triage & Team Operations
+                    <span class="section-badge">Priority</span>
+                </h2>
+            </div>
+
+            <div class="triage-grid">
+                <div class="triage-list">
+                    <div class="triage-header">
+                        <div class="triage-header-title">High-Priority Queue</div>
+                        <div class="status-badge">
+                            <span class="status-dot critical"></span>
+                            <span>7 Active</span>
+                        </div>
+                    </div>
+
+                    <div class="triage-item">
+                        <div class="triage-priority critical"></div>
+                        <div class="triage-customer">
+                            <div class="triage-customer-name">Acme Corp</div>
+                            <div class="triage-customer-issue">Health score dropped 32 pts · No login 14d · Support escalation</div>
+                        </div>
+                        <div class="triage-health">
+                            <div class="triage-health-dot" style="background: var(--status-critical)"></div>
+                            <span>31</span>
+                        </div>
+                        <button class="triage-action-btn">Engage</button>
+                    </div>
+
+                    <div class="triage-item">
+                        <div class="triage-priority critical"></div>
+                        <div class="triage-customer">
+                            <div class="triage-customer-name">GlobalTech Solutions</div>
+                            <div class="triage-customer-issue">Renewal in 12d · Low engagement · 3 open critical tickets</div>
+                        </div>
+                        <div class="triage-health">
+                            <div class="triage-health-dot" style="background: var(--status-critical)"></div>
+                            <span>44</span>
+                        </div>
+                        <button class="triage-action-btn">Engage</button>
+                    </div>
+
+                    <div class="triage-item">
+                        <div class="triage-priority high"></div>
+                        <div class="triage-customer">
+                            <div class="triage-customer-name">Innovate Industries</div>
+                            <div class="triage-customer-issue">NPS detractor · Feature request unresolved 45d</div>
+                        </div>
+                        <div class="triage-health">
+                            <div class="triage-health-dot" style="background: var(--status-warning)"></div>
+                            <span>58</span>
+                        </div>
+                        <button class="triage-action-btn">Engage</button>
+                    </div>
+
+                    <div class="triage-item">
+                        <div class="triage-priority high"></div>
+                        <div class="triage-customer">
+                            <div class="triage-customer-name">DataFlow Systems</div>
+                            <div class="triage-customer-issue">Usage declined 45% MoM · CSM touch overdue</div>
+                        </div>
+                        <div class="triage-health">
+                            <div class="triage-health-dot" style="background: var(--status-warning)"></div>
+                            <span>62</span>
+                        </div>
+                        <button class="triage-action-btn">Engage</button>
+                    </div>
+
+                    <div class="triage-item">
+                        <div class="triage-priority medium"></div>
+                        <div class="triage-customer">
+                            <div class="triage-customer-name">CloudScale Inc</div>
+                            <div class="triage-customer-issue">Onboarding stalled at 60% · No progress 8d</div>
+                        </div>
+                        <div class="triage-health">
+                            <div class="triage-health-dot" style="background: var(--accent-amber)"></div>
+                            <span>67</span>
+                        </div>
+                        <button class="triage-action-btn">Engage</button>
+                    </div>
+                </div>
+
+                <div class="team-status">
+                    <div class="team-status-title">CS Team Status</div>
+
+                    <div class="team-member">
+                        <div class="team-avatar">SM</div>
+                        <div class="team-info">
+                            <div class="team-name">Sarah Martinez</div>
+                            <div class="team-role">Senior CSM · Enterprise</div>
+                        </div>
+                        <div class="team-workload high">18 active</div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="team-avatar">JC</div>
+                        <div class="team-info">
+                            <div class="team-name">James Chen</div>
+                            <div class="team-role">CSM · Mid-Market</div>
+                        </div>
+                        <div class="team-workload high">22 active</div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="team-avatar">RP</div>
+                        <div class="team-info">
+                            <div class="team-name">Rashida Patel</div>
+                            <div class="team-role">CSM · SMB</div>
+                        </div>
+                        <div class="team-workload normal">14 active</div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="team-avatar">MK</div>
+                        <div class="team-info">
+                            <div class="team-name">Marcus Kim</div>
+                            <div class="team-role">Technical Success</div>
+                        </div>
+                        <div class="team-workload normal">9 active</div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="team-avatar">AL</div>
+                        <div class="team-info">
+                            <div class="team-name">Ana Lopez</div>
+                            <div class="team-role">Onboarding Specialist</div>
+                        </div>
+                        <div class="team-workload high">31 active</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Trend Chart -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Customer Health Trend (90 Days)</h2>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Multi-Segment Health Score Tracking</div>
+                    <div class="chart-filters">
+                        <button class="chart-filter-btn active">All Segments</button>
+                        <button class="chart-filter-btn">Enterprise</button>
+                        <button class="chart-filter-btn">Mid-Market</button>
+                        <button class="chart-filter-btn">SMB</button>
+                    </div>
+                </div>
+                <div class="chart-placeholder"></div>
+            </div>
+        </div>
+
+        <!-- NPS Distribution Chart -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">NPS Distribution & Sentiment Analysis</h2>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Promoter / Passive / Detractor Breakdown</div>
+                    <div class="chart-filters">
+                        <button class="chart-filter-btn active">30 Days</button>
+                        <button class="chart-filter-btn">90 Days</button>
+                        <button class="chart-filter-btn">YTD</button>
+                    </div>
+                </div>
+                <div class="chart-placeholder"></div>
+            </div>
+        </div>
+
+        <!-- Customer Voices -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Customer Voices & Sentiment</h2>
+            </div>
+
+            <div class="voices-grid">
+                <div class="voice-card">
+                    <div class="voice-header">
+                        <div class="voice-avatar">TC</div>
+                        <div class="voice-customer-info">
+                            <div class="voice-customer-name">Taylor Chen</div>
+                            <div class="voice-customer-meta">VP Operations · Zenith Analytics</div>
+                        </div>
+                        <div class="voice-sentiment positive">Promoter</div>
+                    </div>
+                    <div class="voice-quote">
+                        "The onboarding process was seamless. Our team was up and running in less than a week. The CSM support has been exceptional—always proactive and helpful."
+                    </div>
+                    <div class="voice-tags">
+                        <span class="voice-tag">Onboarding</span>
+                        <span class="voice-tag">Support Quality</span>
+                        <span class="voice-tag">NPS: 9</span>
+                    </div>
+                </div>
+
+                <div class="voice-card">
+                    <div class="voice-header">
+                        <div class="voice-avatar">RJ</div>
+                        <div class="voice-customer-info">
+                            <div class="voice-customer-name">Rebecca Johnson</div>
+                            <div class="voice-customer-meta">Customer Success Lead · Vertex Systems</div>
+                        </div>
+                        <div class="voice-sentiment positive">Promoter</div>
+                    </div>
+                    <div class="voice-quote">
+                        "We've seen a 40% improvement in our customer retention since implementing your platform. The insights dashboard gives us exactly what we need to be proactive."
+                    </div>
+                    <div class="voice-tags">
+                        <span class="voice-tag">ROI</span>
+                        <span class="voice-tag">Analytics</span>
+                        <span class="voice-tag">NPS: 10</span>
+                    </div>
+                </div>
+
+                <div class="voice-card">
+                    <div class="voice-header">
+                        <div class="voice-avatar">DW</div>
+                        <div class="voice-customer-info">
+                            <div class="voice-customer-name">David Wong</div>
+                            <div class="voice-customer-meta">Director of CS · Compass Financial</div>
+                        </div>
+                        <div class="voice-sentiment neutral">Passive</div>
+                    </div>
+                    <div class="voice-quote">
+                        "Good product overall, but some features we need are still in development. Response time on support tickets could be faster during peak hours."
+                    </div>
+                    <div class="voice-tags">
+                        <span class="voice-tag">Feature Request</span>
+                        <span class="voice-tag">Support Speed</span>
+                        <span class="voice-tag">NPS: 7</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Details Table -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Customer Account Status Monitor</h2>
+            </div>
+
+            <div class="data-table-container">
+                <div class="table-header">
+                    <div class="table-title">Active Account Registry (Sorted by Health Score)</div>
+                    <input type="text" class="table-search" placeholder="Search customers...">
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Segment</th>
+                            <th>Health Score</th>
+                            <th>Status</th>
+                            <th>CSM Owner</th>
+                            <th>Last Touch</th>
+                            <th>Next Renewal</th>
+                            <th>MRR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="table-customer">Acme Corp</td>
+                            <td>Enterprise</td>
+                            <td>31</td>
+                            <td><span class="table-status-pill critical">Critical</span></td>
+                            <td>S. Martinez</td>
+                            <td>14d ago</td>
+                            <td>47 days</td>
+                            <td>$12,400</td>
+                        </tr>
+                        <tr>
+                            <td class="table-customer">GlobalTech Solutions</td>
+                            <td>Enterprise</td>
+                            <td>44</td>
+                            <td><span class="table-status-pill critical">Critical</span></td>
+                            <td>S. Martinez</td>
+                            <td>9d ago</td>
+                            <td>12 days</td>
+                            <td>$18,900</td>
+                        </tr>
+                        <tr>
+                            <td class="table-customer">Innovate Industries</td>
+                            <td>Mid-Market</td>
+                            <td>58</td>
+                            <td><span class="table-status-pill at-risk">At Risk</span></td>
+                            <td>J. Chen</td>
+                            <td>3d ago</td>
+                            <td>89 days</td>
+                            <td>$4,200</td>
+                        </tr>
+                        <tr>
+                            <td class="table-customer">DataFlow Systems</td>
+                            <td>Mid-Market</td>
+                            <td>62</td>
+                            <td><span class="table-status-pill at-risk">At Risk</span></td>
+                            <td>J. Chen</td>
+                            <td>7d ago</td>
+                            <td>134 days</td>
+                            <td>$5,800</td>
+                        </tr>
+                        <tr>
+                            <td class="table-customer">CloudScale Inc</td>
+                            <td>SMB</td>
+                            <td>67</td>
+                            <td><span class="table-status-pill at-risk">At Risk</span></td>
+                            <td>A. Lopez</td>
+                            <td>8d ago</td>
+                            <td>201 days</td>
+                            <td>$1,200</td>
+                        </tr>
+                        <tr>
+                            <td class="table-customer">Zenith Analytics</td>
+                            <td>Enterprise</td>
+                            <td>94</td>
+                            <td><span class="table-status-pill healthy">Healthy</span></td>
+                            <td>S. Martinez</td>
+                            <td>1d ago</td>
+                            <td>156 days</td>
+                            <td>$22,100</td>
+                        </tr>
+                        <tr>
+                            <td class="table-customer">Vertex Systems</td>
+                            <td>Mid-Market</td>
+                            <td>92</td>
+                            <td><span class="table-status-pill healthy">Healthy</span></td>
+                            <td>J. Chen</td>
+                            <td>2d ago</td>
+                            <td>78 days</td>
+                            <td>$6,700</td>
+                        </tr>
+                        <tr>
+                            <td class="table-customer">Compass Financial</td>
+                            <td>Enterprise</td>
+                            <td>79</td>
+                            <td><span class="table-status-pill healthy">Healthy</span></td>
+                            <td>S. Martinez</td>
+                            <td>4d ago</td>
+                            <td>223 days</td>
+                            <td>$15,300</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-left">
+            <span>CX Command Center v2.4.1 | Designed by Atlas</span>
+            <a href="#" class="footer-link">Documentation</a>
+            <a href="#" class="footer-link">Support</a>
+            <a href="#" class="footer-link">Team Directory</a>
+        </div>
+        <div class="footer-right">
+            <span>Data pipeline operational • All systems nominal</span>
+        </div>
+    </footer>
+
+    <script>
+        // Simple interactive enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handler for triage engagement buttons
+            const engageButtons = document.querySelectorAll('.triage-action-btn');
+            engageButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const customerName = this.closest('.triage-item').querySelector('.triage-customer-name').textContent;
+                    alert(`Initiating engagement workflow for ${customerName}\n\nActions:\n- Notify assigned CSM\n- Create priority task\n- Schedule follow-up within 2 hours`);
+                });
+            });
+
+            // Add click handler for alert action button
+            const alertButton = document.querySelector('.alert-action');
+            if (alertButton) {
+                alertButton.addEventListener('click', function() {
+                    document.querySelector('.triage-list').scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+
+            // Add hover effect to stage cards to reveal details
+            const stageCards = document.querySelectorAll('.stage-card');
+            stageCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.querySelector('.stage-details').style.maxHeight = '200px';
+                    this.querySelector('.stage-details').style.opacity = '1';
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    this.querySelector('.stage-details').style.maxHeight = '0';
+                    this.querySelector('.stage-details').style.opacity = '0';
+                });
+            });
+
+            // Chart filter button interactions
+            const filterButtons = document.querySelectorAll('.chart-filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from siblings
+                    this.parentElement.querySelectorAll('.chart-filter-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                });
+            });
+
+            // Update refresh time every minute
+            setInterval(function() {
+                const now = new Date();
+                const timeString = now.toTimeString().split(' ')[0] + ' UTC';
+                document.querySelector('.refresh-time').textContent = `Last sync: ${timeString}`;
+            }, 60000);
+        });
+    </script>
+</body>
+</html>

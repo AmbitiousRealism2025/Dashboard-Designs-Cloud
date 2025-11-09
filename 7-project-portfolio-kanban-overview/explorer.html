@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Portfolio Dashboard - Explorer</title>
+    <style>
+        /* Agent: Explorer | Theme: Project Portfolio Kanban Overview | Intent: Experimental 3D-tilting kanban cards with progressive depth and bold visual hierarchy */
+
+        :root {
+            --bg-primary: #fafafa;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f5f5f5;
+
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --text-tertiary: #999999;
+
+            --status-backlog: #7e57c2;
+            --status-progress: #2196f3;
+            --status-risk: #ff9800;
+            --status-done: #4caf50;
+
+            --accent-primary: #6200ea;
+            --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+            --border-subtle: #e0e0e0;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --shadow-xl: 0 16px 48px rgba(0,0,0,0.16);
+
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas:
+                "header header"
+                "aside main"
+                "footer footer";
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        header {
+            grid-area: header;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .header-logo {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-gradient);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            font-size: 18px;
+        }
+
+        .header-title h1 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .header-title p {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            align-items: center;
+        }
+
+        .header-badge {
+            background: var(--bg-tertiary);
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--radius-lg);
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .header-btn {
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ASIDE */
+        aside {
+            grid-area: aside;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-subtle);
+            padding: var(--spacing-lg);
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .nav-section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-tertiary);
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .nav-item {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-xs);
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            font-weight: 600;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        }
+
+        .nav-badge {
+            font-size: 11px;
+            background: var(--bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        .filter-group {
+            margin-top: var(--spacing-lg);
+        }
+
+        .filter-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+            font-weight: 500;
+        }
+
+        .filter-checkbox {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+            font-size: 13px;
+        }
+
+        /* MAIN */
+        main {
+            grid-area: main;
+            padding: var(--spacing-xl);
+            overflow-y: auto;
+        }
+
+        .dashboard-section {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .section-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .section-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .section-btn:hover {
+            background: var(--bg-tertiary);
+        }
+
+        /* KPI CARDS */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-subtle);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-gradient);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .kpi-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .kpi-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .kpi-delta {
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .kpi-delta.positive {
+            color: var(--status-done);
+        }
+
+        .kpi-delta.negative {
+            color: var(--status-risk);
+        }
+
+        .kpi-meta {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            margin-top: var(--spacing-sm);
+        }
+
+        .kpi-sparkline {
+            height: 40px;
+            margin-top: var(--spacing-md);
+            background: linear-gradient(to right,
+                rgba(102, 126, 234, 0.1) 0%,
+                rgba(102, 126, 234, 0.2) 50%,
+                rgba(102, 126, 234, 0.1) 100%);
+            border-radius: var(--radius-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-sparkline::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: var(--accent-gradient);
+            opacity: 0.3;
+            clip-path: polygon(0% 100%, 10% 80%, 20% 90%, 30% 60%, 40% 70%, 50% 40%, 60% 50%, 70% 30%, 80% 40%, 90% 20%, 100% 30%, 100% 100%);
+        }
+
+        /* CHARTS */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        .chart-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: var(--spacing-md);
+            font-size: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .chart-placeholder {
+            height: 200px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-placeholder::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70%;
+            background: linear-gradient(to right,
+                var(--status-backlog) 0%, var(--status-backlog) 20%,
+                transparent 20%, transparent 25%,
+                var(--status-progress) 25%, var(--status-progress) 50%,
+                transparent 50%, transparent 55%,
+                var(--status-risk) 55%, var(--status-risk) 70%,
+                transparent 70%, transparent 75%,
+                var(--status-done) 75%, var(--status-done) 100%);
+            opacity: 0.2;
+        }
+
+        /* KANBAN SWIMLANES - Explorer's Experimental Touch */
+        .kanban-container {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-subtle);
+            perspective: 1000px;
+        }
+
+        .kanban-swimlanes {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-lg);
+            min-height: 500px;
+        }
+
+        .kanban-column {
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .kanban-column-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .kanban-column-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .kanban-column-count {
+            font-size: 12px;
+            background: var(--bg-tertiary);
+            padding: 2px 8px;
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-backlog { background: var(--status-backlog); }
+        .status-progress { background: var(--status-progress); }
+        .status-risk { background: var(--status-risk); }
+        .status-done { background: var(--status-done); }
+
+        /* Explorer's Experimental 3D Kanban Cards */
+        .kanban-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--status-progress);
+            cursor: pointer;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .kanban-card[data-status="backlog"] {
+            border-left-color: var(--status-backlog);
+        }
+
+        .kanban-card[data-status="progress"] {
+            border-left-color: var(--status-progress);
+        }
+
+        .kanban-card[data-status="risk"] {
+            border-left-color: var(--status-risk);
+        }
+
+        .kanban-card[data-status="done"] {
+            border-left-color: var(--status-done);
+        }
+
+        .kanban-card:hover {
+            transform: rotateY(2deg) rotateX(-2deg) translateY(-4px);
+            box-shadow: var(--shadow-xl);
+            z-index: 10;
+        }
+
+        .kanban-card:hover .kanban-card-details {
+            opacity: 1;
+            max-height: 200px;
+        }
+
+        .kanban-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .kanban-card-id {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .kanban-card-priority {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .priority-high {
+            background: rgba(244, 67, 54, 0.1);
+            color: #f44336;
+        }
+
+        .priority-medium {
+            background: rgba(255, 152, 0, 0.1);
+            color: #ff9800;
+        }
+
+        .priority-low {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+        }
+
+        .kanban-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.4;
+        }
+
+        .kanban-card-owner {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .owner-avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .kanban-card-progress {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .progress-label {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            margin-bottom: var(--spacing-xs);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-gradient);
+            border-radius: 3px;
+            transition: width 0.3s ease-out;
+        }
+
+        .kanban-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--spacing-md);
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        .kanban-card-details {
+            margin-top: var(--spacing-md);
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--border-subtle);
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease-out;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .detail-label {
+            color: var(--text-tertiary);
+        }
+
+        .detail-value {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* DATA TABLE */
+        .table-container {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-subtle);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--bg-tertiary);
+        }
+
+        th {
+            text-align: left;
+            padding: var(--spacing-md);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: var(--spacing-md);
+            font-size: 14px;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pill.backlog {
+            background: rgba(126, 87, 194, 0.1);
+            color: var(--status-backlog);
+        }
+
+        .status-pill.progress {
+            background: rgba(33, 150, 243, 0.1);
+            color: var(--status-progress);
+        }
+
+        .status-pill.risk {
+            background: rgba(255, 152, 0, 0.1);
+            color: var(--status-risk);
+        }
+
+        .status-pill.done {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--status-done);
+        }
+
+        /* FOOTER */
+        footer {
+            grid-area: footer;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .footer-agent {
+            font-weight: 600;
+            color: var(--accent-primary);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 960px) {
+            body {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "footer";
+            }
+
+            aside {
+                display: none;
+            }
+
+            .kanban-swimlanes {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kanban-swimlanes {
+                grid-template-columns: 1fr;
+            }
+
+            .header-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Agent: Explorer | Theme: Project Portfolio Kanban Overview | Intent: Experimental 3D-tilting kanban cards with progressive depth and bold visual hierarchy -->
+
+    <header>
+        <div class="header-brand">
+            <div class="header-logo">EP</div>
+            <div class="header-title">
+                <h1>Project Portfolio Command Center</h1>
+                <p>Q4 2025 Program Overview</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <div class="header-badge">Last sync: 2 min ago</div>
+            <button class="header-btn">+ New Project</button>
+        </div>
+    </header>
+
+    <aside>
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Views</div>
+                <div class="nav-item active">
+                    <span>Portfolio Overview</span>
+                    <span class="nav-badge">28</span>
+                </div>
+                <div class="nav-item">
+                    <span>Timeline</span>
+                </div>
+                <div class="nav-item">
+                    <span>Resource Allocation</span>
+                </div>
+                <div class="nav-item">
+                    <span>Budget Tracking</span>
+                </div>
+                <div class="nav-item">
+                    <span>Risk Register</span>
+                    <span class="nav-badge">4</span>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Programs</div>
+                <div class="nav-item">Digital Transformation</div>
+                <div class="nav-item">Product Innovation</div>
+                <div class="nav-item">Infrastructure Upgrade</div>
+                <div class="nav-item">Customer Experience</div>
+            </div>
+
+            <div class="filter-group">
+                <div class="filter-label">Status Filters</div>
+                <label class="filter-checkbox">
+                    <input type="checkbox" checked> Backlog
+                </label>
+                <label class="filter-checkbox">
+                    <input type="checkbox" checked> In Progress
+                </label>
+                <label class="filter-checkbox">
+                    <input type="checkbox" checked> At Risk
+                </label>
+                <label class="filter-checkbox">
+                    <input type="checkbox" checked> Completed
+                </label>
+            </div>
+
+            <div class="filter-group">
+                <div class="filter-label">Priority</div>
+                <label class="filter-checkbox">
+                    <input type="checkbox" checked> High
+                </label>
+                <label class="filter-checkbox">
+                    <input type="checkbox" checked> Medium
+                </label>
+                <label class="filter-checkbox">
+                    <input type="checkbox"> Low
+                </label>
+            </div>
+        </nav>
+    </aside>
+
+    <main>
+        <!-- KPI Cards Section -->
+        <section class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Portfolio Metrics</h2>
+                <div class="section-actions">
+                    <button class="section-btn">Export</button>
+                    <button class="section-btn">Customize</button>
+                </div>
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Active Projects</div>
+                    <div class="kpi-value">28</div>
+                    <div class="kpi-delta positive">↑ 12% vs Q3</div>
+                    <div class="kpi-meta">4 launched this month</div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">On-Time Delivery</div>
+                    <div class="kpi-value">82%</div>
+                    <div class="kpi-delta positive">↑ 5% vs Q3</div>
+                    <div class="kpi-meta">23 of 28 projects on track</div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Budget Utilization</div>
+                    <div class="kpi-value">$4.2M</div>
+                    <div class="kpi-delta negative">↓ 8% under plan</div>
+                    <div class="kpi-meta">$5.1M allocated for Q4</div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Team Velocity</div>
+                    <div class="kpi-value">156</div>
+                    <div class="kpi-delta positive">↑ 18% vs Q3</div>
+                    <div class="kpi-meta">Story points per sprint</div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Trend Analysis</h2>
+            </div>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Project Health Distribution</div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-dot status-done"></span>
+                                <span>Healthy</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot status-progress"></span>
+                                <span>Watch</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot status-risk"></span>
+                                <span>At Risk</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <span style="color: var(--text-tertiary); font-size: 13px;">[Health Distribution Chart]</span>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Velocity Trend (Last 6 Sprints)</div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-dot status-progress"></span>
+                                <span>Completed</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot status-backlog"></span>
+                                <span>Planned</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <span style="color: var(--text-tertiary); font-size: 13px;">[Velocity Trend Chart]</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kanban Swimlanes - Explorer's Signature Feature -->
+        <section class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Project Kanban Board</h2>
+                <div class="section-actions">
+                    <button class="section-btn">Grid View</button>
+                    <button class="section-btn">Compact</button>
+                </div>
+            </div>
+            <div class="kanban-container">
+                <div class="kanban-swimlanes">
+                    <!-- Backlog Column -->
+                    <div class="kanban-column">
+                        <div class="kanban-column-header">
+                            <div class="kanban-column-title">
+                                <span class="status-indicator status-backlog"></span>
+                                Backlog
+                            </div>
+                            <div class="kanban-column-count">6</div>
+                        </div>
+                        <div class="kanban-card" data-status="backlog">
+                            <div class="kanban-card-header">
+                                <div class="kanban-card-id">PRJ-024</div>
+                                <div class="kanban-card-priority priority-medium">Medium</div>
+                            </div>
+                            <div class="kanban-card-title">AI Chatbot Integration</div>
+                            <div class="kanban-card-owner">
+                                <div class="owner-avatar">JD</div>
+                                <span>Jessica Davis</span>
+                            </div>
+                            <div class="kanban-card-progress">
+                                <div class="progress-label">
+                                    <span>Progress</span>
+                                    <span>15%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 15%"></div>
+                                </div>
+                            </div>
+                            <div class="kanban-card-meta">
+                                <span>Due: Jan 15</span>
+                                <span>$125K</span>
+                            </div>
+                            <div class="kanban-card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Budget Used:</span>
+                                    <span class="detail-value">$18.8K (15%)</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Team Size:</span>
+                                    <span class="detail-value">4 members</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Dependencies:</span>
+                                    <span class="detail-value">PRJ-019, PRJ-022</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kanban-card" data-status="backlog">
+                            <div class="kanban-card-header">
+                                <div class="kanban-card-id">PRJ-026</div>
+                                <div class="kanban-card-priority priority-low">Low</div>
+                            </div>
+                            <div class="kanban-card-title">Mobile App Redesign</div>
+                            <div class="kanban-card-owner">
+                                <div class="owner-avatar">MJ</div>
+                                <span>Michael Johnson</span>
+                            </div>
+                            <div class="kanban-card-progress">
+                                <div class="progress-label">
+                                    <span>Progress</span>
+                                    <span>8%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 8%"></div>
+                                </div>
+                            </div>
+                            <div class="kanban-card-meta">
+                                <span>Due: Feb 28</span>
+                                <span>$220K</span>
+                            </div>
+                            <div class="kanban-card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Budget Used:</span>
+                                    <span class="detail-value">$17.6K (8%)</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Team Size:</span>
+                                    <span class="detail-value">6 members</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- In Progress Column -->
+                    <div class="kanban-column">
+                        <div class="kanban-column-header">
+                            <div class="kanban-column-title">
+                                <span class="status-indicator status-progress"></span>
+                                In Progress
+                            </div>
+                            <div class="kanban-column-count">12</div>
+                        </div>
+                        <div class="kanban-card" data-status="progress">
+                            <div class="kanban-card-header">
+                                <div class="kanban-card-id">PRJ-019</div>
+                                <div class="kanban-card-priority priority-high">High</div>
+                            </div>
+                            <div class="kanban-card-title">Cloud Migration Phase 2</div>
+                            <div class="kanban-card-owner">
+                                <div class="owner-avatar">SK</div>
+                                <span>Sarah Kim</span>
+                            </div>
+                            <div class="kanban-card-progress">
+                                <div class="progress-label">
+                                    <span>Progress</span>
+                                    <span>68%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 68%"></div>
+                                </div>
+                            </div>
+                            <div class="kanban-card-meta">
+                                <span>Due: Dec 15</span>
+                                <span>$480K</span>
+                            </div>
+                            <div class="kanban-card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Budget Used:</span>
+                                    <span class="detail-value">$326.4K (68%)</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Team Size:</span>
+                                    <span class="detail-value">8 members</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Sprint:</span>
+                                    <span class="detail-value">Sprint 6 of 9</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kanban-card" data-status="progress">
+                            <div class="kanban-card-header">
+                                <div class="kanban-card-id">PRJ-021</div>
+                                <div class="kanban-card-priority priority-high">High</div>
+                            </div>
+                            <div class="kanban-card-title">Payment Gateway Update</div>
+                            <div class="kanban-card-owner">
+                                <div class="owner-avatar">AL</div>
+                                <span>Alex Lee</span>
+                            </div>
+                            <div class="kanban-card-progress">
+                                <div class="progress-label">
+                                    <span>Progress</span>
+                                    <span>42%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 42%"></div>
+                                </div>
+                            </div>
+                            <div class="kanban-card-meta">
+                                <span>Due: Dec 31</span>
+                                <span>$180K</span>
+                            </div>
+                            <div class="kanban-card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Budget Used:</span>
+                                    <span class="detail-value">$75.6K (42%)</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Team Size:</span>
+                                    <span class="detail-value">5 members</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kanban-card" data-status="progress">
+                            <div class="kanban-card-header">
+                                <div class="kanban-card-id">PRJ-023</div>
+                                <div class="kanban-card-priority priority-medium">Medium</div>
+                            </div>
+                            <div class="kanban-card-title">Analytics Dashboard v3</div>
+                            <div class="kanban-card-owner">
+                                <div class="owner-avatar">RP</div>
+                                <span>Rachel Park</span>
+                            </div>
+                            <div class="kanban-card-progress">
+                                <div class="progress-label">
+                                    <span>Progress</span>
+                                    <span>55%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 55%"></div>
+                                </div>
+                            </div>
+                            <div class="kanban-card-meta">
+                                <span>Due: Jan 10</span>
+                                <span>$95K</span>
+                            </div>
+                            <div class="kanban-card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Budget Used:</span>
+                                    <span class="detail-value">$52.3K (55%)</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Team Size:</span>
+                                    <span class="detail-value">3 members</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- At Risk Column -->
+                    <div class="kanban-column">
+                        <div class="kanban-column-header">
+                            <div class="kanban-column-title">
+                                <span class="status-indicator status-risk"></span>
+                                At Risk
+                            </div>
+                            <div class="kanban-column-count">4</div>
+                        </div>
+                        <div class="kanban-card" data-status="risk">
+                            <div class="kanban-card-header">
+                                <div class="kanban-card-id">PRJ-018</div>
+                                <div class="kanban-card-priority priority-high">High</div>
+                            </div>
+                            <div class="kanban-card-title">Security Compliance Audit</div>
+                            <div class="kanban-card-owner">
+                                <div class="owner-avatar">DM</div>
+                                <span>David Martinez</span>
+                            </div>
+                            <div class="kanban-card-progress">
+                                <div class="progress-label">
+                                    <span>Progress</span>
+                                    <span>38%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 38%"></div>
+                                </div>
+                            </div>
+                            <div class="kanban-card-meta">
+                                <span>Due: Nov 30</span>
+                                <span>$165K</span>
+                            </div>
+                            <div class="kanban-card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Budget Used:</span>
+                                    <span class="detail-value">$62.7K (38%)</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Risk Factors:</span>
+                                    <span class="detail-value">Resource shortage</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Team Size:</span>
+                                    <span class="detail-value">4 members</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kanban-card" data-status="risk">
+                            <div class="kanban-card-header">
+                                <div class="kanban-card-id">PRJ-020</div>
+                                <div class="kanban-card-priority priority-high">High</div>
+                            </div>
+                            <div class="kanban-card-title">CRM Platform Upgrade</div>
+                            <div class="kanban-card-owner">
+                                <div class="owner-avatar">EW</div>
+                                <span>Emily Wilson</span>
+                            </div>
+                            <div class="kanban-card-progress">
+                                <div class="progress-label">
+                                    <span>Progress</span>
+                                    <span>72%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 72%"></div>
+                                </div>
+                            </div>
+                            <div class="kanban-card-meta">
+                                <span>Due: Nov 20</span>
+                                <span>$340K</span>
+                            </div>
+                            <div class="kanban-card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Budget Used:</span>
+                                    <span class="detail-value">$244.8K (72%)</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Risk Factors:</span>
+                                    <span class="detail-value">Schedule delay</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Done Column -->
+                    <div class="kanban-column">
+                        <div class="kanban-column-header">
+                            <div class="kanban-column-title">
+                                <span class="status-indicator status-done"></span>
+                                Done
+                            </div>
+                            <div class="kanban-column-count">6</div>
+                        </div>
+                        <div class="kanban-card" data-status="done">
+                            <div class="kanban-card-header">
+                                <div class="kanban-card-id">PRJ-014</div>
+                                <div class="kanban-card-priority priority-high">High</div>
+                            </div>
+                            <div class="kanban-card-title">API Gateway Modernization</div>
+                            <div class="kanban-card-owner">
+                                <div class="owner-avatar">TB</div>
+                                <span>Tom Brown</span>
+                            </div>
+                            <div class="kanban-card-progress">
+                                <div class="progress-label">
+                                    <span>Progress</span>
+                                    <span>100%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div class="kanban-card-meta">
+                                <span>Completed: Nov 5</span>
+                                <span>$275K</span>
+                            </div>
+                            <div class="kanban-card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Budget Used:</span>
+                                    <span class="detail-value">$262.3K (95%)</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Team Size:</span>
+                                    <span class="detail-value">7 members</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Duration:</span>
+                                    <span class="detail-value">12 weeks</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kanban-card" data-status="done">
+                            <div class="kanban-card-header">
+                                <div class="kanban-card-id">PRJ-016</div>
+                                <div class="kanban-card-priority priority-medium">Medium</div>
+                            </div>
+                            <div class="kanban-card-title">User Onboarding Flow</div>
+                            <div class="kanban-card-owner">
+                                <div class="owner-avatar">LC</div>
+                                <span>Lisa Chen</span>
+                            </div>
+                            <div class="kanban-card-progress">
+                                <div class="progress-label">
+                                    <span>Progress</span>
+                                    <span>100%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div class="kanban-card-meta">
+                                <span>Completed: Oct 28</span>
+                                <span>$85K</span>
+                            </div>
+                            <div class="kanban-card-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">Budget Used:</span>
+                                    <span class="detail-value">$81.6K (96%)</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Duration:</span>
+                                    <span class="detail-value">6 weeks</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Chart -->
+        <section class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Resource Allocation by Program</h2>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">Team Distribution Across Programs</div>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <span class="legend-dot status-backlog"></span>
+                            <span>Digital Transform</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot status-progress"></span>
+                            <span>Product Innovation</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot status-risk"></span>
+                            <span>Infrastructure</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot status-done"></span>
+                            <span>Customer Experience</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    <span style="color: var(--text-tertiary); font-size: 13px;">[Resource Allocation Chart]</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Table -->
+        <section class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Project Details</h2>
+                <div class="section-actions">
+                    <button class="section-btn">Filter</button>
+                    <button class="section-btn">Export CSV</button>
+                </div>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Project ID</th>
+                            <th>Project Name</th>
+                            <th>Owner</th>
+                            <th>Status</th>
+                            <th>Progress</th>
+                            <th>Budget</th>
+                            <th>Due Date</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PRJ-019</td>
+                            <td>Cloud Migration Phase 2</td>
+                            <td>Sarah Kim</td>
+                            <td><span class="status-pill progress">In Progress</span></td>
+                            <td>68%</td>
+                            <td>$480K</td>
+                            <td>Dec 15, 2025</td>
+                            <td>High</td>
+                        </tr>
+                        <tr>
+                            <td>PRJ-018</td>
+                            <td>Security Compliance Audit</td>
+                            <td>David Martinez</td>
+                            <td><span class="status-pill risk">At Risk</span></td>
+                            <td>38%</td>
+                            <td>$165K</td>
+                            <td>Nov 30, 2025</td>
+                            <td>High</td>
+                        </tr>
+                        <tr>
+                            <td>PRJ-021</td>
+                            <td>Payment Gateway Update</td>
+                            <td>Alex Lee</td>
+                            <td><span class="status-pill progress">In Progress</span></td>
+                            <td>42%</td>
+                            <td>$180K</td>
+                            <td>Dec 31, 2025</td>
+                            <td>High</td>
+                        </tr>
+                        <tr>
+                            <td>PRJ-020</td>
+                            <td>CRM Platform Upgrade</td>
+                            <td>Emily Wilson</td>
+                            <td><span class="status-pill risk">At Risk</span></td>
+                            <td>72%</td>
+                            <td>$340K</td>
+                            <td>Nov 20, 2025</td>
+                            <td>High</td>
+                        </tr>
+                        <tr>
+                            <td>PRJ-014</td>
+                            <td>API Gateway Modernization</td>
+                            <td>Tom Brown</td>
+                            <td><span class="status-pill done">Done</span></td>
+                            <td>100%</td>
+                            <td>$275K</td>
+                            <td>Nov 5, 2025</td>
+                            <td>High</td>
+                        </tr>
+                        <tr>
+                            <td>PRJ-023</td>
+                            <td>Analytics Dashboard v3</td>
+                            <td>Rachel Park</td>
+                            <td><span class="status-pill progress">In Progress</span></td>
+                            <td>55%</td>
+                            <td>$95K</td>
+                            <td>Jan 10, 2026</td>
+                            <td>Medium</td>
+                        </tr>
+                        <tr>
+                            <td>PRJ-024</td>
+                            <td>AI Chatbot Integration</td>
+                            <td>Jessica Davis</td>
+                            <td><span class="status-pill backlog">Backlog</span></td>
+                            <td>15%</td>
+                            <td>$125K</td>
+                            <td>Jan 15, 2026</td>
+                            <td>Medium</td>
+                        </tr>
+                        <tr>
+                            <td>PRJ-016</td>
+                            <td>User Onboarding Flow</td>
+                            <td>Lisa Chen</td>
+                            <td><span class="status-pill done">Done</span></td>
+                            <td>100%</td>
+                            <td>$85K</td>
+                            <td>Oct 28, 2025</td>
+                            <td>Medium</td>
+                        </tr>
+                        <tr>
+                            <td>PRJ-026</td>
+                            <td>Mobile App Redesign</td>
+                            <td>Michael Johnson</td>
+                            <td><span class="status-pill backlog">Backlog</span></td>
+                            <td>8%</td>
+                            <td>$220K</td>
+                            <td>Feb 28, 2026</td>
+                            <td>Low</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div>
+            <span class="footer-agent">Designed by Explorer</span> | Experimental Systems UX Specialist
+        </div>
+        <div>Last updated: November 9, 2025 at 14:32 UTC</div>
+    </footer>
+
+    <script>
+        // Simple interaction for kanban cards - Explorer's experimental touch
+        document.querySelectorAll('.kanban-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = this.style.transform === 'scale(1.02)' ? 'scale(1)' : 'scale(1.02)';
+            });
+        });
+
+        // Add subtle parallax effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.kanban-card');
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 100;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 100;
+
+            cards.forEach(card => {
+                if (card.matches(':hover')) {
+                    card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateY(-4px)`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

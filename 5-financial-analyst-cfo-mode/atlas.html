@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Operations Command Center | Atlas</title>
+    <!-- Agent: Atlas | Theme: Financial Analyst CFO Mode | Intent: Mission-critical financial operations dashboard with multi-stakeholder perspectives and real-time variance monitoring -->
+    <style>
+        /* CSS Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        /* CSS Custom Properties - Financial Theme */
+        :root {
+            /* Color Palette - Institutional Finance */
+            --bg-primary: #FAFBFC;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #F4F6F8;
+
+            --navy-primary: #1E3A5F;
+            --navy-secondary: #2C5282;
+            --navy-light: #4A6FA5;
+
+            --green-primary: #0F5132;
+            --green-secondary: #1A7F4F;
+            --green-light: #28A869;
+
+            --grey-primary: #495057;
+            --grey-secondary: #6C757D;
+            --grey-light: #ADB5BD;
+            --grey-border: #DEE2E6;
+
+            /* Semantic Colors */
+            --success: #28A869;
+            --warning: #D97706;
+            --danger: #C81E1E;
+            --info: #2C5282;
+
+            /* Status Colors */
+            --status-healthy: #0F5132;
+            --status-caution: #D97706;
+            --status-critical: #C81E1E;
+            --status-neutral: #6C757D;
+
+            /* Typography */
+            --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --font-mono: 'SF Mono', Monaco, 'Courier New', monospace;
+
+            /* Spacing */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+
+            /* Borders */
+            --border-width: 1px;
+            --border-radius: 4px;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--grey-primary);
+            background: var(--bg-primary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Layout Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas:
+                "header header"
+                "aside main"
+                "footer footer";
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            grid-area: header;
+            background: var(--navy-primary);
+            color: white;
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 3px solid var(--green-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+
+        .header-title {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-title h1 {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .header-title .subtitle {
+            font-size: 12px;
+            opacity: 0.85;
+            font-weight: 400;
+        }
+
+        .agent-badge {
+            background: var(--green-primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
+
+        .period-selector {
+            background: var(--navy-secondary);
+            border: 1px solid var(--navy-light);
+            color: white;
+            padding: 6px 12px;
+            border-radius: var(--border-radius);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .period-selector:hover {
+            background: var(--navy-light);
+        }
+
+        .alert-indicator {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--danger);
+            padding: 6px 12px;
+            border-radius: var(--border-radius);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .alert-indicator:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .alert-pulse {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Aside Navigation */
+        aside {
+            grid-area: aside;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--grey-border);
+            padding: var(--space-lg) 0;
+        }
+
+        .nav-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .nav-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--grey-secondary);
+            padding: 0 var(--space-md);
+            margin-bottom: var(--space-sm);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px var(--space-md);
+            color: var(--grey-primary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-tertiary);
+            color: var(--navy-primary);
+        }
+
+        .nav-item.active {
+            background: var(--bg-tertiary);
+            color: var(--navy-primary);
+            border-left-color: var(--green-primary);
+            font-weight: 600;
+        }
+
+        .nav-badge {
+            background: var(--danger);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 10px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .nav-badge.info {
+            background: var(--info);
+        }
+
+        .nav-badge.success {
+            background: var(--success);
+        }
+
+        /* Main Content */
+        main {
+            grid-area: main;
+            padding: var(--space-lg);
+            overflow-y: auto;
+        }
+
+        /* Status Banner */
+        .status-banner {
+            background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);
+            color: white;
+            padding: var(--space-md);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--space-lg);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .status-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .status-label {
+            font-size: 11px;
+            opacity: 0.85;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .status-value {
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .status-dot.healthy { background: var(--success); }
+        .status-dot.caution { background: var(--warning); }
+        .status-dot.critical { background: var(--danger); }
+
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--grey-border);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--grey-light);
+        }
+
+        .kpi-card.positive::before { background: var(--green-primary); }
+        .kpi-card.negative::before { background: var(--danger); }
+        .kpi-card.warning::before { background: var(--warning); }
+
+        .kpi-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+
+        .kpi-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--grey-secondary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--navy-primary);
+            margin-bottom: var(--space-xs);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .kpi-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            margin-top: var(--space-sm);
+        }
+
+        .kpi-delta {
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .kpi-delta.positive { color: var(--green-primary); }
+        .kpi-delta.negative { color: var(--danger); }
+        .kpi-delta.neutral { color: var(--grey-secondary); }
+
+        .kpi-context {
+            color: var(--grey-secondary);
+            font-size: 11px;
+        }
+
+        /* Chart Grid */
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .chart-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--grey-border);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .chart-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--navy-primary);
+        }
+
+        .chart-badge {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 3px;
+            background: var(--bg-tertiary);
+            color: var(--grey-secondary);
+        }
+
+        .chart-badge.alert {
+            background: var(--danger);
+            color: white;
+        }
+
+        .chart-placeholder {
+            height: 180px;
+            background: var(--bg-tertiary);
+            border-radius: var(--border-radius);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Revenue Trend Chart */
+        .revenue-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 100%;
+            padding: var(--space-md);
+            gap: 8px;
+        }
+
+        .revenue-bar {
+            flex: 1;
+            background: linear-gradient(180deg, var(--green-primary) 0%, var(--green-secondary) 100%);
+            border-radius: 3px 3px 0 0;
+            position: relative;
+            min-height: 20%;
+        }
+
+        .revenue-bar:nth-child(1) { height: 65%; }
+        .revenue-bar:nth-child(2) { height: 72%; }
+        .revenue-bar:nth-child(3) { height: 68%; }
+        .revenue-bar:nth-child(4) { height: 78%; }
+        .revenue-bar:nth-child(5) { height: 85%; }
+        .revenue-bar:nth-child(6) { height: 92%; }
+
+        .revenue-bar:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+        }
+
+        /* Expense Breakdown Chart */
+        .expense-chart {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            padding: var(--space-md);
+            justify-content: center;
+        }
+
+        .expense-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .expense-label {
+            font-size: 11px;
+            color: var(--grey-secondary);
+            width: 80px;
+            font-weight: 500;
+        }
+
+        .expense-bar-container {
+            flex: 1;
+            height: 20px;
+            background: var(--bg-secondary);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .expense-bar {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s ease-out;
+        }
+
+        .expense-value {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--navy-primary);
+            width: 60px;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Cash Flow Waterfall */
+        .waterfall-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 100%;
+            padding: var(--space-md);
+            gap: 4px;
+        }
+
+        .waterfall-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .waterfall-bar {
+            width: 100%;
+            border-radius: 3px 3px 0 0;
+            position: relative;
+        }
+
+        .waterfall-bar.positive {
+            background: linear-gradient(180deg, var(--green-primary) 0%, var(--green-secondary) 100%);
+        }
+
+        .waterfall-bar.negative {
+            background: linear-gradient(180deg, var(--danger) 0%, #E53E3E 100%);
+        }
+
+        .waterfall-label {
+            font-size: 9px;
+            color: var(--grey-secondary);
+            margin-top: 4px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Data Table */
+        .table-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--navy-primary);
+        }
+
+        .table-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .table-action-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--grey-border);
+            padding: 6px 12px;
+            border-radius: var(--border-radius);
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            color: var(--grey-primary);
+        }
+
+        .table-action-btn:hover {
+            background: var(--bg-tertiary);
+            color: var(--navy-primary);
+        }
+
+        .data-table-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--grey-border);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .data-table thead {
+            background: var(--bg-tertiary);
+            border-bottom: 2px solid var(--grey-border);
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 12px var(--space-md);
+            font-weight: 600;
+            color: var(--navy-primary);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-right: 1px solid var(--grey-border);
+        }
+
+        .data-table th:last-child {
+            border-right: none;
+        }
+
+        .data-table th.numeric {
+            text-align: right;
+        }
+
+        .data-table tbody tr {
+            border-bottom: 1px solid var(--grey-border);
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .data-table tbody tr:hover td {
+            color: var(--navy-primary);
+            font-weight: 500;
+        }
+
+        .data-table td {
+            padding: 12px var(--space-md);
+            color: var(--grey-primary);
+            border-right: 1px solid var(--grey-border);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .data-table td:last-child {
+            border-right: none;
+        }
+
+        .data-table td.numeric {
+            text-align: right;
+            font-weight: 500;
+        }
+
+        .data-table td.category {
+            font-weight: 600;
+            color: var(--navy-primary);
+        }
+
+        .variance-cell {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: var(--space-sm);
+        }
+
+        .variance-value {
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .variance-value.favorable { color: var(--green-primary); }
+        .variance-value.unfavorable { color: var(--danger); }
+        .variance-value.neutral { color: var(--grey-secondary); }
+
+        .status-pill {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .status-pill.on-track {
+            background: #D1FAE5;
+            color: var(--status-healthy);
+        }
+
+        .status-pill.at-risk {
+            background: #FEF3C7;
+            color: var(--status-caution);
+        }
+
+        .status-pill.over-budget {
+            background: #FEE2E2;
+            color: var(--status-critical);
+        }
+
+        /* Alert Section */
+        .alert-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--grey-border);
+            border-left: 4px solid var(--danger);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .alert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .alert-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--navy-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .alert-count {
+            background: var(--danger);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 10px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .alert-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .alert-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-sm);
+            background: var(--bg-tertiary);
+            border-radius: var(--border-radius);
+            border-left: 3px solid var(--danger);
+        }
+
+        .alert-item.warning {
+            border-left-color: var(--warning);
+        }
+
+        .alert-content {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .alert-icon {
+            font-size: 16px;
+        }
+
+        .alert-text {
+            font-size: 12px;
+            color: var(--grey-primary);
+        }
+
+        .alert-text strong {
+            color: var(--navy-primary);
+            font-weight: 600;
+        }
+
+        .alert-action {
+            background: var(--navy-primary);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: var(--border-radius);
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .alert-action:hover {
+            background: var(--navy-secondary);
+            transform: translateY(-1px);
+        }
+
+        /* Footer */
+        footer {
+            grid-area: footer;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--grey-border);
+            padding: var(--space-md) var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--grey-secondary);
+        }
+
+        .footer-left {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
+
+        .data-freshness {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .freshness-indicator {
+            width: 6px;
+            height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 960px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "footer";
+            }
+
+            aside {
+                display: none;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .status-banner {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-grid">
+        <!-- Header -->
+        <header>
+            <div class="header-left">
+                <div class="agent-badge">ATLAS</div>
+                <div class="header-title">
+                    <h1>Financial Operations Command Center</h1>
+                    <div class="subtitle">P&L Dashboard • FY2025 Q2</div>
+                </div>
+            </div>
+            <div class="header-controls">
+                <select class="period-selector">
+                    <option>Q2 2025 (Current)</option>
+                    <option>Q1 2025</option>
+                    <option>Q4 2024</option>
+                    <option>FY2025 YTD</option>
+                    <option>FY2024 Full Year</option>
+                </select>
+                <div class="alert-indicator">
+                    <span class="alert-pulse"></span>
+                    <span>3 Alerts</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Aside Navigation -->
+        <aside>
+            <nav>
+                <div class="nav-section">
+                    <div class="nav-section-title">Financial Views</div>
+                    <div class="nav-item active">
+                        <span>P&L Statement</span>
+                        <span class="nav-badge">3</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>Balance Sheet</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>Cash Flow</span>
+                        <span class="nav-badge info">1</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>Budget vs Actual</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>Forecasts</span>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Analysis Tools</div>
+                    <div class="nav-item">
+                        <span>Variance Analysis</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>Trend Analysis</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>Scenario Modeling</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>KPI Drill-Down</span>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Reports</div>
+                    <div class="nav-item">
+                        <span>Board Pack</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>Investor Report</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>Department P&Ls</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>Export Center</span>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Stakeholder Views</div>
+                    <div class="nav-item">
+                        <span>CFO Overview</span>
+                        <span class="nav-badge success">✓</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>FP&A Details</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>Executive Summary</span>
+                    </div>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Status Banner -->
+            <div class="status-banner">
+                <div class="status-item">
+                    <div class="status-label">Financial Health</div>
+                    <div class="status-value">
+                        <span class="status-dot caution"></span>
+                        <span>Caution</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">Budget Status</div>
+                    <div class="status-value">
+                        <span class="status-dot critical"></span>
+                        <span>3 Over Budget</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">Forecast Confidence</div>
+                    <div class="status-value">
+                        <span class="status-dot healthy"></span>
+                        <span>High (87%)</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">Data Coverage</div>
+                    <div class="status-value">
+                        <span class="status-dot healthy"></span>
+                        <span>Complete</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">Last Close</div>
+                    <div class="status-value">
+                        <span>May 31, 2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alert Section -->
+            <div class="alert-section">
+                <div class="alert-header">
+                    <div class="alert-title">
+                        <span>⚠️ Priority Financial Alerts</span>
+                        <span class="alert-count">3</span>
+                    </div>
+                </div>
+                <div class="alert-list">
+                    <div class="alert-item">
+                        <div class="alert-content">
+                            <span class="alert-icon">🔴</span>
+                            <div class="alert-text">
+                                <strong>Cash Runway Alert:</strong> Current burn rate projects <strong>8.2 months</strong> remaining cash. Immediate action required.
+                            </div>
+                        </div>
+                        <button class="alert-action">Review</button>
+                    </div>
+                    <div class="alert-item">
+                        <div class="alert-content">
+                            <span class="alert-icon">🔴</span>
+                            <div class="alert-text">
+                                <strong>OPEX Variance:</strong> Sales & Marketing <strong>18% over budget</strong> ($247K unfavorable variance).
+                            </div>
+                        </div>
+                        <button class="alert-action">Investigate</button>
+                    </div>
+                    <div class="alert-item warning">
+                        <div class="alert-content">
+                            <span class="alert-icon">🟡</span>
+                            <div class="alert-text">
+                                <strong>Revenue Shortfall:</strong> Q2 tracking <strong>$312K below forecast</strong> (5.8% variance). Mitigation plan needed.
+                            </div>
+                        </div>
+                        <button class="alert-action">Analyze</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="kpi-grid">
+                <div class="kpi-card negative">
+                    <div class="kpi-label">Revenue (Q2)</div>
+                    <div class="kpi-value" data-target="5088000">$5,088K</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta negative">-5.8%</span>
+                        <span class="kpi-context">vs Forecast</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card positive">
+                    <div class="kpi-label">Gross Margin</div>
+                    <div class="kpi-value">67.2%</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">+2.1pp</span>
+                        <span class="kpi-context">vs Q1</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card negative">
+                    <div class="kpi-label">EBITDA</div>
+                    <div class="kpi-value">$342K</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta negative">-12.4%</span>
+                        <span class="kpi-context">vs Budget</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card warning">
+                    <div class="kpi-label">Operating Margin</div>
+                    <div class="kpi-value">6.7%</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta negative">-3.2pp</span>
+                        <span class="kpi-context">vs Target</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card warning">
+                    <div class="kpi-label">Cash & Equivalents</div>
+                    <div class="kpi-value">$4,127K</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta negative">-$582K</span>
+                        <span class="kpi-context">QoQ</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card negative">
+                    <div class="kpi-label">Cash Runway</div>
+                    <div class="kpi-value">8.2mo</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta negative">-1.8mo</span>
+                        <span class="kpi-context">vs Q1</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card positive">
+                    <div class="kpi-label">ARR Growth</div>
+                    <div class="kpi-value">23.4%</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">+1.7pp</span>
+                        <span class="kpi-context">YoY</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card positive">
+                    <div class="kpi-label">LTV/CAC Ratio</div>
+                    <div class="kpi-value">3.8x</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">+0.3x</span>
+                        <span class="kpi-context">vs Target</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="chart-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Revenue Trend (6M)</div>
+                        <div class="chart-badge">Monthly</div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div class="revenue-chart">
+                            <div class="revenue-bar"></div>
+                            <div class="revenue-bar"></div>
+                            <div class="revenue-bar"></div>
+                            <div class="revenue-bar"></div>
+                            <div class="revenue-bar"></div>
+                            <div class="revenue-bar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Operating Expense Breakdown</div>
+                        <div class="chart-badge alert">3 Over</div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div class="expense-chart">
+                            <div class="expense-item">
+                                <div class="expense-label">Sales & Mktg</div>
+                                <div class="expense-bar-container">
+                                    <div class="expense-bar" style="width: 85%; background: linear-gradient(90deg, var(--danger) 0%, #E53E3E 100%);"></div>
+                                </div>
+                                <div class="expense-value">$1,624K</div>
+                            </div>
+                            <div class="expense-item">
+                                <div class="expense-label">R&D</div>
+                                <div class="expense-bar-container">
+                                    <div class="expense-bar" style="width: 68%; background: linear-gradient(90deg, var(--navy-primary) 0%, var(--navy-secondary) 100%);"></div>
+                                </div>
+                                <div class="expense-value">$1,287K</div>
+                            </div>
+                            <div class="expense-item">
+                                <div class="expense-label">G&A</div>
+                                <div class="expense-bar-container">
+                                    <div class="expense-bar" style="width: 42%; background: linear-gradient(90deg, var(--green-primary) 0%, var(--green-secondary) 100%);"></div>
+                                </div>
+                                <div class="expense-value">$783K</div>
+                            </div>
+                            <div class="expense-item">
+                                <div class="expense-label">Facilities</div>
+                                <div class="expense-bar-container">
+                                    <div class="expense-bar" style="width: 18%; background: linear-gradient(90deg, var(--grey-secondary) 0%, var(--grey-light) 100%);"></div>
+                                </div>
+                                <div class="expense-value">$342K</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Cash Flow Waterfall (Q2)</div>
+                        <div class="chart-badge">Net: -$582K</div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div class="waterfall-chart">
+                            <div class="waterfall-item">
+                                <div class="waterfall-bar positive" style="height: 100%;"></div>
+                                <div class="waterfall-label">Start</div>
+                            </div>
+                            <div class="waterfall-item">
+                                <div class="waterfall-bar positive" style="height: 72%;"></div>
+                                <div class="waterfall-label">Revenue</div>
+                            </div>
+                            <div class="waterfall-item">
+                                <div class="waterfall-bar negative" style="height: 38%;"></div>
+                                <div class="waterfall-label">COGS</div>
+                            </div>
+                            <div class="waterfall-item">
+                                <div class="waterfall-bar negative" style="height: 62%;"></div>
+                                <div class="waterfall-label">OPEX</div>
+                            </div>
+                            <div class="waterfall-item">
+                                <div class="waterfall-bar negative" style="height: 28%;"></div>
+                                <div class="waterfall-label">CapEx</div>
+                            </div>
+                            <div class="waterfall-item">
+                                <div class="waterfall-bar positive" style="height: 15%;"></div>
+                                <div class="waterfall-label">Other</div>
+                            </div>
+                            <div class="waterfall-item">
+                                <div class="waterfall-bar positive" style="height: 88%;"></div>
+                                <div class="waterfall-label">End</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="table-section">
+                <div class="section-header">
+                    <div class="section-title">P&L Statement - Budget vs Actual Analysis</div>
+                    <div class="table-actions">
+                        <button class="table-action-btn">Export CSV</button>
+                        <button class="table-action-btn">View Full Year</button>
+                        <button class="table-action-btn">Department Breakdown</button>
+                    </div>
+                </div>
+                <div class="data-table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Line Item</th>
+                                <th class="numeric">Budget (Q2)</th>
+                                <th class="numeric">Actual (Q2)</th>
+                                <th class="numeric">Variance ($)</th>
+                                <th class="numeric">Variance (%)</th>
+                                <th class="numeric">Prior Qtr</th>
+                                <th class="numeric">QoQ Change</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="category">Total Revenue</td>
+                                <td class="numeric">$5,400,000</td>
+                                <td class="numeric">$5,088,000</td>
+                                <td class="numeric">
+                                    <div class="variance-cell">
+                                        <span class="variance-value unfavorable">-$312,000</span>
+                                    </div>
+                                </td>
+                                <td class="numeric">
+                                    <span class="variance-value unfavorable">-5.8%</span>
+                                </td>
+                                <td class="numeric">$4,763,000</td>
+                                <td class="numeric">
+                                    <span class="variance-value favorable">+6.8%</span>
+                                </td>
+                                <td>
+                                    <span class="status-pill at-risk">At Risk</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Cost of Revenue</td>
+                                <td class="numeric">$1,836,000</td>
+                                <td class="numeric">$1,669,000</td>
+                                <td class="numeric">
+                                    <div class="variance-cell">
+                                        <span class="variance-value favorable">-$167,000</span>
+                                    </div>
+                                </td>
+                                <td class="numeric">
+                                    <span class="variance-value favorable">-9.1%</span>
+                                </td>
+                                <td class="numeric">$1,621,000</td>
+                                <td class="numeric">
+                                    <span class="variance-value unfavorable">+3.0%</span>
+                                </td>
+                                <td>
+                                    <span class="status-pill on-track">On Track</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="category">Gross Profit</td>
+                                <td class="numeric">$3,564,000</td>
+                                <td class="numeric">$3,419,000</td>
+                                <td class="numeric">
+                                    <div class="variance-cell">
+                                        <span class="variance-value unfavorable">-$145,000</span>
+                                    </div>
+                                </td>
+                                <td class="numeric">
+                                    <span class="variance-value unfavorable">-4.1%</span>
+                                </td>
+                                <td class="numeric">$3,142,000</td>
+                                <td class="numeric">
+                                    <span class="variance-value favorable">+8.8%</span>
+                                </td>
+                                <td>
+                                    <span class="status-pill on-track">On Track</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Sales & Marketing</td>
+                                <td class="numeric">$1,377,000</td>
+                                <td class="numeric">$1,624,000</td>
+                                <td class="numeric">
+                                    <div class="variance-cell">
+                                        <span class="variance-value unfavorable">+$247,000</span>
+                                    </div>
+                                </td>
+                                <td class="numeric">
+                                    <span class="variance-value unfavorable">+17.9%</span>
+                                </td>
+                                <td class="numeric">$1,418,000</td>
+                                <td class="numeric">
+                                    <span class="variance-value unfavorable">+14.5%</span>
+                                </td>
+                                <td>
+                                    <span class="status-pill over-budget">Over Budget</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Research & Development</td>
+                                <td class="numeric">$1,296,000</td>
+                                <td class="numeric">$1,287,000</td>
+                                <td class="numeric">
+                                    <div class="variance-cell">
+                                        <span class="variance-value favorable">-$9,000</span>
+                                    </div>
+                                </td>
+                                <td class="numeric">
+                                    <span class="variance-value favorable">-0.7%</span>
+                                </td>
+                                <td class="numeric">$1,224,000</td>
+                                <td class="numeric">
+                                    <span class="variance-value unfavorable">+5.1%</span>
+                                </td>
+                                <td>
+                                    <span class="status-pill on-track">On Track</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>General & Administrative</td>
+                                <td class="numeric">$702,000</td>
+                                <td class="numeric">$783,000</td>
+                                <td class="numeric">
+                                    <div class="variance-cell">
+                                        <span class="variance-value unfavorable">+$81,000</span>
+                                    </div>
+                                </td>
+                                <td class="numeric">
+                                    <span class="variance-value unfavorable">+11.5%</span>
+                                </td>
+                                <td class="numeric">$697,000</td>
+                                <td class="numeric">
+                                    <span class="variance-value unfavorable">+12.3%</span>
+                                </td>
+                                <td>
+                                    <span class="status-pill at-risk">At Risk</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Facilities & Operations</td>
+                                <td class="numeric">$324,000</td>
+                                <td class="numeric">$342,000</td>
+                                <td class="numeric">
+                                    <div class="variance-cell">
+                                        <span class="variance-value unfavorable">+$18,000</span>
+                                    </div>
+                                </td>
+                                <td class="numeric">
+                                    <span class="variance-value unfavorable">+5.6%</span>
+                                </td>
+                                <td class="numeric">$329,000</td>
+                                <td class="numeric">
+                                    <span class="variance-value unfavorable">+4.0%</span>
+                                </td>
+                                <td>
+                                    <span class="status-pill at-risk">At Risk</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="category">Total Operating Expenses</td>
+                                <td class="numeric">$3,699,000</td>
+                                <td class="numeric">$4,036,000</td>
+                                <td class="numeric">
+                                    <div class="variance-cell">
+                                        <span class="variance-value unfavorable">+$337,000</span>
+                                    </div>
+                                </td>
+                                <td class="numeric">
+                                    <span class="variance-value unfavorable">+9.1%</span>
+                                </td>
+                                <td class="numeric">$3,668,000</td>
+                                <td class="numeric">
+                                    <span class="variance-value unfavorable">+10.0%</span>
+                                </td>
+                                <td>
+                                    <span class="status-pill over-budget">Over Budget</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="category">Operating Income (Loss)</td>
+                                <td class="numeric">-$135,000</td>
+                                <td class="numeric">-$617,000</td>
+                                <td class="numeric">
+                                    <div class="variance-cell">
+                                        <span class="variance-value unfavorable">-$482,000</span>
+                                    </div>
+                                </td>
+                                <td class="numeric">
+                                    <span class="variance-value unfavorable">-357%</span>
+                                </td>
+                                <td class="numeric">-$526,000</td>
+                                <td class="numeric">
+                                    <span class="variance-value unfavorable">-17.3%</span>
+                                </td>
+                                <td>
+                                    <span class="status-pill over-budget">Over Budget</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Interest & Other Income</td>
+                                <td class="numeric">$42,000</td>
+                                <td class="numeric">$38,000</td>
+                                <td class="numeric">
+                                    <div class="variance-cell">
+                                        <span class="variance-value unfavorable">-$4,000</span>
+                                    </div>
+                                </td>
+                                <td class="numeric">
+                                    <span class="variance-value unfavorable">-9.5%</span>
+                                </td>
+                                <td class="numeric">$41,000</td>
+                                <td class="numeric">
+                                    <span class="variance-value unfavorable">-7.3%</span>
+                                </td>
+                                <td>
+                                    <span class="status-pill on-track">On Track</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="category">Net Income (Loss)</td>
+                                <td class="numeric">-$93,000</td>
+                                <td class="numeric">-$579,000</td>
+                                <td class="numeric">
+                                    <div class="variance-cell">
+                                        <span class="variance-value unfavorable">-$486,000</span>
+                                    </div>
+                                </td>
+                                <td class="numeric">
+                                    <span class="variance-value unfavorable">-523%</span>
+                                </td>
+                                <td class="numeric">-$485,000</td>
+                                <td class="numeric">
+                                    <span class="variance-value unfavorable">-19.4%</span>
+                                </td>
+                                <td>
+                                    <span class="status-pill over-budget">Over Budget</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-left">
+                <div><strong>Atlas Financial Command</strong> • Operational UX Specialist</div>
+                <div>Multi-Stakeholder Dashboard • CFO & FP&A View</div>
+            </div>
+            <div class="footer-right">
+                <div class="data-freshness">
+                    <span class="freshness-indicator"></span>
+                    <span>Data updated: Jun 3, 2025 08:42 EDT</span>
+                </div>
+                <div>|</div>
+                <div>Source: ERP Integration</div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Animated value counter for KPI cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const kpiValues = document.querySelectorAll('.kpi-value[data-target]');
+
+            kpiValues.forEach(element => {
+                const target = parseInt(element.getAttribute('data-target'));
+                const duration = 1500;
+                const start = 0;
+                const startTime = performance.now();
+
+                function updateValue(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    // Easing function
+                    const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                    const current = Math.floor(start + (target - start) * easeOutQuart);
+
+                    // Format with commas
+                    element.textContent = '$' + current.toLocaleString() + 'K';
+
+                    if (progress < 1) {
+                        requestAnimationFrame(updateValue);
+                    } else {
+                        element.textContent = '$' + target.toLocaleString() + 'K';
+                    }
+                }
+
+                requestAnimationFrame(updateValue);
+            });
+        });
+
+        // Column highlighting on table row hover
+        const tableRows = document.querySelectorAll('.data-table tbody tr');
+        tableRows.forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                const cells = this.querySelectorAll('td');
+                cells.forEach((cell, index) => {
+                    const headerCell = document.querySelector(`.data-table thead th:nth-child(${index + 1})`);
+                    if (headerCell) {
+                        headerCell.style.background = 'var(--navy-primary)';
+                        headerCell.style.color = 'white';
+                    }
+                });
+            });
+
+            row.addEventListener('mouseleave', function() {
+                const headers = document.querySelectorAll('.data-table thead th');
+                headers.forEach(header => {
+                    header.style.background = 'var(--bg-tertiary)';
+                    header.style.color = 'var(--navy-primary)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Executive Boardroom Dashboard | Darno Analytics</title>
+  <!-- Agent: Darno | Theme: Executive Boardroom | Intent: Data-dense executive analytics with precision information architecture for board-level decision clarity -->
+  <style>
+    :root {
+      --bg-base: #1a1f2e;
+      --bg-elevated: #0f1419;
+      --bg-card: #252b3a;
+      --accent-primary: #7a8fa3;
+      --accent-muted: #4a5668;
+      --accent-gold: #b8956a;
+      --text-primary: #f4f6f8;
+      --text-secondary: #bec5d1;
+      --text-muted: #8892a0;
+      --border: #363d4e;
+      --border-light: #2a3140;
+      --success: #6b9f78;
+      --danger: #c47373;
+      --warn: #c7a872;
+      --radius: 6px;
+      --shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: all 0.18s ease-out;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-variant-numeric: tabular-nums;
+      background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 50%, #1a1f2e 100%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      grid-template-rows: auto 1fr auto;
+      grid-template-areas:
+        "sidebar header"
+        "sidebar main"
+        "sidebar footer";
+    }
+
+    header {
+      grid-area: header;
+      background: rgba(15, 20, 25, 0.75);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-left h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .header-left p {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .header-right {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .context-pill {
+      padding: 6px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      letter-spacing: 0.02em;
+    }
+
+    .btn {
+      padding: 7px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--accent-muted);
+      border-radius: 3px;
+      color: var(--text-secondary);
+      font-size: 11px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      font-weight: 500;
+    }
+
+    .btn:hover {
+      background: var(--accent-muted);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    aside {
+      grid-area: sidebar;
+      background: var(--bg-elevated);
+      border-right: 1px solid var(--border);
+      padding: 24px 0;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .sidebar-brand {
+      padding: 0 20px 20px;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 20px;
+    }
+
+    .sidebar-brand .agent-name {
+      font-family: Georgia, serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--accent-gold);
+      letter-spacing: 0.02em;
+      margin-bottom: 4px;
+    }
+
+    .sidebar-brand .agent-role {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .nav-section {
+      padding: 0 12px;
+      margin-bottom: 20px;
+    }
+
+    .nav-title {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      padding: 0 8px 8px;
+      font-weight: 600;
+    }
+
+    .nav-list {
+      list-style: none;
+    }
+
+    .nav-item {
+      padding: 9px 12px;
+      margin: 2px 0;
+      border-radius: 3px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid transparent;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      background: rgba(122, 143, 163, 0.12);
+      color: var(--text-primary);
+      border-color: var(--accent-muted);
+    }
+
+    .nav-icon {
+      width: 4px;
+      height: 4px;
+      background: var(--accent-muted);
+      border-radius: 50%;
+    }
+
+    .nav-item.active .nav-icon {
+      background: var(--accent-gold);
+    }
+
+    main {
+      grid-area: main;
+      padding: 24px 28px;
+      overflow-y: auto;
+    }
+
+    .section {
+      margin-bottom: 24px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .section-title {
+      font-family: Georgia, serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .section-meta {
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid-6 {
+      grid-template-columns: repeat(6, 1fr);
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .grid-2 {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(122, 143, 163, 0.06), transparent 70%);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent-muted);
+    }
+
+    .kpi-card {
+      text-align: center;
+      padding: 18px 14px;
+    }
+
+    .kpi-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .kpi-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+
+    .kpi-delta {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 2px;
+      display: inline-block;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .kpi-delta.positive {
+      background: rgba(107, 159, 120, 0.18);
+      color: var(--success);
+      border: 1px solid rgba(107, 159, 120, 0.4);
+    }
+
+    .kpi-delta.negative {
+      background: rgba(196, 115, 115, 0.18);
+      color: var(--danger);
+      border: 1px solid rgba(196, 115, 115, 0.4);
+    }
+
+    .kpi-meta {
+      font-size: 10px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .kpi-benchmark {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .sparkline {
+      margin-top: 12px;
+      height: 20px;
+      background: linear-gradient(to right,
+        rgba(122, 143, 163, 0.15),
+        rgba(122, 143, 163, 0.35),
+        rgba(107, 159, 120, 0.25));
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sparkline::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -30%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.08), transparent);
+      animation: shimmer 4s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(300%); }
+    }
+
+    .chart-card {
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .chart-header {
+      margin-bottom: 14px;
+    }
+
+    .chart-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .chart-subtitle {
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .chart-placeholder {
+      flex: 1;
+      background: var(--bg-elevated);
+      border: 1px dashed var(--border);
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-grid {
+      position: absolute;
+      inset: 12px;
+      background-image:
+        linear-gradient(to right, rgba(190, 197, 209, 0.08) 1px, transparent 1px),
+        linear-gradient(to top, rgba(190, 197, 209, 0.08) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    .chart-line {
+      position: absolute;
+      inset: 15% 10% 20% 8%;
+      border-radius: 3px;
+      border: 2px solid rgba(122, 143, 163, 0.7);
+      transform: skewX(-6deg);
+      filter: drop-shadow(0 0 12px rgba(122, 143, 163, 0.4));
+    }
+
+    .chart-annotation {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      font-size: 9px;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      padding: 4px 8px;
+      border-radius: 2px;
+      border: 1px solid var(--border);
+    }
+
+    .table-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .table-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .table-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+
+    .table-subtitle {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 12px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 11px;
+    }
+
+    .data-table th {
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 10px;
+    }
+
+    .data-table td {
+      color: var(--text-secondary);
+    }
+
+    .data-table tbody tr:hover {
+      background: rgba(122, 143, 163, 0.05);
+    }
+
+    .table-numeric {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 2px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .status-badge.on-track {
+      background: rgba(107, 159, 120, 0.18);
+      color: var(--success);
+      border: 1px solid rgba(107, 159, 120, 0.35);
+    }
+
+    .status-badge.at-risk {
+      background: rgba(199, 168, 114, 0.18);
+      color: var(--warn);
+      border: 1px solid rgba(199, 168, 114, 0.35);
+    }
+
+    .status-badge.critical {
+      background: rgba(196, 115, 115, 0.18);
+      color: var(--danger);
+      border: 1px solid rgba(196, 115, 115, 0.35);
+    }
+
+    .variance-cell {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .variance-bar {
+      width: 60px;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .variance-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background: var(--success);
+      transition: width 0.3s ease-out;
+    }
+
+    .variance-fill.negative {
+      background: var(--danger);
+    }
+
+    .insight-panel {
+      padding: 20px;
+    }
+
+    .insight-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .insight-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      background: var(--bg-elevated);
+      border-left: 3px solid var(--accent-muted);
+      border-radius: 3px;
+    }
+
+    .insight-icon {
+      font-size: 16px;
+      line-height: 1;
+      opacity: 0.7;
+    }
+
+    .insight-content {
+      flex: 1;
+    }
+
+    .insight-text {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 4px;
+    }
+
+    .insight-text strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .insight-action {
+      font-size: 10px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .alert-banner {
+      background: rgba(199, 168, 114, 0.12);
+      border: 1px solid var(--warn);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .alert-icon {
+      width: 6px;
+      height: 6px;
+      background: var(--warn);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(2); opacity: 0.3; }
+    }
+
+    .alert-text {
+      font-size: 11px;
+      color: var(--warn);
+      flex: 1;
+    }
+
+    .alert-text strong {
+      font-weight: 700;
+    }
+
+    footer {
+      grid-area: footer;
+      background: var(--bg-elevated);
+      border-top: 1px solid var(--border);
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-info {
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .footer-info strong {
+      color: var(--text-secondary);
+    }
+
+    .footer-agent {
+      font-size: 10px;
+      color: var(--accent-gold);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 960px) {
+      body {
+        grid-template-columns: 60px 1fr;
+      }
+
+      aside {
+        padding: 20px 0;
+      }
+
+      .sidebar-brand .agent-role,
+      .nav-item span:not(.nav-icon) {
+        display: none;
+      }
+
+      .grid-6 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "header"
+          "main"
+          "footer";
+      }
+
+      aside {
+        display: none;
+      }
+
+      .grid-6,
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .header-right {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <aside>
+    <div class="sidebar-brand">
+      <div class="agent-name">Darno</div>
+      <div class="agent-role">Analytical UX · Data Precision</div>
+    </div>
+
+    <nav class="nav-section">
+      <div class="nav-title">Dashboard</div>
+      <ul class="nav-list">
+        <li class="nav-item active">
+          <span class="nav-icon"></span>
+          <span>Executive Overview</span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-icon"></span>
+          <span>Financial Summary</span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-icon"></span>
+          <span>Operational Metrics</span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-icon"></span>
+          <span>Strategic Initiatives</span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-icon"></span>
+          <span>Risk Assessment</span>
+        </li>
+      </ul>
+    </nav>
+
+    <nav class="nav-section">
+      <div class="nav-title">Analysis</div>
+      <ul class="nav-list">
+        <li class="nav-item">
+          <span class="nav-icon"></span>
+          <span>Variance Analysis</span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-icon"></span>
+          <span>Trend Modeling</span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-icon"></span>
+          <span>Benchmarks</span>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <header>
+    <div class="header-left">
+      <h1>Quarterly Board Performance Review</h1>
+      <p>Q4 2024 · Comprehensive Executive Analysis</p>
+    </div>
+    <div class="header-right">
+      <div class="context-pill">Period: Oct 1 – Dec 31, 2024</div>
+      <div class="context-pill">Scenario: Baseline</div>
+      <button class="btn">Export Report</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="alert-banner">
+      <div class="alert-icon"></div>
+      <div class="alert-text">
+        <strong>Board Attention Required:</strong> 2 strategic initiatives require immediate review. Revenue forecast variance at +8.4% vs plan.
+      </div>
+    </div>
+
+    <!-- Primary KPI Strip -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-title">Core Performance Indicators</div>
+        <div class="section-meta">Quarter-over-quarter comparison · All figures audited</div>
+      </div>
+      <div class="grid grid-6">
+        <div class="card kpi-card">
+          <div class="kpi-label">Quarterly Revenue</div>
+          <div class="kpi-value">$4.28M</div>
+          <div class="kpi-delta positive">+8.4%</div>
+          <div class="kpi-meta">
+            <div class="kpi-benchmark">Target: $3.95M</div>
+          </div>
+          <div class="sparkline"></div>
+        </div>
+
+        <div class="card kpi-card">
+          <div class="kpi-label">EBITDA Margin</div>
+          <div class="kpi-value">24.3%</div>
+          <div class="kpi-delta positive">+1.8pts</div>
+          <div class="kpi-meta">
+            <div class="kpi-benchmark">Target: 22.0%</div>
+          </div>
+          <div class="sparkline"></div>
+        </div>
+
+        <div class="card kpi-card">
+          <div class="kpi-label">Operating Cash Flow</div>
+          <div class="kpi-value">$1.04M</div>
+          <div class="kpi-delta positive">+12.1%</div>
+          <div class="kpi-meta">
+            <div class="kpi-benchmark">YoY Growth</div>
+          </div>
+          <div class="sparkline"></div>
+        </div>
+
+        <div class="card kpi-card">
+          <div class="kpi-label">Customer Retention</div>
+          <div class="kpi-value">94.7%</div>
+          <div class="kpi-delta positive">+2.3pts</div>
+          <div class="kpi-meta">
+            <div class="kpi-benchmark">Industry: 89%</div>
+          </div>
+          <div class="sparkline"></div>
+        </div>
+
+        <div class="card kpi-card">
+          <div class="kpi-label">Net Promoter Score</div>
+          <div class="kpi-value">68</div>
+          <div class="kpi-delta positive">+5</div>
+          <div class="kpi-meta">
+            <div class="kpi-benchmark">Benchmark: 58</div>
+          </div>
+          <div class="sparkline"></div>
+        </div>
+
+        <div class="card kpi-card">
+          <div class="kpi-label">Employee Engagement</div>
+          <div class="kpi-value">82%</div>
+          <div class="kpi-delta negative">-3pts</div>
+          <div class="kpi-meta">
+            <div class="kpi-benchmark">Action Required</div>
+          </div>
+          <div class="sparkline"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Financial Performance Detail -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-title">Financial Performance Breakdown</div>
+        <div class="section-meta">Variance analysis vs. approved budget</div>
+      </div>
+      <div class="card table-card">
+        <div class="table-header">
+          <div class="table-title">Revenue & Profitability Analysis</div>
+          <div class="table-subtitle">All values in thousands (USD) · Variance shown as percentage of budget</div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Line Item</th>
+              <th class="table-numeric">Budget</th>
+              <th class="table-numeric">Actual</th>
+              <th class="table-numeric">Variance</th>
+              <th class="table-numeric">Var %</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Product Revenue</td>
+              <td class="table-numeric">$2,850</td>
+              <td class="table-numeric">$3,120</td>
+              <td class="table-numeric">+$270</td>
+              <td class="table-numeric">+9.5%</td>
+              <td><span class="status-badge on-track">On Track</span></td>
+            </tr>
+            <tr>
+              <td>Services Revenue</td>
+              <td class="table-numeric">$1,100</td>
+              <td class="table-numeric">$1,160</td>
+              <td class="table-numeric">+$60</td>
+              <td class="table-numeric">+5.5%</td>
+              <td><span class="status-badge on-track">On Track</span></td>
+            </tr>
+            <tr>
+              <td>Gross Profit</td>
+              <td class="table-numeric">$2,370</td>
+              <td class="table-numeric">$2,568</td>
+              <td class="table-numeric">+$198</td>
+              <td class="table-numeric">+8.4%</td>
+              <td><span class="status-badge on-track">On Track</span></td>
+            </tr>
+            <tr>
+              <td>Operating Expenses</td>
+              <td class="table-numeric">$1,580</td>
+              <td class="table-numeric">$1,528</td>
+              <td class="table-numeric">-$52</td>
+              <td class="table-numeric">-3.3%</td>
+              <td><span class="status-badge on-track">On Track</span></td>
+            </tr>
+            <tr>
+              <td>R&D Investment</td>
+              <td class="table-numeric">$420</td>
+              <td class="table-numeric">$448</td>
+              <td class="table-numeric">+$28</td>
+              <td class="table-numeric">+6.7%</td>
+              <td><span class="status-badge at-risk">Monitor</span></td>
+            </tr>
+            <tr>
+              <td>EBITDA</td>
+              <td class="table-numeric">$870</td>
+              <td class="table-numeric">$1,040</td>
+              <td class="table-numeric">+$170</td>
+              <td class="table-numeric">+19.5%</td>
+              <td><span class="status-badge on-track">Exceeds</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Charts and Insights -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-title">Trend Analysis & Strategic Insights</div>
+        <div class="section-meta">Rolling 12-month perspective with forward indicators</div>
+      </div>
+      <div class="grid grid-2">
+        <div class="card chart-card">
+          <div class="chart-header">
+            <div class="chart-title">Revenue Performance Trajectory</div>
+            <div class="chart-subtitle">Quarterly revenue vs. forecast with trend projection</div>
+          </div>
+          <div class="chart-placeholder">
+            <div class="chart-grid"></div>
+            <div class="chart-line"></div>
+            <div class="chart-annotation">Actual exceeds forecast by 8.4% · Projection stable</div>
+          </div>
+        </div>
+
+        <div class="card insight-panel">
+          <div class="chart-header">
+            <div class="chart-title">Executive Summary</div>
+            <div class="chart-subtitle">Key observations requiring board attention</div>
+          </div>
+          <ul class="insight-list">
+            <li class="insight-item">
+              <div class="insight-icon">▲</div>
+              <div class="insight-content">
+                <div class="insight-text">
+                  <strong>Revenue outperformance</strong> driven by enterprise segment expansion (+14.2%) and higher-than-expected product attach rates.
+                </div>
+                <div class="insight-action">Recommendation: Accelerate enterprise GTM investment by $150K in Q1 2025</div>
+              </div>
+            </li>
+            <li class="insight-item">
+              <div class="insight-icon">●</div>
+              <div class="insight-content">
+                <div class="insight-text">
+                  <strong>Operating efficiency gains</strong> from process automation yielded 3.3% expense reduction while maintaining service quality.
+                </div>
+                <div class="insight-action">Action: Scale automation playbook to additional departments</div>
+              </div>
+            </li>
+            <li class="insight-item">
+              <div class="insight-icon">⚠</div>
+              <div class="insight-content">
+                <div class="insight-text">
+                  <strong>Employee engagement decline</strong> concentrated in mid-level management; exit survey data indicates compensation concerns.
+                </div>
+                <div class="insight-action">Priority: Conduct compensation benchmarking and retention planning</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Strategic Initiatives Table -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-title">Strategic Initiative Portfolio Status</div>
+        <div class="section-meta">Board-approved initiatives with current progress assessment</div>
+      </div>
+      <div class="card table-card">
+        <div class="table-header">
+          <div class="table-title">Initiative Tracking & Risk Assessment</div>
+          <div class="table-subtitle">Status as of Dec 31, 2024 · Next board review: Jan 28, 2025</div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Initiative Name</th>
+              <th>Executive Owner</th>
+              <th class="table-numeric">Budget ($K)</th>
+              <th class="table-numeric">Spent</th>
+              <th class="table-numeric">Progress</th>
+              <th>Timeline</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Enterprise Product Suite Launch</td>
+              <td>J. Morrison, CPO</td>
+              <td class="table-numeric">$850</td>
+              <td class="table-numeric">$680</td>
+              <td class="table-numeric">78%</td>
+              <td>Q1 2025</td>
+              <td><span class="status-badge on-track">On Track</span></td>
+            </tr>
+            <tr>
+              <td>European Market Expansion</td>
+              <td>S. Chen, CRO</td>
+              <td class="table-numeric">$1,200</td>
+              <td class="table-numeric">$945</td>
+              <td class="table-numeric">62%</td>
+              <td>Q2 2025</td>
+              <td><span class="status-badge at-risk">At Risk</span></td>
+            </tr>
+            <tr>
+              <td>Data Infrastructure Modernization</td>
+              <td>R. Patel, CTO</td>
+              <td class="table-numeric">$620</td>
+              <td class="table-numeric">$590</td>
+              <td class="table-numeric">85%</td>
+              <td>Q1 2025</td>
+              <td><span class="status-badge on-track">On Track</span></td>
+            </tr>
+            <tr>
+              <td>Customer Success Platform Rebuild</td>
+              <td>M. Rodriguez, CCO</td>
+              <td class="table-numeric">$380</td>
+              <td class="table-numeric">$295</td>
+              <td class="table-numeric">92%</td>
+              <td>Dec 2024</td>
+              <td><span class="status-badge on-track">Complete</span></td>
+            </tr>
+            <tr>
+              <td>Supply Chain Optimization Program</td>
+              <td>K. Yamamoto, COO</td>
+              <td class="table-numeric">$540</td>
+              <td class="table-numeric">$615</td>
+              <td class="table-numeric">48%</td>
+              <td>Q3 2025</td>
+              <td><span class="status-badge critical">Critical</span></td>
+            </tr>
+            <tr>
+              <td>Talent Development Framework</td>
+              <td>L. Thompson, CHRO</td>
+              <td class="table-numeric">$280</td>
+              <td class="table-numeric">$220</td>
+              <td class="table-numeric">71%</td>
+              <td>Q2 2025</td>
+              <td><span class="status-badge on-track">On Track</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Operational Metrics Chart -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-title">Operational Excellence Metrics</div>
+        <div class="section-meta">Cross-functional performance indicators</div>
+      </div>
+      <div class="grid grid-2">
+        <div class="card chart-card">
+          <div class="chart-header">
+            <div class="chart-title">Operational Efficiency Trends</div>
+            <div class="chart-subtitle">Key operational KPIs with benchmarks</div>
+          </div>
+          <div class="chart-placeholder">
+            <div class="chart-grid"></div>
+            <div class="chart-line"></div>
+            <div class="chart-annotation">Multi-metric view · Delivery & quality composite</div>
+          </div>
+        </div>
+
+        <div class="card chart-card">
+          <div class="chart-header">
+            <div class="chart-title">Customer Acquisition & Retention</div>
+            <div class="chart-subtitle">Growth funnel analysis with cohort performance</div>
+          </div>
+          <div class="chart-placeholder">
+            <div class="chart-grid"></div>
+            <div class="chart-line"></div>
+            <div class="chart-annotation">CAC trending down · LTV/CAC ratio improving</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-info">
+      Last Updated: <strong>January 3, 2025</strong> · Data Source: Financial Systems & Executive Reports · Confidential Board Material
+    </div>
+    <div class="footer-agent">Design: DARNO · Analytical UX</div>
+  </footer>
+
+  <script>
+    // Minimal navigation interactivity
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', function() {
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Simulated variance bar fill animation on load
+    window.addEventListener('load', function() {
+      document.querySelectorAll('.variance-fill').forEach(bar => {
+        const width = bar.dataset.width || '75%';
+        setTimeout(() => bar.style.width = width, 100);
+      });
+    });
+  </script>
+</body>
+</html>

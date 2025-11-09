@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dark Ops Command Center — Zeeqa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Agent: Zeeqa | Theme: Dark Ops Command Center | Intent: Disciplined minimalism meets operational vigilance—restrained neon emphasis on critical monitoring data -->
+  <style>
+    :root {
+      --void: #050509;
+      --void-elevated: #0a0b11;
+      --void-card: #0d0e16;
+      --grid-line: #1a1b26;
+      --text: #e8e9ed;
+      --text-muted: #6b7280;
+      --text-dim: #4b5563;
+      --cyan: #06b6d4;
+      --cyan-glow: rgba(6, 182, 212, 0.4);
+      --lime: #84cc16;
+      --lime-glow: rgba(132, 204, 22, 0.35);
+      --magenta: #e879f9;
+      --magenta-glow: rgba(232, 121, 249, 0.35);
+      --alert: #ef4444;
+      --alert-glow: rgba(239, 68, 68, 0.5);
+      --border: #1f2937;
+      --radius: 2px;
+      --spacing: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: all 0.2s ease-out;
+    }
+
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: var(--void);
+      color: var(--text);
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      grid-template-rows: auto 1fr auto;
+      grid-template-areas:
+        "sidebar header"
+        "sidebar main"
+        "sidebar footer";
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+      position: relative;
+    }
+
+    /* Subtle grid background */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Scan-line effect - very subtle */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(6, 182, 212, 0.02) 50%,
+        transparent 100%
+      );
+      animation: scan 8s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.6;
+    }
+
+    @keyframes scan {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+
+    header,
+    aside,
+    main,
+    footer {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* HEADER */
+    header {
+      grid-area: header;
+      padding: var(--spacing);
+      border-bottom: 1px solid var(--border);
+      background: var(--void-elevated);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--spacing);
+    }
+
+    .header-title h1 {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .header-title p {
+      font-size: 11px;
+      color: var(--text-dim);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--lime);
+      box-shadow: 0 0 12px var(--lime-glow);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.9); }
+    }
+
+    .agent-badge {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    /* SIDEBAR */
+    aside {
+      grid-area: sidebar;
+      border-right: 1px solid var(--border);
+      background: var(--void-elevated);
+      padding: var(--spacing);
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .nav-section-title {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      padding: 10px 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-left: 2px solid transparent;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-item:hover {
+      color: var(--text);
+      background: rgba(6, 182, 212, 0.05);
+      border-left-color: var(--cyan);
+    }
+
+    .nav-item.active {
+      color: var(--cyan);
+      background: rgba(6, 182, 212, 0.08);
+      border-left-color: var(--cyan);
+      font-weight: 500;
+    }
+
+    /* MAIN */
+    main {
+      grid-area: main;
+      padding: var(--spacing);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing);
+    }
+
+    .section-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+
+    /* Alert Banner */
+    .alert-strip {
+      background: var(--void-card);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-left: 3px solid var(--alert);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+    }
+
+    .alert-strip .pulse-dot {
+      background: var(--alert);
+      box-shadow: 0 0 16px var(--alert-glow);
+    }
+
+    .alert-strip strong {
+      color: var(--alert);
+      font-weight: 600;
+    }
+
+    /* Grid Layouts */
+    .grid {
+      display: grid;
+      gap: var(--spacing);
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .grid-2 {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    /* Card Base */
+    .card {
+      background: var(--void-card);
+      border: 1px solid var(--border);
+      padding: 20px;
+      position: relative;
+      border-radius: var(--radius);
+    }
+
+    .card:hover {
+      border-color: rgba(6, 182, 212, 0.3);
+    }
+
+    /* KPI Card */
+    .kpi-card .kpi-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .kpi-card .kpi-value {
+      font-size: 32px;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .kpi-card .kpi-delta {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .kpi-card .kpi-delta .badge {
+      padding: 2px 8px;
+      border-radius: var(--radius);
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    .kpi-card .kpi-delta .badge.up {
+      background: rgba(132, 204, 22, 0.15);
+      color: var(--lime);
+      border: 1px solid rgba(132, 204, 22, 0.3);
+    }
+
+    .kpi-card .kpi-delta .badge.down {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--alert);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .kpi-card .sparkline {
+      height: 32px;
+      width: 100%;
+      background: linear-gradient(to right, transparent, rgba(6, 182, 212, 0.15), rgba(6, 182, 212, 0.25));
+      border-radius: var(--radius);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card .sparkline::before {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan-glow);
+    }
+
+    .kpi-card.accent-lime .sparkline {
+      background: linear-gradient(to right, transparent, rgba(132, 204, 22, 0.15), rgba(132, 204, 22, 0.25));
+    }
+
+    .kpi-card.accent-lime .sparkline::before {
+      background: var(--lime);
+      box-shadow: 0 0 8px var(--lime-glow);
+    }
+
+    .kpi-card.accent-magenta .sparkline {
+      background: linear-gradient(to right, transparent, rgba(232, 121, 249, 0.15), rgba(232, 121, 249, 0.25));
+    }
+
+    .kpi-card.accent-magenta .sparkline::before {
+      background: var(--magenta);
+      box-shadow: 0 0 8px var(--magenta-glow);
+    }
+
+    .kpi-card.accent-alert .sparkline {
+      background: linear-gradient(to right, transparent, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.25));
+    }
+
+    .kpi-card.accent-alert .sparkline::before {
+      background: var(--alert);
+      box-shadow: 0 0 8px var(--alert-glow);
+    }
+
+    /* Chart Card */
+    .chart-card .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .chart-card .chart-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .chart-card .chart-meta {
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+    }
+
+    .chart-placeholder {
+      height: 220px;
+      background: var(--void);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-placeholder .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity: 0.5;
+    }
+
+    .chart-placeholder .trend-line {
+      position: absolute;
+      bottom: 15%;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--cyan), var(--cyan));
+      box-shadow: 0 0 12px var(--cyan-glow);
+      transform: rotate(-2deg);
+    }
+
+    .chart-placeholder .trend-line::before {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 16px var(--cyan-glow);
+      transform: translate(50%, -50%);
+    }
+
+    .chart-placeholder .chart-label {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      background: var(--void-card);
+      padding: 4px 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    /* Table */
+    .table-container {
+      overflow-x: auto;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .data-table thead th {
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      background: var(--void);
+    }
+
+    .data-table tbody td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .data-table tbody tr:hover {
+      background: rgba(6, 182, 212, 0.03);
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: var(--radius);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      border: 1px solid;
+    }
+
+    .status-pill.online {
+      background: rgba(132, 204, 22, 0.12);
+      color: var(--lime);
+      border-color: rgba(132, 204, 22, 0.3);
+    }
+
+    .status-pill.degraded {
+      background: rgba(232, 121, 249, 0.12);
+      color: var(--magenta);
+      border-color: rgba(232, 121, 249, 0.3);
+    }
+
+    .status-pill.offline {
+      background: rgba(239, 68, 68, 0.12);
+      color: var(--alert);
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .status-pill.active {
+      background: rgba(6, 182, 212, 0.12);
+      color: var(--cyan);
+      border-color: rgba(6, 182, 212, 0.3);
+    }
+
+    /* Timeline / Event Stream */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline-item:last-child {
+      border-bottom: none;
+    }
+
+    .timeline-time {
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+      width: 80px;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .timeline-content {
+      flex: 1;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .timeline-content strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .timeline-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    .timeline-indicator.info {
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan-glow);
+    }
+
+    .timeline-indicator.warn {
+      background: var(--magenta);
+      box-shadow: 0 0 8px var(--magenta-glow);
+    }
+
+    .timeline-indicator.critical {
+      background: var(--alert);
+      box-shadow: 0 0 8px var(--alert-glow);
+    }
+
+    /* Status Panel */
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+    }
+
+    .status-item:last-child {
+      border-bottom: none;
+    }
+
+    .status-item .label {
+      color: var(--text-muted);
+      letter-spacing: 0.01em;
+    }
+
+    .status-item .value {
+      color: var(--text);
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Footer */
+    footer {
+      grid-area: footer;
+      padding: var(--spacing);
+      border-top: 1px solid var(--border);
+      background: var(--void-elevated);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      color: var(--text-dim);
+    }
+
+    footer .agent-signature {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      body {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "header"
+          "main"
+          "footer";
+      }
+      aside {
+        display: none;
+      }
+      .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .status-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+      .header-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <aside>
+    <nav>
+      <div class="nav-section-title">Monitoring</div>
+      <ul class="nav-list">
+        <li class="nav-item active">Overview</li>
+        <li class="nav-item">Infrastructure</li>
+        <li class="nav-item">Services</li>
+        <li class="nav-item">Alerts</li>
+        <li class="nav-item">Incidents</li>
+        <li class="nav-item">Metrics</li>
+      </ul>
+    </nav>
+    <nav>
+      <div class="nav-section-title">System</div>
+      <ul class="nav-list">
+        <li class="nav-item">Configuration</li>
+        <li class="nav-item">Logs</li>
+        <li class="nav-item">Reports</li>
+      </ul>
+    </nav>
+  </aside>
+
+  <header>
+    <div class="header-title">
+      <h1>Operations Command Center</h1>
+      <p>Infrastructure monitoring and system status</p>
+    </div>
+    <div class="header-meta">
+      <div class="status-indicator">
+        <div class="pulse-dot"></div>
+        <span>All Systems Operational</span>
+      </div>
+      <div>Last sync: 2 seconds ago</div>
+      <div class="agent-badge">Zeeqa</div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Alert Banner -->
+    <div class="alert-strip">
+      <div class="pulse-dot"></div>
+      <div>
+        <strong>2 critical alerts</strong> require immediate attention — Database cluster latency elevated, API gateway error rate spike
+      </div>
+    </div>
+
+    <!-- KPI Strip -->
+    <section>
+      <div class="section-label">System Health Indicators</div>
+      <div class="grid grid-4">
+        <div class="card kpi-card">
+          <div class="kpi-label">System Uptime</div>
+          <div class="kpi-value">99.97%</div>
+          <div class="kpi-delta">
+            <span class="badge up">+0.02%</span>
+            <span>vs. last 30d</span>
+          </div>
+          <div class="sparkline"></div>
+        </div>
+
+        <div class="card kpi-card accent-lime">
+          <div class="kpi-label">Active Services</div>
+          <div class="kpi-value">847</div>
+          <div class="kpi-delta">
+            <span class="badge up">+12</span>
+            <span>since 00:00 UTC</span>
+          </div>
+          <div class="sparkline"></div>
+        </div>
+
+        <div class="card kpi-card accent-magenta">
+          <div class="kpi-label">Avg Response Time</div>
+          <div class="kpi-value">142ms</div>
+          <div class="kpi-delta">
+            <span class="badge down">+18ms</span>
+            <span>vs. baseline</span>
+          </div>
+          <div class="sparkline"></div>
+        </div>
+
+        <div class="card kpi-card accent-alert">
+          <div class="kpi-label">Active Incidents</div>
+          <div class="kpi-value">2</div>
+          <div class="kpi-delta">
+            <span class="badge down">+2</span>
+            <span>last 15 min</span>
+          </div>
+          <div class="sparkline"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Charts & Status -->
+    <section>
+      <div class="section-label">Performance Trends</div>
+      <div class="grid grid-2">
+        <div class="card chart-card">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Request Throughput</div>
+              <div class="chart-meta">Real-time monitoring</div>
+            </div>
+          </div>
+          <div class="chart-placeholder">
+            <div class="grid-overlay"></div>
+            <div class="trend-line"></div>
+            <div class="chart-label">Live Data Stream</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">System Status</div>
+              <div class="chart-meta">Current state</div>
+            </div>
+          </div>
+          <div class="status-grid">
+            <div>
+              <div class="status-item">
+                <span class="label">CPU Load</span>
+                <span class="value">47%</span>
+              </div>
+              <div class="status-item">
+                <span class="label">Memory</span>
+                <span class="value">62%</span>
+              </div>
+              <div class="status-item">
+                <span class="label">Disk I/O</span>
+                <span class="value">23%</span>
+              </div>
+            </div>
+            <div>
+              <div class="status-item">
+                <span class="label">Network In</span>
+                <span class="value">1.2 GB/s</span>
+              </div>
+              <div class="status-item">
+                <span class="label">Network Out</span>
+                <span class="value">840 MB/s</span>
+              </div>
+              <div class="status-item">
+                <span class="label">Connections</span>
+                <span class="value">3,247</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Additional Chart -->
+    <section>
+      <div class="section-label">Infrastructure Metrics</div>
+      <div class="card chart-card">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Service Availability Matrix</div>
+            <div class="chart-meta">Last 24 hours</div>
+          </div>
+        </div>
+        <div class="chart-placeholder">
+          <div class="grid-overlay"></div>
+          <div class="chart-label">Heatmap Visualization</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Service Status Table -->
+    <section>
+      <div class="section-label">Service Monitor</div>
+      <div class="card">
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Service Name</th>
+                <th>Endpoint</th>
+                <th>Status</th>
+                <th>Latency</th>
+                <th>Last Check</th>
+                <th>Uptime</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>API Gateway</td>
+                <td>api.production.internal</td>
+                <td><span class="status-pill online">Online</span></td>
+                <td>98ms</td>
+                <td>2s ago</td>
+                <td>99.98%</td>
+              </tr>
+              <tr>
+                <td>Auth Service</td>
+                <td>auth.production.internal</td>
+                <td><span class="status-pill online">Online</span></td>
+                <td>45ms</td>
+                <td>2s ago</td>
+                <td>99.99%</td>
+              </tr>
+              <tr>
+                <td>Database Cluster</td>
+                <td>db-primary.internal</td>
+                <td><span class="status-pill degraded">Degraded</span></td>
+                <td>342ms</td>
+                <td>1s ago</td>
+                <td>99.94%</td>
+              </tr>
+              <tr>
+                <td>Cache Layer</td>
+                <td>redis.production.internal</td>
+                <td><span class="status-pill online">Online</span></td>
+                <td>12ms</td>
+                <td>2s ago</td>
+                <td>100.0%</td>
+              </tr>
+              <tr>
+                <td>Message Queue</td>
+                <td>mq.production.internal</td>
+                <td><span class="status-pill online">Online</span></td>
+                <td>67ms</td>
+                <td>3s ago</td>
+                <td>99.97%</td>
+              </tr>
+              <tr>
+                <td>Search Index</td>
+                <td>search.production.internal</td>
+                <td><span class="status-pill active">Active</span></td>
+                <td>123ms</td>
+                <td>2s ago</td>
+                <td>99.95%</td>
+              </tr>
+              <tr>
+                <td>CDN Origin</td>
+                <td>cdn-origin.internal</td>
+                <td><span class="status-pill online">Online</span></td>
+                <td>201ms</td>
+                <td>4s ago</td>
+                <td>99.91%</td>
+              </tr>
+              <tr>
+                <td>Analytics Pipeline</td>
+                <td>analytics.internal</td>
+                <td><span class="status-pill offline">Offline</span></td>
+                <td>—</td>
+                <td>47s ago</td>
+                <td>98.12%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Event Stream / Timeline -->
+    <section>
+      <div class="section-label">Recent Events</div>
+      <div class="card">
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-time">23:47:12</div>
+            <div class="timeline-indicator critical"></div>
+            <div class="timeline-content">
+              <strong>Critical Alert:</strong> Analytics Pipeline service unresponsive - automatic failover initiated
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">23:42:08</div>
+            <div class="timeline-indicator warn"></div>
+            <div class="timeline-content">
+              <strong>Warning:</strong> Database cluster latency above threshold (340ms avg) - investigating
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">23:38:45</div>
+            <div class="timeline-indicator info"></div>
+            <div class="timeline-content">
+              Scheduled maintenance completed on CDN nodes - all regions operational
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">23:21:33</div>
+            <div class="timeline-indicator info"></div>
+            <div class="timeline-content">
+              Auto-scaling triggered: 12 new service instances deployed in US-WEST region
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">23:15:09</div>
+            <div class="timeline-indicator info"></div>
+            <div class="timeline-content">
+              Cache invalidation complete across all regions - hit rate normalized at 94.2%
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">23:08:22</div>
+            <div class="timeline-indicator warn"></div>
+            <div class="timeline-content">
+              <strong>Warning:</strong> Elevated error rate on API Gateway endpoint /v2/data - rate limiting applied
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">22:56:11</div>
+            <div class="timeline-indicator info"></div>
+            <div class="timeline-content">
+              System health check passed - all core services within operational parameters
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>Operations Command Center v2.4.1 — Real-time infrastructure monitoring</div>
+    <div class="agent-signature">Design: Zeeqa</div>
+  </footer>
+
+  <script>
+    // Minimal interactivity
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

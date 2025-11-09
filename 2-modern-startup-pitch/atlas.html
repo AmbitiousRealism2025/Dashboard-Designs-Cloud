@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas - Modern Startup Pitch Dashboard</title>
+    <!-- Agent: Atlas | Theme: Modern Startup Pitch | Intent: Operational mission control for startup growth with multi-stakeholder metrics visibility and real-time status monitoring -->
+    <style>
+        /* CSS Custom Properties - Modern Startup Pitch Theme */
+        :root {
+            --bg-primary: #fafbfc;
+            --bg-secondary: #ffffff;
+            --text-primary: #1a1d21;
+            --text-secondary: #5a6470;
+            --text-muted: #8b95a1;
+
+            /* Gradient Accent System */
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-warn: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+
+            /* Solid Accents */
+            --accent-primary: #667eea;
+            --accent-secondary: #764ba2;
+            --success: #10b981;
+            --warn: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+
+            /* Pastel Secondary Colors */
+            --pastel-purple: #e9d5ff;
+            --pastel-blue: #dbeafe;
+            --pastel-green: #d1fae5;
+            --pastel-orange: #fed7aa;
+            --pastel-pink: #fce7f3;
+
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 0.75rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        body {
+            font-family: 'Inter', 'Helvetica Neue', system-ui, -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: grid;
+            grid-template-areas:
+                "header header"
+                "aside main"
+                "aside footer";
+            grid-template-columns: 240px 1fr;
+            grid-template-rows: auto 1fr auto;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            grid-area: header;
+            background: var(--bg-secondary);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.25rem;
+        }
+
+        .brand-text h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .brand-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-xs) var(--spacing-md);
+            background: var(--pastel-green);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--success);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .cta-button {
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            animation: gradient-breathe 3s ease-in-out infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradient-breathe {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: var(--bg-secondary);
+            padding: var(--spacing-xl);
+            border-radius: 12px;
+            margin-top: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-tagline {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        .hero-metric {
+            text-align: center;
+            padding: var(--spacing-lg);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-metric::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .hero-metric.success::before {
+            background: var(--gradient-success);
+        }
+
+        .hero-metric.warn::before {
+            background: var(--gradient-warn);
+        }
+
+        .hero-metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .hero-metric-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .hero-metric-delta {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .delta-up {
+            color: var(--success);
+        }
+
+        .delta-down {
+            color: var(--danger);
+        }
+
+        /* Sidebar */
+        aside {
+            grid-area: aside;
+            background: var(--bg-secondary);
+            padding: var(--spacing-lg);
+            border-right: 1px solid #e5e7eb;
+        }
+
+        .nav-section {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .nav-section-title {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .nav-item {
+            padding: var(--spacing-sm) var(--spacing-md);
+            margin-bottom: var(--spacing-xs);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.9375rem;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-primary);
+        }
+
+        .nav-item.active {
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .nav-badge {
+            background: var(--pastel-purple);
+            color: var(--accent-primary);
+            padding: 0.125rem var(--spacing-xs);
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .nav-item.active .nav-badge {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        /* Main Content */
+        main {
+            grid-area: main;
+            padding: var(--spacing-xl);
+            overflow-y: auto;
+        }
+
+        .dashboard-section {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .section-meta {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* Alert Banner */
+        .alert-banner {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 4px solid var(--warn);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: 8px;
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .alert-icon {
+            font-size: 1.25rem;
+        }
+
+        .alert-content strong {
+            color: var(--text-primary);
+        }
+
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            padding: var(--spacing-lg);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+        }
+
+        .kpi-card.investor::before {
+            background: var(--gradient-primary);
+        }
+
+        .kpi-card.operations::before {
+            background: var(--gradient-success);
+        }
+
+        .kpi-card.marketing::before {
+            background: var(--gradient-warn);
+        }
+
+        .kpi-card.product::before {
+            background: var(--gradient-secondary);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .kpi-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+        }
+
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .kpi-delta {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .kpi-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .sparkline {
+            height: 40px;
+            background: linear-gradient(to right, var(--pastel-blue), var(--pastel-purple));
+            border-radius: 4px;
+            margin-top: var(--spacing-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sparkline::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Chart Grid */
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .chart-card {
+            background: var(--bg-secondary);
+            padding: var(--spacing-lg);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .chart-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+
+        .chart-filter {
+            display: flex;
+            gap: var(--spacing-xs);
+        }
+
+        .filter-pill {
+            padding: 0.25rem var(--spacing-sm);
+            background: var(--bg-primary);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .filter-pill.active {
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .chart-placeholder {
+            height: 280px;
+            background: linear-gradient(to bottom, var(--pastel-purple) 0%, var(--pastel-blue) 100%);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-placeholder::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+            clip-path: polygon(0 70%, 15% 50%, 30% 60%, 45% 30%, 60% 40%, 75% 20%, 90% 35%, 100% 15%, 100% 100%, 0 100%);
+        }
+
+        .chart-grid-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 19%, rgba(0,0,0,0.05) 19%, rgba(0,0,0,0.05) 20%),
+                repeating-linear-gradient(90deg, transparent, transparent 19%, rgba(0,0,0,0.05) 19%, rgba(0,0,0,0.05) 20%);
+        }
+
+        /* Full Width Chart */
+        .chart-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .chart-placeholder.timeline {
+            height: 200px;
+            background: linear-gradient(to right, var(--pastel-green) 0%, var(--pastel-blue) 50%, var(--pastel-purple) 100%);
+        }
+
+        .chart-placeholder.timeline::before {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.4) 0%, rgba(59, 130, 246, 0.4) 50%, rgba(102, 126, 234, 0.4) 100%);
+            clip-path: polygon(0 80%, 10% 60%, 20% 65%, 30% 45%, 40% 50%, 50% 30%, 60% 40%, 70% 25%, 80% 35%, 90% 20%, 100% 30%, 100% 100%, 0 100%);
+        }
+
+        /* Data Table */
+        .table-container {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .table-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .table-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--bg-primary);
+        }
+
+        th {
+            padding: var(--spacing-md) var(--spacing-lg);
+            text-align: left;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+        }
+
+        td {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-top: 1px solid #e5e7eb;
+        }
+
+        tbody tr:hover {
+            background: var(--bg-primary);
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 0.25rem var(--spacing-sm);
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-pill.healthy {
+            background: var(--pastel-green);
+            color: var(--success);
+        }
+
+        .status-pill.warning {
+            background: var(--pastel-orange);
+            color: var(--warn);
+        }
+
+        .status-pill.critical {
+            background: #fee2e2;
+            color: var(--danger);
+        }
+
+        .status-pill.info {
+            background: var(--pastel-blue);
+            color: var(--info);
+        }
+
+        .metric-trend {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .trend-arrow {
+            font-size: 0.875rem;
+        }
+
+        /* Footer */
+        footer {
+            grid-area: footer;
+            background: var(--bg-secondary);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-agent {
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-meta {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 960px) {
+            body {
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "footer";
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                display: none;
+            }
+
+            .hero-metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-section {
+                padding: var(--spacing-md);
+            }
+
+            .hero-tagline {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <div class="header-brand">
+                <div class="brand-icon">A</div>
+                <div class="brand-text">
+                    <h1>GrowthOps Command</h1>
+                    <div class="brand-subtitle">Multi-Stakeholder Dashboard</div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    All Systems Operational
+                </div>
+                <button class="cta-button">Deploy Update</button>
+            </div>
+        </div>
+
+        <div class="hero-section">
+            <div class="hero-tagline">Mission Control for Hypergrowth</div>
+            <div class="hero-subtitle">Real-time operational visibility across investor, product, marketing, and ops metrics</div>
+            <div class="hero-metrics">
+                <div class="hero-metric success">
+                    <div class="hero-metric-label">System Health</div>
+                    <div class="hero-metric-value">99.8%</div>
+                    <div class="hero-metric-delta delta-up">↑ 0.3% vs last month</div>
+                </div>
+                <div class="hero-metric">
+                    <div class="hero-metric-label">Active Users</div>
+                    <div class="hero-metric-value">47.2K</div>
+                    <div class="hero-metric-delta delta-up">↑ 23% MoM growth</div>
+                </div>
+                <div class="hero-metric warn">
+                    <div class="hero-metric-label">Deploy Velocity</div>
+                    <div class="hero-metric-value">12.4/day</div>
+                    <div class="hero-metric-delta delta-down">↓ 8% needs attention</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <aside>
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Stakeholder Views</div>
+                <div class="nav-item active">
+                    <span>Unified Command</span>
+                    <span class="nav-badge">Live</span>
+                </div>
+                <div class="nav-item">
+                    <span>Investor Metrics</span>
+                </div>
+                <div class="nav-item">
+                    <span>Operations</span>
+                    <span class="nav-badge">2</span>
+                </div>
+                <div class="nav-item">
+                    <span>Marketing</span>
+                </div>
+                <div class="nav-item">
+                    <span>Product</span>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">System Status</div>
+                <div class="nav-item">
+                    <span>Deployments</span>
+                </div>
+                <div class="nav-item">
+                    <span>Incidents</span>
+                    <span class="nav-badge">0</span>
+                </div>
+                <div class="nav-item">
+                    <span>Alerts</span>
+                    <span class="nav-badge">3</span>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Reports</div>
+                <div class="nav-item">
+                    <span>Weekly Digest</span>
+                </div>
+                <div class="nav-item">
+                    <span>Exec Summary</span>
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <main>
+        <!-- Alert Banner -->
+        <div class="alert-banner">
+            <div class="alert-icon">⚠️</div>
+            <div class="alert-content">
+                <strong>Deploy velocity below target:</strong> Current rate 12.4/day, target 15/day. Review blocking PRs in Operations view.
+            </div>
+        </div>
+
+        <!-- Investor View KPIs -->
+        <section class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Investor View</h2>
+                <div class="section-meta">Core growth & financial metrics</div>
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi-card investor">
+                    <div class="kpi-label">MRR</div>
+                    <div class="kpi-value">$284K</div>
+                    <div class="kpi-delta delta-up">↑ 18% MoM</div>
+                    <div class="kpi-meta">Target: $300K by Q4</div>
+                    <div class="sparkline"></div>
+                </div>
+                <div class="kpi-card investor">
+                    <div class="kpi-label">ARR</div>
+                    <div class="kpi-value">$3.4M</div>
+                    <div class="kpi-delta delta-up">↑ 142% YoY</div>
+                    <div class="kpi-meta">Run rate trending strong</div>
+                    <div class="sparkline"></div>
+                </div>
+                <div class="kpi-card investor">
+                    <div class="kpi-label">CAC Payback</div>
+                    <div class="kpi-value">8.2mo</div>
+                    <div class="kpi-delta delta-up">↓ 1.3mo improved</div>
+                    <div class="kpi-meta">Industry avg: 12mo</div>
+                    <div class="sparkline"></div>
+                </div>
+                <div class="kpi-card investor">
+                    <div class="kpi-label">Burn Multiple</div>
+                    <div class="kpi-value">1.4x</div>
+                    <div class="kpi-delta delta-up">↓ 0.2x optimized</div>
+                    <div class="kpi-meta">Runway: 18 months</div>
+                    <div class="sparkline"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Operations View KPIs -->
+        <section class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Operations View</h2>
+                <div class="section-meta">Platform health & engineering velocity</div>
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi-card operations">
+                    <div class="kpi-label">Uptime</div>
+                    <div class="kpi-value">99.8%</div>
+                    <div class="kpi-delta delta-up">↑ 0.3% vs last 30d</div>
+                    <div class="kpi-meta">SLA: 99.5%</div>
+                    <div class="sparkline"></div>
+                </div>
+                <div class="kpi-card operations">
+                    <div class="kpi-label">P95 Latency</div>
+                    <div class="kpi-value">124ms</div>
+                    <div class="kpi-delta delta-up">↓ 18ms improved</div>
+                    <div class="kpi-meta">Target: &lt;150ms</div>
+                    <div class="sparkline"></div>
+                </div>
+                <div class="kpi-card operations">
+                    <div class="kpi-label">Deploy Freq</div>
+                    <div class="kpi-value">12.4/day</div>
+                    <div class="kpi-delta delta-down">↓ 8% below target</div>
+                    <div class="kpi-meta">Target: 15/day</div>
+                    <div class="sparkline"></div>
+                </div>
+                <div class="kpi-card operations">
+                    <div class="kpi-label">MTTR</div>
+                    <div class="kpi-value">23min</div>
+                    <div class="kpi-delta delta-up">↓ 12min faster</div>
+                    <div class="kpi-meta">Last 7 incidents</div>
+                    <div class="sparkline"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marketing View KPIs -->
+        <section class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Marketing View</h2>
+                <div class="section-meta">User acquisition & conversion metrics</div>
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi-card marketing">
+                    <div class="kpi-label">Signups</div>
+                    <div class="kpi-value">2,847</div>
+                    <div class="kpi-delta delta-up">↑ 34% WoW</div>
+                    <div class="kpi-meta">This week</div>
+                    <div class="sparkline"></div>
+                </div>
+                <div class="kpi-card marketing">
+                    <div class="kpi-label">Trial → Paid CVR</div>
+                    <div class="kpi-value">24.6%</div>
+                    <div class="kpi-delta delta-up">↑ 3.2% improved</div>
+                    <div class="kpi-meta">30-day cohort</div>
+                    <div class="sparkline"></div>
+                </div>
+                <div class="kpi-card marketing">
+                    <div class="kpi-label">CAC</div>
+                    <div class="kpi-value">$142</div>
+                    <div class="kpi-delta delta-up">↓ $18 optimized</div>
+                    <div class="kpi-meta">Blended all channels</div>
+                    <div class="sparkline"></div>
+                </div>
+                <div class="kpi-card marketing">
+                    <div class="kpi-label">Viral K-Factor</div>
+                    <div class="kpi-value">1.24</div>
+                    <div class="kpi-delta delta-up">↑ 0.09 growth</div>
+                    <div class="kpi-meta">Organic growth engine</div>
+                    <div class="sparkline"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product View KPIs -->
+        <section class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Product View</h2>
+                <div class="section-meta">Engagement & feature adoption</div>
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi-card product">
+                    <div class="kpi-label">DAU</div>
+                    <div class="kpi-value">18.4K</div>
+                    <div class="kpi-delta delta-up">↑ 21% MoM</div>
+                    <div class="kpi-meta">39% of MAU</div>
+                    <div class="sparkline"></div>
+                </div>
+                <div class="kpi-card product">
+                    <div class="kpi-label">WAU/MAU</div>
+                    <div class="kpi-value">68%</div>
+                    <div class="kpi-delta delta-up">↑ 4% stickiness</div>
+                    <div class="kpi-meta">Strong retention signal</div>
+                    <div class="sparkline"></div>
+                </div>
+                <div class="kpi-card product">
+                    <div class="kpi-label">Feature Adoption</div>
+                    <div class="kpi-value">47%</div>
+                    <div class="kpi-delta delta-up">↑ 12% for new release</div>
+                    <div class="kpi-meta">v2.4 collaborative mode</div>
+                    <div class="sparkline"></div>
+                </div>
+                <div class="kpi-card product">
+                    <div class="kpi-label">NPS</div>
+                    <div class="kpi-value">68</div>
+                    <div class="kpi-delta delta-up">↑ 5pts improvement</div>
+                    <div class="kpi-meta">248 responses</div>
+                    <div class="sparkline"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts -->
+        <section class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Growth Trends</h2>
+                <div class="section-meta">Multi-dimensional performance tracking</div>
+            </div>
+            <div class="chart-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Revenue & User Growth</div>
+                        <div class="chart-filter">
+                            <span class="filter-pill">7D</span>
+                            <span class="filter-pill active">30D</span>
+                            <span class="filter-pill">90D</span>
+                        </div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div class="chart-grid-lines"></div>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">System Performance</div>
+                        <div class="chart-filter">
+                            <span class="filter-pill active">Live</span>
+                            <span class="filter-pill">1H</span>
+                            <span class="filter-pill">24H</span>
+                        </div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div class="chart-grid-lines"></div>
+                    </div>
+                </div>
+
+                <div class="chart-card full-width">
+                    <div class="chart-header">
+                        <div class="chart-title">Multi-Stakeholder Timeline</div>
+                        <div class="chart-filter">
+                            <span class="filter-pill">Investor</span>
+                            <span class="filter-pill">Operations</span>
+                            <span class="filter-pill">Marketing</span>
+                            <span class="filter-pill active">All</span>
+                        </div>
+                    </div>
+                    <div class="chart-placeholder timeline">
+                        <div class="chart-grid-lines"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Table -->
+        <section class="dashboard-section">
+            <div class="table-container">
+                <div class="table-header">
+                    <div class="table-title">Active Deployments & System Status</div>
+                    <div class="table-subtitle">Real-time operational metrics across all services</div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Status</th>
+                            <th>Version</th>
+                            <th>Uptime</th>
+                            <th>Requests/min</th>
+                            <th>Latency (P95)</th>
+                            <th>Error Rate</th>
+                            <th>Last Deploy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>API Gateway</strong></td>
+                            <td><span class="status-pill healthy">Healthy</span></td>
+                            <td>v2.4.1</td>
+                            <td>99.9%</td>
+                            <td class="metric-trend"><span class="trend-arrow delta-up">↑</span> 12,847</td>
+                            <td>98ms</td>
+                            <td>0.02%</td>
+                            <td>2h ago</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Auth Service</strong></td>
+                            <td><span class="status-pill healthy">Healthy</span></td>
+                            <td>v1.8.3</td>
+                            <td>99.8%</td>
+                            <td class="metric-trend"><span class="trend-arrow delta-up">↑</span> 4,234</td>
+                            <td>124ms</td>
+                            <td>0.01%</td>
+                            <td>5h ago</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Database Primary</strong></td>
+                            <td><span class="status-pill warning">Warning</span></td>
+                            <td>v14.2</td>
+                            <td>99.6%</td>
+                            <td class="metric-trend"><span class="trend-arrow delta-up">↑</span> 8,592</td>
+                            <td>187ms</td>
+                            <td>0.08%</td>
+                            <td>12h ago</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Analytics Pipeline</strong></td>
+                            <td><span class="status-pill healthy">Healthy</span></td>
+                            <td>v3.1.0</td>
+                            <td>99.9%</td>
+                            <td class="metric-trend"><span class="trend-arrow delta-up">↑</span> 2,147</td>
+                            <td>342ms</td>
+                            <td>0.03%</td>
+                            <td>1h ago</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Notification Service</strong></td>
+                            <td><span class="status-pill healthy">Healthy</span></td>
+                            <td>v2.2.4</td>
+                            <td>99.7%</td>
+                            <td class="metric-trend"><span class="trend-arrow delta-down">↓</span> 1,823</td>
+                            <td>156ms</td>
+                            <td>0.04%</td>
+                            <td>3h ago</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CDN Edge</strong></td>
+                            <td><span class="status-pill healthy">Healthy</span></td>
+                            <td>v5.0.2</td>
+                            <td>99.99%</td>
+                            <td class="metric-trend"><span class="trend-arrow delta-up">↑</span> 24,891</td>
+                            <td>42ms</td>
+                            <td>0.01%</td>
+                            <td>8h ago</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Search Index</strong></td>
+                            <td><span class="status-pill info">Updating</span></td>
+                            <td>v7.12.1</td>
+                            <td>99.5%</td>
+                            <td class="metric-trend"><span class="trend-arrow delta-up">↑</span> 3,456</td>
+                            <td>213ms</td>
+                            <td>0.06%</td>
+                            <td>30min ago</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Background Jobs</strong></td>
+                            <td><span class="status-pill healthy">Healthy</span></td>
+                            <td>v4.3.2</td>
+                            <td>99.8%</td>
+                            <td class="metric-trend"><span class="trend-arrow delta-up">↑</span> 892</td>
+                            <td>1,247ms</td>
+                            <td>0.02%</td>
+                            <td>4h ago</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-agent">Design by Atlas • Operational Command & Multi-Stakeholder UX</div>
+        <div class="footer-meta">Last updated: 2025-11-09 14:23 UTC • Refresh: 30s • Theme: Modern Startup Pitch</div>
+    </footer>
+
+    <script>
+        // Simple interactivity for filter pills
+        document.querySelectorAll('.filter-pill').forEach(pill => {
+            pill.addEventListener('click', function() {
+                const parent = this.parentElement;
+                parent.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Navigation item clicks
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Simulate real-time updates (optional)
+        setInterval(() => {
+            const statusDot = document.querySelector('.status-dot');
+            statusDot.style.opacity = statusDot.style.opacity === '0.5' ? '1' : '0.5';
+        }, 1000);
+    </script>
+</body>
+</html>

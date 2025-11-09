@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Discovery Session | Teeqa Design</title>
+    <!-- Agent: Teeqa | Theme: Workshop Discovery Session | Intent: Transform workshop insights into a delightful digital sticky-note canvas that sparks conversation and action -->
+    <style>
+        /* === TEEQA DESIGN SYSTEM: WORKSHOP CANVAS === */
+
+        :root {
+            /* Post-it Color Palette */
+            --sticky-yellow: #FFEB99;
+            --sticky-pink: #FFB5D9;
+            --sticky-blue: #A5D8FF;
+            --sticky-mint: #96F2D7;
+            --sticky-orange: #FFD8A8;
+            --sticky-purple: #D8C1FF;
+
+            /* Brand Colors */
+            --primary: #5B4DFF;
+            --primary-light: #8B7FFF;
+            --secondary: #FF6B9D;
+            --success: #12B886;
+            --warning: #FF922B;
+            --danger: #FA5252;
+
+            /* Neutrals for Clarity */
+            --bg-canvas: #FAFBFC;
+            --bg-white: #FFFFFF;
+            --text-dark: #1A1B1E;
+            --text-medium: #495057;
+            --text-light: #868E96;
+            --border: #DEE2E6;
+
+            /* Spacing (chunky for projector) */
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 32px;
+            --space-xl: 48px;
+
+            /* Typography (larger for visibility) */
+            --font-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Rounded Mplus 1c', sans-serif;
+            --font-display: 'Comic Neue', 'Fredoka One', var(--font-base);
+
+            /* Shadows */
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --shadow-sticky: 3px 3px 8px rgba(0,0,0,0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        body {
+            font-family: var(--font-base);
+            background: var(--bg-canvas);
+            color: var(--text-dark);
+            font-size: 16px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* === LAYOUT GRID === */
+
+        .app-container {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas:
+                "header header"
+                "sidebar main"
+                "footer footer";
+            min-height: 100vh;
+        }
+
+        /* === HEADER === */
+
+        header {
+            grid-area: header;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: var(--space-md) var(--space-lg);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .brand-section h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .brand-section .workshop-meta {
+            font-size: 15px;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--space-sm);
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: white;
+        }
+
+        /* === SIDEBAR === */
+
+        aside {
+            grid-area: sidebar;
+            background: var(--bg-white);
+            padding: var(--space-lg) var(--space-md);
+            border-right: 2px solid var(--border);
+        }
+
+        .sidebar-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .sidebar-section h3 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            margin-bottom: var(--space-sm);
+            font-weight: 700;
+        }
+
+        .nav-item {
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-bottom: 6px;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-medium);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-item:hover {
+            background: var(--sticky-blue);
+            color: var(--text-dark);
+            transform: translateX(4px);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .filter-group {
+            margin-top: var(--space-md);
+        }
+
+        .filter-tag {
+            display: inline-block;
+            padding: 8px 14px;
+            background: var(--sticky-yellow);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 4px;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .filter-tag:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* === MAIN CONTENT === */
+
+        main {
+            grid-area: main;
+            padding: var(--space-xl) var(--space-lg);
+            max-width: 1400px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 6px;
+            height: 28px;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        /* === KPI CARDS === */
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .kpi-card {
+            background: var(--bg-white);
+            padding: var(--space-md);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            border-left: 6px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(91,77,255,0.05) 0%, transparent 70%);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .kpi-label {
+            font-size: 14px;
+            color: var(--text-medium);
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .kpi-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .kpi-delta {
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 8px;
+        }
+
+        .kpi-delta.positive {
+            background: rgba(18, 184, 134, 0.1);
+            color: var(--success);
+        }
+
+        .kpi-delta.neutral {
+            background: rgba(255, 146, 43, 0.1);
+            color: var(--warning);
+        }
+
+        /* === STICKY NOTE SECTIONS === */
+
+        .sticky-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .sticky-note {
+            background: var(--sticky-yellow);
+            padding: var(--space-md);
+            border-radius: 4px;
+            box-shadow: var(--shadow-sticky);
+            transform: rotate(-1deg);
+            position: relative;
+            animation: dropIn 0.4s ease-out;
+            min-height: 200px;
+        }
+
+        @keyframes dropIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px) rotate(-1deg);
+            }
+            70% {
+                transform: translateY(4px) rotate(-1deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotate(-1deg);
+            }
+        }
+
+        .sticky-note:nth-child(2n) {
+            transform: rotate(1deg);
+            background: var(--sticky-pink);
+        }
+
+        .sticky-note:nth-child(3n) {
+            transform: rotate(-0.5deg);
+            background: var(--sticky-blue);
+        }
+
+        .sticky-note:nth-child(4n) {
+            transform: rotate(1.5deg);
+            background: var(--sticky-mint);
+        }
+
+        .sticky-note:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+            z-index: 10;
+        }
+
+        .sticky-note h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-dark);
+            border-bottom: 2px solid rgba(0,0,0,0.1);
+            padding-bottom: 8px;
+        }
+
+        .sticky-note p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .sticky-note .sticky-meta {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed rgba(0,0,0,0.15);
+            font-size: 13px;
+            color: var(--text-medium);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* === CHART PLACEHOLDERS === */
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .chart-card {
+            background: var(--bg-white);
+            padding: var(--space-md);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .chart-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .chart-header {
+            margin-bottom: var(--space-md);
+        }
+
+        .chart-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .chart-header p {
+            font-size: 14px;
+            color: var(--text-medium);
+        }
+
+        .chart-placeholder {
+            height: 280px;
+            background: linear-gradient(135deg, rgba(91,77,255,0.05) 0%, rgba(255,107,157,0.05) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px dashed var(--border);
+        }
+
+        .chart-placeholder::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            right: 10%;
+            height: 60%;
+            background: linear-gradient(to top,
+                transparent 0%,
+                var(--sticky-blue) 20%,
+                var(--sticky-pink) 50%,
+                var(--sticky-yellow) 80%,
+                transparent 100%);
+            opacity: 0.3;
+            clip-path: polygon(
+                0% 100%, 10% 80%, 20% 85%, 30% 60%,
+                40% 70%, 50% 40%, 60% 50%, 70% 30%,
+                80% 45%, 90% 25%, 100% 35%, 100% 100%
+            );
+        }
+
+        .chart-placeholder-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-light);
+            z-index: 1;
+        }
+
+        /* === DATA TABLE === */
+
+        .table-card {
+            background: var(--bg-white);
+            padding: var(--space-md);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .table-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            color: var(--text-dark);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+        }
+
+        thead th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+        }
+
+        tbody tr:hover {
+            background: rgba(91,77,255,0.03);
+        }
+
+        tbody td {
+            padding: 18px 16px;
+            font-size: 15px;
+        }
+
+        .action-item-title {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .action-meta {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 4px;
+            display: none;
+        }
+
+        tbody tr:hover .action-meta {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .priority-high {
+            background: rgba(250, 82, 82, 0.15);
+            color: var(--danger);
+        }
+
+        .priority-medium {
+            background: rgba(255, 146, 43, 0.15);
+            color: var(--warning);
+        }
+
+        .priority-low {
+            background: rgba(18, 184, 134, 0.15);
+            color: var(--success);
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .status-todo {
+            background: var(--sticky-yellow);
+            color: var(--text-dark);
+        }
+
+        .status-progress {
+            background: var(--sticky-blue);
+            color: var(--text-dark);
+        }
+
+        .status-done {
+            background: var(--sticky-mint);
+            color: var(--text-dark);
+        }
+
+        /* === LIVE NOTES SECTION === */
+
+        .live-notes-section {
+            background: linear-gradient(135deg, rgba(255,235,153,0.3) 0%, rgba(255,181,217,0.3) 100%);
+            padding: var(--space-lg);
+            border-radius: 20px;
+            border: 3px dashed var(--primary);
+            margin-bottom: var(--space-xl);
+        }
+
+        .live-notes-section h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pulse-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--danger);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .live-note-card {
+            background: white;
+            padding: var(--space-md);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .live-note-card h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .live-note-card p {
+            font-size: 15px;
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        .note-timestamp {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 8px;
+            font-weight: 600;
+        }
+
+        /* === FOOTER === */
+
+        footer {
+            grid-area: footer;
+            background: var(--text-dark);
+            color: white;
+            padding: var(--space-md) var(--space-lg);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .agent-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .agent-badge::before {
+            content: '✨';
+            font-size: 16px;
+        }
+
+        /* === RESPONSIVE === */
+
+        @media (max-width: 960px) {
+            .app-container {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "footer";
+            }
+
+            aside {
+                display: none;
+            }
+
+            .kpi-grid,
+            .sticky-grid,
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header-content {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+
+            .brand-section h1 {
+                font-size: 22px;
+            }
+
+            .kpi-value {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header>
+            <div class="header-content">
+                <div class="brand-section">
+                    <h1>🎨 Product Strategy Discovery Workshop</h1>
+                    <div class="workshop-meta">Q1 2025 Planning Session • 45 Participants • Live Dashboard</div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline">Export Notes</button>
+                    <button class="btn btn-primary">📋 Download Summary</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- SIDEBAR -->
+        <aside>
+            <div class="sidebar-section">
+                <h3>Workshop Sections</h3>
+                <div class="nav-item active">
+                    <span class="nav-icon">📊</span>
+                    Overview
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">💡</span>
+                    Key Insights
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">🎯</span>
+                    Action Items
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">📝</span>
+                    Live Notes
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    Participants
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Filter by Topic</h3>
+                <div class="filter-group">
+                    <span class="filter-tag">Product</span>
+                    <span class="filter-tag">Marketing</span>
+                    <span class="filter-tag">Engineering</span>
+                    <span class="filter-tag">Design</span>
+                    <span class="filter-tag">Strategy</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Session Info</h3>
+                <div style="font-size: 14px; color: var(--text-medium); line-height: 1.8;">
+                    <p><strong>Date:</strong> Nov 9, 2025</p>
+                    <p><strong>Time:</strong> 9:00 AM - 4:30 PM</p>
+                    <p><strong>Facilitator:</strong> Sarah Chen</p>
+                    <p><strong>Location:</strong> HQ Building A</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main>
+            <!-- KPI CARDS -->
+            <h2 class="section-title">Workshop Snapshot</h2>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Ideas Generated</div>
+                    <div class="kpi-value">127</div>
+                    <span class="kpi-delta positive">↑ 23 from morning session</span>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Action Items Created</div>
+                    <div class="kpi-value">34</div>
+                    <span class="kpi-delta positive">↑ 8 assigned owners</span>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Decisions Made</div>
+                    <div class="kpi-value">12</div>
+                    <span class="kpi-delta neutral">→ 3 pending review</span>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Participants Engaged</div>
+                    <div class="kpi-value">45/48</div>
+                    <span class="kpi-delta positive">↑ 94% engagement rate</span>
+                </div>
+            </div>
+
+            <!-- STICKY NOTE INSIGHTS -->
+            <h2 class="section-title">💡 Top Insights & Discoveries</h2>
+            <div class="sticky-grid">
+                <div class="sticky-note">
+                    <h4>🎯 Customer Pain Point</h4>
+                    <p>Users are struggling with onboarding complexity. Multiple teams confirmed this is our #1 friction point. Need to simplify the first-time experience.</p>
+                    <div class="sticky-meta">
+                        <span>Research Team</span>
+                        <span>High Impact</span>
+                    </div>
+                </div>
+                <div class="sticky-note">
+                    <h4>🚀 Market Opportunity</h4>
+                    <p>Competitive gap identified in mid-market segment. We can capture 15-20% market share if we move quickly with enterprise-lite features.</p>
+                    <div class="sticky-meta">
+                        <span>Strategy Team</span>
+                        <span>Q1 Priority</span>
+                    </div>
+                </div>
+                <div class="sticky-note">
+                    <h4>⚠️ Technical Risk</h4>
+                    <p>Current infrastructure won't scale beyond 50K users. Engineering recommends migration to microservices architecture within 6 months.</p>
+                    <div class="sticky-meta">
+                        <span>Engineering</span>
+                        <span>Critical</span>
+                    </div>
+                </div>
+                <div class="sticky-note">
+                    <h4>✨ Feature Idea</h4>
+                    <p>AI-powered dashboard customization. Let users describe their ideal view in plain language and auto-generate layouts. Prototype ready in 2 weeks.</p>
+                    <div class="sticky-meta">
+                        <span>Product Team</span>
+                        <span>Innovation</span>
+                    </div>
+                </div>
+                <div class="sticky-note">
+                    <h4>📈 Growth Lever</h4>
+                    <p>Referral program could drive 30% user growth based on case studies. Marketing proposes pilot launch with top 100 customers.</p>
+                    <div class="sticky-meta">
+                        <span>Growth Team</span>
+                        <span>Quick Win</span>
+                    </div>
+                </div>
+                <div class="sticky-note">
+                    <h4>🎨 Design Direction</h4>
+                    <p>Workshop participants strongly prefer clean, minimalist UI over feature-dense layouts. Design system refresh planned for Q2.</p>
+                    <div class="sticky-meta">
+                        <span>Design Team</span>
+                        <span>User Feedback</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHARTS -->
+            <h2 class="section-title">Workshop Dynamics</h2>
+            <div class="chart-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Ideas by Category</h3>
+                        <p>Distribution across product areas</p>
+                    </div>
+                    <div class="chart-placeholder">
+                        <span class="chart-placeholder-text">📊 Category Breakdown Chart</span>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Participation Timeline</h3>
+                        <p>Engagement throughout the day</p>
+                    </div>
+                    <div class="chart-placeholder">
+                        <span class="chart-placeholder-text">📈 Timeline Activity Graph</span>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Priority Voting Results</h3>
+                        <p>Team consensus on top initiatives</p>
+                    </div>
+                    <div class="chart-placeholder">
+                        <span class="chart-placeholder-text">🎯 Voting Results Visual</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACTION ITEMS TABLE -->
+            <div class="table-card">
+                <h3>🎯 Action Items & Next Moves</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Action Item</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Team</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="action-item-title">Redesign onboarding flow with simplified 3-step process</div>
+                                <div class="action-meta">👤 Owner: Jessica Kim • 📅 Due: Nov 23, 2025</div>
+                            </td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td><span class="status-pill status-progress">In Progress</span></td>
+                            <td>Product</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="action-item-title">Conduct competitive analysis for mid-market positioning</div>
+                                <div class="action-meta">👤 Owner: Marcus Rodriguez • 📅 Due: Nov 16, 2025</div>
+                            </td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td><span class="status-pill status-todo">To Do</span></td>
+                            <td>Strategy</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="action-item-title">Architecture review: Microservices migration plan</div>
+                                <div class="action-meta">👤 Owner: Dev Team Lead • 📅 Due: Nov 30, 2025</div>
+                            </td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td><span class="status-pill status-progress">In Progress</span></td>
+                            <td>Engineering</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="action-item-title">Build AI dashboard customization prototype</div>
+                                <div class="action-meta">👤 Owner: Alex Chen • 📅 Due: Nov 20, 2025</div>
+                            </td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                            <td><span class="status-pill status-progress">In Progress</span></td>
+                            <td>Product</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="action-item-title">Draft referral program pilot proposal</div>
+                                <div class="action-meta">👤 Owner: Sarah Mitchell • 📅 Due: Nov 18, 2025</div>
+                            </td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                            <td><span class="status-pill status-todo">To Do</span></td>
+                            <td>Marketing</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="action-item-title">Design system refresh: Create mood boards</div>
+                                <div class="action-meta">👤 Owner: Design Squad • 📅 Due: Nov 25, 2025</div>
+                            </td>
+                            <td><span class="priority-badge priority-low">Low</span></td>
+                            <td><span class="status-pill status-todo">To Do</span></td>
+                            <td>Design</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="action-item-title">Schedule follow-up workshop for Q2 planning</div>
+                                <div class="action-meta">👤 Owner: Sarah Chen • 📅 Due: Nov 15, 2025</div>
+                            </td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                            <td><span class="status-pill status-done">Done</span></td>
+                            <td>Operations</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- LIVE NOTES SECTION -->
+            <div class="live-notes-section">
+                <h2><span class="pulse-dot"></span> Live Notes & Decisions</h2>
+                <div class="notes-grid">
+                    <div class="live-note-card">
+                        <h4>✅ Decision: Q1 Focus</h4>
+                        <p>Team voted to prioritize onboarding improvements and mid-market expansion over new feature development. Budget approved for both initiatives.</p>
+                        <div class="note-timestamp">14:32 PM • Sarah Chen</div>
+                    </div>
+                    <div class="live-note-card">
+                        <h4>💬 Discussion Point</h4>
+                        <p>Debate around timeline for infrastructure migration. Engineering needs 6 months, leadership wants 4 months. Compromise: phased rollout starting in 4 months.</p>
+                        <div class="note-timestamp">15:18 PM • Marcus Rodriguez</div>
+                    </div>
+                    <div class="live-note-card">
+                        <h4>🎤 Key Quote</h4>
+                        <p>"If we don't simplify onboarding, we'll lose 30% of trials before they see value. This is our make-or-break moment." - Jessica Kim, Head of Product</p>
+                        <div class="note-timestamp">13:45 PM • Workshop Facilitator</div>
+                    </div>
+                    <div class="live-note-card">
+                        <h4>📌 Parking Lot</h4>
+                        <p>International expansion discussion tabled for next workshop. Team agrees we need domestic product-market fit first before scaling globally.</p>
+                        <div class="note-timestamp">16:05 PM • Strategy Team</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-content">
+                <div style="font-size: 14px; opacity: 0.9;">
+                    Last updated: Nov 9, 2025 at 4:22 PM • Workshop Dashboard v2.1
+                </div>
+                <div class="agent-badge">Designed by Teeqa</div>
+                <div style="font-size: 14px; opacity: 0.9;">
+                    🎨 Playful Product UI Specialist
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Simple interaction enhancements
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animate sticky notes on scroll
+            const stickyNotes = document.querySelectorAll('.sticky-note');
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'dropIn 0.4s ease-out';
+                    }
+                });
+            }, observerOptions);
+
+            stickyNotes.forEach(note => observer.observe(note));
+
+            // Add click feedback to nav items
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Filter tag interactions
+            const filterTags = document.querySelectorAll('.filter-tag');
+            filterTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 200);
+                });
+            });
+
+            // Table row hover enhancement
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(4px)';
+                });
+                row.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

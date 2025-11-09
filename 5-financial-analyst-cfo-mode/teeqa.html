@@ -1,0 +1,1141 @@
+<!-- Agent: Teeqa | Theme: Financial Analyst CFO Mode | Intent: Bringing premium SaaS polish to institutional finance with delightful interactions and number-first clarity -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Dashboard - CFO View</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        :root {
+            /* Financial color palette - Teeqa's polished institutional colors */
+            --primary-navy: #1a3a52;
+            --primary-navy-light: #2c5570;
+            --accent-green: #2d5a4a;
+            --accent-green-light: #3d7a62;
+            --grey-dark: #4a5568;
+            --grey-medium: #718096;
+            --grey-light: #cbd5e0;
+            --grey-ultralight: #f7fafc;
+
+            /* Semantic colors with polish */
+            --success: #38a169;
+            --success-bg: #f0fdf4;
+            --warning: #d97706;
+            --warning-bg: #fffbeb;
+            --danger: #dc2626;
+            --danger-bg: #fef2f2;
+            --neutral: #64748b;
+
+            /* Premium backgrounds */
+            --bg-main: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --border-color: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+
+            /* Spacing system */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+
+            /* Teeqa signature: refined shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+            --shadow-hover: 0 12px 20px -4px rgba(0, 0, 0, 0.12), 0 6px 8px -2px rgba(0, 0, 0, 0.06);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            /* Tabular numerals for perfect alignment */
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Main Layout Grid */
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas:
+                "sidebar header"
+                "sidebar main"
+                "sidebar footer";
+            min-height: 100vh;
+        }
+
+        /* Header - Premium polish with subtle gradient */
+        header {
+            grid-area: header;
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-navy-light) 100%);
+            color: white;
+            padding: var(--space-md) var(--space-lg);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .header-meta {
+            font-size: 0.875rem;
+            opacity: 0.9;
+            margin-top: 0.25rem;
+        }
+
+        .header-right {
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
+
+        .period-selector {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: var(--space-xs) var(--space-md);
+            border-radius: 8px;
+            color: white;
+            font-size: 0.875rem;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .period-selector:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+        }
+
+        /* Sidebar - Clean institutional navigation */
+        aside {
+            grid-area: sidebar;
+            background: var(--bg-main);
+            border-right: 1px solid var(--border-color);
+            padding: var(--space-lg) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sidebar-brand {
+            padding: 0 var(--space-md) var(--space-lg);
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: var(--space-md);
+        }
+
+        .sidebar-brand h2 {
+            font-size: 1.125rem;
+            color: var(--primary-navy);
+            font-weight: 600;
+        }
+
+        .sidebar-brand .agent-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-green-light) 100%);
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            margin-top: var(--space-xs);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        .nav-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .nav-section-title {
+            padding: 0 var(--space-md);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .nav-item {
+            padding: var(--space-xs) var(--space-md);
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-size: 0.875rem;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-secondary);
+            color: var(--primary-navy);
+            border-left-color: var(--accent-green);
+        }
+
+        .nav-item.active {
+            background: var(--bg-secondary);
+            color: var(--primary-navy);
+            font-weight: 600;
+            border-left-color: var(--accent-green);
+        }
+
+        .nav-icon {
+            width: 18px;
+            height: 18px;
+            display: inline-block;
+        }
+
+        /* Main Content Area */
+        main {
+            grid-area: main;
+            padding: var(--space-lg);
+            max-width: 1600px;
+        }
+
+        .dashboard-title {
+            margin-bottom: var(--space-lg);
+        }
+
+        .dashboard-title h2 {
+            font-size: 1.75rem;
+            color: var(--primary-navy);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .dashboard-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+        }
+
+        /* KPI Cards - Teeqa's polished number-first design */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-green) 0%, var(--accent-green-light) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .kpi-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .kpi-card:hover::before {
+            opacity: 1;
+        }
+
+        .kpi-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-value {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: var(--space-xs);
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.02em;
+        }
+
+        .kpi-meta {
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+            margin-top: var(--space-sm);
+        }
+
+        .kpi-delta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0.25rem 0.625rem;
+            border-radius: 6px;
+        }
+
+        .kpi-delta.positive {
+            color: var(--success);
+            background: var(--success-bg);
+        }
+
+        .kpi-delta.negative {
+            color: var(--danger);
+            background: var(--danger-bg);
+        }
+
+        .kpi-delta.neutral {
+            color: var(--neutral);
+            background: var(--grey-ultralight);
+        }
+
+        .kpi-context {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+        }
+
+        /* Chart Section - Financial chart placeholders */
+        .charts-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: var(--space-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .chart-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .chart-header {
+            margin-bottom: var(--space-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chart-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+        }
+
+        .chart-control {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            padding: 0.375rem 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-secondary);
+            cursor: pointer;
+        }
+
+        .chart-control:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .chart-placeholder {
+            height: 280px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Waterfall Chart - CSS only */
+        .waterfall-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 100%;
+            padding: var(--space-md);
+            gap: var(--space-xs);
+        }
+
+        .waterfall-bar {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .bar-segment {
+            width: 100%;
+            border-radius: 4px;
+            position: relative;
+            animation: barGrow 0.6s ease-out;
+        }
+
+        .bar-positive {
+            background: linear-gradient(180deg, var(--success) 0%, var(--accent-green) 100%);
+        }
+
+        .bar-negative {
+            background: linear-gradient(180deg, var(--danger) 0%, #b91c1c 100%);
+        }
+
+        .bar-neutral {
+            background: linear-gradient(180deg, var(--grey-medium) 0%, var(--grey-dark) 100%);
+        }
+
+        .bar-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-align: center;
+            max-width: 80px;
+        }
+
+        .bar-value {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: auto;
+            padding: 0.25rem;
+        }
+
+        @keyframes barGrow {
+            from {
+                transform: scaleY(0);
+                opacity: 0;
+            }
+            to {
+                transform: scaleY(1);
+                opacity: 1;
+            }
+        }
+
+        /* Stacked Bar Chart */
+        .stacked-chart {
+            padding: var(--space-md);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            gap: var(--space-sm);
+        }
+
+        .stacked-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .row-label {
+            width: 100px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .stacked-bar-container {
+            flex: 1;
+            height: 32px;
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .stack-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            transition: all 0.2s ease;
+        }
+
+        .stack-segment:hover {
+            filter: brightness(1.1);
+            transform: scaleY(1.1);
+        }
+
+        .row-total {
+            width: 80px;
+            text-align: right;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Financial Table - Number-first with polish */
+        .table-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .table-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .table-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+        }
+
+        .table-actions {
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .table-action-btn {
+            padding: 0.375rem 0.875rem;
+            font-size: 0.8125rem;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .table-action-btn:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+            background: white;
+        }
+
+        .financial-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 0.875rem;
+        }
+
+        .financial-table thead {
+            background: var(--bg-secondary);
+            position: sticky;
+            top: 0;
+        }
+
+        .financial-table th {
+            padding: var(--space-sm);
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.03em;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .financial-table th.number-col {
+            text-align: right;
+        }
+
+        .financial-table tbody tr {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .financial-table tbody tr:hover {
+            background: var(--bg-secondary);
+        }
+
+        /* Teeqa signature: column highlight on hover */
+        .financial-table tbody tr:hover td {
+            background: var(--bg-secondary);
+        }
+
+        .financial-table tbody tr:hover td:nth-child(2),
+        .financial-table tbody tr:hover td:nth-child(3),
+        .financial-table tbody tr:hover td:nth-child(4) {
+            background: linear-gradient(90deg, var(--bg-secondary) 0%, rgba(45, 90, 74, 0.05) 100%);
+        }
+
+        .financial-table td {
+            padding: var(--space-sm);
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--grey-ultralight);
+        }
+
+        .financial-table td.number-col {
+            text-align: right;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 0.25rem 0.625rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .status-on-track {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .status-at-risk {
+            background: var(--warning-bg);
+            color: var(--warning);
+        }
+
+        .status-critical {
+            background: var(--danger-bg);
+            color: var(--danger);
+        }
+
+        /* Footer */
+        footer {
+            grid-area: footer;
+            background: var(--bg-main);
+            border-top: 1px solid var(--border-color);
+            padding: var(--space-md) var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-left {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        .footer-agent {
+            font-weight: 600;
+            color: var(--accent-green);
+        }
+
+        /* Pulse animation for live data indicator */
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.1);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 960px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "footer";
+            }
+
+            aside {
+                display: none;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            main {
+                padding: var(--space-md);
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-right {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside>
+            <div class="sidebar-brand">
+                <h2>FinanceOS</h2>
+                <span class="agent-tag">By Teeqa</span>
+            </div>
+
+            <nav>
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <a href="#" class="nav-item active">
+                        <span class="nav-icon">📊</span>
+                        Executive Summary
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-icon">💰</span>
+                        P&L Statement
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-icon">📈</span>
+                        Cash Flow
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Analysis</div>
+                    <a href="#" class="nav-item">
+                        <span class="nav-icon">🎯</span>
+                        Budget vs Actual
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-icon">📉</span>
+                        Variance Analysis
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-icon">🔮</span>
+                        Forecasting
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Reports</div>
+                    <a href="#" class="nav-item">
+                        <span class="nav-icon">📑</span>
+                        Monthly Close
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="nav-icon">🏦</span>
+                        Balance Sheet
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Header -->
+        <header>
+            <div class="header-left">
+                <h1>Financial Dashboard</h1>
+                <div class="header-meta">Q4 2024 Performance Overview</div>
+            </div>
+            <div class="header-right">
+                <div class="live-indicator">
+                    <span class="pulse-dot"></span>
+                    <span>Live Data</span>
+                </div>
+                <select class="period-selector">
+                    <option>Q4 2024</option>
+                    <option>Q3 2024</option>
+                    <option>Q2 2024</option>
+                    <option>FY 2024</option>
+                </select>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <div class="dashboard-title">
+                <h2>Executive Financial Summary</h2>
+                <div class="dashboard-subtitle">Comprehensive view of key financial metrics and performance indicators</div>
+            </div>
+
+            <!-- KPI Cards with animated counters -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Total Revenue</div>
+                    <div class="kpi-value" data-target="47800000">$0</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">↑ 18.5%</span>
+                        <span class="kpi-context">vs Q3 2024</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Gross Margin</div>
+                    <div class="kpi-value" data-target="68.2">0%</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">↑ 2.3pp</span>
+                        <span class="kpi-context">Target: 67%</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">EBITDA</div>
+                    <div class="kpi-value" data-target="12400000">$0</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">↑ 24.1%</span>
+                        <span class="kpi-context">26% margin</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Cash Runway</div>
+                    <div class="kpi-value" data-target="18">0 mo</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta neutral">→ Stable</span>
+                        <span class="kpi-context">$24.2M cash</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Operating Expenses</div>
+                    <div class="kpi-value" data-target="20100000">$0</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta negative">↑ 12.3%</span>
+                        <span class="kpi-context">42% of revenue</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Burn Rate</div>
+                    <div class="kpi-value" data-target="1340000">$0</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">↓ 8.7%</span>
+                        <span class="kpi-context">per month</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-section">
+                <div class="charts-grid">
+                    <!-- Waterfall Chart -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Revenue Bridge Analysis</h3>
+                            <button class="chart-control">⚙ Configure</button>
+                        </div>
+                        <div class="chart-placeholder">
+                            <div class="waterfall-chart">
+                                <div class="waterfall-bar">
+                                    <div class="bar-value">$40.3M</div>
+                                    <div class="bar-segment bar-neutral" style="height: 180px;"></div>
+                                    <div class="bar-label">Q3 Revenue</div>
+                                </div>
+                                <div class="waterfall-bar">
+                                    <div class="bar-value">+$5.2M</div>
+                                    <div class="bar-segment bar-positive" style="height: 120px; margin-top: 60px;"></div>
+                                    <div class="bar-label">New Sales</div>
+                                </div>
+                                <div class="waterfall-bar">
+                                    <div class="bar-value">+$3.8M</div>
+                                    <div class="bar-segment bar-positive" style="height: 90px; margin-top: 90px;"></div>
+                                    <div class="bar-label">Expansion</div>
+                                </div>
+                                <div class="waterfall-bar">
+                                    <div class="bar-value">-$1.5M</div>
+                                    <div class="bar-segment bar-negative" style="height: 45px; margin-top: 135px;"></div>
+                                    <div class="bar-label">Churn</div>
+                                </div>
+                                <div class="waterfall-bar">
+                                    <div class="bar-value">$47.8M</div>
+                                    <div class="bar-segment bar-neutral" style="height: 210px;"></div>
+                                    <div class="bar-label">Q4 Revenue</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stacked Bar Chart -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Operating Expense Breakdown</h3>
+                            <button class="chart-control">📊 Details</button>
+                        </div>
+                        <div class="chart-placeholder">
+                            <div class="stacked-chart">
+                                <div class="stacked-row">
+                                    <div class="row-label">Personnel</div>
+                                    <div class="stacked-bar-container">
+                                        <div class="stack-segment" style="width: 60%; background: #2d5a4a;">$12.1M</div>
+                                        <div class="stack-segment" style="width: 40%; background: #3d7a62;"></div>
+                                    </div>
+                                    <div class="row-total">$12.1M</div>
+                                </div>
+                                <div class="stacked-row">
+                                    <div class="row-label">Marketing</div>
+                                    <div class="stacked-bar-container">
+                                        <div class="stack-segment" style="width: 35%; background: #1a3a52;">$4.2M</div>
+                                        <div class="stack-segment" style="width: 65%; background: #2c5570;"></div>
+                                    </div>
+                                    <div class="row-total">$4.2M</div>
+                                </div>
+                                <div class="stacked-row">
+                                    <div class="row-label">R&D</div>
+                                    <div class="stacked-bar-container">
+                                        <div class="stack-segment" style="width: 28%; background: #4a5568;">$2.8M</div>
+                                        <div class="stack-segment" style="width: 72%; background: #718096;"></div>
+                                    </div>
+                                    <div class="row-total">$2.8M</div>
+                                </div>
+                                <div class="stacked-row">
+                                    <div class="row-label">Infrastructure</div>
+                                    <div class="stacked-bar-container">
+                                        <div class="stack-segment" style="width: 22%; background: #38a169;">$1.8M</div>
+                                        <div class="stack-segment" style="width: 78%; background: #48bb78;"></div>
+                                    </div>
+                                    <div class="row-total">$1.8M</div>
+                                </div>
+                                <div class="stacked-row">
+                                    <div class="row-label">Other</div>
+                                    <div class="stacked-bar-container">
+                                        <div class="stack-segment" style="width: 18%; background: #64748b;">$1.2M</div>
+                                        <div class="stack-segment" style="width: 82%; background: #94a3b8;"></div>
+                                    </div>
+                                    <div class="row-total">$1.2M</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Data Table -->
+            <div class="table-section">
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3 class="table-title">Departmental Budget Performance</h3>
+                        <div class="table-actions">
+                            <button class="table-action-btn">📥 Export</button>
+                            <button class="table-action-btn">🔍 Filter</button>
+                            <button class="table-action-btn">⚡ Refresh</button>
+                        </div>
+                    </div>
+                    <table class="financial-table">
+                        <thead>
+                            <tr>
+                                <th>Department</th>
+                                <th class="number-col">Budget</th>
+                                <th class="number-col">Actual</th>
+                                <th class="number-col">Variance</th>
+                                <th class="number-col">Variance %</th>
+                                <th>Status</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Engineering</strong></td>
+                                <td class="number-col">$8,500,000</td>
+                                <td class="number-col">$8,240,000</td>
+                                <td class="number-col" style="color: var(--success);">$260,000</td>
+                                <td class="number-col" style="color: var(--success);">-3.1%</td>
+                                <td><span class="status-pill status-on-track">On Track</span></td>
+                                <td>Hiring below plan</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sales</strong></td>
+                                <td class="number-col">$5,200,000</td>
+                                <td class="number-col">$5,680,000</td>
+                                <td class="number-col" style="color: var(--danger);">($480,000)</td>
+                                <td class="number-col" style="color: var(--danger);">+9.2%</td>
+                                <td><span class="status-pill status-at-risk">At Risk</span></td>
+                                <td>Commission overage</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Marketing</strong></td>
+                                <td class="number-col">$4,100,000</td>
+                                <td class="number-col">$4,180,000</td>
+                                <td class="number-col" style="color: var(--danger);">($80,000)</td>
+                                <td class="number-col" style="color: var(--danger);">+2.0%</td>
+                                <td><span class="status-pill status-on-track">On Track</span></td>
+                                <td>Campaign spend spike</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Product</strong></td>
+                                <td class="number-col">$3,800,000</td>
+                                <td class="number-col">$3,720,000</td>
+                                <td class="number-col" style="color: var(--success);">$80,000</td>
+                                <td class="number-col" style="color: var(--success);">-2.1%</td>
+                                <td><span class="status-pill status-on-track">On Track</span></td>
+                                <td>Tool consolidation</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Operations</strong></td>
+                                <td class="number-col">$2,900,000</td>
+                                <td class="number-col">$2,850,000</td>
+                                <td class="number-col" style="color: var(--success);">$50,000</td>
+                                <td class="number-col" style="color: var(--success);">-1.7%</td>
+                                <td><span class="status-pill status-on-track">On Track</span></td>
+                                <td>Under forecast</td>
+                            </tr>
+                            <tr>
+                                <td><strong>G&A</strong></td>
+                                <td class="number-col">$1,800,000</td>
+                                <td class="number-col">$2,140,000</td>
+                                <td class="number-col" style="color: var(--danger);">($340,000)</td>
+                                <td class="number-col" style="color: var(--danger);">+18.9%</td>
+                                <td><span class="status-pill status-critical">Critical</span></td>
+                                <td>Legal fees spike</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Customer Success</strong></td>
+                                <td class="number-col">$2,400,000</td>
+                                <td class="number-col">$2,310,000</td>
+                                <td class="number-col" style="color: var(--success);">$90,000</td>
+                                <td class="number-col" style="color: var(--success);">-3.8%</td>
+                                <td><span class="status-pill status-on-track">On Track</span></td>
+                                <td>Efficiency gains</td>
+                            </tr>
+                            <tr style="border-top: 2px solid var(--border-color); font-weight: 700;">
+                                <td><strong>Total OpEx</strong></td>
+                                <td class="number-col">$28,700,000</td>
+                                <td class="number-col">$29,120,000</td>
+                                <td class="number-col" style="color: var(--danger);">($420,000)</td>
+                                <td class="number-col" style="color: var(--danger);">+1.5%</td>
+                                <td><span class="status-pill status-at-risk">At Risk</span></td>
+                                <td>Above plan</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-left">
+                <span>Last updated: Nov 9, 2024 at 14:23 UTC</span>
+                <span>•</span>
+                <span>Data source: ERP System</span>
+            </div>
+            <div class="footer-right">
+                <span>Dashboard designed by <span class="footer-agent">Teeqa</span></span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Teeqa signature: Animated counter for KPI values
+        function animateValue(element, start, end, duration, suffix = '') {
+            const range = end - start;
+            const increment = range / (duration / 16);
+            let current = start;
+            const isPercentage = suffix === '%';
+            const isMoney = element.textContent.includes('$');
+            const isMonths = suffix === ' mo';
+
+            const timer = setInterval(() => {
+                current += increment;
+                if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+                    current = end;
+                    clearInterval(timer);
+                }
+
+                let displayValue;
+                if (isMoney) {
+                    if (end >= 1000000) {
+                        displayValue = '$' + (current / 1000000).toFixed(1) + 'M';
+                    } else {
+                        displayValue = '$' + Math.round(current).toLocaleString();
+                    }
+                } else if (isPercentage) {
+                    displayValue = current.toFixed(1) + '%';
+                } else if (isMonths) {
+                    displayValue = Math.round(current) + ' mo';
+                } else {
+                    displayValue = Math.round(current).toLocaleString() + suffix;
+                }
+
+                element.textContent = displayValue;
+            }, 16);
+        }
+
+        // Initialize counters when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            const kpiValues = document.querySelectorAll('.kpi-value[data-target]');
+
+            // Stagger animations for polish
+            kpiValues.forEach((element, index) => {
+                setTimeout(() => {
+                    const target = parseFloat(element.dataset.target);
+                    const text = element.textContent;
+                    let suffix = '';
+
+                    if (text.includes('%')) suffix = '%';
+                    if (text.includes('mo')) suffix = ' mo';
+
+                    animateValue(element, 0, target, 1200, suffix);
+                }, index * 100);
+            });
+        });
+
+        // Polished hover interactions for table rows
+        document.addEventListener('DOMContentLoaded', () => {
+            const tableRows = document.querySelectorAll('.financial-table tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseenter', () => {
+                    row.style.transform = 'translateX(4px)';
+                });
+                row.addEventListener('mouseleave', () => {
+                    row.style.transform = 'translateX(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

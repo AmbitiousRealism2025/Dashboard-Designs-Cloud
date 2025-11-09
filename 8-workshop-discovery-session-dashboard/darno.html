@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Discovery Session - Darno Dashboard</title>
+    <style>
+        /* Agent: Darno | Theme: Workshop Discovery Session | Intent: Structured analytical framework for collaborative discovery with metrics-driven insight capture */
+
+        :root {
+            /* Workshop Theme Colors - Post-it Palette */
+            --bg-primary: #fafafa;
+            --bg-secondary: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --text-muted: #6a6a6a;
+
+            /* Sticky Note Colors */
+            --sticky-yellow: #fff740;
+            --sticky-pink: #ff80ed;
+            --sticky-blue: #80d8ff;
+            --sticky-mint: #69f0ae;
+            --sticky-orange: #ffab40;
+
+            /* Semantic Colors */
+            --success: #43a047;
+            --warn: #fb8c00;
+            --danger: #e53935;
+            --info: #039be5;
+
+            /* Darno Signature - Analytical Structure */
+            --border-primary: #bdbdbd;
+            --shadow-light: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-medium: 0 4px 8px rgba(0,0,0,0.12);
+            --shadow-sticky: 2px 4px 6px rgba(0,0,0,0.15);
+
+            /* Workshop Typography - Larger for Projection */
+            --font-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            --size-display: 2.5rem;
+            --size-h1: 2rem;
+            --size-h2: 1.5rem;
+            --size-h3: 1.25rem;
+            --size-body: 1.1rem;
+            --size-small: 0.95rem;
+
+            /* Spacing - Chunky for Projector Visibility */
+            --space-xs: 8px;
+            --space-sm: 12px;
+            --space-md: 20px;
+            --space-lg: 32px;
+            --space-xl: 48px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        body {
+            font-family: var(--font-base);
+            font-size: var(--size-body);
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            line-height: 1.6;
+        }
+
+        /* Layout Grid */
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            grid-template-rows: auto 1fr auto;
+            min-height: 100vh;
+            gap: 0;
+        }
+
+        /* Header */
+        header {
+            grid-column: 1 / -1;
+            background: var(--text-primary);
+            color: white;
+            padding: var(--space-md) var(--space-lg);
+            box-shadow: var(--shadow-medium);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .header-title h1 {
+            font-size: var(--size-h1);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .header-meta {
+            font-size: var(--size-small);
+            opacity: 0.85;
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
+
+        .agent-badge {
+            background: var(--sticky-blue);
+            color: var(--text-primary);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: var(--size-small);
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            background: var(--bg-secondary);
+            border-right: 2px solid var(--border-primary);
+            padding: var(--space-lg) var(--space-md);
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+
+        aside h3 {
+            font-size: var(--size-h3);
+            margin-bottom: var(--space-md);
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .nav-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .nav-item {
+            padding: var(--space-sm) var(--space-sm);
+            margin-bottom: var(--space-xs);
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            font-size: var(--size-body);
+        }
+
+        .nav-item:hover {
+            background: var(--bg-primary);
+            border-left-color: var(--info);
+        }
+
+        .nav-item.active {
+            background: var(--bg-primary);
+            border-left-color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .session-timer {
+            background: var(--sticky-mint);
+            padding: var(--space-md);
+            border-radius: 4px;
+            margin-top: var(--space-lg);
+            box-shadow: var(--shadow-sticky);
+            transform: rotate(-1deg);
+        }
+
+        .session-timer h4 {
+            font-size: var(--size-h3);
+            margin-bottom: var(--space-xs);
+        }
+
+        .timer-display {
+            font-size: var(--size-display);
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Main Content Area */
+        main {
+            padding: var(--space-lg);
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 3px solid var(--text-primary);
+        }
+
+        .section-header h2 {
+            font-size: var(--size-h1);
+            font-weight: 700;
+        }
+
+        .section-count {
+            background: var(--text-primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: var(--size-body);
+            font-weight: 600;
+        }
+
+        /* KPI Cards - Workshop Metrics */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            padding: var(--space-md);
+            border-radius: 8px;
+            border: 2px solid var(--border-primary);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .kpi-label {
+            font-size: var(--size-small);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-value {
+            font-size: var(--size-display);
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-delta {
+            font-size: var(--size-small);
+            font-weight: 600;
+        }
+
+        .kpi-delta.positive { color: var(--success); }
+        .kpi-delta.neutral { color: var(--text-muted); }
+
+        .kpi-meta {
+            font-size: var(--size-small);
+            color: var(--text-secondary);
+            margin-top: var(--space-xs);
+        }
+
+        /* Sticky Note Cards - Darno's Structured Approach */
+        .sticky-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+
+        .sticky-note {
+            background: var(--sticky-yellow);
+            padding: var(--space-md);
+            border-radius: 2px;
+            box-shadow: var(--shadow-sticky);
+            position: relative;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            animation: stickyDrop 0.3s ease-out;
+            cursor: pointer;
+        }
+
+        @keyframes stickyDrop {
+            0% {
+                transform: translateY(-10px) rotate(0deg);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0) rotate(var(--rotate, -1deg));
+                opacity: 1;
+            }
+        }
+
+        .sticky-note:nth-child(3n+1) {
+            --rotate: -1.5deg;
+            background: var(--sticky-yellow);
+        }
+        .sticky-note:nth-child(3n+2) {
+            --rotate: 1deg;
+            background: var(--sticky-pink);
+        }
+        .sticky-note:nth-child(3n+3) {
+            --rotate: -0.5deg;
+            background: var(--sticky-mint);
+        }
+
+        .sticky-note:hover {
+            transform: translateY(-4px) rotate(0deg) !important;
+            box-shadow: 4px 8px 12px rgba(0,0,0,0.2);
+        }
+
+        .sticky-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-sm);
+        }
+
+        .sticky-category {
+            background: rgba(0,0,0,0.1);
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: var(--size-small);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sticky-priority {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .sticky-content {
+            flex: 1;
+            font-size: var(--size-body);
+            line-height: 1.5;
+            margin-bottom: var(--space-sm);
+        }
+
+        .sticky-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: var(--size-small);
+            color: var(--text-secondary);
+            padding-top: var(--space-xs);
+            border-top: 1px solid rgba(0,0,0,0.15);
+            opacity: 0;
+            transform: translateY(-4px);
+        }
+
+        .sticky-note:hover .sticky-meta {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .sticky-owner {
+            font-weight: 600;
+        }
+
+        .sticky-date {
+            font-style: italic;
+        }
+
+        /* Chart Placeholders */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .chart-card {
+            background: var(--bg-secondary);
+            padding: var(--space-md);
+            border-radius: 8px;
+            border: 2px solid var(--border-primary);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .chart-header {
+            margin-bottom: var(--space-md);
+        }
+
+        .chart-title {
+            font-size: var(--size-h3);
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+
+        .chart-subtitle {
+            font-size: var(--size-small);
+            color: var(--text-secondary);
+        }
+
+        .chart-placeholder {
+            height: 240px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 100%;
+            width: 100%;
+            padding: var(--space-md);
+            gap: 8px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: var(--info);
+            border-radius: 4px 4px 0 0;
+            opacity: 0.7;
+        }
+
+        .chart-bar:nth-child(1) { height: 45%; background: var(--sticky-yellow); }
+        .chart-bar:nth-child(2) { height: 72%; background: var(--sticky-pink); }
+        .chart-bar:nth-child(3) { height: 58%; background: var(--sticky-blue); }
+        .chart-bar:nth-child(4) { height: 85%; background: var(--sticky-mint); }
+        .chart-bar:nth-child(5) { height: 63%; background: var(--sticky-orange); }
+
+        /* Data Table - Action Items */
+        .table-container {
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border: 2px solid var(--border-primary);
+            box-shadow: var(--shadow-medium);
+            overflow: hidden;
+            margin-bottom: var(--space-xl);
+        }
+
+        .table-header {
+            padding: var(--space-md);
+            border-bottom: 2px solid var(--border-primary);
+            background: var(--bg-primary);
+        }
+
+        .table-header h3 {
+            font-size: var(--size-h2);
+            font-weight: 700;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: var(--size-body);
+        }
+
+        thead {
+            background: var(--bg-primary);
+            border-bottom: 2px solid var(--border-primary);
+        }
+
+        th {
+            text-align: left;
+            padding: var(--space-sm) var(--space-md);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: var(--size-small);
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+        }
+
+        td {
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        tbody tr:hover {
+            background: var(--bg-primary);
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: var(--size-small);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .status-pill.high { background: var(--danger); color: white; }
+        .status-pill.medium { background: var(--warn); color: white; }
+        .status-pill.low { background: var(--success); color: white; }
+        .status-pill.blocked { background: var(--text-primary); color: white; }
+
+        .owner-cell {
+            font-weight: 600;
+        }
+
+        /* Live Notes Section */
+        .live-notes {
+            background: var(--sticky-blue);
+            padding: var(--space-lg);
+            border-radius: 4px;
+            box-shadow: var(--shadow-sticky);
+            margin-bottom: var(--space-xl);
+            transform: rotate(-0.5deg);
+        }
+
+        .live-notes h2 {
+            font-size: var(--size-h1);
+            margin-bottom: var(--space-md);
+            font-weight: 700;
+        }
+
+        .notes-content {
+            background: white;
+            padding: var(--space-md);
+            border-radius: 4px;
+            min-height: 200px;
+            font-size: var(--size-body);
+            line-height: 1.8;
+        }
+
+        .note-entry {
+            margin-bottom: var(--space-sm);
+            padding-left: var(--space-md);
+            border-left: 3px solid var(--text-primary);
+        }
+
+        .note-timestamp {
+            font-weight: 700;
+            color: var(--text-secondary);
+            font-size: var(--size-small);
+        }
+
+        .note-text {
+            margin-top: var(--space-xs);
+        }
+
+        /* Footer */
+        footer {
+            grid-column: 1 / -1;
+            background: var(--text-primary);
+            color: white;
+            padding: var(--space-md) var(--space-lg);
+            text-align: center;
+            font-size: var(--size-small);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 960px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                position: relative;
+                height: auto;
+                border-right: none;
+                border-bottom: 2px solid var(--border-primary);
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sticky-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: var(--size-small);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Agent: Darno | Theme: Workshop Discovery Session | Intent: Structured analytical framework for collaborative discovery with metrics-driven insight capture -->
+
+    <div class="dashboard-container">
+        <header>
+            <div class="header-content">
+                <div class="header-title">
+                    <h1>Q4 Product Strategy Workshop - Discovery Session</h1>
+                    <div class="header-meta">
+                        <span>December 6, 2025</span>
+                        <span>|</span>
+                        <span>14 Participants</span>
+                        <span>|</span>
+                        <span>Conference Room B</span>
+                    </div>
+                </div>
+                <div>
+                    <span class="agent-badge">DARNO</span>
+                </div>
+            </div>
+        </header>
+
+        <aside>
+            <div class="nav-section">
+                <h3>Session Agenda</h3>
+                <div class="nav-item active">Workshop Metrics</div>
+                <div class="nav-item">Key Insights</div>
+                <div class="nav-item">Action Items</div>
+                <div class="nav-item">Risks & Blockers</div>
+                <div class="nav-item">Participation View</div>
+                <div class="nav-item">Live Decisions</div>
+            </div>
+
+            <div class="nav-section">
+                <h3>Breakout Groups</h3>
+                <div class="nav-item">Product Vision (5)</div>
+                <div class="nav-item">Market Analysis (4)</div>
+                <div class="nav-item">Technical Feasibility (5)</div>
+            </div>
+
+            <div class="session-timer">
+                <h4>Time Remaining</h4>
+                <div class="timer-display">47:32</div>
+            </div>
+        </aside>
+
+        <main>
+            <!-- Workshop Productivity KPIs -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Ideas Captured</div>
+                    <div class="kpi-value">47</div>
+                    <div class="kpi-delta positive">+12 this hour</div>
+                    <div class="kpi-meta">Target: 40-50</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Actions Defined</div>
+                    <div class="kpi-value">23</div>
+                    <div class="kpi-delta positive">15 with owners</div>
+                    <div class="kpi-meta">Completion rate: 65%</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Blockers Identified</div>
+                    <div class="kpi-value">8</div>
+                    <div class="kpi-delta neutral">3 critical</div>
+                    <div class="kpi-meta">Requires leadership input</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Consensus Level</div>
+                    <div class="kpi-value">82%</div>
+                    <div class="kpi-delta positive">+7% vs start</div>
+                    <div class="kpi-meta">Strong alignment</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Participation Rate</div>
+                    <div class="kpi-value">93%</div>
+                    <div class="kpi-delta positive">13 of 14 active</div>
+                    <div class="kpi-meta">Excellent engagement</div>
+                </div>
+            </div>
+
+            <!-- Key Insights Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>Key Insights</h2>
+                    <span class="section-count">12 insights</span>
+                </div>
+
+                <div class="sticky-grid">
+                    <div class="sticky-note">
+                        <div class="sticky-header">
+                            <span class="sticky-category">Market</span>
+                            <span class="sticky-priority">⭐⭐⭐</span>
+                        </div>
+                        <div class="sticky-content">
+                            <strong>Customer segment A shows 3.2x higher LTV</strong> than segment B based on Q3 cohort analysis. Should prioritize features for this demographic.
+                        </div>
+                        <div class="sticky-meta">
+                            <span class="sticky-owner">Sarah Chen</span>
+                            <span class="sticky-date">10:45 AM</span>
+                        </div>
+                    </div>
+
+                    <div class="sticky-note">
+                        <div class="sticky-header">
+                            <span class="sticky-category">Product</span>
+                            <span class="sticky-priority">⭐⭐</span>
+                        </div>
+                        <div class="sticky-content">
+                            <strong>Mobile usage increased 47% YoY</strong> but conversion rate is 2.1x lower than desktop. Clear optimization opportunity.
+                        </div>
+                        <div class="sticky-meta">
+                            <span class="sticky-owner">Marcus Liu</span>
+                            <span class="sticky-date">10:52 AM</span>
+                        </div>
+                    </div>
+
+                    <div class="sticky-note">
+                        <div class="sticky-header">
+                            <span class="sticky-category">Technical</span>
+                            <span class="sticky-priority">⭐⭐⭐</span>
+                        </div>
+                        <div class="sticky-content">
+                            <strong>Current architecture can't scale beyond 50K concurrent users</strong> without major infrastructure investment (est. 6-8 months).
+                        </div>
+                        <div class="sticky-meta">
+                            <span class="sticky-owner">Dev Team</span>
+                            <span class="sticky-date">11:15 AM</span>
+                        </div>
+                    </div>
+
+                    <div class="sticky-note">
+                        <div class="sticky-header">
+                            <span class="sticky-category">Customer</span>
+                            <span class="sticky-priority">⭐⭐</span>
+                        </div>
+                        <div class="sticky-content">
+                            <strong>Support ticket volume correlates with feature complexity</strong> not bugs. 68% of tickets are "how do I..." questions.
+                        </div>
+                        <div class="sticky-meta">
+                            <span class="sticky-owner">Emma Torres</span>
+                            <span class="sticky-date">11:23 AM</span>
+                        </div>
+                    </div>
+
+                    <div class="sticky-note">
+                        <div class="sticky-header">
+                            <span class="sticky-category">Competition</span>
+                            <span class="sticky-priority">⭐⭐⭐</span>
+                        </div>
+                        <div class="sticky-content">
+                            <strong>Two competitors launched similar features in Q3</strong> with 40% better onboarding experience. We're losing market share to them.
+                        </div>
+                        <div class="sticky-meta">
+                            <span class="sticky-owner">Product Strategy</span>
+                            <span class="sticky-date">11:38 AM</span>
+                        </div>
+                    </div>
+
+                    <div class="sticky-note">
+                        <div class="sticky-header">
+                            <span class="sticky-category">Revenue</span>
+                            <span class="sticky-priority">⭐⭐</span>
+                        </div>
+                        <div class="sticky-content">
+                            <strong>Enterprise deals take 127 days avg to close</strong> vs 45 days for SMB. Need dedicated enterprise motion or focus elsewhere.
+                        </div>
+                        <div class="sticky-meta">
+                            <span class="sticky-owner">Sales Ops</span>
+                            <span class="sticky-date">11:42 AM</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Charts Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>What We Learned</h2>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Idea Generation Over Time</div>
+                            <div class="chart-subtitle">Ideas captured per 15-minute interval</div>
+                        </div>
+                        <div class="chart-placeholder">
+                            <div class="chart-bars">
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Insight Category Distribution</div>
+                            <div class="chart-subtitle">Breakdown of 47 total ideas by theme</div>
+                        </div>
+                        <div class="chart-placeholder">
+                            <div class="chart-bars">
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Participant Contribution Index</div>
+                            <div class="chart-subtitle">Ideas + comments per person (target: 5+ per participant)</div>
+                        </div>
+                        <div class="chart-placeholder">
+                            <div class="chart-bars">
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Action Items Table -->
+            <section class="section">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Action Items & Next Moves</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Owner</th>
+                                <th>Due Date</th>
+                                <th>Priority</th>
+                                <th>Dependencies</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Conduct mobile UX audit and create optimization roadmap</strong></td>
+                                <td class="owner-cell">Marcus Liu</td>
+                                <td>Dec 13, 2025</td>
+                                <td><span class="status-pill high">High</span></td>
+                                <td>Analytics data export</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Model infrastructure scaling costs for 100K, 250K, 500K users</strong></td>
+                                <td class="owner-cell">Dev Team</td>
+                                <td>Dec 15, 2025</td>
+                                <td><span class="status-pill high">High</span></td>
+                                <td>CFO budget approval</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Design simplified onboarding flow (3 steps max)</strong></td>
+                                <td class="owner-cell">Emma Torres</td>
+                                <td>Dec 20, 2025</td>
+                                <td><span class="status-pill high">High</span></td>
+                                <td>Competitor analysis</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Create enterprise sales playbook with specific timeline expectations</strong></td>
+                                <td class="owner-cell">Sales Ops</td>
+                                <td>Jan 8, 2026</td>
+                                <td><span class="status-pill medium">Medium</span></td>
+                                <td>Sales leadership buy-in</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Develop segment A-specific feature requirements doc</strong></td>
+                                <td class="owner-cell">Sarah Chen</td>
+                                <td>Dec 18, 2025</td>
+                                <td><span class="status-pill high">High</span></td>
+                                <td>Customer interviews (n=10)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Build self-service knowledge base to reduce support load</strong></td>
+                                <td class="owner-cell">Emma Torres</td>
+                                <td>Jan 15, 2026</td>
+                                <td><span class="status-pill medium">Medium</span></td>
+                                <td>Content strategy approval</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Competitive feature analysis with gap identification</strong></td>
+                                <td class="owner-cell">Product Strategy</td>
+                                <td>Dec 10, 2025</td>
+                                <td><span class="status-pill high">High</span></td>
+                                <td>None</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Q1 roadmap prioritization based on workshop insights</strong></td>
+                                <td class="owner-cell">Product Leadership</td>
+                                <td>Dec 22, 2025</td>
+                                <td><span class="status-pill blocked">Blocked</span></td>
+                                <td>All above actions complete</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Risks and Blockers -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>Risks & Blockers</h2>
+                    <span class="section-count">8 items</span>
+                </div>
+
+                <div class="sticky-grid">
+                    <div class="sticky-note">
+                        <div class="sticky-header">
+                            <span class="sticky-category">Risk</span>
+                            <span class="sticky-priority">🚨</span>
+                        </div>
+                        <div class="sticky-content">
+                            <strong>Infrastructure scaling timeline conflicts with Q1 growth targets.</strong> Can't support projected user growth without 6-8 month investment first.
+                        </div>
+                        <div class="sticky-meta">
+                            <span class="sticky-owner">Technical Lead</span>
+                            <span class="sticky-date">Critical</span>
+                        </div>
+                    </div>
+
+                    <div class="sticky-note">
+                        <div class="sticky-header">
+                            <span class="sticky-category">Blocker</span>
+                            <span class="sticky-priority">🚨</span>
+                        </div>
+                        <div class="sticky-content">
+                            <strong>No clear decision on enterprise vs SMB focus.</strong> Can't finalize roadmap without strategic direction from leadership.
+                        </div>
+                        <div class="sticky-meta">
+                            <span class="sticky-owner">Product Team</span>
+                            <span class="sticky-date">Critical</span>
+                        </div>
+                    </div>
+
+                    <div class="sticky-note">
+                        <div class="sticky-header">
+                            <span class="sticky-category">Risk</span>
+                            <span class="sticky-priority">⚠️</span>
+                        </div>
+                        <div class="sticky-content">
+                            <strong>Design team capacity at 110%.</strong> Can't commit to mobile optimization + new features simultaneously without hiring or descoping.
+                        </div>
+                        <div class="sticky-meta">
+                            <span class="sticky-owner">Design Lead</span>
+                            <span class="sticky-date">High</span>
+                        </div>
+                    </div>
+
+                    <div class="sticky-note">
+                        <div class="sticky-header">
+                            <span class="sticky-category">Dependency</span>
+                            <span class="sticky-priority">⚠️</span>
+                        </div>
+                        <div class="sticky-content">
+                            <strong>Analytics data quality issues blocking accurate segment analysis.</strong> Need 2-3 weeks to clean data before customer research can proceed.
+                        </div>
+                        <div class="sticky-meta">
+                            <span class="sticky-owner">Data Team</span>
+                            <span class="sticky-date">High</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Live Notes and Decisions -->
+            <section class="section">
+                <div class="live-notes">
+                    <h2>Live Notes & Decisions</h2>
+                    <div class="notes-content">
+                        <div class="note-entry">
+                            <div class="note-timestamp">11:52 AM - DECISION</div>
+                            <div class="note-text">
+                                <strong>Agreed to prioritize mobile optimization over new feature development for Q1.</strong> Mobile conversion rate improvement has higher projected ROI based on current traffic patterns.
+                            </div>
+                        </div>
+
+                        <div class="note-entry">
+                            <div class="note-timestamp">11:45 AM - DECISION</div>
+                            <div class="note-text">
+                                <strong>Will conduct 10 customer interviews with segment A by Dec 20</strong> to validate product direction before finalizing Q1 roadmap.
+                            </div>
+                        </div>
+
+                        <div class="note-entry">
+                            <div class="note-timestamp">11:38 AM - OBSERVATION</div>
+                            <div class="note-text">
+                                Strong consensus that onboarding complexity is primary churn driver. Support ticket data + competitive analysis both point to same conclusion.
+                            </div>
+                        </div>
+
+                        <div class="note-entry">
+                            <div class="note-timestamp">11:22 AM - DECISION</div>
+                            <div class="note-text">
+                                <strong>Infrastructure scaling requires executive approval.</strong> Dev team to prepare 3 investment scenarios (conservative, moderate, aggressive) with cost/benefit analysis by Dec 15.
+                            </div>
+                        </div>
+
+                        <div class="note-entry">
+                            <div class="note-timestamp">11:15 AM - INSIGHT</div>
+                            <div class="note-text">
+                                Technical team flagged that current architecture fundamentally cannot support projected Q2 user growth. This is a critical blocker that changes timeline assumptions.
+                            </div>
+                        </div>
+
+                        <div class="note-entry">
+                            <div class="note-timestamp">10:58 AM - DECISION</div>
+                            <div class="note-text">
+                                <strong>Will deprioritize enterprise motion for Q1-Q2</strong> given lengthy sales cycles and focus resources on high-velocity SMB segment instead.
+                            </div>
+                        </div>
+
+                        <div class="note-entry">
+                            <div class="note-timestamp">10:45 AM - OBSERVATION</div>
+                            <div class="note-text">
+                                Market research presentation revealed clear customer segment A opportunity with 3.2x higher LTV. This should drive Q1 feature prioritization.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div>Workshop Discovery Dashboard | Design Agent: <strong>Darno</strong></div>
+                <div>Data-First Analytical UX | Last updated: 11:52 AM</div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Simple timer countdown (simulated)
+        function updateTimer() {
+            const timerDisplay = document.querySelector('.timer-display');
+            let minutes = 47;
+            let seconds = 32;
+
+            setInterval(() => {
+                if (seconds === 0) {
+                    if (minutes === 0) return;
+                    minutes--;
+                    seconds = 59;
+                } else {
+                    seconds--;
+                }
+
+                const minStr = String(minutes).padStart(2, '0');
+                const secStr = String(seconds).padStart(2, '0');
+                timerDisplay.textContent = `${minStr}:${secStr}`;
+            }, 1000);
+        }
+
+        // Navigation highlighting
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Add staggered animation delay to sticky notes
+        document.querySelectorAll('.sticky-note').forEach((note, index) => {
+            note.style.animationDelay = `${index * 0.05}s`;
+        });
+
+        // Initialize timer
+        updateTimer();
+    </script>
+</body>
+</html>

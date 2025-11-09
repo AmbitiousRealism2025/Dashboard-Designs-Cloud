@@ -1,0 +1,1075 @@
+<!-- Agent: Explorer | Theme: Workshop Discovery Session | Intent: Transform workshop chaos into an interactive facilitation canvas with bold sticky-note aesthetics and live collaboration energy -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Discovery Dashboard | Explorer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        :root {
+            /* Workshop Post-it Colors */
+            --yellow: #FFEB3B;
+            --pink: #FF6B9D;
+            --skyblue: #4DD0E1;
+            --mint: #81C784;
+            --orange: #FFB74D;
+            --lavender: #B39DDB;
+
+            /* Base Colors */
+            --bg: #F5F7FA;
+            --white: #FFFFFF;
+            --dark: #1A1A2E;
+            --gray: #6B7280;
+            --light-gray: #E5E7EB;
+
+            /* Semantic */
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+
+            /* Spacing for projector visibility */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--dark);
+            line-height: 1.6;
+            font-size: 18px;
+        }
+
+        .app-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            grid-template-rows: auto 1fr auto;
+            min-height: 100vh;
+            gap: 0;
+        }
+
+        /* Header */
+        header {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--dark) 0%, #2D3748 100%);
+            color: white;
+            padding: var(--spacing-lg);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--yellow) 0%, transparent 70%);
+            opacity: 0.1;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .header-content {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+        }
+
+        .header-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .agent-badge {
+            background: var(--yellow);
+            color: var(--dark);
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2), 0 0 0 3px rgba(255,235,59,0.3);
+            transform: rotate(-2deg);
+            animation: badgePop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes badgePop {
+            0% { transform: scale(0) rotate(-2deg); }
+            70% { transform: scale(1.1) rotate(-2deg); }
+            100% { transform: scale(1) rotate(-2deg); }
+        }
+
+        /* Aside Navigation */
+        aside {
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-right: 3px solid var(--light-gray);
+            box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+        }
+
+        .nav-section {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .nav-section h3 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gray);
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-item:hover {
+            background: var(--bg);
+            transform: translateX(4px);
+        }
+
+        .nav-item.active {
+            background: var(--dark);
+            color: white;
+        }
+
+        .nav-icon {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        /* Main Content */
+        main {
+            padding: var(--spacing-xl);
+            overflow-y: auto;
+            max-width: 1600px;
+        }
+
+        /* Section Headers */
+        .section-header {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .section-header h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-header h2::before {
+            content: '';
+            width: 6px;
+            height: 32px;
+            background: linear-gradient(180deg, var(--pink), var(--orange));
+            border-radius: 3px;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+
+        /* KPI Cards - Workshop Metrics */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .kpi-card {
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-left: 6px solid;
+            animation: slideUp 0.4s ease-out backwards;
+        }
+
+        .kpi-card:nth-child(1) { border-left-color: var(--yellow); animation-delay: 0.1s; }
+        .kpi-card:nth-child(2) { border-left-color: var(--pink); animation-delay: 0.2s; }
+        .kpi-card:nth-child(3) { border-left-color: var(--skyblue); animation-delay: 0.3s; }
+        .kpi-card:nth-child(4) { border-left-color: var(--mint); animation-delay: 0.4s; }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .kpi-label {
+            font-size: 1rem;
+            color: var(--gray);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .kpi-value {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--dark);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-delta {
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .kpi-delta.positive {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .kpi-delta.neutral {
+            background: rgba(107, 114, 128, 0.1);
+            color: var(--gray);
+        }
+
+        /* Sticky Note Grid - Key Insights */
+        .sticky-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .sticky-note {
+            background: var(--yellow);
+            padding: var(--spacing-lg);
+            border-radius: 4px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+            position: relative;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            animation: stickyDrop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) backwards;
+            cursor: pointer;
+        }
+
+        .sticky-note::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 20px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 0 0 8px 8px;
+        }
+
+        .sticky-note:nth-child(1) { animation-delay: 0.1s; }
+        .sticky-note:nth-child(2) { animation-delay: 0.2s; background: var(--pink); }
+        .sticky-note:nth-child(3) { animation-delay: 0.3s; background: var(--skyblue); }
+        .sticky-note:nth-child(4) { animation-delay: 0.4s; background: var(--mint); }
+        .sticky-note:nth-child(5) { animation-delay: 0.5s; background: var(--orange); }
+        .sticky-note:nth-child(6) { animation-delay: 0.6s; background: var(--lavender); }
+
+        @keyframes stickyDrop {
+            0% {
+                opacity: 0;
+                transform: translateY(-100px) rotate(0deg);
+            }
+            60% {
+                transform: translateY(10px) rotate(2deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotate(-1deg);
+            }
+        }
+
+        .sticky-note:hover {
+            transform: translateY(-8px) rotate(0deg) scale(1.02);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.18);
+        }
+
+        .sticky-category {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--spacing-sm);
+            color: rgba(0,0,0,0.6);
+        }
+
+        .sticky-content {
+            font-size: 1.15rem;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--dark);
+            flex-grow: 1;
+        }
+
+        .sticky-meta {
+            margin-top: var(--spacing-sm);
+            padding-top: var(--spacing-sm);
+            border-top: 2px dashed rgba(0,0,0,0.2);
+            font-size: 0.95rem;
+            color: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Charts Section */
+        .charts-section {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .chart-card {
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .chart-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .chart-placeholder {
+            height: 280px;
+            background: linear-gradient(180deg, rgba(77,208,225,0.1) 0%, rgba(129,199,132,0.1) 100%);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: var(--spacing-md);
+            gap: 1rem;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(180deg, var(--skyblue), var(--mint));
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            animation: barGrow 1s ease-out backwards;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        }
+
+        .chart-bar:nth-child(1) { height: 45%; animation-delay: 0.1s; }
+        .chart-bar:nth-child(2) { height: 70%; animation-delay: 0.2s; }
+        .chart-bar:nth-child(3) { height: 90%; animation-delay: 0.3s; }
+        .chart-bar:nth-child(4) { height: 65%; animation-delay: 0.4s; }
+        .chart-bar:nth-child(5) { height: 85%; animation-delay: 0.5s; }
+        .chart-bar:nth-child(6) { height: 75%; animation-delay: 0.6s; }
+
+        @keyframes barGrow {
+            from { height: 0; }
+        }
+
+        /* Data Table */
+        .table-section {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .table-card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: var(--spacing-lg);
+            background: linear-gradient(135deg, var(--dark) 0%, #374151 100%);
+            color: white;
+        }
+
+        .table-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--bg);
+        }
+
+        th {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        td {
+            padding: 1.25rem 1.5rem;
+            font-size: 1.05rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        tbody tr {
+            transition: all 0.15s ease;
+        }
+
+        tbody tr:hover {
+            background: rgba(77,208,225,0.05);
+            transform: scale(1.01);
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .status-pill.in-progress {
+            background: rgba(255,183,77,0.2);
+            color: #E65100;
+        }
+
+        .status-pill.completed {
+            background: rgba(129,199,132,0.2);
+            color: #2E7D32;
+        }
+
+        .status-pill.pending {
+            background: rgba(107,114,128,0.2);
+            color: var(--gray);
+        }
+
+        .action-item {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .action-item:hover .action-details {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .action-details {
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            background: var(--dark);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        .action-details::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 1rem;
+            border: 6px solid transparent;
+            border-top-color: var(--dark);
+        }
+
+        /* Live Notes Section */
+        .live-notes-section {
+            background: linear-gradient(135deg, #2D3748 0%, var(--dark) 100%);
+            padding: var(--spacing-xl);
+            border-radius: 16px;
+            margin-bottom: var(--spacing-xl);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+
+        .live-notes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .live-notes-header h2 {
+            color: white;
+            font-size: 1.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .live-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--danger);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .note-card {
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: 12px;
+            border-left: 5px solid;
+        }
+
+        .note-card:nth-child(1) { border-left-color: var(--success); }
+        .note-card:nth-child(2) { border-left-color: var(--warning); }
+        .note-card:nth-child(3) { border-left-color: var(--danger); }
+
+        .note-type {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .note-content {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: var(--dark);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .note-timestamp {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Footer */
+        footer {
+            grid-column: 1 / -1;
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-top: 2px solid var(--light-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+        }
+
+        .footer-info {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+
+        .footer-agent {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 960px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                border-right: none;
+                border-bottom: 3px solid var(--light-gray);
+            }
+
+            .kpi-grid,
+            .sticky-grid,
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                font-size: 16px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            main {
+                padding: var(--spacing-lg);
+            }
+
+            .kpi-value {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="header-content">
+                <div class="header-left">
+                    <h1>Workshop Discovery Dashboard</h1>
+                    <div class="header-subtitle">Strategy Offsite • Q1 Planning Session • Live Facilitation Mode</div>
+                </div>
+                <div class="agent-badge">EXPLORER</div>
+            </div>
+        </header>
+
+        <aside>
+            <div class="nav-section">
+                <h3>Workshop Phases</h3>
+                <div class="nav-item active">
+                    <span class="nav-icon" style="background: var(--yellow);"></span>
+                    Discovery Overview
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon" style="background: var(--pink);"></span>
+                    Key Insights
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon" style="background: var(--skyblue);"></span>
+                    Action Planning
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon" style="background: var(--mint);"></span>
+                    Live Notes
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <h3>Session Tools</h3>
+                <div class="nav-item">
+                    <span class="nav-icon" style="background: var(--orange);"></span>
+                    Parking Lot
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon" style="background: var(--lavender);"></span>
+                    Voting Results
+                </div>
+                <div class="nav-item">
+                    <span class="nav-icon" style="background: var(--gray);"></span>
+                    Export Summary
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <section class="section-header">
+                <h2>Workshop Metrics</h2>
+                <p class="section-description">Real-time participation and progress tracking for today's session</p>
+            </section>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Participants Active</div>
+                    <div class="kpi-value">24</div>
+                    <span class="kpi-delta positive">+3 joined</span>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Ideas Generated</div>
+                    <div class="kpi-value">67</div>
+                    <span class="kpi-delta positive">+12 this hour</span>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Actions Defined</div>
+                    <div class="kpi-value">18</div>
+                    <span class="kpi-delta neutral">5 pending review</span>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Session Progress</div>
+                    <div class="kpi-value">62%</div>
+                    <span class="kpi-delta positive">On schedule</span>
+                </div>
+            </div>
+
+            <section class="section-header">
+                <h2>Key Insights & Discoveries</h2>
+                <p class="section-description">Top learnings from breakout groups and facilitated discussions</p>
+            </section>
+
+            <div class="sticky-grid">
+                <div class="sticky-note">
+                    <div class="sticky-category">💡 Insight</div>
+                    <div class="sticky-content">Customer retention drops 40% after onboarding phase - need better post-launch engagement</div>
+                    <div class="sticky-meta">
+                        <span>Group A</span>
+                        <span>12:34 PM</span>
+                    </div>
+                </div>
+                <div class="sticky-note">
+                    <div class="sticky-category">⚠️ Risk</div>
+                    <div class="sticky-content">Current tech stack can't scale beyond 10K users without major infrastructure overhaul</div>
+                    <div class="sticky-meta">
+                        <span>Engineering</span>
+                        <span>1:15 PM</span>
+                    </div>
+                </div>
+                <div class="sticky-note">
+                    <div class="sticky-category">🎯 Opportunity</div>
+                    <div class="sticky-content">Partnership with leading edu platform could unlock 50K new users in Q2</div>
+                    <div class="sticky-meta">
+                        <span>Growth Team</span>
+                        <span>1:42 PM</span>
+                    </div>
+                </div>
+                <div class="sticky-note">
+                    <div class="sticky-category">🔧 Solution</div>
+                    <div class="sticky-content">Implement weekly feedback loops instead of quarterly - faster iteration on features</div>
+                    <div class="sticky-meta">
+                        <span>Product</span>
+                        <span>2:08 PM</span>
+                    </div>
+                </div>
+                <div class="sticky-note">
+                    <div class="sticky-category">📊 Data Point</div>
+                    <div class="sticky-content">Teams using our mobile app have 3x higher engagement vs. desktop-only users</div>
+                    <div class="sticky-meta">
+                        <span>Analytics</span>
+                        <span>2:25 PM</span>
+                    </div>
+                </div>
+                <div class="sticky-note">
+                    <div class="sticky-category">💬 Quote</div>
+                    <div class="sticky-content">"We're solving yesterday's problems with tomorrow's budget" - need to realign priorities</div>
+                    <div class="sticky-meta">
+                        <span>Sarah M.</span>
+                        <span>2:51 PM</span>
+                    </div>
+                </div>
+            </div>
+
+            <section class="section-header">
+                <h2>Workshop Analytics</h2>
+                <p class="section-description">Visual breakdowns of session participation and contribution patterns</p>
+            </section>
+
+            <div class="charts-section">
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Ideas by Category</div>
+                            <div class="chart-legend">
+                                <div class="legend-item">
+                                    <span class="legend-dot" style="background: var(--skyblue);"></span>
+                                    <span>Product</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-dot" style="background: var(--mint);"></span>
+                                    <span>Growth</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-placeholder">
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Engagement Timeline</div>
+                            <div class="chart-legend">
+                                <div class="legend-item">
+                                    <span class="legend-dot" style="background: var(--pink);"></span>
+                                    <span>Active</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-placeholder">
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="section-header">
+                <h2>Action Items & Next Steps</h2>
+                <p class="section-description">Commitments and deliverables with assigned owners (hover for details)</p>
+            </section>
+
+            <div class="table-section">
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3>Workshop Commitments</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Action Item</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Team</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="action-item">
+                                <td>
+                                    Design customer retention playbook
+                                    <div class="action-details">
+                                        <strong>Owner:</strong> Jessica Chen | <strong>Due:</strong> Jan 25
+                                    </div>
+                                </td>
+                                <td>High</td>
+                                <td><span class="status-pill in-progress">In Progress</span></td>
+                                <td>Product</td>
+                            </tr>
+                            <tr class="action-item">
+                                <td>
+                                    Conduct infrastructure audit
+                                    <div class="action-details">
+                                        <strong>Owner:</strong> Mike Torres | <strong>Due:</strong> Jan 20
+                                    </div>
+                                </td>
+                                <td>Critical</td>
+                                <td><span class="status-pill pending">Pending</span></td>
+                                <td>Engineering</td>
+                            </tr>
+                            <tr class="action-item">
+                                <td>
+                                    Draft partnership proposal deck
+                                    <div class="action-details">
+                                        <strong>Owner:</strong> Priya Patel | <strong>Due:</strong> Jan 22
+                                    </div>
+                                </td>
+                                <td>High</td>
+                                <td><span class="status-pill in-progress">In Progress</span></td>
+                                <td>Growth</td>
+                            </tr>
+                            <tr class="action-item">
+                                <td>
+                                    Implement weekly feedback process
+                                    <div class="action-details">
+                                        <strong>Owner:</strong> Alex Kim | <strong>Due:</strong> Jan 18
+                                    </div>
+                                </td>
+                                <td>Medium</td>
+                                <td><span class="status-pill completed">Completed</span></td>
+                                <td>Product</td>
+                            </tr>
+                            <tr class="action-item">
+                                <td>
+                                    Analyze mobile vs. desktop metrics
+                                    <div class="action-details">
+                                        <strong>Owner:</strong> Sarah Liu | <strong>Due:</strong> Jan 19
+                                    </div>
+                                </td>
+                                <td>Medium</td>
+                                <td><span class="status-pill completed">Completed</span></td>
+                                <td>Analytics</td>
+                            </tr>
+                            <tr class="action-item">
+                                <td>
+                                    Realign Q1 budget priorities
+                                    <div class="action-details">
+                                        <strong>Owner:</strong> David Park | <strong>Due:</strong> Jan 30
+                                    </div>
+                                </td>
+                                <td>High</td>
+                                <td><span class="status-pill pending">Pending</span></td>
+                                <td>Finance</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <section class="live-notes-section">
+                <div class="live-notes-header">
+                    <h2>Live Notes & Decisions</h2>
+                    <div class="live-indicator">
+                        <span class="live-dot"></span>
+                        <span>Recording</span>
+                    </div>
+                </div>
+                <div class="notes-grid">
+                    <div class="note-card">
+                        <div class="note-type">✅ Decision</div>
+                        <div class="note-content">
+                            Move forward with mobile-first redesign starting Feb 1st. Product team will lead with design sprint approach.
+                        </div>
+                        <div class="note-timestamp">Captured at 3:12 PM</div>
+                    </div>
+                    <div class="note-card">
+                        <div class="note-type">🅿️ Parking Lot</div>
+                        <div class="note-content">
+                            Discussion about international expansion tabled until Q2 planning. Need more market research data first.
+                        </div>
+                        <div class="note-timestamp">Captured at 2:58 PM</div>
+                    </div>
+                    <div class="note-card">
+                        <div class="note-type">🔥 Hot Topic</div>
+                        <div class="note-content">
+                            Team alignment on customer support model - unanimous agreement to expand support hours to 24/7 by March.
+                        </div>
+                        <div class="note-timestamp">Captured at 3:24 PM</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-info">
+                Last updated: <strong>3:42 PM</strong> | Session ID: WKS-2025-Q1-DISC
+            </div>
+            <div class="footer-agent">
+                Designed by <strong>EXPLORER</strong> | Experimental Systems UX
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Simple interaction enhancements
+        document.addEventListener('DOMContentLoaded', () => {
+            // Nav item interactions
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    navItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                });
+            });
+
+            // Sticky note interactions
+            const stickyNotes = document.querySelectorAll('.sticky-note');
+            stickyNotes.forEach(note => {
+                note.addEventListener('click', () => {
+                    note.style.transform = 'translateY(-8px) rotate(0deg) scale(1.02)';
+                    setTimeout(() => {
+                        note.style.transform = '';
+                    }, 300);
+                });
+            });
+
+            // Live timestamp updater
+            setInterval(() => {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString('en-US', {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                });
+                const footerTime = document.querySelector('footer strong');
+                if (footerTime) {
+                    footerTime.textContent = timeString;
+                }
+            }, 60000); // Update every minute
+        });
+    </script>
+</body>
+</html>

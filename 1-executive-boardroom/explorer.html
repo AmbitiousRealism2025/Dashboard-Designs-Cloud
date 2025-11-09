@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Boardroom Dashboard | Explorer</title>
+    <!-- Agent: Explorer | Theme: Executive Boardroom | Intent: Asymmetric storytelling with bold geometric hierarchy for strategic clarity -->
+    <style>
+        /* === GLOBAL RESET & BASE === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        /* === CSS CUSTOM PROPERTIES === */
+        :root {
+            /* Executive Boardroom Color Palette */
+            --bg-primary: #0f1419;
+            --bg-secondary: #1a1f28;
+            --bg-tertiary: #242b36;
+            --accent-gold: #c9a961;
+            --accent-gold-muted: #a08854;
+            --accent-teal: #5d7a84;
+            --text-primary: #f5f7fa;
+            --text-secondary: #b8c2cc;
+            --text-muted: #7a8690;
+            --success: #6b8e7a;
+            --warn: #b88846;
+            --danger: #a85c5c;
+            --border-subtle: rgba(201, 169, 97, 0.15);
+            --glass-bg: rgba(36, 43, 54, 0.6);
+
+            /* Spacing & Layout */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --border-radius: 6px;
+            --header-height: 80px;
+            --aside-width: 260px;
+        }
+
+        /* === TYPOGRAPHY === */
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        h1 { font-size: 2rem; }
+        h2 { font-size: 1.5rem; }
+        h3 { font-size: 1.125rem; }
+
+        /* === LAYOUT GRID === */
+        body {
+            display: grid;
+            grid-template-columns: var(--aside-width) 1fr;
+            grid-template-rows: var(--header-height) 1fr auto;
+            grid-template-areas:
+                "aside header"
+                "aside main"
+                "aside footer";
+            min-height: 100vh;
+        }
+
+        /* === HEADER === */
+        header {
+            grid-area: header;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0 var(--spacing-xl);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left h1 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .header-left .subtitle {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--border-radius);
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-gold);
+            color: var(--bg-primary);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(201, 169, 97, 0.2);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-left: var(--spacing-md);
+            border-left: 1px solid var(--border-subtle);
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-teal));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--bg-primary);
+        }
+
+        /* === ASIDE NAVIGATION === */
+        aside {
+            grid-area: aside;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-subtle);
+            padding: var(--spacing-lg) 0;
+            overflow-y: auto;
+        }
+
+        .brand {
+            padding: 0 var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .brand-logo {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.125rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .brand-tagline {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .nav-section {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .nav-label {
+            padding: 0 var(--spacing-md);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+        }
+
+        .nav-item {
+            padding: 0.75rem var(--spacing-md);
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(201, 169, 97, 0.05);
+            color: var(--text-primary);
+            border-left-color: var(--accent-gold);
+        }
+
+        .nav-item.active {
+            background: rgba(201, 169, 97, 0.1);
+            color: var(--accent-gold);
+            border-left-color: var(--accent-gold);
+            font-weight: 500;
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* === MAIN CONTENT === */
+        main {
+            grid-area: main;
+            padding: var(--spacing-xl);
+            overflow-y: auto;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(201, 169, 97, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(93, 122, 132, 0.03) 0%, transparent 50%),
+                var(--bg-primary);
+        }
+
+        /* === EXPERIMENTAL ASYMMETRIC GRID (Explorer Signature) === */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        /* === KPI SECTION === */
+        .kpi-section {
+            grid-column: 1 / -1;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            color: var(--text-primary);
+        }
+
+        .section-meta {
+            font-size: 0.813rem;
+            color: var(--text-muted);
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        /* KPI Card with Glassmorphism */
+        .kpi-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-gold), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            border-color: var(--accent-gold);
+        }
+
+        .kpi-card:hover::before {
+            opacity: 1;
+        }
+
+        .kpi-label {
+            font-size: 0.813rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: var(--spacing-sm);
+            font-weight: 500;
+        }
+
+        .kpi-value {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-xs);
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        .kpi-delta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .kpi-delta.positive {
+            color: var(--success);
+            background: rgba(107, 142, 122, 0.1);
+        }
+
+        .kpi-delta.negative {
+            color: var(--danger);
+            background: rgba(168, 92, 92, 0.1);
+        }
+
+        .kpi-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .sparkline {
+            height: 40px;
+            margin-top: var(--spacing-sm);
+            background: linear-gradient(
+                to right,
+                transparent 0%,
+                rgba(201, 169, 97, 0.1) 50%,
+                transparent 100%
+            );
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sparkline::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(
+                to right,
+                transparent,
+                var(--accent-gold) 30%,
+                var(--accent-gold) 60%,
+                var(--accent-teal)
+            );
+            opacity: 0.3;
+            clip-path: polygon(
+                0% 100%, 10% 70%, 25% 80%, 40% 40%, 55% 50%, 70% 20%, 85% 30%, 100% 10%, 100% 100%
+            );
+        }
+
+        /* === CHART SECTIONS (Asymmetric Explorer Layout) === */
+        .chart-large {
+            grid-column: span 8;
+        }
+
+        .chart-medium {
+            grid-column: span 4;
+        }
+
+        .chart-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .chart-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .chart-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chart-control-btn {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.75rem;
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .chart-control-btn.active {
+            background: var(--accent-gold);
+            color: var(--bg-primary);
+            border-color: var(--accent-gold);
+        }
+
+        .chart-placeholder {
+            flex: 1;
+            background: linear-gradient(
+                to bottom,
+                rgba(201, 169, 97, 0.05) 0%,
+                transparent 100%
+            );
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: var(--spacing-md);
+        }
+
+        /* CSS-only bar chart */
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 100%;
+            width: 100%;
+            gap: 0.5rem;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--accent-gold), var(--accent-gold-muted));
+            border-radius: 3px 3px 0 0;
+            min-height: 20%;
+            position: relative;
+            opacity: 0.8;
+        }
+
+        .chart-bar:hover {
+            opacity: 1;
+            transform: scaleY(1.02);
+        }
+
+        /* Gridlines */
+        .chart-gridlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent,
+                    transparent 19%,
+                    rgba(201, 169, 97, 0.08) 19%,
+                    rgba(201, 169, 97, 0.08) 20%
+                );
+            pointer-events: none;
+        }
+
+        /* === DATA TABLE === */
+        .table-section {
+            grid-column: 1 / -1;
+        }
+
+        .table-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin-top: var(--spacing-md);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+
+        thead {
+            border-bottom: 2px solid var(--border-subtle);
+        }
+
+        th {
+            text-align: left;
+            padding: var(--spacing-sm);
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+        }
+
+        th:hover {
+            color: var(--accent-gold);
+        }
+
+        td {
+            padding: var(--spacing-md) var(--spacing-sm);
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(201, 169, 97, 0.05);
+        }
+
+        tr:hover {
+            background: rgba(201, 169, 97, 0.03);
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 0.25rem 0.625rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .status-pill.success {
+            background: rgba(107, 142, 122, 0.2);
+            color: var(--success);
+        }
+
+        .status-pill.warning {
+            background: rgba(184, 136, 70, 0.2);
+            color: var(--warn);
+        }
+
+        .status-pill.danger {
+            background: rgba(168, 92, 92, 0.2);
+            color: var(--danger);
+        }
+
+        /* === INSIGHTS SECTION === */
+        .insight-section {
+            grid-column: span 6;
+        }
+
+        .insight-card {
+            background: linear-gradient(135deg, rgba(201, 169, 97, 0.08), rgba(93, 122, 132, 0.08));
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            position: relative;
+        }
+
+        .insight-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-md);
+            font-size: 1.25rem;
+        }
+
+        .insight-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+        }
+
+        .insight-text {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* === FOOTER === */
+        footer {
+            grid-area: footer;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            padding: var(--spacing-md) var(--spacing-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.813rem;
+            color: var(--text-muted);
+        }
+
+        .footer-left {
+            display: flex;
+            gap: var(--spacing-lg);
+        }
+
+        .footer-agent {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 960px) {
+            body {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "footer";
+            }
+
+            aside {
+                display: none;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .chart-large, .chart-medium, .insight-section {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-actions {
+                display: none;
+            }
+        }
+
+        /* === ANIMATIONS === */
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .kpi-card, .chart-card, .table-card, .insight-card {
+            animation: fadeSlideIn 0.6s ease-out backwards;
+        }
+
+        .kpi-card:nth-child(1) { animation-delay: 0.1s; }
+        .kpi-card:nth-child(2) { animation-delay: 0.2s; }
+        .kpi-card:nth-child(3) { animation-delay: 0.3s; }
+        .kpi-card:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+
+    <!-- ASIDE NAVIGATION -->
+    <aside>
+        <div class="brand">
+            <div class="brand-logo">STRATAGEM</div>
+            <div class="brand-tagline">Executive Intelligence</div>
+        </div>
+
+        <nav>
+            <div class="nav-section">
+                <div class="nav-label">Overview</div>
+                <a href="#" class="nav-item active">
+                    <span class="nav-icon">◆</span>
+                    <span>Executive Summary</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">◇</span>
+                    <span>Strategic Initiatives</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">◇</span>
+                    <span>Market Position</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-label">Performance</div>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">□</span>
+                    <span>Financial Metrics</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">□</span>
+                    <span>Operational KPIs</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">□</span>
+                    <span>Risk Assessment</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-label">Analysis</div>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">○</span>
+                    <span>Scenario Planning</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">○</span>
+                    <span>Competitive Intel</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-left">
+            <h1>Q4 2025 Strategic Review</h1>
+            <div class="subtitle">Board Meeting • December 2025</div>
+        </div>
+        <div class="header-right">
+            <div class="header-actions">
+                <button class="btn btn-secondary">Export PDF</button>
+                <button class="btn btn-primary">Share Report</button>
+            </div>
+            <div class="user-profile">
+                <div class="avatar">JD</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- KPI SECTION -->
+        <section class="kpi-section">
+            <div class="section-header">
+                <h2 class="section-title">Key Performance Indicators</h2>
+                <span class="section-meta">As of December 8, 2025</span>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Annual Revenue</div>
+                    <div class="kpi-value">$847M</div>
+                    <div style="text-align: center;">
+                        <span class="kpi-delta positive">↑ 18.3%</span>
+                    </div>
+                    <div class="kpi-meta">vs. previous year</div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">EBITDA Margin</div>
+                    <div class="kpi-value">34.2%</div>
+                    <div style="text-align: center;">
+                        <span class="kpi-delta positive">↑ 2.8pp</span>
+                    </div>
+                    <div class="kpi-meta">Target: 32%</div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Market Share</div>
+                    <div class="kpi-value">23.7%</div>
+                    <div style="text-align: center;">
+                        <span class="kpi-delta positive">↑ 1.4pp</span>
+                    </div>
+                    <div class="kpi-meta">Industry rank: #2</div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Strategic Risk Index</div>
+                    <div class="kpi-value">2.8</div>
+                    <div style="text-align: center;">
+                        <span class="kpi-delta negative">↑ 0.3</span>
+                    </div>
+                    <div class="kpi-meta">Scale: 0-5 (lower is better)</div>
+                    <div class="sparkline"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHARTS GRID (Asymmetric Explorer Layout) -->
+        <div class="dashboard-grid">
+            <!-- Large Primary Chart -->
+            <div class="chart-large">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Revenue Growth Trajectory</h3>
+                        <div class="chart-controls">
+                            <button class="chart-control-btn">YTD</button>
+                            <button class="chart-control-btn active">Quarterly</button>
+                            <button class="chart-control-btn">Annual</button>
+                        </div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div class="chart-gridlines"></div>
+                        <div class="chart-bars">
+                            <div class="chart-bar" style="height: 45%;"></div>
+                            <div class="chart-bar" style="height: 52%;"></div>
+                            <div class="chart-bar" style="height: 48%;"></div>
+                            <div class="chart-bar" style="height: 61%;"></div>
+                            <div class="chart-bar" style="height: 58%;"></div>
+                            <div class="chart-bar" style="height: 67%;"></div>
+                            <div class="chart-bar" style="height: 72%;"></div>
+                            <div class="chart-bar" style="height: 78%;"></div>
+                            <div class="chart-bar" style="height: 85%;"></div>
+                            <div class="chart-bar" style="height: 91%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medium Secondary Chart -->
+            <div class="chart-medium">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Portfolio Allocation</h3>
+                    </div>
+                    <div class="chart-placeholder" style="background: radial-gradient(circle, rgba(201, 169, 97, 0.15) 0%, transparent 70%);">
+                        <div style="margin: auto; text-align: center; color: var(--text-muted); font-size: 0.875rem;">
+                            <div style="font-size: 2rem; color: var(--accent-gold); margin-bottom: 0.5rem;">◎</div>
+                            <div>Core: 62%</div>
+                            <div>Growth: 28%</div>
+                            <div>Emerging: 10%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insight Cards -->
+            <div class="insight-section">
+                <div class="insight-card">
+                    <div class="insight-icon">💡</div>
+                    <h3 class="insight-title">Strategic Opportunity</h3>
+                    <p class="insight-text">
+                        Market analysis indicates a 42% TAM expansion in Q1 2026 driven by regulatory shifts.
+                        Recommend accelerating Product Line C to capture first-mover advantage.
+                    </p>
+                </div>
+            </div>
+
+            <div class="insight-section">
+                <div class="insight-card">
+                    <div class="insight-icon">⚠</div>
+                    <h3 class="insight-title">Risk Mitigation Required</h3>
+                    <p class="insight-text">
+                        Supply chain concentration in Region 3 presents elevated risk. Board approval needed
+                        for $24M diversification initiative outlined in Appendix D.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Additional Chart -->
+            <div class="chart-medium" style="grid-column: span 6;">
+                <div class="chart-card" style="height: 320px;">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Strategic Initiative Progress</h3>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div style="display: flex; flex-direction: column; gap: 1rem; width: 100%; padding: 1rem;">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.875rem;">
+                                    <span style="color: var(--text-secondary);">Digital Transformation</span>
+                                    <span style="color: var(--accent-gold);">87%</span>
+                                </div>
+                                <div style="height: 8px; background: rgba(201, 169, 97, 0.1); border-radius: 4px; overflow: hidden;">
+                                    <div style="width: 87%; height: 100%; background: var(--accent-gold);"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.875rem;">
+                                    <span style="color: var(--text-secondary);">M&A Integration</span>
+                                    <span style="color: var(--accent-gold);">72%</span>
+                                </div>
+                                <div style="height: 8px; background: rgba(201, 169, 97, 0.1); border-radius: 4px; overflow: hidden;">
+                                    <div style="width: 72%; height: 100%; background: var(--accent-gold);"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.875rem;">
+                                    <span style="color: var(--text-secondary);">ESG Framework</span>
+                                    <span style="color: var(--accent-gold);">58%</span>
+                                </div>
+                                <div style="height: 8px; background: rgba(201, 169, 97, 0.1); border-radius: 4px; overflow: hidden;">
+                                    <div style="width: 58%; height: 100%; background: var(--accent-gold);"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.875rem;">
+                                    <span style="color: var(--text-secondary);">Market Expansion APAC</span>
+                                    <span style="color: var(--accent-gold);">41%</span>
+                                </div>
+                                <div style="height: 8px; background: rgba(201, 169, 97, 0.1); border-radius: 4px; overflow: hidden;">
+                                    <div style="width: 41%; height: 100%; background: var(--accent-gold);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-medium" style="grid-column: span 6;">
+                <div class="chart-card" style="height: 320px;">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Competitive Positioning</h3>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                            <div style="position: absolute; width: 16px; height: 16px; background: var(--accent-gold); border-radius: 50%; top: 30%; left: 60%;"></div>
+                            <div style="position: absolute; width: 12px; height: 12px; background: var(--accent-teal); border-radius: 50%; top: 45%; left: 40%; opacity: 0.6;"></div>
+                            <div style="position: absolute; width: 12px; height: 12px; background: var(--accent-teal); border-radius: 50%; top: 55%; left: 70%; opacity: 0.6;"></div>
+                            <div style="position: absolute; width: 12px; height: 12px; background: var(--accent-teal); border-radius: 50%; top: 70%; left: 50%; opacity: 0.6;"></div>
+                            <div style="position: absolute; bottom: 10px; left: 10px; font-size: 0.75rem; color: var(--text-muted);">Market Share →</div>
+                            <div style="position: absolute; top: 10px; left: 10px; font-size: 0.75rem; color: var(--text-muted); writing-mode: vertical-rl; transform: rotate(180deg);">← Growth Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DATA TABLE -->
+        <section class="table-section">
+            <div class="table-card">
+                <div class="section-header">
+                    <h2 class="section-title">Division Performance Summary</h2>
+                    <span class="section-meta">Quarterly Results</span>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Business Unit</th>
+                                <th>Revenue ($M)</th>
+                                <th>Growth QoQ</th>
+                                <th>Margin</th>
+                                <th>Headcount</th>
+                                <th>Status</th>
+                                <th>Strategic Priority</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight: 600; color: var(--text-primary);">Enterprise Solutions</td>
+                                <td>$342.8</td>
+                                <td style="color: var(--success);">+12.4%</td>
+                                <td>38.2%</td>
+                                <td>1,247</td>
+                                <td><span class="status-pill success">On Track</span></td>
+                                <td>Maintain & Scale</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600; color: var(--text-primary);">Cloud Services</td>
+                                <td>$278.5</td>
+                                <td style="color: var(--success);">+23.7%</td>
+                                <td>42.1%</td>
+                                <td>892</td>
+                                <td><span class="status-pill success">Exceeding</span></td>
+                                <td>Accelerate Growth</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600; color: var(--text-primary);">Professional Services</td>
+                                <td>$156.2</td>
+                                <td style="color: var(--success);">+8.1%</td>
+                                <td>28.9%</td>
+                                <td>634</td>
+                                <td><span class="status-pill success">On Track</span></td>
+                                <td>Optimize Margins</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600; color: var(--text-primary);">Innovation Labs</td>
+                                <td>$42.3</td>
+                                <td style="color: var(--warn);">-3.2%</td>
+                                <td>18.4%</td>
+                                <td>218</td>
+                                <td><span class="status-pill warning">Watch</span></td>
+                                <td>Strategic Pivot</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600; color: var(--text-primary);">Regional Markets</td>
+                                <td>$27.9</td>
+                                <td style="color: var(--success);">+31.5%</td>
+                                <td>22.7%</td>
+                                <td>156</td>
+                                <td><span class="status-pill success">High Growth</span></td>
+                                <td>Expand Footprint</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-left">
+            <span>© 2025 Stratagem Intelligence Platform</span>
+            <span>|</span>
+            <span>Last Updated: December 8, 2025 14:23 UTC</span>
+            <span>|</span>
+            <span class="footer-agent">Design Agent: Explorer</span>
+        </div>
+        <div>Confidential • Board Use Only</div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Journey Studio – Zeeqa</title>
+    <!-- Agent: Zeeqa | Theme: Customer Journey CX Studio | Intent: Refined human-centric analytics where generous whitespace and minimal typography elevate customer insights with warmth and clarity -->
+    <style>
+        /* ===== ZEEQA MINIMALIST SYSTEM ===== */
+
+        :root {
+            /* Warm, muted palette - Zeeqa's restrained interpretation */
+            --bg-primary: #FAFAF8;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #F5F5F3;
+
+            --text-primary: #2C2C2C;
+            --text-secondary: #666666;
+            --text-tertiary: #999999;
+
+            --accent-coral: #E76F51;
+            --accent-teal: #2A9D8F;
+            --accent-amber: #F4A261;
+
+            --border-subtle: #E8E8E6;
+            --border-medium: #D4D4D2;
+
+            --success: #52B788;
+            --warning: #F4A261;
+            --danger: #E76F51;
+
+            /* Zeeqa spacing system */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2.5rem;
+            --space-xl: 4rem;
+
+            /* Typography scale */
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-display: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, sans-serif;
+
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.5rem;
+            --text-2xl: 2rem;
+            --text-3xl: 2.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: var(--text-base);
+        }
+
+        /* ===== LAYOUT STRUCTURE ===== */
+
+        .app-container {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            grid-template-rows: auto 1fr auto;
+            min-height: 100vh;
+        }
+
+        header {
+            grid-column: 1 / -1;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: var(--space-md) var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: baseline;
+            gap: var(--space-md);
+        }
+
+        .header-brand h1 {
+            font-family: var(--font-display);
+            font-size: var(--text-lg);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        .header-meta {
+            font-size: var(--text-sm);
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--space-sm);
+            align-items: center;
+        }
+
+        .period-selector {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            padding: var(--space-xs) var(--space-sm);
+            border: 1px solid var(--border-medium);
+            border-radius: 4px;
+            background: var(--bg-primary);
+            cursor: pointer;
+            transition: all 0.18s ease-out;
+        }
+
+        .period-selector:hover {
+            border-color: var(--accent-teal);
+        }
+
+        aside {
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-subtle);
+            padding: var(--space-lg) 0;
+        }
+
+        .nav-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .nav-label {
+            font-size: var(--text-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-tertiary);
+            padding: 0 var(--space-md);
+            margin-bottom: var(--space-sm);
+            font-weight: 500;
+        }
+
+        .nav-item {
+            padding: var(--space-xs) var(--space-md);
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.18s ease-out;
+            border-left: 2px solid transparent;
+        }
+
+        .nav-item:hover {
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+        }
+
+        .nav-item.active {
+            color: var(--accent-teal);
+            border-left-color: var(--accent-teal);
+            background: var(--bg-tertiary);
+        }
+
+        main {
+            padding: var(--space-xl) var(--space-lg);
+            max-width: 1400px;
+        }
+
+        footer {
+            grid-column: 1 / -1;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            padding: var(--space-md) var(--space-lg);
+            text-align: center;
+            font-size: var(--text-xs);
+            color: var(--text-tertiary);
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: var(--space-lg);
+            color: var(--text-primary);
+        }
+
+        /* ===== KPI GRID ===== */
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: var(--space-lg);
+            transition: all 0.2s ease-out;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+        }
+
+        .kpi-label {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xs);
+            font-weight: 400;
+        }
+
+        .kpi-value {
+            font-family: var(--font-display);
+            font-size: var(--text-3xl);
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            margin-bottom: var(--space-xs);
+            line-height: 1;
+        }
+
+        .kpi-value.positive { color: var(--success); }
+        .kpi-value.neutral { color: var(--text-primary); }
+        .kpi-value.attention { color: var(--warning); }
+
+        .kpi-delta {
+            font-size: var(--text-sm);
+            color: var(--text-tertiary);
+        }
+
+        .kpi-delta .change {
+            font-weight: 500;
+        }
+
+        .kpi-delta .up { color: var(--success); }
+        .kpi-delta .down { color: var(--danger); }
+
+        .kpi-meta {
+            margin-top: var(--space-sm);
+            padding-top: var(--space-sm);
+            border-top: 1px solid var(--border-subtle);
+            font-size: var(--text-xs);
+            color: var(--text-tertiary);
+        }
+
+        /* ===== JOURNEY STAGES ===== */
+
+        .journey-stages {
+            margin-bottom: var(--space-xl);
+        }
+
+        .stages-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-sm);
+        }
+
+        .stage-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: var(--space-md);
+            position: relative;
+            transition: all 0.2s ease-out;
+        }
+
+        .stage-card::after {
+            content: '→';
+            position: absolute;
+            right: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--border-medium);
+            font-size: var(--text-lg);
+            z-index: 1;
+        }
+
+        .stage-card:last-child::after {
+            display: none;
+        }
+
+        .stage-card:hover {
+            border-color: var(--accent-teal);
+            box-shadow: 0 4px 16px rgba(42, 157, 143, 0.08);
+        }
+
+        .stage-number {
+            font-size: var(--text-xs);
+            color: var(--text-tertiary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .stage-name {
+            font-family: var(--font-display);
+            font-size: var(--text-base);
+            font-weight: 500;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .stage-metric {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-xs);
+        }
+
+        .stage-metric-value {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* ===== CHART SECTION ===== */
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .chart-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: var(--space-lg);
+        }
+
+        .chart-header {
+            margin-bottom: var(--space-md);
+        }
+
+        .chart-title {
+            font-family: var(--font-display);
+            font-size: var(--text-base);
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .chart-subtitle {
+            font-size: var(--text-sm);
+            color: var(--text-tertiary);
+        }
+
+        .chart-placeholder {
+            height: 280px;
+            background: linear-gradient(180deg, var(--bg-tertiary) 0%, var(--bg-primary) 100%);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Segment bars visualization */
+        .segment-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 100%;
+            width: 100%;
+            padding: var(--space-lg);
+            gap: var(--space-sm);
+        }
+
+        .segment-bar {
+            flex: 1;
+            background: linear-gradient(180deg, var(--accent-teal) 0%, rgba(42, 157, 143, 0.3) 100%);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            transition: all 0.2s ease-out;
+        }
+
+        .segment-bar:nth-child(1) { height: 60%; background: linear-gradient(180deg, var(--accent-coral) 0%, rgba(231, 111, 81, 0.3) 100%); }
+        .segment-bar:nth-child(2) { height: 85%; background: linear-gradient(180deg, var(--accent-teal) 0%, rgba(42, 157, 143, 0.3) 100%); }
+        .segment-bar:nth-child(3) { height: 45%; background: linear-gradient(180deg, var(--accent-amber) 0%, rgba(244, 162, 97, 0.3) 100%); }
+        .segment-bar:nth-child(4) { height: 70%; background: linear-gradient(180deg, var(--success) 0%, rgba(82, 183, 136, 0.3) 100%); }
+
+        .segment-bar:hover {
+            opacity: 0.8;
+            transform: translateY(-4px);
+        }
+
+        /* Funnel visualization */
+        .funnel-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+            padding: var(--space-lg);
+        }
+
+        .funnel-stage {
+            height: 50px;
+            background: var(--accent-teal);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            transition: all 0.2s ease-out;
+        }
+
+        .funnel-stage:nth-child(1) { width: 100%; background: var(--accent-coral); }
+        .funnel-stage:nth-child(2) { width: 80%; background: var(--accent-amber); }
+        .funnel-stage:nth-child(3) { width: 60%; background: var(--accent-teal); }
+        .funnel-stage:nth-child(4) { width: 40%; background: var(--success); }
+
+        .funnel-stage:hover {
+            transform: scale(1.02);
+        }
+
+        /* ===== CUSTOMER VOICES ===== */
+
+        .voices-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .voices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .voice-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: var(--space-lg);
+            position: relative;
+            animation: fadeInUp 0.4s ease-out forwards;
+            opacity: 0;
+            transition: all 0.2s ease-out;
+        }
+
+        .voice-card:nth-child(1) { animation-delay: 0.1s; }
+        .voice-card:nth-child(2) { animation-delay: 0.2s; }
+        .voice-card:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+        }
+
+        .voice-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+        }
+
+        .voice-quote {
+            font-size: var(--text-base);
+            line-height: 1.7;
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+            font-style: italic;
+        }
+
+        .voice-quote::before {
+            content: '"';
+            color: var(--accent-coral);
+            font-size: var(--text-2xl);
+            line-height: 0;
+            margin-right: 4px;
+        }
+
+        .voice-author {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .voice-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-coral), var(--accent-amber));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 500;
+            font-size: var(--text-sm);
+        }
+
+        .voice-details {
+            flex: 1;
+        }
+
+        .voice-name {
+            font-size: var(--text-sm);
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .voice-meta {
+            font-size: var(--text-xs);
+            color: var(--text-tertiary);
+        }
+
+        .voice-score {
+            font-size: var(--text-sm);
+            font-weight: 500;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: var(--bg-tertiary);
+        }
+
+        .voice-score.promoter { color: var(--success); background: rgba(82, 183, 136, 0.1); }
+        .voice-score.passive { color: var(--warning); background: rgba(244, 162, 97, 0.1); }
+        .voice-score.detractor { color: var(--danger); background: rgba(231, 111, 81, 0.1); }
+
+        /* ===== DATA TABLE ===== */
+
+        .table-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .table-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        th {
+            padding: var(--space-md);
+            text-align: left;
+            font-size: var(--text-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        td {
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: var(--text-sm);
+            color: var(--text-primary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr {
+            transition: all 0.18s ease-out;
+        }
+
+        tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: var(--text-xs);
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+
+        .status-pill.healthy {
+            background: rgba(82, 183, 136, 0.1);
+            color: var(--success);
+        }
+
+        .status-pill.at-risk {
+            background: rgba(244, 162, 97, 0.1);
+            color: var(--warning);
+        }
+
+        .status-pill.critical {
+            background: rgba(231, 111, 81, 0.1);
+            color: var(--danger);
+        }
+
+        .trend-indicator {
+            font-weight: 500;
+        }
+
+        .trend-indicator.up { color: var(--success); }
+        .trend-indicator.down { color: var(--danger); }
+        .trend-indicator.neutral { color: var(--text-tertiary); }
+
+        /* ===== RESPONSIVE ===== */
+
+        @media (max-width: 960px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                display: none;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            main {
+                padding: var(--space-md);
+            }
+
+            .kpi-grid,
+            .stages-container,
+            .voices-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: var(--text-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="header-brand">
+                <h1>Customer Journey Studio</h1>
+                <span class="header-meta">Q4 2024</span>
+            </div>
+            <div class="header-actions">
+                <select class="period-selector">
+                    <option>Last 30 Days</option>
+                    <option>Last Quarter</option>
+                    <option>Last Year</option>
+                </select>
+            </div>
+        </header>
+
+        <aside>
+            <nav>
+                <div class="nav-section">
+                    <div class="nav-label">Journey Stages</div>
+                    <div class="nav-item active">Overview</div>
+                    <div class="nav-item">Acquisition</div>
+                    <div class="nav-item">Onboarding</div>
+                    <div class="nav-item">Engagement</div>
+                    <div class="nav-item">Retention</div>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-label">Insights</div>
+                    <div class="nav-item">Customer Voices</div>
+                    <div class="nav-item">Segments</div>
+                    <div class="nav-item">Health Score</div>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-label">Reports</div>
+                    <div class="nav-item">NPS Trends</div>
+                    <div class="nav-item">Churn Analysis</div>
+                </div>
+            </nav>
+        </aside>
+
+        <main>
+            <!-- KPI Overview -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Net Promoter Score</div>
+                    <div class="kpi-value positive">68</div>
+                    <div class="kpi-delta">
+                        <span class="change up">+5</span> vs last period
+                    </div>
+                    <div class="kpi-meta">72% promoters · 24% passive · 4% detractors</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Customer Satisfaction</div>
+                    <div class="kpi-value positive">4.6</div>
+                    <div class="kpi-delta">
+                        <span class="change up">+0.2</span> vs last period
+                    </div>
+                    <div class="kpi-meta">Based on 2,847 responses</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Monthly Churn</div>
+                    <div class="kpi-value neutral">2.1%</div>
+                    <div class="kpi-delta">
+                        <span class="change down">-0.3%</span> vs last period
+                    </div>
+                    <div class="kpi-meta">47 customers churned this month</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Retention Rate</div>
+                    <div class="kpi-value positive">94.2%</div>
+                    <div class="kpi-delta">
+                        <span class="change up">+1.8%</span> vs last period
+                    </div>
+                    <div class="kpi-meta">90-day cohort retention</div>
+                </div>
+            </div>
+
+            <!-- Journey Stages -->
+            <section class="journey-stages">
+                <h2 class="section-title">Customer Lifecycle</h2>
+                <div class="stages-container">
+                    <div class="stage-card">
+                        <div class="stage-number">Stage 1</div>
+                        <div class="stage-name">Acquire</div>
+                        <div class="stage-metric">
+                            <span>Conversion</span>
+                            <span class="stage-metric-value">18.4%</span>
+                        </div>
+                        <div class="stage-metric">
+                            <span>New Users</span>
+                            <span class="stage-metric-value">1,284</span>
+                        </div>
+                    </div>
+
+                    <div class="stage-card">
+                        <div class="stage-number">Stage 2</div>
+                        <div class="stage-name">Onboard</div>
+                        <div class="stage-metric">
+                            <span>Completion</span>
+                            <span class="stage-metric-value">82.3%</span>
+                        </div>
+                        <div class="stage-metric">
+                            <span>Avg Time</span>
+                            <span class="stage-metric-value">4.2 days</span>
+                        </div>
+                    </div>
+
+                    <div class="stage-card">
+                        <div class="stage-number">Stage 3</div>
+                        <div class="stage-name">Engage</div>
+                        <div class="stage-metric">
+                            <span>Active Users</span>
+                            <span class="stage-metric-value">3,847</span>
+                        </div>
+                        <div class="stage-metric">
+                            <span>Weekly Usage</span>
+                            <span class="stage-metric-value">6.4 sessions</span>
+                        </div>
+                    </div>
+
+                    <div class="stage-card">
+                        <div class="stage-number">Stage 4</div>
+                        <div class="stage-name">Retain</div>
+                        <div class="stage-metric">
+                            <span>Loyalty Rate</span>
+                            <span class="stage-metric-value">91.7%</span>
+                        </div>
+                        <div class="stage-metric">
+                            <span>Advocates</span>
+                            <span class="stage-metric-value">2,156</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Customer Segments</div>
+                        <div class="chart-subtitle">Distribution by engagement level</div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div class="segment-bars">
+                            <div class="segment-bar"></div>
+                            <div class="segment-bar"></div>
+                            <div class="segment-bar"></div>
+                            <div class="segment-bar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Journey Funnel</div>
+                        <div class="chart-subtitle">Stage-to-stage conversion</div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div class="funnel-chart">
+                            <div class="funnel-stage">Awareness 100%</div>
+                            <div class="funnel-stage">Consideration 68%</div>
+                            <div class="funnel-stage">Purchase 42%</div>
+                            <div class="funnel-stage">Advocacy 28%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Voices -->
+            <section class="voices-section">
+                <h2 class="section-title">Customer Voices</h2>
+                <div class="voices-grid">
+                    <div class="voice-card">
+                        <div class="voice-quote">
+                            The onboarding process was seamless and the team was incredibly responsive to our questions. We were up and running in less than a week.
+                        </div>
+                        <div class="voice-author">
+                            <div class="voice-avatar">SM</div>
+                            <div class="voice-details">
+                                <div class="voice-name">Sarah Mitchell</div>
+                                <div class="voice-meta">Enterprise · 14 days ago</div>
+                            </div>
+                            <div class="voice-score promoter">NPS 10</div>
+                        </div>
+                    </div>
+
+                    <div class="voice-card">
+                        <div class="voice-quote">
+                            Great product overall, but I wish there were more customization options for the dashboard. The reporting features are excellent though.
+                        </div>
+                        <div class="voice-author">
+                            <div class="voice-avatar">JC</div>
+                            <div class="voice-details">
+                                <div class="voice-name">James Chen</div>
+                                <div class="voice-meta">SMB · 8 days ago</div>
+                            </div>
+                            <div class="voice-score passive">NPS 8</div>
+                        </div>
+                    </div>
+
+                    <div class="voice-card">
+                        <div class="voice-quote">
+                            This platform has transformed how we manage customer relationships. The insights we've gained have been invaluable for our growth.
+                        </div>
+                        <div class="voice-author">
+                            <div class="voice-avatar">AL</div>
+                            <div class="voice-details">
+                                <div class="voice-name">Amira Lopez</div>
+                                <div class="voice-meta">Mid-Market · 21 days ago</div>
+                            </div>
+                            <div class="voice-score promoter">NPS 9</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Segment Health Table -->
+            <section class="table-section">
+                <h2 class="section-title">Segment Health Overview</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Segment</th>
+                                <th>Customers</th>
+                                <th>Avg CSAT</th>
+                                <th>Churn Risk</th>
+                                <th>Engagement</th>
+                                <th>Health Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Enterprise</td>
+                                <td>248</td>
+                                <td>4.7</td>
+                                <td>1.2%</td>
+                                <td><span class="trend-indicator up">↑ 12%</span></td>
+                                <td><span class="status-pill healthy">Healthy</span></td>
+                            </tr>
+                            <tr>
+                                <td>Mid-Market</td>
+                                <td>892</td>
+                                <td>4.5</td>
+                                <td>2.8%</td>
+                                <td><span class="trend-indicator up">↑ 5%</span></td>
+                                <td><span class="status-pill healthy">Healthy</span></td>
+                            </tr>
+                            <tr>
+                                <td>SMB</td>
+                                <td>1,456</td>
+                                <td>4.3</td>
+                                <td>4.1%</td>
+                                <td><span class="trend-indicator neutral">→ 0%</span></td>
+                                <td><span class="status-pill at-risk">At Risk</span></td>
+                            </tr>
+                            <tr>
+                                <td>Startup</td>
+                                <td>673</td>
+                                <td>4.8</td>
+                                <td>1.8%</td>
+                                <td><span class="trend-indicator up">↑ 18%</span></td>
+                                <td><span class="status-pill healthy">Healthy</span></td>
+                            </tr>
+                            <tr>
+                                <td>Trial Users</td>
+                                <td>2,124</td>
+                                <td>4.1</td>
+                                <td>18.4%</td>
+                                <td><span class="trend-indicator down">↓ 8%</span></td>
+                                <td><span class="status-pill critical">Critical</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            Designed by Zeeqa · Minimalist Aesthetic Systems · Last updated Nov 9, 2025
+        </footer>
+    </div>
+</body>
+</html>

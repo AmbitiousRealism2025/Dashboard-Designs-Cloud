@@ -1,0 +1,1127 @@
+<!-- Agent: Darno | Theme: Customer Journey CX Studio | Intent: Dense analytical CX dashboard prioritizing lifecycle KPIs, customer segment precision, and data-driven retention insights -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Journey CX Studio | Darno Analytics</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: all 0.2s ease-out;
+    }
+
+    :root {
+      /* Warm customer-centric palette */
+      --bg-primary: #fafaf8;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #f5f4f0;
+      --text-primary: #2d2d2d;
+      --text-secondary: #666666;
+      --text-muted: #999999;
+
+      /* Warm accents */
+      --coral: #ff7b6b;
+      --coral-light: #ffb3a7;
+      --amber: #ffab40;
+      --amber-light: #ffd180;
+      --teal: #26a69a;
+      --teal-light: #80cbc4;
+
+      /* Semantic colors */
+      --success: #4caf50;
+      --warn: #ff9800;
+      --danger: #f44336;
+
+      /* Spacing (Darno uses dense layouts) */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 12px;
+      --space-lg: 16px;
+      --space-xl: 24px;
+
+      /* Typography - rounded sans for warmth */
+      --font-primary: 'Segoe UI', 'Rounded', system-ui, -apple-system, sans-serif;
+      --font-mono: 'Consolas', 'Monaco', monospace;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* Layout Grid */
+    .dashboard-container {
+      display: grid;
+      grid-template-areas:
+        "header header"
+        "aside main"
+        "aside footer";
+      grid-template-columns: 220px 1fr;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      grid-area: header;
+      background: var(--bg-secondary);
+      border-bottom: 2px solid var(--coral);
+      padding: var(--space-lg) var(--space-xl);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+
+    .header-left h1 {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .header-left .subtitle {
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .header-right {
+      display: flex;
+      gap: var(--space-lg);
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .timeframe {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .agent-badge {
+      background: var(--coral);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    /* Sidebar */
+    aside {
+      grid-area: aside;
+      background: var(--bg-secondary);
+      border-right: 1px solid #e8e6e0;
+      padding: var(--space-xl) var(--space-lg);
+    }
+
+    aside h3 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      margin-bottom: var(--space-md);
+      font-weight: 600;
+    }
+
+    aside nav ul {
+      list-style: none;
+    }
+
+    aside nav li {
+      margin-bottom: var(--space-sm);
+    }
+
+    aside nav a {
+      display: block;
+      padding: var(--space-sm) var(--space-md);
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    aside nav a:hover,
+    aside nav a.active {
+      background: var(--bg-tertiary);
+      color: var(--coral);
+    }
+
+    aside nav a.active {
+      font-weight: 600;
+    }
+
+    .filter-section {
+      margin-top: var(--space-xl);
+      padding-top: var(--space-xl);
+      border-top: 1px solid #e8e6e0;
+    }
+
+    .filter-group {
+      margin-bottom: var(--space-lg);
+    }
+
+    .filter-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .filter-group select {
+      width: 100%;
+      padding: var(--space-sm);
+      border: 1px solid #e0ddd5;
+      border-radius: 4px;
+      font-size: 12px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    /* Main Content */
+    main {
+      grid-area: main;
+      padding: var(--space-xl);
+      overflow-y: auto;
+    }
+
+    .section {
+      margin-bottom: var(--space-xl);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-lg);
+    }
+
+    .section-header h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .section-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* KPI Grid - Dense layout */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .kpi-card {
+      background: var(--bg-secondary);
+      border: 1px solid #e8e6e0;
+      border-radius: 6px;
+      padding: var(--space-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--accent-color, var(--coral));
+    }
+
+    .kpi-card.teal::before { background: var(--teal); }
+    .kpi-card.amber::before { background: var(--amber); }
+    .kpi-card.coral::before { background: var(--coral); }
+
+    .kpi-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-secondary);
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
+
+    .kpi-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--space-xs);
+      line-height: 1;
+    }
+
+    .kpi-delta {
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
+
+    .kpi-delta.positive { color: var(--success); }
+    .kpi-delta.negative { color: var(--danger); }
+    .kpi-delta.neutral { color: var(--text-muted); }
+
+    .kpi-meta {
+      font-size: 10px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      margin-top: var(--space-sm);
+    }
+
+    .sparkline {
+      height: 32px;
+      margin-top: var(--space-sm);
+      background: linear-gradient(90deg,
+        var(--teal-light) 0%,
+        var(--teal) 30%,
+        var(--teal-light) 60%,
+        var(--teal) 100%);
+      background-size: 200% 100%;
+      border-radius: 3px;
+      opacity: 0.3;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Lifecycle Stage Sections */
+    .lifecycle-stage {
+      background: var(--bg-secondary);
+      border: 1px solid #e8e6e0;
+      border-radius: 8px;
+      padding: var(--space-xl);
+      margin-bottom: var(--space-lg);
+    }
+
+    .lifecycle-stage h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-md);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .stage-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .stage-icon.acquire { background: var(--coral); }
+    .stage-icon.onboard { background: var(--amber); }
+    .stage-icon.retain { background: var(--teal); }
+
+    /* Chart Placeholders */
+    .chart-container {
+      background: var(--bg-secondary);
+      border: 1px solid #e8e6e0;
+      border-radius: 6px;
+      padding: var(--space-xl);
+      height: 280px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-header {
+      margin-bottom: var(--space-lg);
+    }
+
+    .chart-header h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-xs);
+    }
+
+    .chart-subtitle {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .chart-placeholder {
+      height: 200px;
+      border: 1px dashed #d0cdc5;
+      border-radius: 4px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      padding: var(--space-lg);
+      background: linear-gradient(to bottom, var(--bg-tertiary) 0%, var(--bg-primary) 100%);
+      gap: var(--space-sm);
+    }
+
+    .chart-bar {
+      flex: 1;
+      background: linear-gradient(to top, var(--bar-color, var(--coral)), var(--bar-color-light, var(--coral-light)));
+      border-radius: 4px 4px 0 0;
+      position: relative;
+      min-height: 20px;
+    }
+
+    .chart-bar:nth-child(1) { height: 75%; }
+    .chart-bar:nth-child(2) { height: 55%; }
+    .chart-bar:nth-child(3) { height: 45%; }
+    .chart-bar:nth-child(4) { height: 30%; }
+    .chart-bar:nth-child(5) { height: 15%; }
+
+    .funnel-chart {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      padding: var(--space-md);
+    }
+
+    .funnel-step {
+      height: 32px;
+      display: flex;
+      align-items: center;
+      padding: 0 var(--space-md);
+      color: white;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 3px;
+      position: relative;
+    }
+
+    .funnel-step::after {
+      content: attr(data-value);
+      position: absolute;
+      right: var(--space-md);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .funnel-step:nth-child(1) { background: var(--coral); width: 100%; }
+    .funnel-step:nth-child(2) { background: var(--coral-light); width: 82%; }
+    .funnel-step:nth-child(3) { background: var(--amber); width: 65%; }
+    .funnel-step:nth-child(4) { background: var(--teal); width: 48%; }
+    .funnel-step:nth-child(5) { background: var(--teal-light); width: 35%; color: var(--text-primary); }
+
+    /* Customer Voices Section */
+    .voices-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .voice-card {
+      background: var(--bg-secondary);
+      border: 1px solid #e8e6e0;
+      border-left: 4px solid var(--coral);
+      border-radius: 6px;
+      padding: var(--space-lg);
+      opacity: 0;
+      animation: fadeInUp 0.5s ease-out forwards;
+    }
+
+    .voice-card:nth-child(1) { animation-delay: 0.1s; }
+    .voice-card:nth-child(2) { animation-delay: 0.2s; }
+    .voice-card:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .voice-quote {
+      font-size: 13px;
+      color: var(--text-primary);
+      line-height: 1.6;
+      margin-bottom: var(--space-md);
+      font-style: italic;
+    }
+
+    .voice-author {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .voice-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--coral), var(--amber));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .voice-info {
+      flex: 1;
+    }
+
+    .voice-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .voice-segment {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .voice-score {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--teal);
+    }
+
+    /* Data Table */
+    .table-container {
+      background: var(--bg-secondary);
+      border: 1px solid #e8e6e0;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    thead {
+      background: var(--bg-tertiary);
+    }
+
+    thead th {
+      padding: var(--space-md) var(--space-lg);
+      text-align: left;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      border-bottom: 2px solid #e8e6e0;
+    }
+
+    thead th.sortable {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    thead th.sortable:hover {
+      background: #ebe9e3;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #f0eee8;
+    }
+
+    tbody tr:hover {
+      background: var(--bg-tertiary);
+    }
+
+    tbody td {
+      padding: var(--space-md) var(--space-lg);
+      color: var(--text-primary);
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .status-pill.healthy {
+      background: rgba(76, 175, 80, 0.15);
+      color: var(--success);
+    }
+
+    .status-pill.at-risk {
+      background: rgba(255, 152, 0, 0.15);
+      color: var(--warn);
+    }
+
+    .status-pill.churned {
+      background: rgba(244, 67, 54, 0.15);
+      color: var(--danger);
+    }
+
+    .segment-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .segment-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--dot-color, var(--coral));
+    }
+
+    .metric-value {
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+
+    .metric-trend {
+      font-size: 10px;
+      margin-left: 4px;
+    }
+
+    /* Footer */
+    footer {
+      grid-area: footer;
+      background: var(--bg-secondary);
+      border-top: 1px solid #e8e6e0;
+      padding: var(--space-lg) var(--space-xl);
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-meta {
+      display: flex;
+      gap: var(--space-xl);
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .dashboard-container {
+        grid-template-areas:
+          "header"
+          "main"
+          "footer";
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        display: none;
+      }
+
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .voices-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Segment detail hover effect */
+    .kpi-card:hover {
+      border-color: var(--coral);
+      box-shadow: 0 4px 12px rgba(255, 123, 107, 0.15);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Header -->
+    <header>
+      <div class="header-left">
+        <h1>Customer Journey Analytics</h1>
+        <div class="subtitle">CX Studio • Lifecycle Performance Dashboard</div>
+      </div>
+      <div class="header-right">
+        <span class="timeframe">Q4 2024 • Last 90 Days</span>
+        <div class="agent-badge">DARNO</div>
+      </div>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <aside>
+      <h3>Navigation</h3>
+      <nav>
+        <ul>
+          <li><a href="#overview" class="active">Journey Overview</a></li>
+          <li><a href="#acquisition">Acquisition</a></li>
+          <li><a href="#onboarding">Onboarding</a></li>
+          <li><a href="#retention">Retention & Growth</a></li>
+          <li><a href="#voices">Customer Voices</a></li>
+          <li><a href="#segments">Segment Analysis</a></li>
+        </ul>
+      </nav>
+
+      <div class="filter-section">
+        <h3>Filters</h3>
+        <div class="filter-group">
+          <label>Time Period</label>
+          <select>
+            <option>Last 90 Days</option>
+            <option>Last 30 Days</option>
+            <option>This Quarter</option>
+            <option>This Year</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Customer Segment</label>
+          <select>
+            <option>All Segments</option>
+            <option>Enterprise</option>
+            <option>SMB</option>
+            <option>Startup</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Product Line</label>
+          <select>
+            <option>All Products</option>
+            <option>Platform</option>
+            <option>Analytics</option>
+            <option>Enterprise Suite</option>
+          </select>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Top-Level KPIs -->
+      <section class="section">
+        <div class="section-header">
+          <h2>Customer Health Metrics</h2>
+          <span class="section-meta">Updated 4 hours ago</span>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card coral">
+            <div class="kpi-label">Net Promoter Score</div>
+            <div class="kpi-value">67</div>
+            <div class="kpi-delta positive">▲ 8 pts vs Q3</div>
+            <div class="kpi-meta">
+              <span>Promoters: 72%</span>
+              <span>Detractors: 5%</span>
+            </div>
+          </div>
+          <div class="kpi-card teal">
+            <div class="kpi-label">Customer Satisfaction</div>
+            <div class="kpi-value">4.6<span style="font-size: 16px; color: var(--text-muted);">/5.0</span></div>
+            <div class="kpi-delta positive">▲ 0.3 pts</div>
+            <div class="kpi-meta">
+              <span>8,247 responses</span>
+              <span>92% response rate</span>
+            </div>
+          </div>
+          <div class="kpi-card amber">
+            <div class="kpi-label">Churn Rate</div>
+            <div class="kpi-value">2.8<span style="font-size: 16px; color: var(--text-muted);">%</span></div>
+            <div class="kpi-delta positive">▼ 1.2% MoM</div>
+            <div class="kpi-meta">
+              <span>Target: <2.5%</span>
+              <span>Avg tenure: 18mo</span>
+            </div>
+          </div>
+          <div class="kpi-card coral">
+            <div class="kpi-label">Active Customers</div>
+            <div class="kpi-value">12,847</div>
+            <div class="kpi-delta positive">▲ 6.2%</div>
+            <div class="kpi-meta">
+              <span>DAU: 8,934</span>
+              <span>MAU/DAU: 69.5%</span>
+            </div>
+          </div>
+          <div class="kpi-card teal">
+            <div class="kpi-label">Customer Lifetime Value</div>
+            <div class="kpi-value">$34.2K</div>
+            <div class="kpi-delta positive">▲ 11.3%</div>
+            <div class="kpi-meta">
+              <span>Avg: $34,247</span>
+              <span>Median: $28,100</span>
+            </div>
+          </div>
+          <div class="kpi-card amber">
+            <div class="kpi-label">Time to First Value</div>
+            <div class="kpi-value">4.2<span style="font-size: 16px; color: var(--text-muted);">d</span></div>
+            <div class="kpi-delta positive">▼ 2.1 days</div>
+            <div class="kpi-meta">
+              <span>Target: <5 days</span>
+              <span>P90: 8.3 days</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Acquisition Stage -->
+      <section class="section">
+        <div class="lifecycle-stage">
+          <h3>
+            <span class="stage-icon acquire">A</span>
+            Acquisition Stage
+          </h3>
+          <div class="kpi-grid">
+            <div class="kpi-card coral">
+              <div class="kpi-label">Lead Conversion Rate</div>
+              <div class="kpi-value">18.4<span style="font-size: 16px; color: var(--text-muted);">%</span></div>
+              <div class="kpi-delta positive">▲ 3.1%</div>
+              <div class="sparkline"></div>
+            </div>
+            <div class="kpi-card coral">
+              <div class="kpi-label">Avg. Sales Cycle</div>
+              <div class="kpi-value">23<span style="font-size: 16px; color: var(--text-muted);">d</span></div>
+              <div class="kpi-delta positive">▼ 4 days</div>
+              <div class="sparkline"></div>
+            </div>
+            <div class="kpi-card coral">
+              <div class="kpi-label">Cost Per Acquisition</div>
+              <div class="kpi-value">$1,847</div>
+              <div class="kpi-delta positive">▼ 8.2%</div>
+              <div class="sparkline"></div>
+            </div>
+            <div class="kpi-card coral">
+              <div class="kpi-label">Trial-to-Paid Rate</div>
+              <div class="kpi-value">34.7<span style="font-size: 16px; color: var(--text-muted);">%</span></div>
+              <div class="kpi-delta positive">▲ 5.3%</div>
+              <div class="sparkline"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Onboarding Stage -->
+      <section class="section">
+        <div class="lifecycle-stage">
+          <h3>
+            <span class="stage-icon onboard">O</span>
+            Onboarding Stage
+          </h3>
+          <div class="kpi-grid">
+            <div class="kpi-card amber">
+              <div class="kpi-label">Onboarding Completion</div>
+              <div class="kpi-value">82.3<span style="font-size: 16px; color: var(--text-muted);">%</span></div>
+              <div class="kpi-delta positive">▲ 7.4%</div>
+              <div class="sparkline"></div>
+            </div>
+            <div class="kpi-card amber">
+              <div class="kpi-label">Avg. Setup Time</div>
+              <div class="kpi-value">6.8<span style="font-size: 16px; color: var(--text-muted);">d</span></div>
+              <div class="kpi-delta positive">▼ 1.9 days</div>
+              <div class="sparkline"></div>
+            </div>
+            <div class="kpi-card amber">
+              <div class="kpi-label">Support Tickets (First 30d)</div>
+              <div class="kpi-value">1.4</div>
+              <div class="kpi-delta positive">▼ 0.6</div>
+              <div class="sparkline"></div>
+            </div>
+            <div class="kpi-card amber">
+              <div class="kpi-label">Feature Adoption Rate</div>
+              <div class="kpi-value">68.9<span style="font-size: 16px; color: var(--text-muted);">%</span></div>
+              <div class="kpi-delta positive">▲ 12.1%</div>
+              <div class="sparkline"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Retention Stage -->
+      <section class="section">
+        <div class="lifecycle-stage">
+          <h3>
+            <span class="stage-icon retain">R</span>
+            Retention & Growth Stage
+          </h3>
+          <div class="kpi-grid">
+            <div class="kpi-card teal">
+              <div class="kpi-label">90-Day Retention</div>
+              <div class="kpi-value">94.2<span style="font-size: 16px; color: var(--text-muted);">%</span></div>
+              <div class="kpi-delta positive">▲ 2.8%</div>
+              <div class="sparkline"></div>
+            </div>
+            <div class="kpi-card teal">
+              <div class="kpi-label">Expansion Revenue</div>
+              <div class="kpi-value">$847K</div>
+              <div class="kpi-delta positive">▲ 18.4%</div>
+              <div class="sparkline"></div>
+            </div>
+            <div class="kpi-card teal">
+              <div class="kpi-label">Upsell Rate</div>
+              <div class="kpi-value">22.6<span style="font-size: 16px; color: var(--text-muted);">%</span></div>
+              <div class="kpi-delta positive">▲ 4.2%</div>
+              <div class="sparkline"></div>
+            </div>
+            <div class="kpi-card teal">
+              <div class="kpi-label">Product Engagement Score</div>
+              <div class="kpi-value">78</div>
+              <div class="kpi-delta positive">▲ 6 pts</div>
+              <div class="sparkline"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Customer Journey Funnel -->
+      <section class="section">
+        <div class="section-header">
+          <h2>Customer Journey Funnel</h2>
+          <span class="section-meta">Cohort: Oct 2024 Sign-ups</span>
+        </div>
+        <div class="chart-container">
+          <div class="chart-header">
+            <h4>End-to-End Conversion Metrics</h4>
+            <div class="chart-subtitle">From trial sign-up to active paid customer</div>
+          </div>
+          <div class="chart-placeholder funnel-chart">
+            <div class="funnel-step" data-value="2,847">Trial Sign-ups</div>
+            <div class="funnel-step" data-value="2,342 (82%)">Activated Account</div>
+            <div class="funnel-step" data-value="1,851 (65%)">Completed Onboarding</div>
+            <div class="funnel-step" data-value="1,367 (48%)">Converted to Paid</div>
+            <div class="funnel-step" data-value="996 (35%)">Active at Day 90</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NPS Trend Chart -->
+      <section class="section">
+        <div class="section-header">
+          <h2>NPS & CSAT Trend Analysis</h2>
+          <span class="section-meta">Monthly rolling averages</span>
+        </div>
+        <div class="chart-container">
+          <div class="chart-header">
+            <h4>Customer Satisfaction Metrics Over Time</h4>
+            <div class="chart-subtitle">Net Promoter Score and Customer Satisfaction tracking</div>
+          </div>
+          <div class="chart-placeholder">
+            <div class="chart-bar" style="--bar-color: var(--teal); --bar-color-light: var(--teal-light);"></div>
+            <div class="chart-bar" style="--bar-color: var(--teal); --bar-color-light: var(--teal-light);"></div>
+            <div class="chart-bar" style="--bar-color: var(--teal); --bar-color-light: var(--teal-light);"></div>
+            <div class="chart-bar" style="--bar-color: var(--coral); --bar-color-light: var(--coral-light);"></div>
+            <div class="chart-bar" style="--bar-color: var(--coral); --bar-color-light: var(--coral-light);"></div>
+            <div class="chart-bar" style="--bar-color: var(--coral); --bar-color-light: var(--coral-light);"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Customer Voices Section -->
+      <section class="section">
+        <div class="section-header">
+          <h2>Customer Voices</h2>
+          <span class="section-meta">Recent feedback highlights</span>
+        </div>
+        <div class="voices-grid">
+          <div class="voice-card">
+            <div class="voice-quote">
+              "The onboarding process was seamless. We were up and running in less than 3 days. Support team was incredibly responsive and proactive in helping us configure everything perfectly."
+            </div>
+            <div class="voice-author">
+              <div class="voice-avatar">SM</div>
+              <div class="voice-info">
+                <div class="voice-name">Sarah Mitchell</div>
+                <div class="voice-segment">Enterprise • Operations Director</div>
+              </div>
+              <div class="voice-score">10</div>
+            </div>
+          </div>
+          <div class="voice-card">
+            <div class="voice-quote">
+              "Best analytics platform we've used. The insights are actionable and the dashboards are exactly what our exec team needs. ROI became clear within the first month."
+            </div>
+            <div class="voice-author">
+              <div class="voice-avatar">JC</div>
+              <div class="voice-info">
+                <div class="voice-name">James Chen</div>
+                <div class="voice-segment">SMB • Head of Marketing</div>
+              </div>
+              <div class="voice-score">9</div>
+            </div>
+          </div>
+          <div class="voice-card">
+            <div class="voice-quote">
+              "Integration with our existing tools was straightforward. The API documentation is comprehensive and the customer success team helped us get custom workflows set up quickly."
+            </div>
+            <div class="voice-author">
+              <div class="voice-avatar">AP</div>
+              <div class="voice-info">
+                <div class="voice-name">Aisha Patel</div>
+                <div class="voice-segment">Startup • Engineering Lead</div>
+              </div>
+              <div class="voice-score">9</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Segment Performance Table -->
+      <section class="section">
+        <div class="section-header">
+          <h2>Customer Segment Performance</h2>
+          <span class="section-meta">Detailed metrics by segment</span>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th class="sortable">Segment</th>
+                <th class="sortable">Customers</th>
+                <th class="sortable">NPS</th>
+                <th class="sortable">CSAT</th>
+                <th class="sortable">Churn</th>
+                <th class="sortable">CLTV</th>
+                <th class="sortable">Engagement</th>
+                <th>Health Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="segment-badge">
+                    <span class="segment-dot" style="--dot-color: var(--coral);"></span>
+                    Enterprise
+                  </span>
+                </td>
+                <td class="metric-value">2,847</td>
+                <td class="metric-value">72 <span class="metric-trend" style="color: var(--success);">▲4</span></td>
+                <td class="metric-value">4.8/5.0 <span class="metric-trend" style="color: var(--success);">▲0.2</span></td>
+                <td class="metric-value">1.2% <span class="metric-trend" style="color: var(--success);">▼0.3%</span></td>
+                <td class="metric-value">$68.4K</td>
+                <td class="metric-value">84</td>
+                <td><span class="status-pill healthy">Healthy</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="segment-badge">
+                    <span class="segment-dot" style="--dot-color: var(--amber);"></span>
+                    SMB
+                  </span>
+                </td>
+                <td class="metric-value">7,234</td>
+                <td class="metric-value">66 <span class="metric-trend" style="color: var(--success);">▲6</span></td>
+                <td class="metric-value">4.5/5.0 <span class="metric-trend" style="color: var(--success);">▲0.3</span></td>
+                <td class="metric-value">3.1% <span class="metric-trend" style="color: var(--success);">▼1.2%</span></td>
+                <td class="metric-value">$24.7K</td>
+                <td class="metric-value">76</td>
+                <td><span class="status-pill healthy">Healthy</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="segment-badge">
+                    <span class="segment-dot" style="--dot-color: var(--teal);"></span>
+                    Startup
+                  </span>
+                </td>
+                <td class="metric-value">2,766</td>
+                <td class="metric-value">63 <span class="metric-trend" style="color: var(--success);">▲8</span></td>
+                <td class="metric-value">4.4/5.0 <span class="metric-trend" style="color: var(--success);">▲0.4</span></td>
+                <td class="metric-value">4.8% <span class="metric-trend" style="color: var(--warn);">▲0.3%</span></td>
+                <td class="metric-value">$12.3K</td>
+                <td class="metric-value">72</td>
+                <td><span class="status-pill at-risk">At Risk</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="segment-badge">
+                    <span class="segment-dot" style="--dot-color: #9e9e9e;"></span>
+                    Trial (Active)
+                  </span>
+                </td>
+                <td class="metric-value">1,482</td>
+                <td class="metric-value">58 <span class="metric-trend" style="color: var(--success);">▲12</span></td>
+                <td class="metric-value">4.2/5.0 <span class="metric-trend" style="color: var(--success);">▲0.6</span></td>
+                <td class="metric-value">—</td>
+                <td class="metric-value">—</td>
+                <td class="metric-value">68</td>
+                <td><span class="status-pill healthy">Healthy</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="segment-badge">
+                    <span class="segment-dot" style="--dot-color: #757575;"></span>
+                    Churned (90d)
+                  </span>
+                </td>
+                <td class="metric-value">518</td>
+                <td class="metric-value">31 <span class="metric-trend" style="color: var(--danger);">▼8</span></td>
+                <td class="metric-value">2.8/5.0 <span class="metric-trend" style="color: var(--danger);">▼0.9</span></td>
+                <td class="metric-value">100%</td>
+                <td class="metric-value">$8.2K</td>
+                <td class="metric-value">12</td>
+                <td><span class="status-pill churned">Churned</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-meta">
+        <span>Last updated: 2024-11-09 14:32 UTC</span>
+        <span>Data source: CX Analytics Platform v3.2</span>
+        <span>Refresh: Auto (15min)</span>
+      </div>
+      <div>Dashboard by <strong>Darno</strong> | Data-First CX Analytics</div>
+    </footer>
+  </div>
+
+  <script>
+    // Simple table sorting interaction
+    document.querySelectorAll('th.sortable').forEach(header => {
+      header.addEventListener('click', function() {
+        // Visual feedback only - no actual sorting in static demo
+        this.style.background = '#ebe9e3';
+        setTimeout(() => {
+          this.style.background = '';
+        }, 200);
+      });
+    });
+
+    // Simulate real-time KPI updates (subtle pulse effect)
+    setInterval(() => {
+      const kpiValues = document.querySelectorAll('.kpi-value');
+      const randomKpi = kpiValues[Math.floor(Math.random() * kpiValues.length)];
+      randomKpi.style.transform = 'scale(1.05)';
+      setTimeout(() => {
+        randomKpi.style.transform = 'scale(1)';
+      }, 300);
+    }, 8000);
+  </script>
+</body>
+</html>
