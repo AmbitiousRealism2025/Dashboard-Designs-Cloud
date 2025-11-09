@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Modern Startup Pitch Dashboard | Explorer v2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Agent: Explorer | Theme: Modern Startup Pitch | Intent: Bold experimental SaaS dashboard with gradient-forward design and maximum energetic impact -->
+  <style>
+    :root {
+      --bg: #fafbfc;
+      --surface: #ffffff;
+      --purple: #8b5cf6;
+      --blue: #3b82f6;
+      --cyan: #06b6d4;
+      --pink: #ec4899;
+      --orange: #f97316;
+      --emerald: #10b981;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      --border: #e2e8f0;
+      --shadow: rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #f0f9ff 0%, #faf5ff 50%, #fef3c7 100%);
+      color: var(--text);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="1" fill="rgba(139,92,246,0.1)"/></svg>');
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 40px 50px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(139, 92, 246, 0.1);
+      border-radius: 24px;
+      padding: 30px 40px;
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 20px 60px var(--shadow);
+      animation: slideUp 0.6s ease-out;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand-logo {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--purple), var(--blue), var(--cyan));
+      background-size: 200% 200%;
+      animation: gradientShift 8s ease infinite;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 32px;
+      color: white;
+      box-shadow: 0 10px 40px rgba(139, 92, 246, 0.4);
+      position: relative;
+    }
+
+    .brand-logo::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      background: linear-gradient(135deg, var(--purple), var(--blue), var(--cyan));
+      background-size: 200% 200%;
+      animation: gradientShift 8s ease infinite;
+      border-radius: 22px;
+      z-index: -1;
+      opacity: 0.3;
+      filter: blur(20px);
+    }
+
+    .brand-text h1 {
+      font-size: 36px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px;
+    }
+
+    .brand-text p {
+      font-size: 15px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .badge {
+      padding: 10px 20px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+      border: 2px solid rgba(139, 92, 246, 0.2);
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--purple);
+    }
+
+    .cta-btn {
+      padding: 12px 28px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      border: none;
+      border-radius: 16px;
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(139, 92, 246, 0.5);
+    }
+
+    .agent-tag {
+      padding: 10px 20px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 800;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+      animation: slideUp 0.6s ease-out 0.1s both;
+    }
+
+    .metric-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.8));
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(139, 92, 246, 0.1);
+      border-radius: 24px;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--purple), var(--blue), var(--cyan));
+      background-size: 200% 100%;
+      animation: gradientShift 3s linear infinite;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-10px) rotate(1deg);
+      border-color: rgba(139, 92, 246, 0.3);
+      box-shadow: 0 20px 60px rgba(139, 92, 246, 0.2);
+    }
+
+    .metric-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .metric-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .metric-value {
+      font-size: 40px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--text), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+
+    .metric-change {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .metric-change.up {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
+      color: var(--emerald);
+      border: 2px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .metric-change.down {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05));
+      color: #ef4444;
+      border: 2px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .dashboard-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+      animation: slideUp 0.6s ease-out 0.2s both;
+    }
+
+    .panel {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.8));
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(139, 92, 246, 0.1);
+      border-radius: 24px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      right: -100%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.08), transparent 70%);
+      pointer-events: none;
+    }
+
+    .panel-header {
+      margin-bottom: 24px;
+    }
+
+    .panel-title {
+      font-size: 24px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--text), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+    }
+
+    .panel-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .chart-area {
+      height: 300px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(59, 130, 246, 0.05));
+      border: 2px dashed rgba(139, 92, 246, 0.2);
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-gradient {
+      position: absolute;
+      bottom: 0;
+      left: 10%;
+      right: 10%;
+      height: 70%;
+      background: linear-gradient(135deg, var(--purple), var(--blue), var(--cyan));
+      opacity: 0.6;
+      border-radius: 100px 100px 0 0;
+      clip-path: polygon(0 100%, 0 40%, 15% 50%, 30% 25%, 45% 35%, 60% 15%, 75% 20%, 90% 10%, 100% 8%, 100% 100%);
+      filter: drop-shadow(0 -10px 30px rgba(139, 92, 246, 0.5));
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    .insight-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .insight-item {
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(59, 130, 246, 0.05));
+      border-left: 4px solid var(--purple);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .insight-item:hover {
+      transform: translateX(8px);
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+    }
+
+    .insight-emoji {
+      font-size: 28px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .insight-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    .insight-text strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .data-section {
+      animation: slideUp 0.6s ease-out 0.3s both;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .data-table thead {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+      border-radius: 16px;
+    }
+
+    .data-table th {
+      padding: 16px 20px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--purple);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+
+    .data-table td {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .data-table tbody tr {
+      transition: all 0.2s;
+    }
+
+    .data-table tbody tr:hover {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.03), rgba(59, 130, 246, 0.03));
+    }
+
+    .data-table .primary {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .status-pill.success {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
+      color: var(--emerald);
+      border: 2px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .status-pill.warning {
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(249, 115, 22, 0.05));
+      color: var(--orange);
+      border: 2px solid rgba(249, 115, 22, 0.3);
+    }
+
+    .status-pill.danger {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05));
+      color: #ef4444;
+      border: 2px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .footer {
+      margin-top: 60px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-light);
+      padding: 20px;
+      animation: slideUp 0.6s ease-out 0.4s both;
+    }
+
+    @media (max-width: 1200px) {
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .dashboard-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="brand">
+        <div class="brand-logo">E</div>
+        <div class="brand-text">
+          <h1>Growth Metrics Dashboard</h1>
+          <p>Real-time performance tracking for modern teams</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="badge">Q4 2025</div>
+        <button class="cta-btn">Export Report</button>
+        <div class="agent-tag">Explorer · R2</div>
+      </div>
+    </header>
+
+    <section class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-icon">📈</div>
+        <div class="metric-label">Monthly Revenue</div>
+        <div class="metric-value">$428K</div>
+        <div class="metric-change up">▲ 34.2%</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">👥</div>
+        <div class="metric-label">Active Users</div>
+        <div class="metric-value">12.4K</div>
+        <div class="metric-change up">▲ 28.7%</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">💫</div>
+        <div class="metric-label">Conversion Rate</div>
+        <div class="metric-value">8.9%</div>
+        <div class="metric-change up">▲ 2.3 pts</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">⚡</div>
+        <div class="metric-label">Customer LTV</div>
+        <div class="metric-value">$24.8K</div>
+        <div class="metric-change up">▲ 18.4%</div>
+      </div>
+    </section>
+
+    <section class="dashboard-row">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Revenue Growth Trajectory</div>
+          <div class="panel-subtitle">Exponential growth across all segments</div>
+        </div>
+        <div class="chart-area">
+          <div class="chart-gradient"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Key Insights</div>
+          <div class="panel-subtitle">What's driving our success</div>
+        </div>
+        <div class="insight-list">
+          <div class="insight-item">
+            <span class="insight-emoji">🚀</span>
+            <div class="insight-text">
+              <strong>Viral growth accelerating</strong> with 34% MoM increase driven by product-led growth and network effects.
+            </div>
+          </div>
+          <div class="insight-item">
+            <span class="insight-emoji">💎</span>
+            <div class="insight-text">
+              <strong>Premium tier adoption soaring</strong> with 42% of users upgrading within first month.
+            </div>
+          </div>
+          <div class="insight-item">
+            <span class="insight-emoji">🎯</span>
+            <div class="insight-text">
+              <strong>CAC payback under 6 months</strong> enabling aggressive scaling strategy.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="data-section">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Growth Initiatives</div>
+          <div class="panel-subtitle">Strategic programs driving expansion</div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Initiative</th>
+              <th>Owner</th>
+              <th>Impact</th>
+              <th>Progress</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="primary">Product-Led Growth Engine</td>
+              <td>Product Team</td>
+              <td>+$180K MRR</td>
+              <td>92%</td>
+              <td><span class="status-pill success">Crushing It</span></td>
+            </tr>
+            <tr>
+              <td class="primary">Enterprise Sales Playbook</td>
+              <td>Sales Team</td>
+              <td>+$120K MRR</td>
+              <td>87%</td>
+              <td><span class="status-pill success">On Fire</span></td>
+            </tr>
+            <tr>
+              <td class="primary">Viral Referral Program</td>
+              <td>Growth Team</td>
+              <td>+2.4K Users</td>
+              <td>78%</td>
+              <td><span class="status-pill success">Scaling</span></td>
+            </tr>
+            <tr>
+              <td class="primary">Content Marketing Machine</td>
+              <td>Marketing Team</td>
+              <td>+$64K MRR</td>
+              <td>65%</td>
+              <td><span class="status-pill warning">Ramping</span></td>
+            </tr>
+            <tr>
+              <td class="primary">Mobile App Launch</td>
+              <td>Engineering Team</td>
+              <td>TBD</td>
+              <td>45%</td>
+              <td><span class="status-pill warning">In Progress</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="footer">
+      Modern Startup Dashboard · Powered by real-time data · Explorer Design Agent (Round 2) · 2025
+    </footer>
+  </div>
+</body>
+</html>

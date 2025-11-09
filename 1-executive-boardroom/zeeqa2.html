@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Executive Boardroom Dashboard | Zeeqa v2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Agent: Zeeqa | Theme: Executive Boardroom | Intent: Ultra-refined minimalist executive dashboard with maximum clarity through reduction and typographic precision -->
+  <style>
+    :root {
+      --black: #000000;
+      --charcoal: #0f1419;
+      --dark: #1a1f2e;
+      --mid: #8a92a0;
+      --light: #c4c9d1;
+      --white: #ffffff;
+      --gold: #b89968;
+      --success: #0f9e6f;
+      --alert: #d64545;
+      --warn: #e89e3c;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    body {
+      font-family: 'Helvetica Neue', 'Arial', sans-serif;
+      background: var(--charcoal);
+      color: var(--white);
+      line-height: 1.6;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .page {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 80px 100px;
+      animation: appear 0.6s ease-out;
+    }
+
+    .masthead {
+      margin-bottom: 80px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(180, 153, 104, 0.2);
+    }
+
+    .masthead-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .logo-mark {
+      width: 48px;
+      height: 48px;
+      background: var(--gold);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 24px;
+      color: var(--black);
+      margin-bottom: 24px;
+    }
+
+    .title {
+      font-size: 48px;
+      font-weight: 300;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: var(--mid);
+      font-weight: 400;
+      letter-spacing: 0.3px;
+    }
+
+    .meta-info {
+      text-align: right;
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 2;
+    }
+
+    .meta-info div {
+      margin-bottom: 4px;
+    }
+
+    .agent-tag {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 12px;
+      background: rgba(184, 153, 104, 0.1);
+      border: 1px solid rgba(184, 153, 104, 0.3);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+    }
+
+    .section {
+      margin-bottom: 80px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--gold);
+      margin-bottom: 32px;
+      font-weight: 500;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 60px;
+      margin-bottom: 20px;
+    }
+
+    .metric {
+      position: relative;
+      transition: opacity 0.2s ease;
+    }
+
+    .metric:hover {
+      opacity: 0.8;
+    }
+
+    .metric::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 0;
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .metric-name {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--mid);
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .metric-figure {
+      font-size: 56px;
+      font-weight: 200;
+      letter-spacing: -2px;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .metric-change {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .metric-change.positive {
+      color: var(--success);
+    }
+
+    .metric-change.negative {
+      color: var(--alert);
+    }
+
+    .metric-note {
+      font-size: 12px;
+      color: var(--mid);
+      line-height: 1.6;
+      padding-top: 12px;
+      border-top: 1px solid rgba(138, 146, 160, 0.15);
+    }
+
+    .content-area {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 60px;
+    }
+
+    .block {
+      position: relative;
+    }
+
+    .block-title {
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: -0.3px;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .block-caption {
+      font-size: 12px;
+      color: var(--mid);
+      margin-bottom: 32px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .chart-frame {
+      height: 320px;
+      border: 1px solid rgba(138, 146, 160, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 63px, rgba(138, 146, 160, 0.06) 63px, rgba(138, 146, 160, 0.06) 64px),
+        repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(138, 146, 160, 0.06) 79px, rgba(138, 146, 160, 0.06) 80px);
+    }
+
+    .chart-element {
+      position: absolute;
+      bottom: 15%;
+      left: 8%;
+      right: 8%;
+      height: 60%;
+      border: 2px solid var(--gold);
+      clip-path: polygon(0 100%, 0 55%, 25% 65%, 50% 35%, 75% 40%, 100% 20%, 100% 100%);
+    }
+
+    .insights {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .insight {
+      padding: 24px 0;
+      border-left: 2px solid var(--gold);
+      padding-left: 20px;
+      transition: all 0.2s ease;
+    }
+
+    .insight:hover {
+      padding-left: 28px;
+    }
+
+    .insight-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+
+    .insight-body {
+      font-size: 13px;
+      color: var(--light);
+      line-height: 1.7;
+    }
+
+    .data-list {
+      margin-bottom: 20px;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .data-table thead {
+      border-bottom: 1px solid rgba(138, 146, 160, 0.25);
+    }
+
+    .data-table th {
+      padding: 16px 20px;
+      text-align: left;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .data-table td {
+      padding: 20px 20px;
+      border-bottom: 1px solid rgba(138, 146, 160, 0.08);
+      color: var(--light);
+    }
+
+    .data-table tbody tr {
+      transition: background 0.15s ease;
+    }
+
+    .data-table tbody tr:hover {
+      background: rgba(138, 146, 160, 0.03);
+    }
+
+    .data-table .primary {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .state-indicator {
+      display: inline-block;
+      padding: 4px 10px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+      border-radius: 2px;
+    }
+
+    .state-indicator.go {
+      background: rgba(15, 158, 111, 0.12);
+      color: var(--success);
+      border: 1px solid rgba(15, 158, 111, 0.3);
+    }
+
+    .state-indicator.caution {
+      background: rgba(232, 158, 60, 0.12);
+      color: var(--warn);
+      border: 1px solid rgba(232, 158, 60, 0.3);
+    }
+
+    .state-indicator.stop {
+      background: rgba(214, 69, 69, 0.12);
+      color: var(--alert);
+      border: 1px solid rgba(214, 69, 69, 0.3);
+    }
+
+    .closing {
+      margin-top: 80px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(180, 153, 104, 0.2);
+      text-align: center;
+      font-size: 11px;
+      color: var(--mid);
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 1400px) {
+      .metrics {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 50px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .page {
+        padding: 50px;
+      }
+      .content-area {
+        grid-template-columns: 1fr;
+      }
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <div class="logo-mark">Z</div>
+      <div class="masthead-top">
+        <div>
+          <h1 class="title">Executive Performance</h1>
+          <p class="subtitle">Quarterly Strategic Review · Q4 2025</p>
+        </div>
+        <div class="meta-info">
+          <div>Period: October 1 – December 31, 2025</div>
+          <div>Scenario: Baseline</div>
+          <div>Classification: Confidential</div>
+          <div class="agent-tag">Zeeqa · Round 2</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="section-label">Key Performance Indicators</div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-name">Revenue</div>
+          <div class="metric-figure">$6.2M</div>
+          <div class="metric-change positive">+16.8%</div>
+          <div class="metric-note">Target: $5.4M<br>Performance: 115% of plan</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-name">Margin</div>
+          <div class="metric-figure">28.4%</div>
+          <div class="metric-change positive">+3.9 pts</div>
+          <div class="metric-note">Industry average: 22%<br>Percentile: Top 15%</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-name">Retention</div>
+          <div class="metric-figure">96.1%</div>
+          <div class="metric-change positive">+1.8 pts</div>
+          <div class="metric-note">Target: 94%<br>Benchmark: Exceeded</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-name">Efficiency</div>
+          <div class="metric-figure">1.42</div>
+          <div class="metric-change positive">+0.18</div>
+          <div class="metric-note">Sales efficiency ratio<br>Previous quarter: 1.24</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-label">Analysis</div>
+      <div class="content-area">
+        <div class="block">
+          <h2 class="block-title">Revenue Trajectory</h2>
+          <p class="block-caption">Quarterly progression against strategic plan</p>
+          <div class="chart-frame">
+            <div class="chart-grid-lines"></div>
+            <div class="chart-element"></div>
+          </div>
+        </div>
+
+        <div class="block">
+          <h2 class="block-title">Strategic Insights</h2>
+          <p class="block-caption">Executive summary points</p>
+          <div class="insights">
+            <div class="insight">
+              <div class="insight-title">Revenue Outperformance</div>
+              <div class="insight-body">Exceeded quarterly targets through strategic enterprise acquisitions and favorable market positioning.</div>
+            </div>
+            <div class="insight">
+              <div class="insight-title">Margin Expansion</div>
+              <div class="insight-body">Operating leverage gains and product mix optimization driving sustained profitability improvements.</div>
+            </div>
+            <div class="insight">
+              <div class="insight-title">Customer Base Strengthening</div>
+              <div class="insight-body">Retention metrics at all-time high. Indicates strong product-market fit and customer satisfaction.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-label">Strategic Initiatives</div>
+      <div class="data-list">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Initiative</th>
+              <th>Owner</th>
+              <th>Budget</th>
+              <th>Progress</th>
+              <th>ROI</th>
+              <th>State</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="primary">Platform Modernization</td>
+              <td>CTO</td>
+              <td>$3.2M</td>
+              <td>91%</td>
+              <td>3.8x</td>
+              <td><span class="state-indicator go">On Track</span></td>
+            </tr>
+            <tr>
+              <td class="primary">Market Expansion Strategy</td>
+              <td>CSO</td>
+              <td>$2.7M</td>
+              <td>84%</td>
+              <td>4.5x</td>
+              <td><span class="state-indicator go">On Track</span></td>
+            </tr>
+            <tr>
+              <td class="primary">Product Development Program</td>
+              <td>CPO</td>
+              <td>$1.9M</td>
+              <td>77%</td>
+              <td>5.2x</td>
+              <td><span class="state-indicator go">On Track</span></td>
+            </tr>
+            <tr>
+              <td class="primary">Operational Excellence</td>
+              <td>COO</td>
+              <td>$1.3M</td>
+              <td>62%</td>
+              <td>2.4x</td>
+              <td><span class="state-indicator caution">At Risk</span></td>
+            </tr>
+            <tr>
+              <td class="primary">Technology Infrastructure</td>
+              <td>CIO</td>
+              <td>$2.1M</td>
+              <td>48%</td>
+              <td>2.9x</td>
+              <td><span class="state-indicator stop">Critical</span></td>
+            </tr>
+            <tr>
+              <td class="primary">Talent Development Initiative</td>
+              <td>CHRO</td>
+              <td>$840K</td>
+              <td>86%</td>
+              <td>4.1x</td>
+              <td><span class="state-indicator go">On Track</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="closing">
+      Executive Boardroom · Confidential Board Materials · Zeeqa Design Agent (Round 2) · Minimalist Precision · 2025
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Minimalist Analytical Dashboard | Darno v2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Agent: Darno | Theme: Minimalist Analytical | Intent: Data-dense minimalist analysis dashboard with maximum information clarity -->
+  <style>
+    :root { --gray-50: #fafafa; --gray-200: #e5e5e5; --gray-400: #a3a3a3; --gray-600: #525252; --gray-900: #171717; --blue: #3b82f6; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, sans-serif; background: var(--gray-50); color: var(--gray-900); font-size: 13px; line-height: 1.4; font-variant-numeric: tabular-nums; }
+    .app { max-width: 1800px; margin: 0 auto; padding: 40px 60px; }
+    .top { display: flex; justify-content: space-between; margin-bottom: 40px; padding-bottom: 16px; border-bottom: 1px solid var(--gray-200); }
+    .brand { font-size: 24px; font-weight: 300; letter-spacing: -0.5px; }
+    .meta { text-align: right; font-size: 11px; color: var(--gray-600); line-height: 1.8; }
+    .agent { display: inline-block; margin-top: 6px; padding: 3px 8px; background: var(--gray-200); font-size: 9px; text-transform: uppercase; letter-spacing: 1px; }
+    .metrics { display: grid; grid-template-columns: repeat(6, 1fr); gap: 30px; margin-bottom: 40px; }
+    .metric::before { content: ''; display: block; width: 20px; height: 1px; background: var(--blue); margin-bottom: 8px; }
+    .metric-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--gray-600); margin-bottom: 8px; }
+    .metric-value { font-size: 28px; font-weight: 300; margin-bottom: 6px; }
+    .metric-delta { font-size: 11px; color: var(--blue); }
+    .content { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
+    .panel { border: 1px solid var(--gray-200); padding: 20px; }
+    .panel-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+    .chart { height: 220px; border: 1px solid var(--gray-200); position: relative; }
+    .chart-line { position: absolute; bottom: 10%; left: 6%; right: 6%; height: 60%; border: 1px solid var(--blue); clip-path: polygon(0 100%, 0 48%, 25% 58%, 50% 32%, 75% 38%, 100% 18%, 100% 100%); }
+    .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .data-item { display: flex; justify-content: space-between; padding: 8px; background: var(--gray-50); font-size: 11px; }
+    .data-label { color: var(--gray-600); }
+    .data-value { font-weight: 600; }
+    .table { width: 100%; border-collapse: collapse; font-size: 11px; }
+    .table thead { border-bottom: 1px solid var(--gray-200); }
+    .table th { padding: 10px; text-align: left; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--gray-600); font-weight: 600; }
+    .table td { padding: 10px; border-bottom: 1px solid var(--gray-200); color: var(--gray-600); }
+    .table .primary { color: var(--gray-900); font-weight: 500; }
+    .status { padding: 2px 6px; background: var(--gray-200); font-size: 9px; text-transform: uppercase; font-weight: 600; }
+    .status.active { color: var(--blue); }
+    @media (max-width: 1400px) { .metrics { grid-template-columns: repeat(3, 1fr); } .content { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="top">
+      <div class="brand">Data Analysis Dashboard</div>
+      <div class="meta">
+        <div>Q4 2025 Report</div>
+        <div>Oct 1 – Dec 31, 2025</div>
+        <div class="agent">Darno · Round 2</div>
+      </div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="metric-label">Revenue</div><div class="metric-value">$3.2M</div><div class="metric-delta">+16.4%</div></div>
+      <div class="metric"><div class="metric-label">EBITDA</div><div class="metric-value">$840K</div><div class="metric-delta">+22.1%</div></div>
+      <div class="metric"><div class="metric-label">Margin</div><div class="metric-value">26.2%</div><div class="metric-delta">+1.8 pts</div></div>
+      <div class="metric"><div class="metric-label">Customers</div><div class="metric-value">2,146</div><div class="metric-delta">+9.8%</div></div>
+      <div class="metric"><div class="metric-label">ARPU</div><div class="metric-value">$1,492</div><div class="metric-delta">+6.1%</div></div>
+      <div class="metric"><div class="metric-label">Churn</div><div class="metric-value">4.2%</div><div class="metric-delta">-0.8 pts</div></div>
+    </div>
+    <div class="content">
+      <div class="panel">
+        <div class="panel-title">Revenue Trend</div>
+        <div class="chart"><div class="chart-line"></div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Key Metrics</div>
+        <div class="data-grid">
+          <div class="data-item"><span class="data-label">LTV</span><span class="data-value">$35.5K</span></div>
+          <div class="data-item"><span class="data-label">CAC</span><span class="data-value">$2.8K</span></div>
+          <div class="data-item"><span class="data-label">LTV:CAC</span><span class="data-value">12.7</span></div>
+          <div class="data-item"><span class="data-label">Payback</span><span class="data-value">7.2mo</span></div>
+          <div class="data-item"><span class="data-label">NRR</span><span class="data-value">112%</span></div>
+          <div class="data-item"><span class="data-label">GRR</span><span class="data-value">96%</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Initiatives</div>
+      <table class="table">
+        <thead><tr><th>Initiative</th><th>Owner</th><th>Budget</th><th>Spent</th><th>Progress</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="primary">Platform Upgrade</td><td>CTO</td><td>$720K</td><td>$640K</td><td>89%</td><td><span class="status active">Active</span></td></tr>
+          <tr><td class="primary">Sales Expansion</td><td>CRO</td><td>$540K</td><td>$480K</td><td>85%</td><td><span class="status active">Active</span></td></tr>
+          <tr><td class="primary">Product Development</td><td>CPO</td><td>$420K</td><td>$380K</td><td>91%</td><td><span class="status active">Active</span></td></tr>
+          <tr><td class="primary">Operations</td><td>COO</td><td>$280K</td><td>$180K</td><td>64%</td><td><span class="status">Pending</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

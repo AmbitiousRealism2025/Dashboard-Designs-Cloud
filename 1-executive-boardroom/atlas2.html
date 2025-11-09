@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Executive Boardroom Dashboard | Atlas v2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Agent: Atlas | Theme: Executive Boardroom | Intent: Command-center executive dashboard with operational visibility and multi-stakeholder strategic oversight -->
+  <style>
+    :root {
+      --command-bg: #070b14;
+      --panel-bg: #0d1117;
+      --elevated: #161b22;
+      --border: #21262d;
+      --gold: #c9965c;
+      --bronze: #a87e4a;
+      --text-primary: #e6edf3;
+      --text-secondary: #7d8590;
+      --text-muted: #484f58;
+      --status-green: #238636;
+      --status-yellow: #9e6a03;
+      --status-red: #da3633;
+      --accent: #58a6ff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @keyframes statusPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', sans-serif;
+      background: var(--command-bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .command-container {
+      max-width: 1920px;
+      margin: 0 auto;
+    }
+
+    .command-header {
+      background: linear-gradient(180deg, var(--panel-bg), var(--command-bg));
+      border-bottom: 2px solid var(--border);
+      padding: 20px 40px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 30px;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-badge {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, var(--gold), var(--bronze));
+      border: 2px solid var(--gold);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 24px;
+      color: var(--command-bg);
+      box-shadow: 0 0 20px rgba(201, 150, 92, 0.3);
+    }
+
+    .brand-info h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .brand-info p {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: monospace;
+    }
+
+    .header-status {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .status-chip {
+      padding: 8px 14px;
+      background: var(--elevated);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 11px;
+      font-family: monospace;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--status-green);
+      animation: statusPulse 2s infinite;
+    }
+
+    .status-dot.amber {
+      background: var(--status-yellow);
+    }
+
+    .status-dot.red {
+      background: var(--status-red);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .action-btn {
+      padding: 8px 16px;
+      background: var(--elevated);
+      border: 1px solid var(--gold);
+      border-radius: 6px;
+      color: var(--gold);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .action-btn:hover {
+      background: rgba(201, 150, 92, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .agent-identifier {
+      padding: 8px 16px;
+      background: linear-gradient(135deg, rgba(201, 150, 92, 0.15), rgba(168, 126, 74, 0.1));
+      border: 1px solid var(--gold);
+      border-radius: 6px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .main-grid {
+      padding: 30px 40px;
+      display: grid;
+      gap: 24px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 16px;
+      background: var(--gold);
+    }
+
+    .section-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+
+    .kpi-array {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+      animation: slideInLeft 0.6s ease-out;
+    }
+
+    .kpi-module {
+      background: linear-gradient(135deg, var(--panel-bg), var(--elevated));
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      border-radius: 8px;
+      padding: 20px;
+      position: relative;
+      transition: all 0.25s ease;
+    }
+
+    .kpi-module:hover {
+      border-color: var(--gold);
+      transform: translateX(4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .kpi-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .kpi-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .kpi-status-icon {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--status-green);
+    }
+
+    .kpi-value {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .kpi-delta {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+    .kpi-delta.up {
+      background: rgba(35, 134, 54, 0.15);
+      color: var(--status-green);
+      border: 1px solid rgba(35, 134, 54, 0.4);
+    }
+
+    .kpi-delta.down {
+      background: rgba(218, 54, 51, 0.15);
+      color: var(--status-red);
+      border: 1px solid rgba(218, 54, 51, 0.4);
+    }
+
+    .kpi-footer {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+
+    .analytics-grid {
+      display: grid;
+      grid-template-columns: 1.8fr 1.2fr;
+      gap: 24px;
+      margin-bottom: 24px;
+      animation: fadeIn 0.8s ease-out 0.2s both;
+    }
+
+    .panel {
+      background: var(--panel-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      position: relative;
+    }
+
+    .panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    .panel-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .panel-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .chart-zone {
+      height: 280px;
+      background: linear-gradient(180deg, rgba(201, 150, 92, 0.03), transparent);
+      border: 1px dashed var(--border);
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-grid {
+      position: absolute;
+      inset: 16px;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 44px, rgba(125, 133, 144, 0.08) 44px, rgba(125, 133, 144, 0.08) 45px),
+        repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(125, 133, 144, 0.08) 59px, rgba(125, 133, 144, 0.08) 60px);
+    }
+
+    .chart-path {
+      position: absolute;
+      bottom: 18%;
+      left: 10%;
+      right: 10%;
+      height: 55%;
+      background: linear-gradient(135deg, var(--gold), var(--bronze));
+      clip-path: polygon(0 100%, 0 60%, 18% 70%, 35% 45%, 52% 35%, 70% 42%, 85% 25%, 100% 18%, 100% 100%);
+      filter: drop-shadow(0 0 16px rgba(201, 150, 92, 0.4));
+      opacity: 0.85;
+    }
+
+    .insight-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .insight-block {
+      padding: 18px;
+      background: var(--elevated);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .insight-block:hover {
+      border-left-color: var(--gold);
+      transform: translateX(4px);
+    }
+
+    .insight-priority {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .insight-content {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .insight-content strong {
+      color: var(--text-primary);
+    }
+
+    .operations-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      animation: fadeIn 0.8s ease-out 0.4s both;
+    }
+
+    .operations-table thead {
+      background: var(--elevated);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .operations-table th {
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .operations-table td {
+      padding: 16px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-family: monospace;
+    }
+
+    .operations-table tbody tr {
+      transition: background 0.15s;
+    }
+
+    .operations-table tbody tr:hover {
+      background: var(--elevated);
+    }
+
+    .operations-table .primary-col {
+      color: var(--text-primary);
+      font-weight: 600;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    .ops-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+    }
+
+    .ops-status.operational {
+      background: rgba(35, 134, 54, 0.15);
+      color: var(--status-green);
+      border: 1px solid rgba(35, 134, 54, 0.4);
+    }
+
+    .ops-status.degraded {
+      background: rgba(158, 106, 3, 0.15);
+      color: #d29922;
+      border: 1px solid rgba(158, 106, 3, 0.4);
+    }
+
+    .ops-status.critical {
+      background: rgba(218, 54, 51, 0.15);
+      color: var(--status-red);
+      border: 1px solid rgba(218, 54, 51, 0.4);
+    }
+
+    .ops-status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .progress-bar {
+      width: 60px;
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gold);
+      border-radius: 3px;
+    }
+
+    .command-footer {
+      padding: 24px 40px;
+      border-top: 1px solid var(--border);
+      background: var(--panel-bg);
+      text-align: center;
+      font-size: 10px;
+      color: var(--text-muted);
+      font-family: monospace;
+      animation: fadeIn 1s ease-out 0.6s both;
+    }
+
+    @media (max-width: 1400px) {
+      .analytics-grid {
+        grid-template-columns: 1fr;
+      }
+      .kpi-array {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .command-header {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .main-grid {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="command-container">
+    <header class="command-header">
+      <div class="header-brand">
+        <div class="brand-badge">A</div>
+        <div class="brand-info">
+          <h1>Executive Command Center</h1>
+          <p>STRATEGIC.OVERSIGHT.Q4.2025 // BOARDROOM.OPS</p>
+        </div>
+      </div>
+
+      <div class="header-status">
+        <div class="status-chip">
+          <div class="status-dot"></div>
+          <span>SYSTEMS: OPERATIONAL</span>
+        </div>
+        <div class="status-chip">
+          <div class="status-dot amber"></div>
+          <span>ALERTS: 2 ACTIVE</span>
+        </div>
+        <div class="status-chip">
+          <span>OCT 1 – DEC 31, 2025</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="action-btn">Export</button>
+        <div class="agent-identifier">Atlas · Round 2</div>
+      </div>
+    </header>
+
+    <main class="main-grid">
+      <div class="section-header">
+        <div class="section-title">OPERATIONAL METRICS</div>
+        <div class="section-meta">REAL-TIME EXECUTIVE OVERSIGHT</div>
+      </div>
+
+      <div class="kpi-array">
+        <div class="kpi-module">
+          <div class="kpi-header">
+            <div class="kpi-label">Total Revenue</div>
+            <div class="kpi-status-icon"></div>
+          </div>
+          <div class="kpi-value">$7.8M</div>
+          <div class="kpi-delta up">▲ 19.3%</div>
+          <div class="kpi-footer">TARGET: $6.8M // STATUS: EXCEEDING</div>
+        </div>
+
+        <div class="kpi-module">
+          <div class="kpi-header">
+            <div class="kpi-label">Operating Margin</div>
+            <div class="kpi-status-icon"></div>
+          </div>
+          <div class="kpi-value">31.2%</div>
+          <div class="kpi-delta up">▲ 4.7 PTS</div>
+          <div class="kpi-footer">BENCHMARK: 24% // POSITION: TOP QUARTILE</div>
+        </div>
+
+        <div class="kpi-module">
+          <div class="kpi-header">
+            <div class="kpi-label">Customer Base</div>
+            <div class="kpi-status-icon"></div>
+          </div>
+          <div class="kpi-value">2,847</div>
+          <div class="kpi-delta up">▲ 12.8%</div>
+          <div class="kpi-footer">RETENTION: 97.3% // CHURN: 2.7%</div>
+        </div>
+
+        <div class="kpi-module">
+          <div class="kpi-header">
+            <div class="kpi-label">Cash Position</div>
+            <div class="kpi-status-icon"></div>
+          </div>
+          <div class="kpi-value">$9.4M</div>
+          <div class="kpi-delta up">▲ $1.2M</div>
+          <div class="kpi-footer">RUNWAY: 21.5 MO // BURN: $438K/MO</div>
+        </div>
+
+        <div class="kpi-module">
+          <div class="kpi-header">
+            <div class="kpi-label">Market Share</div>
+            <div class="kpi-status-icon"></div>
+          </div>
+          <div class="kpi-value">8.4%</div>
+          <div class="kpi-delta up">▲ 1.1 PTS</div>
+          <div class="kpi-footer">RANK: #3 // MOMENTUM: POSITIVE</div>
+        </div>
+
+        <div class="kpi-module">
+          <div class="kpi-header">
+            <div class="kpi-label">Employee NPS</div>
+            <div class="kpi-status-icon"></div>
+          </div>
+          <div class="kpi-value">+62</div>
+          <div class="kpi-delta up">▲ 8 PTS</div>
+          <div class="kpi-footer">HEADCOUNT: 247 // ATTRITION: 4.2%</div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">PERFORMANCE ANALYSIS</div>
+        <div class="section-meta">STRATEGIC INTELLIGENCE DASHBOARD</div>
+      </div>
+
+      <div class="analytics-grid">
+        <div class="panel">
+          <div class="panel-title">Revenue & Growth Trajectory</div>
+          <div class="panel-subtitle">Quarterly Performance vs Strategic Plan</div>
+          <div class="chart-zone">
+            <div class="chart-grid"></div>
+            <div class="chart-path"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Executive Intelligence</div>
+          <div class="panel-subtitle">Critical Insights & Operational Alerts</div>
+          <div class="insight-stack">
+            <div class="insight-block">
+              <div class="insight-priority">HIGH PRIORITY</div>
+              <div class="insight-content">
+                <strong>Revenue acceleration sustained</strong> through strategic enterprise expansion and successful competitive displacement in key verticals.
+              </div>
+            </div>
+            <div class="insight-block">
+              <div class="insight-priority">ATTENTION REQUIRED</div>
+              <div class="insight-content">
+                <strong>Two strategic initiatives flagged</strong> for board review. Resource reallocation recommended to maintain delivery timelines.
+              </div>
+            </div>
+            <div class="insight-block">
+              <div class="insight-priority">POSITIVE INDICATOR</div>
+              <div class="insight-content">
+                <strong>Customer retention at record levels</strong> indicating strong product-market fit and operational excellence in customer success.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">STRATEGIC OPERATIONS STATUS</div>
+        <div class="section-meta">BOARD-LEVEL INITIATIVE TRACKING</div>
+      </div>
+
+      <div class="panel">
+        <table class="operations-table">
+          <thead>
+            <tr>
+              <th>INITIATIVE</th>
+              <th>OWNER</th>
+              <th>BUDGET</th>
+              <th>UTILIZATION</th>
+              <th>PROGRESS</th>
+              <th>ROI PROJ</th>
+              <th>STATUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="primary-col">Platform Modernization Program</td>
+              <td>CTO</td>
+              <td>$3.8M</td>
+              <td>92%</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 89%;"></div>
+                </div>
+              </td>
+              <td>4.2x</td>
+              <td><span class="ops-status operational">OPERATIONAL</span></td>
+            </tr>
+            <tr>
+              <td class="primary-col">Global Expansion Initiative</td>
+              <td>CSO</td>
+              <td>$4.5M</td>
+              <td>87%</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 82%;"></div>
+                </div>
+              </td>
+              <td>5.1x</td>
+              <td><span class="ops-status operational">OPERATIONAL</span></td>
+            </tr>
+            <tr>
+              <td class="primary-col">Product Innovation Pipeline</td>
+              <td>CPO</td>
+              <td>$2.6M</td>
+              <td>94%</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 91%;"></div>
+                </div>
+              </td>
+              <td>6.8x</td>
+              <td><span class="ops-status operational">OPERATIONAL</span></td>
+            </tr>
+            <tr>
+              <td class="primary-col">Operational Excellence Program</td>
+              <td>COO</td>
+              <td>$1.7M</td>
+              <td>68%</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 61%;"></div>
+                </div>
+              </td>
+              <td>3.2x</td>
+              <td><span class="ops-status degraded">DEGRADED</span></td>
+            </tr>
+            <tr>
+              <td class="primary-col">Infrastructure Transformation</td>
+              <td>CIO</td>
+              <td>$2.9M</td>
+              <td>54%</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 47%;"></div>
+                </div>
+              </td>
+              <td>3.7x</td>
+              <td><span class="ops-status critical">CRITICAL</span></td>
+            </tr>
+            <tr>
+              <td class="primary-col">Customer Success Transformation</td>
+              <td>CCO</td>
+              <td>$1.2M</td>
+              <td>89%</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 86%;"></div>
+                </div>
+              </td>
+              <td>7.4x</td>
+              <td><span class="ops-status operational">OPERATIONAL</span></td>
+            </tr>
+            <tr>
+              <td class="primary-col">Talent & Culture Initiative</td>
+              <td>CHRO</td>
+              <td>$980K</td>
+              <td>91%</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 88%;"></div>
+                </div>
+              </td>
+              <td>4.9x</td>
+              <td><span class="ops-status operational">OPERATIONAL</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <footer class="command-footer">
+      EXECUTIVE.COMMAND.CENTER // CONFIDENTIAL.BOARD.MATERIALS // ATLAS.DESIGN.AGENT.R2 // OPERATIONAL.OVERSIGHT.2025
+    </footer>
+  </div>
+</body>
+</html>
