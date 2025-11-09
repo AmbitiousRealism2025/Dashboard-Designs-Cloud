@@ -183,6 +183,18 @@ Open all 5 agent files from a single theme folder side-by-side to evaluate which
 **Adapting for Business Scenarios**:
 The template is designed to be flexible - swap KPI labels, chart types, and table data to match different business contexts (sales, ops, finance, marketing) without changing the core structure.
 
+## Project Status & History
+
+### Current State: First Round Only
+
+**Note (2025-11-09):** Repository has been reverted to the first round of designs due to some agents not following instructions in the second iteration. A second attempt is currently being worked on in the cloud. This repository contains only the original 40 HTML files (5 agents × 8 themes) until the revised second round is completed and approved.
+
+**Revert Details:**
+- Reverted from commit `4b3f34a` back to `40e574c`
+- Removed all `*2.html` files that did not meet quality standards
+- Maintaining first-round designs as the current tournament baseline
+- Second-round designs in progress with improved instruction adherence
+
 ## Notes
 
 - This is a static HTML demonstration project, not a production application
