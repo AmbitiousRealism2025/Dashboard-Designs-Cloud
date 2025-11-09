@@ -1,0 +1,1967 @@
+<!-- Agent: Atlas | Round: 2 - Light Mode Masterpiece | Theme: Project Portfolio Kanban | Intent: Multi-stakeholder project command center with cross-project dependency tracking and resource allocation intelligence -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Portfolio Command Center - ATLAS</title>
+    <style>
+        /* === ATLAS LIGHT MODE: PROJECT PORTFOLIO COMMAND CENTER === */
+
+        :root {
+            /* Light Mode Base */
+            --bg-primary: #FAFBFC;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #F4F6F8;
+            --bg-elevated: #FFFFFF;
+
+            /* Text Hierarchy */
+            --text-primary: #1A2332;
+            --text-secondary: #4A5568;
+            --text-tertiary: #718096;
+            --text-muted: #A0AEC0;
+
+            /* Status Colors - Kanban */
+            --status-backlog: #94A3B8;
+            --status-backlog-bg: #F1F5F9;
+            --status-backlog-border: #CBD5E1;
+
+            --status-inprogress: #3B82F6;
+            --status-inprogress-bg: #EFF6FF;
+            --status-inprogress-border: #BFDBFE;
+
+            --status-atrisk: #F59E0B;
+            --status-atrisk-bg: #FEF3C7;
+            --status-atrisk-border: #FCD34D;
+
+            --status-done: #10B981;
+            --status-done-bg: #D1FAE5;
+            --status-done-border: #6EE7B7;
+
+            --status-blocked: #EF4444;
+            --status-blocked-bg: #FEE2E2;
+            --status-blocked-border: #FCA5A5;
+
+            /* Project Type Colors */
+            --project-infrastructure: #8B5CF6;
+            --project-product: #06B6D4;
+            --project-marketing: #EC4899;
+            --project-ops: #14B8A6;
+
+            /* Stakeholder Colors */
+            --stakeholder-exec: #7C3AED;
+            --stakeholder-eng: #2563EB;
+            --stakeholder-design: #DB2777;
+            --stakeholder-ops: #059669;
+
+            /* UI Elements */
+            --border-light: #E2E8F0;
+            --border-medium: #CBD5E1;
+            --border-heavy: #94A3B8;
+
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.08);
+            --shadow-xl: 0 20px 25px rgba(0,0,0,0.1);
+
+            /* Spacing System */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* === HEADER === */
+        header {
+            background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+            color: white;
+            padding: var(--space-lg) var(--space-xl);
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+
+        .atlas-logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #60A5FA, #A78BFA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header-title {
+            border-left: 2px solid rgba(255,255,255,0.3);
+            padding-left: var(--space-lg);
+        }
+
+        .header-title h1 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .header-title p {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .stakeholder-selector {
+            display: flex;
+            gap: var(--space-xs);
+            background: rgba(255,255,255,0.1);
+            padding: var(--space-xs);
+            border-radius: 8px;
+        }
+
+        .stakeholder-btn {
+            padding: 6px 12px;
+            border: none;
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .stakeholder-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .stakeholder-btn.active {
+            background: white;
+            color: var(--text-primary);
+        }
+
+        .sync-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .sync-dot {
+            width: 8px;
+            height: 8px;
+            background: #10B981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* === MAIN CONTAINER === */
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+        }
+
+        /* === KPI STRIP === */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--kpi-color, #94A3B8), transparent);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .kpi-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-tertiary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            line-height: 1;
+        }
+
+        .kpi-delta {
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .kpi-delta.positive { color: var(--status-done); }
+        .kpi-delta.negative { color: var(--status-blocked); }
+        .kpi-delta.neutral { color: var(--text-tertiary); }
+
+        .kpi-meta {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            margin-top: var(--space-sm);
+        }
+
+        /* === COMMAND CENTER LAYOUT === */
+        .command-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        /* === KANBAN BOARD === */
+        .kanban-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .section-badge {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .view-controls {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .view-btn {
+            padding: 6px 12px;
+            border: 1px solid var(--border-medium);
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .view-btn:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--border-heavy);
+        }
+
+        .view-btn.active {
+            background: var(--status-inprogress);
+            color: white;
+            border-color: var(--status-inprogress);
+        }
+
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            min-height: 600px;
+        }
+
+        .kanban-column {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-light);
+            border-radius: 10px;
+            padding: var(--space-md);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.2s ease;
+        }
+
+        .kanban-column:hover {
+            border-color: var(--border-medium);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .column-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 2px solid var(--column-color);
+        }
+
+        .column-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--column-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .column-count {
+            background: var(--column-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .kanban-cards {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            flex-grow: 1;
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-left: 4px solid var(--card-accent);
+            border-radius: 8px;
+            padding: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-2px) rotate(0.5deg);
+            box-shadow: var(--shadow-md);
+            border-color: var(--card-accent);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-sm);
+        }
+
+        .card-id {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-tertiary);
+            letter-spacing: 0.5px;
+        }
+
+        .card-priority {
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .priority-high {
+            background: var(--status-blocked-bg);
+            color: var(--status-blocked);
+        }
+
+        .priority-medium {
+            background: var(--status-atrisk-bg);
+            color: var(--status-atrisk);
+        }
+
+        .priority-low {
+            background: var(--status-done-bg);
+            color: var(--status-done);
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+            line-height: 1.3;
+        }
+
+        .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .meta-tag {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .meta-icon {
+            width: 14px;
+            height: 14px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: var(--space-sm);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--card-accent), var(--card-accent-light, var(--card-accent)));
+            transition: width 0.3s ease;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        .card-owner {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .owner-avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--avatar-color, #94A3B8), var(--avatar-color-2, #64748B));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .card-date {
+            font-weight: 600;
+        }
+
+        .date-overdue {
+            color: var(--status-blocked);
+        }
+
+        .date-soon {
+            color: var(--status-atrisk);
+        }
+
+        /* === SIDEBAR PANELS === */
+        .sidebar-panels {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        .panel {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .panel-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .alert-item {
+            padding: var(--space-sm);
+            background: var(--alert-bg);
+            border-left: 3px solid var(--alert-color);
+            border-radius: 6px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .alert-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .alert-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .alert-desc {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .resource-bar {
+            margin-bottom: var(--space-md);
+        }
+
+        .resource-bar:last-child {
+            margin-bottom: 0;
+        }
+
+        .resource-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .resource-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .resource-value {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--resource-color);
+        }
+
+        .resource-track {
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .resource-fill {
+            height: 100%;
+            background: var(--resource-color);
+            transition: width 0.3s ease;
+        }
+
+        .dependency-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm);
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .dependency-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .dependency-nodes {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-grow: 1;
+        }
+
+        .dep-node {
+            padding: 3px 8px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-medium);
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .dep-arrow {
+            color: var(--text-tertiary);
+            font-size: 10px;
+        }
+
+        .dep-status {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--dep-status-color);
+        }
+
+        /* === TIMELINE SECTION === */
+        .timeline-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .timeline-gantt {
+            overflow-x: auto;
+            margin-top: var(--space-lg);
+        }
+
+        .gantt-grid {
+            display: grid;
+            grid-template-columns: 200px repeat(12, 80px);
+            gap: 1px;
+            background: var(--border-light);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .gantt-header {
+            background: var(--bg-tertiary);
+            padding: var(--space-sm);
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .gantt-header:first-child {
+            text-align: left;
+        }
+
+        .gantt-row {
+            display: contents;
+        }
+
+        .gantt-label {
+            background: var(--bg-secondary);
+            padding: var(--space-sm);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .gantt-cell {
+            background: var(--bg-secondary);
+            padding: var(--space-sm);
+            position: relative;
+        }
+
+        .gantt-bar {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 20px;
+            background: var(--bar-color);
+            border-radius: 4px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: 700;
+            color: white;
+            overflow: hidden;
+        }
+
+        /* === DATA TABLE === */
+        .table-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--space-lg);
+        }
+
+        .data-table thead {
+            background: var(--bg-tertiary);
+        }
+
+        .data-table th {
+            padding: var(--space-md);
+            text-align: left;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            border-bottom: 2px solid var(--border-medium);
+        }
+
+        .data-table td {
+            padding: var(--space-md);
+            font-size: 13px;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .data-table tbody tr {
+            transition: background 0.2s ease;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .status-backlog {
+            background: var(--status-backlog-bg);
+            color: var(--status-backlog);
+        }
+
+        .status-inprogress {
+            background: var(--status-inprogress-bg);
+            color: var(--status-inprogress);
+        }
+
+        .status-atrisk {
+            background: var(--status-atrisk-bg);
+            color: var(--status-atrisk);
+        }
+
+        .status-done {
+            background: var(--status-done-bg);
+            color: var(--status-done);
+        }
+
+        .status-blocked {
+            background: var(--status-blocked-bg);
+            color: var(--status-blocked);
+        }
+
+        .health-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 600;
+        }
+
+        .health-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .team-avatars {
+            display: flex;
+            align-items: center;
+            gap: -8px;
+        }
+
+        .team-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--avatar-color, #94A3B8), var(--avatar-color-2, #64748B));
+            border: 2px solid var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        /* === FOOTER === */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-light);
+            padding: var(--space-lg) var(--space-xl);
+            margin-top: var(--space-2xl);
+        }
+
+        .footer-content {
+            max-width: 1800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .footer-agent {
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 1400px) {
+            .kpi-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .command-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar-panels {
+                flex-direction: row;
+            }
+
+            .panel {
+                flex: 1;
+            }
+        }
+
+        @media (max-width: 960px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .kanban-board {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .sidebar-panels {
+                flex-direction: column;
+            }
+
+            .gantt-grid {
+                grid-template-columns: 150px repeat(12, 60px);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: var(--space-md);
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kanban-board {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: var(--space-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="header-left">
+                <div class="atlas-logo">ATLAS</div>
+                <div class="header-title">
+                    <h1>Project Portfolio Command Center</h1>
+                    <p>Multi-Stakeholder Program Intelligence • Q4 2025</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="stakeholder-selector">
+                    <button class="stakeholder-btn active">All</button>
+                    <button class="stakeholder-btn">Executive</button>
+                    <button class="stakeholder-btn">Engineering</button>
+                    <button class="stakeholder-btn">Design</button>
+                    <button class="stakeholder-btn">Operations</button>
+                </div>
+                <div class="sync-status">
+                    <div class="sync-dot"></div>
+                    Live
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- KPI STRIP -->
+        <div class="kpi-grid">
+            <div class="kpi-card" style="--kpi-color: #3B82F6;">
+                <div class="kpi-label">Active Projects</div>
+                <div class="kpi-value">24</div>
+                <div class="kpi-delta positive">↑ 3 New</div>
+                <div class="kpi-meta">8 backlog • 9 in progress • 7 done</div>
+            </div>
+            <div class="kpi-card" style="--kpi-color: #10B981;">
+                <div class="kpi-label">On Track</div>
+                <div class="kpi-value">78%</div>
+                <div class="kpi-delta positive">↑ 5%</div>
+                <div class="kpi-meta">18 of 24 on schedule</div>
+            </div>
+            <div class="kpi-card" style="--kpi-color: #F59E0B;">
+                <div class="kpi-label">At Risk</div>
+                <div class="kpi-value">4</div>
+                <div class="kpi-delta negative">↑ 2</div>
+                <div class="kpi-meta">2 budget, 2 timeline</div>
+            </div>
+            <div class="kpi-card" style="--kpi-color: #EF4444;">
+                <div class="kpi-label">Blockers</div>
+                <div class="kpi-value">2</div>
+                <div class="kpi-delta neutral">→ Same</div>
+                <div class="kpi-meta">1 dependency, 1 resource</div>
+            </div>
+            <div class="kpi-card" style="--kpi-color: #8B5CF6;">
+                <div class="kpi-label">Budget Utilization</div>
+                <div class="kpi-value">$4.2M</div>
+                <div class="kpi-delta neutral">73%</div>
+                <div class="kpi-meta">of $5.8M allocated</div>
+            </div>
+            <div class="kpi-card" style="--kpi-color: #06B6D4;">
+                <div class="kpi-label">Team Capacity</div>
+                <div class="kpi-value">87%</div>
+                <div class="kpi-delta positive">Optimal</div>
+                <div class="kpi-meta">42 of 48 resources allocated</div>
+            </div>
+        </div>
+
+        <!-- COMMAND CENTER LAYOUT -->
+        <div class="command-layout">
+            <!-- KANBAN BOARD -->
+            <div class="kanban-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        Portfolio Kanban Board
+                        <span class="section-badge">24 Projects</span>
+                    </div>
+                    <div class="view-controls">
+                        <button class="view-btn active">Board</button>
+                        <button class="view-btn">List</button>
+                        <button class="view-btn">Timeline</button>
+                    </div>
+                </div>
+
+                <div class="kanban-board">
+                    <!-- BACKLOG COLUMN -->
+                    <div class="kanban-column" style="--column-color: var(--status-backlog);">
+                        <div class="column-header">
+                            <div class="column-title">Backlog</div>
+                            <div class="column-count">8</div>
+                        </div>
+                        <div class="kanban-cards">
+                            <div class="project-card" style="--card-accent: var(--project-infrastructure); --avatar-color: #8B5CF6; --avatar-color-2: #6D28D9;">
+                                <div class="card-header">
+                                    <div class="card-id">INFRA-401</div>
+                                    <div class="card-priority priority-low">Low</div>
+                                </div>
+                                <div class="card-title">API Gateway Migration</div>
+                                <div class="card-meta">
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">💼</div>
+                                        Infrastructure
+                                    </div>
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">💰</div>
+                                        $180K
+                                    </div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0%; --card-accent-light: #A78BFA;"></div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="card-owner">
+                                        <div class="owner-avatar" style="--avatar-color: #8B5CF6; --avatar-color-2: #6D28D9;">MK</div>
+                                        M. Kwon
+                                    </div>
+                                    <div class="card-date">Q1 2026</div>
+                                </div>
+                            </div>
+
+                            <div class="project-card" style="--card-accent: var(--project-product); --avatar-color: #06B6D4; --avatar-color-2: #0891B2;">
+                                <div class="card-header">
+                                    <div class="card-id">PROD-289</div>
+                                    <div class="card-priority priority-medium">Med</div>
+                                </div>
+                                <div class="card-title">Mobile App Redesign</div>
+                                <div class="card-meta">
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">📱</div>
+                                        Product
+                                    </div>
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">💰</div>
+                                        $240K
+                                    </div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0%; --card-accent-light: #22D3EE;"></div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="card-owner">
+                                        <div class="owner-avatar" style="--avatar-color: #06B6D4; --avatar-color-2: #0891B2;">SL</div>
+                                        S. Lee
+                                    </div>
+                                    <div class="card-date">Jan 2026</div>
+                                </div>
+                            </div>
+
+                            <div class="project-card" style="--card-accent: var(--project-marketing); --avatar-color: #EC4899; --avatar-color-2: #DB2777;">
+                                <div class="card-header">
+                                    <div class="card-id">MKT-156</div>
+                                    <div class="card-priority priority-low">Low</div>
+                                </div>
+                                <div class="card-title">Brand Refresh Initiative</div>
+                                <div class="card-meta">
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">🎨</div>
+                                        Marketing
+                                    </div>
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">💰</div>
+                                        $95K
+                                    </div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0%; --card-accent-light: #F472B6;"></div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="card-owner">
+                                        <div class="owner-avatar" style="--avatar-color: #EC4899; --avatar-color-2: #DB2777;">TC</div>
+                                        T. Chen
+                                    </div>
+                                    <div class="card-date">Feb 2026</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IN PROGRESS COLUMN -->
+                    <div class="kanban-column" style="--column-color: var(--status-inprogress);">
+                        <div class="column-header">
+                            <div class="column-title">In Progress</div>
+                            <div class="column-count">9</div>
+                        </div>
+                        <div class="kanban-cards">
+                            <div class="project-card" style="--card-accent: var(--project-product); --avatar-color: #06B6D4; --avatar-color-2: #0891B2;">
+                                <div class="card-header">
+                                    <div class="card-id">PROD-278</div>
+                                    <div class="card-priority priority-high">High</div>
+                                </div>
+                                <div class="card-title">Customer Portal V2</div>
+                                <div class="card-meta">
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">📱</div>
+                                        Product
+                                    </div>
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">💰</div>
+                                        $420K
+                                    </div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 68%; --card-accent-light: #22D3EE;"></div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="card-owner">
+                                        <div class="owner-avatar" style="--avatar-color: #06B6D4; --avatar-color-2: #0891B2;">AR</div>
+                                        A. Rodriguez
+                                    </div>
+                                    <div class="card-date date-soon">Dec 15</div>
+                                </div>
+                            </div>
+
+                            <div class="project-card" style="--card-accent: var(--project-infrastructure); --avatar-color: #8B5CF6; --avatar-color-2: #6D28D9;">
+                                <div class="card-header">
+                                    <div class="card-id">INFRA-395</div>
+                                    <div class="card-priority priority-high">High</div>
+                                </div>
+                                <div class="card-title">Cloud Cost Optimization</div>
+                                <div class="card-meta">
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">💼</div>
+                                        Infrastructure
+                                    </div>
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">💰</div>
+                                        $165K
+                                    </div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 45%; --card-accent-light: #A78BFA;"></div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="card-owner">
+                                        <div class="owner-avatar" style="--avatar-color: #8B5CF6; --avatar-color-2: #6D28D9;">JW</div>
+                                        J. Wu
+                                    </div>
+                                    <div class="card-date">Dec 31</div>
+                                </div>
+                            </div>
+
+                            <div class="project-card" style="--card-accent: var(--project-ops); --avatar-color: #14B8A6; --avatar-color-2: #0D9488;">
+                                <div class="card-header">
+                                    <div class="card-id">OPS-223</div>
+                                    <div class="card-priority priority-medium">Med</div>
+                                </div>
+                                <div class="card-title">Support Automation Suite</div>
+                                <div class="card-meta">
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">⚙️</div>
+                                        Operations
+                                    </div>
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">💰</div>
+                                        $210K
+                                    </div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 52%; --card-accent-light: #2DD4BF;"></div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="card-owner">
+                                        <div class="owner-avatar" style="--avatar-color: #14B8A6; --avatar-color-2: #0D9488;">DN</div>
+                                        D. Nguyen
+                                    </div>
+                                    <div class="card-date">Jan 10</div>
+                                </div>
+                            </div>
+
+                            <div class="project-card" style="--card-accent: var(--project-marketing); --avatar-color: #EC4899; --avatar-color-2: #DB2777;">
+                                <div class="card-header">
+                                    <div class="card-id">MKT-147</div>
+                                    <div class="card-priority priority-medium">Med</div>
+                                </div>
+                                <div class="card-title">Q1 Campaign Launch</div>
+                                <div class="card-meta">
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">🎨</div>
+                                        Marketing
+                                    </div>
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">💰</div>
+                                        $135K
+                                    </div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 34%; --card-accent-light: #F472B6;"></div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="card-owner">
+                                        <div class="owner-avatar" style="--avatar-color: #EC4899; --avatar-color-2: #DB2777;">EP</div>
+                                        E. Park
+                                    </div>
+                                    <div class="card-date">Dec 20</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AT RISK COLUMN -->
+                    <div class="kanban-column" style="--column-color: var(--status-atrisk);">
+                        <div class="column-header">
+                            <div class="column-title">At Risk</div>
+                            <div class="column-count">4</div>
+                        </div>
+                        <div class="kanban-cards">
+                            <div class="project-card" style="--card-accent: var(--status-atrisk); --avatar-color: #F59E0B; --avatar-color-2: #D97706;">
+                                <div class="card-header">
+                                    <div class="card-id">PROD-265</div>
+                                    <div class="card-priority priority-high">High</div>
+                                </div>
+                                <div class="card-title">Analytics Dashboard V3</div>
+                                <div class="card-meta">
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">📱</div>
+                                        Product
+                                    </div>
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">💰</div>
+                                        $385K
+                                    </div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 58%; --card-accent-light: #FCD34D;"></div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="card-owner">
+                                        <div class="owner-avatar" style="--avatar-color: #F59E0B; --avatar-color-2: #D97706;">KT</div>
+                                        K. Taylor
+                                    </div>
+                                    <div class="card-date date-overdue">Dec 8 ⚠️</div>
+                                </div>
+                            </div>
+
+                            <div class="project-card" style="--card-accent: var(--status-atrisk); --avatar-color: #F59E0B; --avatar-color-2: #D97706;">
+                                <div class="card-header">
+                                    <div class="card-id">INFRA-387</div>
+                                    <div class="card-priority priority-high">High</div>
+                                </div>
+                                <div class="card-title">Database Sharding</div>
+                                <div class="card-meta">
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">💼</div>
+                                        Infrastructure
+                                    </div>
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">💰</div>
+                                        $295K
+                                    </div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 72%; --card-accent-light: #FCD34D;"></div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="card-owner">
+                                        <div class="owner-avatar" style="--avatar-color: #F59E0B; --avatar-color-2: #D97706;">VM</div>
+                                        V. Martinez
+                                    </div>
+                                    <div class="card-date date-overdue">Nov 30 ⚠️</div>
+                                </div>
+                            </div>
+
+                            <div class="project-card" style="--card-accent: var(--status-atrisk); --avatar-color: #F59E0B; --avatar-color-2: #D97706;">
+                                <div class="card-header">
+                                    <div class="card-id">OPS-218</div>
+                                    <div class="card-priority priority-medium">Med</div>
+                                </div>
+                                <div class="card-title">Incident Response System</div>
+                                <div class="card-meta">
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">⚙️</div>
+                                        Operations
+                                    </div>
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">💰</div>
+                                        $175K
+                                    </div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 41%; --card-accent-light: #FCD34D;"></div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="card-owner">
+                                        <div class="owner-avatar" style="--avatar-color: #F59E0B; --avatar-color-2: #D97706;">BJ</div>
+                                        B. Johnson
+                                    </div>
+                                    <div class="card-date date-soon">Dec 18</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DONE COLUMN -->
+                    <div class="kanban-column" style="--column-color: var(--status-done);">
+                        <div class="column-header">
+                            <div class="column-title">Done</div>
+                            <div class="column-count">7</div>
+                        </div>
+                        <div class="kanban-cards">
+                            <div class="project-card" style="--card-accent: var(--status-done); --avatar-color: #10B981; --avatar-color-2: #059669;">
+                                <div class="card-header">
+                                    <div class="card-id">PROD-254</div>
+                                    <div class="card-priority priority-high">High</div>
+                                </div>
+                                <div class="card-title">Payment Gateway Update</div>
+                                <div class="card-meta">
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">📱</div>
+                                        Product
+                                    </div>
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">💰</div>
+                                        $320K
+                                    </div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%; --card-accent-light: #34D399;"></div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="card-owner">
+                                        <div class="owner-avatar" style="--avatar-color: #10B981; --avatar-color-2: #059669;">LS</div>
+                                        L. Smith
+                                    </div>
+                                    <div class="card-date">Nov 25</div>
+                                </div>
+                            </div>
+
+                            <div class="project-card" style="--card-accent: var(--status-done); --avatar-color: #10B981; --avatar-color-2: #059669;">
+                                <div class="card-header">
+                                    <div class="card-id">INFRA-371</div>
+                                    <div class="card-priority priority-medium">Med</div>
+                                </div>
+                                <div class="card-title">Security Audit 2025</div>
+                                <div class="card-meta">
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">💼</div>
+                                        Infrastructure
+                                    </div>
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">💰</div>
+                                        $145K
+                                    </div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%; --card-accent-light: #34D399;"></div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="card-owner">
+                                        <div class="owner-avatar" style="--avatar-color: #10B981; --avatar-color-2: #059669;">RK</div>
+                                        R. Kumar
+                                    </div>
+                                    <div class="card-date">Nov 20</div>
+                                </div>
+                            </div>
+
+                            <div class="project-card" style="--card-accent: var(--status-done); --avatar-color: #10B981; --avatar-color-2: #059669;">
+                                <div class="card-header">
+                                    <div class="card-id">MKT-138</div>
+                                    <div class="card-priority priority-medium">Med</div>
+                                </div>
+                                <div class="card-title">Website Performance Boost</div>
+                                <div class="card-meta">
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">🎨</div>
+                                        Marketing
+                                    </div>
+                                    <div class="meta-tag">
+                                        <div class="meta-icon">💰</div>
+                                        $88K
+                                    </div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%; --card-accent-light: #34D399;"></div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="card-owner">
+                                        <div class="owner-avatar" style="--avatar-color: #10B981; --avatar-color-2: #059669;">FH</div>
+                                        F. Harris
+                                    </div>
+                                    <div class="card-date">Nov 28</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIDEBAR PANELS -->
+            <div class="sidebar-panels">
+                <!-- CRITICAL ALERTS -->
+                <div class="panel">
+                    <div class="panel-title">⚡ Critical Alerts</div>
+                    <div class="alert-item" style="--alert-bg: var(--status-blocked-bg); --alert-color: var(--status-blocked);">
+                        <div class="alert-title">PROD-265 Budget Overrun</div>
+                        <div class="alert-desc">Analytics Dashboard at 112% of allocated budget</div>
+                    </div>
+                    <div class="alert-item" style="--alert-bg: var(--status-atrisk-bg); --alert-color: var(--status-atrisk);">
+                        <div class="alert-title">INFRA-387 Timeline Risk</div>
+                        <div class="alert-desc">Database sharding behind schedule by 8 days</div>
+                    </div>
+                    <div class="alert-item" style="--alert-bg: var(--status-atrisk-bg); --alert-color: var(--status-atrisk);">
+                        <div class="alert-title">Resource Conflict Q1</div>
+                        <div class="alert-desc">5 engineering resources double-booked Jan 5-12</div>
+                    </div>
+                </div>
+
+                <!-- RESOURCE ALLOCATION -->
+                <div class="panel">
+                    <div class="panel-title">👥 Resource Allocation</div>
+                    <div class="resource-bar">
+                        <div class="resource-header">
+                            <div class="resource-name">Engineering</div>
+                            <div class="resource-value" style="--resource-color: var(--stakeholder-eng);">92%</div>
+                        </div>
+                        <div class="resource-track">
+                            <div class="resource-fill" style="width: 92%; background: var(--stakeholder-eng);"></div>
+                        </div>
+                    </div>
+                    <div class="resource-bar">
+                        <div class="resource-header">
+                            <div class="resource-name">Design</div>
+                            <div class="resource-value" style="--resource-color: var(--stakeholder-design);">78%</div>
+                        </div>
+                        <div class="resource-track">
+                            <div class="resource-fill" style="width: 78%; background: var(--stakeholder-design);"></div>
+                        </div>
+                    </div>
+                    <div class="resource-bar">
+                        <div class="resource-header">
+                            <div class="resource-name">Operations</div>
+                            <div class="resource-value" style="--resource-color: var(--stakeholder-ops);">85%</div>
+                        </div>
+                        <div class="resource-track">
+                            <div class="resource-fill" style="width: 85%; background: var(--stakeholder-ops);"></div>
+                        </div>
+                    </div>
+                    <div class="resource-bar">
+                        <div class="resource-header">
+                            <div class="resource-name">Marketing</div>
+                            <div class="resource-value" style="--resource-color: var(--project-marketing);">64%</div>
+                        </div>
+                        <div class="resource-track">
+                            <div class="resource-fill" style="width: 64%; background: var(--project-marketing);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DEPENDENCIES -->
+                <div class="panel">
+                    <div class="panel-title">🔗 Active Dependencies</div>
+                    <div class="dependency-item">
+                        <div class="dependency-nodes">
+                            <div class="dep-node">PROD-278</div>
+                            <div class="dep-arrow">→</div>
+                            <div class="dep-node">INFRA-395</div>
+                        </div>
+                        <div class="dep-status" style="--dep-status-color: var(--status-done);"></div>
+                    </div>
+                    <div class="dependency-item">
+                        <div class="dependency-nodes">
+                            <div class="dep-node">INFRA-387</div>
+                            <div class="dep-arrow">→</div>
+                            <div class="dep-node">PROD-265</div>
+                        </div>
+                        <div class="dep-status" style="--dep-status-color: var(--status-atrisk);"></div>
+                    </div>
+                    <div class="dependency-item">
+                        <div class="dependency-nodes">
+                            <div class="dep-node">OPS-223</div>
+                            <div class="dep-arrow">→</div>
+                            <div class="dep-node">MKT-147</div>
+                        </div>
+                        <div class="dep-status" style="--dep-status-color: var(--status-inprogress);"></div>
+                    </div>
+                    <div class="dependency-item">
+                        <div class="dependency-nodes">
+                            <div class="dep-node">PROD-254</div>
+                            <div class="dep-arrow">→</div>
+                            <div class="dep-node">MKT-138</div>
+                        </div>
+                        <div class="dep-status" style="--dep-status-color: var(--status-done);"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TIMELINE GANTT -->
+        <div class="timeline-section">
+            <div class="section-header">
+                <div class="section-title">
+                    Project Timeline
+                    <span class="section-badge">Next 12 Weeks</span>
+                </div>
+                <div class="view-controls">
+                    <button class="view-btn">Week</button>
+                    <button class="view-btn active">Month</button>
+                    <button class="view-btn">Quarter</button>
+                </div>
+            </div>
+
+            <div class="timeline-gantt">
+                <div class="gantt-grid">
+                    <div class="gantt-header">Project</div>
+                    <div class="gantt-header">Nov W1</div>
+                    <div class="gantt-header">Nov W2</div>
+                    <div class="gantt-header">Nov W3</div>
+                    <div class="gantt-header">Nov W4</div>
+                    <div class="gantt-header">Dec W1</div>
+                    <div class="gantt-header">Dec W2</div>
+                    <div class="gantt-header">Dec W3</div>
+                    <div class="gantt-header">Dec W4</div>
+                    <div class="gantt-header">Jan W1</div>
+                    <div class="gantt-header">Jan W2</div>
+                    <div class="gantt-header">Jan W3</div>
+                    <div class="gantt-header">Jan W4</div>
+
+                    <div class="gantt-row">
+                        <div class="gantt-label">Customer Portal V2</div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell" style="grid-column: span 5;">
+                            <div class="gantt-bar" style="left: 0; width: 100%; --bar-color: var(--project-product);">68%</div>
+                        </div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                    </div>
+
+                    <div class="gantt-row">
+                        <div class="gantt-label">Analytics Dashboard V3</div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell" style="grid-column: span 6;">
+                            <div class="gantt-bar" style="left: 0; width: 100%; --bar-color: var(--status-atrisk);">58%</div>
+                        </div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                    </div>
+
+                    <div class="gantt-row">
+                        <div class="gantt-label">Cloud Cost Optimization</div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell" style="grid-column: span 7;">
+                            <div class="gantt-bar" style="left: 0; width: 100%; --bar-color: var(--project-infrastructure);">45%</div>
+                        </div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                    </div>
+
+                    <div class="gantt-row">
+                        <div class="gantt-label">Database Sharding</div>
+                        <div class="gantt-cell" style="grid-column: span 5;">
+                            <div class="gantt-bar" style="left: 0; width: 100%; --bar-color: var(--status-atrisk);">72%</div>
+                        </div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                    </div>
+
+                    <div class="gantt-row">
+                        <div class="gantt-label">Support Automation</div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell" style="grid-column: span 8;">
+                            <div class="gantt-bar" style="left: 0; width: 100%; --bar-color: var(--project-ops);">52%</div>
+                        </div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                    </div>
+
+                    <div class="gantt-row">
+                        <div class="gantt-label">Q1 Campaign Launch</div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell" style="grid-column: span 5;">
+                            <div class="gantt-bar" style="left: 0; width: 100%; --bar-color: var(--project-marketing);">34%</div>
+                        </div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                        <div class="gantt-cell"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROJECT DETAILS TABLE -->
+        <div class="table-section">
+            <div class="section-header">
+                <div class="section-title">
+                    Project Portfolio Details
+                    <span class="section-badge">24 Active</span>
+                </div>
+                <div class="view-controls">
+                    <button class="view-btn">Export CSV</button>
+                    <button class="view-btn">Filter</button>
+                    <button class="view-btn active">All Projects</button>
+                </div>
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Project ID</th>
+                        <th>Name</th>
+                        <th>Owner</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Progress</th>
+                        <th>Budget</th>
+                        <th>Health</th>
+                        <th>Team</th>
+                        <th>Due Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>PROD-278</strong></td>
+                        <td>Customer Portal V2</td>
+                        <td>A. Rodriguez</td>
+                        <td>Product</td>
+                        <td><span class="status-pill status-inprogress">In Progress</span></td>
+                        <td>68%</td>
+                        <td>$420K</td>
+                        <td><span class="health-indicator"><span class="health-dot" style="background: var(--status-atrisk);"></span>At Risk</span></td>
+                        <td>
+                            <div class="team-avatars">
+                                <div class="team-avatar" style="--avatar-color: #3B82F6; --avatar-color-2: #2563EB;">AR</div>
+                                <div class="team-avatar" style="--avatar-color: #8B5CF6; --avatar-color-2: #7C3AED;">SK</div>
+                                <div class="team-avatar" style="--avatar-color: #EC4899; --avatar-color-2: #DB2777;">ML</div>
+                            </div>
+                        </td>
+                        <td>Dec 15, 2025</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PROD-265</strong></td>
+                        <td>Analytics Dashboard V3</td>
+                        <td>K. Taylor</td>
+                        <td>Product</td>
+                        <td><span class="status-pill status-atrisk">At Risk</span></td>
+                        <td>58%</td>
+                        <td>$385K</td>
+                        <td><span class="health-indicator"><span class="health-dot" style="background: var(--status-blocked);"></span>Critical</span></td>
+                        <td>
+                            <div class="team-avatars">
+                                <div class="team-avatar" style="--avatar-color: #F59E0B; --avatar-color-2: #D97706;">KT</div>
+                                <div class="team-avatar" style="--avatar-color: #06B6D4; --avatar-color-2: #0891B2;">RP</div>
+                            </div>
+                        </td>
+                        <td>Dec 8, 2025</td>
+                    </tr>
+                    <tr>
+                        <td><strong>INFRA-395</strong></td>
+                        <td>Cloud Cost Optimization</td>
+                        <td>J. Wu</td>
+                        <td>Infrastructure</td>
+                        <td><span class="status-pill status-inprogress">In Progress</span></td>
+                        <td>45%</td>
+                        <td>$165K</td>
+                        <td><span class="health-indicator"><span class="health-dot" style="background: var(--status-done);"></span>On Track</span></td>
+                        <td>
+                            <div class="team-avatars">
+                                <div class="team-avatar" style="--avatar-color: #8B5CF6; --avatar-color-2: #7C3AED;">JW</div>
+                                <div class="team-avatar" style="--avatar-color: #14B8A6; --avatar-color-2: #0D9488;">HC</div>
+                            </div>
+                        </td>
+                        <td>Dec 31, 2025</td>
+                    </tr>
+                    <tr>
+                        <td><strong>INFRA-387</strong></td>
+                        <td>Database Sharding</td>
+                        <td>V. Martinez</td>
+                        <td>Infrastructure</td>
+                        <td><span class="status-pill status-atrisk">At Risk</span></td>
+                        <td>72%</td>
+                        <td>$295K</td>
+                        <td><span class="health-indicator"><span class="health-dot" style="background: var(--status-atrisk);"></span>At Risk</span></td>
+                        <td>
+                            <div class="team-avatars">
+                                <div class="team-avatar" style="--avatar-color: #F59E0B; --avatar-color-2: #D97706;">VM</div>
+                                <div class="team-avatar" style="--avatar-color: #3B82F6; --avatar-color-2: #2563EB;">DL</div>
+                                <div class="team-avatar" style="--avatar-color: #10B981; --avatar-color-2: #059669;">TK</div>
+                            </div>
+                        </td>
+                        <td>Nov 30, 2025</td>
+                    </tr>
+                    <tr>
+                        <td><strong>OPS-223</strong></td>
+                        <td>Support Automation Suite</td>
+                        <td>D. Nguyen</td>
+                        <td>Operations</td>
+                        <td><span class="status-pill status-inprogress">In Progress</span></td>
+                        <td>52%</td>
+                        <td>$210K</td>
+                        <td><span class="health-indicator"><span class="health-dot" style="background: var(--status-done);"></span>On Track</span></td>
+                        <td>
+                            <div class="team-avatars">
+                                <div class="team-avatar" style="--avatar-color: #14B8A6; --avatar-color-2: #0D9488;">DN</div>
+                                <div class="team-avatar" style="--avatar-color: #8B5CF6; --avatar-color-2: #7C3AED;">AP</div>
+                            </div>
+                        </td>
+                        <td>Jan 10, 2026</td>
+                    </tr>
+                    <tr>
+                        <td><strong>OPS-218</strong></td>
+                        <td>Incident Response System</td>
+                        <td>B. Johnson</td>
+                        <td>Operations</td>
+                        <td><span class="status-pill status-atrisk">At Risk</span></td>
+                        <td>41%</td>
+                        <td>$175K</td>
+                        <td><span class="health-indicator"><span class="health-dot" style="background: var(--status-atrisk);"></span>At Risk</span></td>
+                        <td>
+                            <div class="team-avatars">
+                                <div class="team-avatar" style="--avatar-color: #F59E0B; --avatar-color-2: #D97706;">BJ</div>
+                                <div class="team-avatar" style="--avatar-color: #06B6D4; --avatar-color-2: #0891B2;">NF</div>
+                            </div>
+                        </td>
+                        <td>Dec 18, 2025</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MKT-147</strong></td>
+                        <td>Q1 Campaign Launch</td>
+                        <td>E. Park</td>
+                        <td>Marketing</td>
+                        <td><span class="status-pill status-inprogress">In Progress</span></td>
+                        <td>34%</td>
+                        <td>$135K</td>
+                        <td><span class="health-indicator"><span class="health-dot" style="background: var(--status-done);"></span>On Track</span></td>
+                        <td>
+                            <div class="team-avatars">
+                                <div class="team-avatar" style="--avatar-color: #EC4899; --avatar-color-2: #DB2777;">EP</div>
+                                <div class="team-avatar" style="--avatar-color: #F59E0B; --avatar-color-2: #D97706;">GH</div>
+                            </div>
+                        </td>
+                        <td>Dec 20, 2025</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PROD-254</strong></td>
+                        <td>Payment Gateway Update</td>
+                        <td>L. Smith</td>
+                        <td>Product</td>
+                        <td><span class="status-pill status-done">Done</span></td>
+                        <td>100%</td>
+                        <td>$320K</td>
+                        <td><span class="health-indicator"><span class="health-dot" style="background: var(--status-done);"></span>Complete</span></td>
+                        <td>
+                            <div class="team-avatars">
+                                <div class="team-avatar" style="--avatar-color: #10B981; --avatar-color-2: #059669;">LS</div>
+                                <div class="team-avatar" style="--avatar-color: #3B82F6; --avatar-color-2: #2563EB;">QW</div>
+                            </div>
+                        </td>
+                        <td>Nov 25, 2025</td>
+                    </tr>
+                    <tr>
+                        <td><strong>INFRA-371</strong></td>
+                        <td>Security Audit 2025</td>
+                        <td>R. Kumar</td>
+                        <td>Infrastructure</td>
+                        <td><span class="status-pill status-done">Done</span></td>
+                        <td>100%</td>
+                        <td>$145K</td>
+                        <td><span class="health-indicator"><span class="health-dot" style="background: var(--status-done);"></span>Complete</span></td>
+                        <td>
+                            <div class="team-avatars">
+                                <div class="team-avatar" style="--avatar-color: #10B981; --avatar-color-2: #059669;">RK</div>
+                            </div>
+                        </td>
+                        <td>Nov 20, 2025</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MKT-138</strong></td>
+                        <td>Website Performance Boost</td>
+                        <td>F. Harris</td>
+                        <td>Marketing</td>
+                        <td><span class="status-pill status-done">Done</span></td>
+                        <td>100%</td>
+                        <td>$88K</td>
+                        <td><span class="health-indicator"><span class="health-dot" style="background: var(--status-done);"></span>Complete</span></td>
+                        <td>
+                            <div class="team-avatars">
+                                <div class="team-avatar" style="--avatar-color: #10B981; --avatar-color-2: #059669;">FH</div>
+                                <div class="team-avatar" style="--avatar-color: #EC4899; --avatar-color-2: #DB2777;">YL</div>
+                            </div>
+                        </td>
+                        <td>Nov 28, 2025</td>
+                    </tr>
+                    <tr>
+                        <td><strong>INFRA-401</strong></td>
+                        <td>API Gateway Migration</td>
+                        <td>M. Kwon</td>
+                        <td>Infrastructure</td>
+                        <td><span class="status-pill status-backlog">Backlog</span></td>
+                        <td>0%</td>
+                        <td>$180K</td>
+                        <td><span class="health-indicator"><span class="health-dot" style="background: var(--status-backlog);"></span>Planned</span></td>
+                        <td>
+                            <div class="team-avatars">
+                                <div class="team-avatar" style="--avatar-color: #94A3B8; --avatar-color-2: #64748B;">MK</div>
+                            </div>
+                        </td>
+                        <td>Q1 2026</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PROD-289</strong></td>
+                        <td>Mobile App Redesign</td>
+                        <td>S. Lee</td>
+                        <td>Product</td>
+                        <td><span class="status-pill status-backlog">Backlog</span></td>
+                        <td>0%</td>
+                        <td>$240K</td>
+                        <td><span class="health-indicator"><span class="health-dot" style="background: var(--status-backlog);"></span>Planned</span></td>
+                        <td>
+                            <div class="team-avatars">
+                                <div class="team-avatar" style="--avatar-color: #94A3B8; --avatar-color-2: #64748B;">SL</div>
+                                <div class="team-avatar" style="--avatar-color: #94A3B8; --avatar-color-2: #64748B;">CV</div>
+                            </div>
+                        </td>
+                        <td>Jan 2026</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-agent">
+                ATLAS • Operational Command & Multi-Stakeholder UX Specialist
+            </div>
+            <div>
+                Last updated: Nov 9, 2025 14:32 UTC • Round 2 Light Mode Masterpiece
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // INTERACTIVE FEATURES
+
+        // Stakeholder view switcher
+        document.querySelectorAll('.stakeholder-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.stakeholder-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                console.log('Switched to view:', btn.textContent);
+            });
+        });
+
+        // View controls
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const parent = btn.closest('.view-controls');
+                parent.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                console.log('View changed to:', btn.textContent);
+            });
+        });
+
+        // Project card interactions
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const cardId = card.querySelector('.card-id').textContent;
+                console.log('Project card clicked:', cardId);
+                // In real app, would open project detail modal
+            });
+        });
+
+        // Table row interactions
+        document.querySelectorAll('.data-table tbody tr').forEach(row => {
+            row.addEventListener('click', () => {
+                const projectId = row.querySelector('strong').textContent;
+                console.log('Project row clicked:', projectId);
+                // In real app, would expand row with details or navigate
+            });
+        });
+
+        // Alert item interactions
+        document.querySelectorAll('.alert-item').forEach(alert => {
+            alert.addEventListener('click', () => {
+                const title = alert.querySelector('.alert-title').textContent;
+                console.log('Alert clicked:', title);
+                // In real app, would show alert details/resolution options
+            });
+        });
+
+        // Dependency tracking
+        document.querySelectorAll('.dependency-item').forEach(dep => {
+            dep.addEventListener('click', () => {
+                const nodes = dep.querySelectorAll('.dep-node');
+                console.log('Dependency link clicked:', nodes[0].textContent, '→', nodes[1].textContent);
+                // In real app, would show dependency chain visualization
+            });
+        });
+
+        // Simulate real-time updates
+        setInterval(() => {
+            const syncDot = document.querySelector('.sync-dot');
+            syncDot.style.opacity = '0.3';
+            setTimeout(() => {
+                syncDot.style.opacity = '1';
+            }, 100);
+        }, 5000);
+
+        // Log initialization
+        console.log('ATLAS Project Portfolio Command Center initialized');
+        console.log('Theme: Project Portfolio / Kanban Overview (Light Mode)');
+        console.log('Active projects: 24');
+        console.log('Multi-stakeholder views: Executive, Engineering, Design, Operations');
+    </script>
+</body>
+</html>

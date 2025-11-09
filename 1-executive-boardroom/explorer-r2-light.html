@@ -1,0 +1,1299 @@
+<!-- Agent: Explorer | Round: 2 - Light Mode Masterpiece | Theme: Executive Boardroom | Intent: Asymmetric executive intelligence with diagonal flow and experimental geometric data visualization -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Intelligence Dashboard | EXPLORER</title>
+    <style>
+        /* ===== EXPLORER DESIGN SYSTEM: ASYMMETRIC EXECUTIVE ===== */
+
+        :root {
+            /* Executive Boardroom Light Palette */
+            --bg-primary: #FAFAFA;
+            --bg-secondary: #FFFFFF;
+            --bg-accent: #F5F7FA;
+            --text-primary: #1A2332;
+            --text-secondary: #4A5568;
+            --text-muted: #718096;
+
+            /* Accent Colors */
+            --navy-deep: #1E3A5F;
+            --navy-medium: #2C5282;
+            --navy-light: #4A6FA5;
+            --gold-muted: #B8860B;
+            --gold-light: #DAA520;
+            --teal-muted: #2C7A7B;
+            --teal-light: #38B2AC;
+            --bronze: #8B6914;
+
+            /* Semantic Colors */
+            --success: #2F855A;
+            --success-light: #C6F6D5;
+            --warning: #D69E2E;
+            --warning-light: #FAF089;
+            --danger: #C53030;
+            --danger-light: #FED7D7;
+
+            /* Spacing System */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-xxl: 4rem;
+
+            /* Typography */
+            --font-serif: 'Georgia', 'Cambria', 'Times New Roman', serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', sans-serif;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== EXPERIMENTAL HEADER WITH DIAGONAL SPLIT ===== */
+
+        header {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-secondary) 60%, var(--navy-deep) 60%, var(--navy-deep) 100%);
+            padding: var(--space-lg) var(--space-xl);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(184, 134, 11, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-left h1 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--navy-deep);
+            letter-spacing: -0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .header-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .agent-badge {
+            background: var(--navy-deep);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .timestamp {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: right;
+        }
+
+        .timestamp-label {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== ASYMMETRIC GRID LAYOUT ===== */
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: auto auto auto auto;
+            gap: var(--space-md);
+            padding: var(--space-xl);
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        /* Experimental asymmetric placement */
+        .kpi-hero {
+            grid-column: 1 / 3;
+            grid-row: 1 / 2;
+        }
+
+        .kpi-secondary-1 {
+            grid-column: 3 / 4;
+            grid-row: 1 / 2;
+        }
+
+        .kpi-secondary-2 {
+            grid-column: 4 / 5;
+            grid-row: 1 / 2;
+        }
+
+        .chart-radial {
+            grid-column: 1 / 2;
+            grid-row: 2 / 4;
+        }
+
+        .metrics-strip {
+            grid-column: 2 / 5;
+            grid-row: 2 / 3;
+        }
+
+        .chart-performance {
+            grid-column: 2 / 4;
+            grid-row: 3 / 4;
+        }
+
+        .insight-panel {
+            grid-column: 4 / 5;
+            grid-row: 3 / 4;
+        }
+
+        .data-table-section {
+            grid-column: 1 / 5;
+            grid-row: 4 / 5;
+        }
+
+        /* ===== HERO KPI CARD ===== */
+
+        .kpi-hero-card {
+            background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-medium) 100%);
+            color: white;
+            padding: var(--space-xl);
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-hero-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(218, 165, 32, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .kpi-hero-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(30, 58, 95, 0.25);
+        }
+
+        .kpi-label-hero {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.9;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-value-hero {
+            font-family: var(--font-serif);
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-delta-hero {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .kpi-context {
+            margin-top: var(--space-md);
+            font-size: 0.85rem;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        /* ===== SECONDARY KPI CARDS ===== */
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            padding: var(--space-lg);
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+            border-left: 4px solid var(--gold-muted);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .kpi-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-value {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--navy-deep);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-delta {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .kpi-delta.positive {
+            color: var(--success);
+        }
+
+        .kpi-delta.negative {
+            color: var(--danger);
+        }
+
+        .kpi-trend-line {
+            margin-top: var(--space-md);
+            height: 40px;
+            position: relative;
+            background: linear-gradient(to right, transparent 0%, rgba(184, 134, 11, 0.1) 100%);
+            border-radius: 4px;
+        }
+
+        .trend-path {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, var(--gold-light) 50%, transparent 100%);
+            clip-path: polygon(0% 80%, 15% 60%, 30% 65%, 45% 45%, 60% 50%, 75% 30%, 90% 35%, 100% 20%, 100% 100%, 0% 100%);
+            opacity: 0.6;
+        }
+
+        /* ===== RADIAL CHART CARD ===== */
+
+        .chart-card {
+            background: var(--bg-secondary);
+            padding: var(--space-lg);
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .chart-header {
+            margin-bottom: var(--space-md);
+        }
+
+        .chart-title {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--navy-deep);
+            margin-bottom: 0.25rem;
+        }
+
+        .chart-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .radial-chart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: var(--space-lg) 0;
+            position: relative;
+        }
+
+        .radial-chart {
+            width: 220px;
+            height: 220px;
+            position: relative;
+        }
+
+        .radial-progress {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--navy-deep) 0deg,
+                var(--navy-medium) 100deg,
+                var(--gold-muted) 180deg,
+                var(--teal-muted) 270deg,
+                var(--navy-deep) 360deg
+            );
+            position: relative;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .radial-progress::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            background: var(--bg-secondary);
+            border-radius: 50%;
+            box-shadow: var(--shadow-inset);
+        }
+
+        .radial-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2;
+        }
+
+        .radial-value {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--navy-deep);
+        }
+
+        .radial-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .radial-legend {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-sm);
+            margin-top: var(--space-md);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        /* ===== METRICS STRIP ===== */
+
+        .metrics-strip-card {
+            background: var(--bg-secondary);
+            padding: var(--space-lg);
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+
+        .metric-item {
+            text-align: center;
+            padding: var(--space-md);
+            background: var(--bg-accent);
+            border-radius: 6px;
+            border-top: 3px solid var(--teal-muted);
+        }
+
+        .metric-item:hover {
+            background: var(--bg-secondary);
+            transform: scale(1.05);
+        }
+
+        .metric-value {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--navy-deep);
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-change {
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        /* ===== PERFORMANCE CHART ===== */
+
+        .bar-chart-container {
+            padding: var(--space-md) 0;
+            position: relative;
+        }
+
+        .bars-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: var(--space-sm);
+            align-items: flex-end;
+            height: 200px;
+            padding: var(--space-sm);
+            background: var(--bg-accent);
+            border-radius: 6px;
+            position: relative;
+        }
+
+        .bars-grid::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                to top,
+                transparent,
+                transparent 24%,
+                rgba(26, 35, 50, 0.05) 24%,
+                rgba(26, 35, 50, 0.05) 25%
+            );
+            pointer-events: none;
+        }
+
+        .bar-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .bar {
+            width: 100%;
+            background: linear-gradient(to top, var(--navy-deep), var(--navy-light));
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+        }
+
+        .bar:hover {
+            filter: brightness(1.2);
+            transform: scaleY(1.05);
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--navy-deep);
+            white-space: nowrap;
+        }
+
+        .bar-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== INSIGHT PANEL ===== */
+
+        .insight-card {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-accent) 100%);
+            padding: var(--space-lg);
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(30, 58, 95, 0.1);
+        }
+
+        .insight-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gold-muted);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: var(--space-md);
+            box-shadow: var(--shadow-md);
+        }
+
+        .insight-title {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            color: var(--navy-deep);
+            margin-bottom: var(--space-sm);
+        }
+
+        .insight-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: var(--space-md);
+        }
+
+        .insight-metrics {
+            display: flex;
+            gap: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid rgba(26, 35, 50, 0.1);
+        }
+
+        .insight-metric {
+            flex: 1;
+        }
+
+        .insight-metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--navy-deep);
+        }
+
+        .insight-metric-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* ===== DATA TABLE ===== */
+
+        .table-card {
+            background: var(--bg-secondary);
+            padding: var(--space-lg);
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .table-title {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--navy-deep);
+        }
+
+        .table-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .table-filter {
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(26, 35, 50, 0.2);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            background: var(--bg-accent);
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .table-filter:hover {
+            background: var(--bg-secondary);
+            border-color: var(--navy-medium);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .data-table thead {
+            background: var(--navy-deep);
+            color: white;
+        }
+
+        .data-table th {
+            padding: var(--space-md);
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.75rem;
+        }
+
+        .data-table th:hover {
+            background: var(--navy-medium);
+            cursor: pointer;
+        }
+
+        .data-table tbody tr {
+            border-bottom: 1px solid rgba(26, 35, 50, 0.08);
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-accent);
+        }
+
+        .data-table td {
+            padding: var(--space-md);
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-excellent {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .status-good {
+            background: var(--teal-light);
+            color: var(--teal-muted);
+        }
+
+        .status-moderate {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .status-concern {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .table-value {
+            font-weight: 600;
+            color: var(--navy-deep);
+        }
+
+        .table-trend {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .trend-up {
+            color: var(--success);
+        }
+
+        .trend-down {
+            color: var(--danger);
+        }
+
+        /* ===== FOOTER ===== */
+
+        footer {
+            background: var(--navy-deep);
+            color: white;
+            padding: var(--space-lg) var(--space-xl);
+            margin-top: var(--space-xl);
+        }
+
+        .footer-content {
+            max-width: 1800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .footer-agent {
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .footer-right {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* ===== ANIMATIONS ===== */
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dashboard-grid > * {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .dashboard-grid > *:nth-child(1) { animation-delay: 0.1s; }
+        .dashboard-grid > *:nth-child(2) { animation-delay: 0.15s; }
+        .dashboard-grid > *:nth-child(3) { animation-delay: 0.2s; }
+        .dashboard-grid > *:nth-child(4) { animation-delay: 0.25s; }
+        .dashboard-grid > *:nth-child(5) { animation-delay: 0.3s; }
+        .dashboard-grid > *:nth-child(6) { animation-delay: 0.35s; }
+        .dashboard-grid > *:nth-child(7) { animation-delay: 0.4s; }
+        .dashboard-grid > *:nth-child(8) { animation-delay: 0.45s; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .radial-progress {
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr 1fr;
+                padding: var(--space-lg);
+            }
+
+            .kpi-hero {
+                grid-column: 1 / 3;
+                grid-row: 1 / 2;
+            }
+
+            .kpi-secondary-1 {
+                grid-column: 1 / 2;
+                grid-row: 2 / 3;
+            }
+
+            .kpi-secondary-2 {
+                grid-column: 2 / 3;
+                grid-row: 2 / 3;
+            }
+
+            .chart-radial {
+                grid-column: 1 / 2;
+                grid-row: 3 / 4;
+            }
+
+            .metrics-strip {
+                grid-column: 2 / 3;
+                grid-row: 3 / 4;
+            }
+
+            .chart-performance {
+                grid-column: 1 / 3;
+                grid-row: 4 / 5;
+            }
+
+            .insight-panel {
+                grid-column: 1 / 3;
+                grid-row: 5 / 6;
+            }
+
+            .data-table-section {
+                grid-column: 1 / 3;
+                grid-row: 6 / 7;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                padding: var(--space-md);
+            }
+
+            .kpi-hero,
+            .kpi-secondary-1,
+            .kpi-secondary-2,
+            .chart-radial,
+            .metrics-strip,
+            .chart-performance,
+            .insight-panel,
+            .data-table-section {
+                grid-column: 1 / 2;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: var(--space-md);
+                text-align: center;
+            }
+
+            .kpi-value-hero {
+                font-size: 3rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: var(--space-md);
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="header-left">
+                <h1>Executive Intelligence</h1>
+                <div class="header-subtitle">Q4 2024 Strategic Overview</div>
+            </div>
+            <div class="header-right">
+                <div class="agent-badge">EXPLORER</div>
+                <div class="timestamp">
+                    <span class="timestamp-label">Last Updated</span>
+                    <div>Nov 9, 2025 14:42 EST</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-grid">
+        <!-- Hero KPI -->
+        <div class="kpi-hero">
+            <div class="kpi-hero-card">
+                <div class="kpi-label-hero">Total Enterprise Value</div>
+                <div class="kpi-value-hero">$847M</div>
+                <div class="kpi-delta-hero">
+                    <span>↑</span>
+                    <span>18.3% YoY</span>
+                </div>
+                <div class="kpi-context">
+                    Consolidated valuation across all business units, reflecting strong market positioning and operational efficiency gains in Q4 performance metrics.
+                </div>
+            </div>
+        </div>
+
+        <!-- Secondary KPI 1 -->
+        <div class="kpi-secondary-1">
+            <div class="kpi-card">
+                <div class="kpi-label">Operating Margin</div>
+                <div class="kpi-value">34.2%</div>
+                <div class="kpi-delta positive">+2.8% QoQ</div>
+                <div class="kpi-trend-line">
+                    <div class="trend-path"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Secondary KPI 2 -->
+        <div class="kpi-secondary-2">
+            <div class="kpi-card">
+                <div class="kpi-label">Revenue Growth</div>
+                <div class="kpi-value">$284M</div>
+                <div class="kpi-delta positive">+22.4% YoY</div>
+                <div class="kpi-trend-line">
+                    <div class="trend-path"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Radial Chart -->
+        <div class="chart-radial">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">Portfolio Mix</div>
+                    <div class="chart-subtitle">Revenue by Division</div>
+                </div>
+                <div class="radial-chart-container">
+                    <div class="radial-chart">
+                        <div class="radial-progress"></div>
+                        <div class="radial-center">
+                            <div class="radial-value">100%</div>
+                            <div class="radial-label">Total</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="radial-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: var(--navy-deep);"></div>
+                        <span>Enterprise (42%)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: var(--navy-medium);"></div>
+                        <span>Commercial (28%)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: var(--gold-muted);"></div>
+                        <span>Consumer (18%)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: var(--teal-muted);"></div>
+                        <span>Platform (12%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Metrics Strip -->
+        <div class="metrics-strip">
+            <div class="metrics-strip-card">
+                <div class="metrics-grid">
+                    <div class="metric-item">
+                        <div class="metric-value">847</div>
+                        <div class="metric-label">Active Accounts</div>
+                        <div class="metric-change" style="color: var(--success);">+12% MoM</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value">94.3%</div>
+                        <div class="metric-label">Client Retention</div>
+                        <div class="metric-change" style="color: var(--success);">+1.2% QoQ</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value">$336K</div>
+                        <div class="metric-label">Avg Deal Size</div>
+                        <div class="metric-change" style="color: var(--success);">+8.4% YoY</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Chart -->
+        <div class="chart-performance">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">Quarterly Performance Trajectory</div>
+                    <div class="chart-subtitle">Revenue in Millions (USD)</div>
+                </div>
+                <div class="bar-chart-container">
+                    <div class="bars-grid">
+                        <div class="bar-item">
+                            <div class="bar" style="height: 65%;">
+                                <div class="bar-value">$182M</div>
+                            </div>
+                            <div class="bar-label">Q1</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 72%;">
+                                <div class="bar-value">$201M</div>
+                            </div>
+                            <div class="bar-label">Q2</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 85%;">
+                                <div class="bar-value">$237M</div>
+                            </div>
+                            <div class="bar-label">Q3</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 100%;">
+                                <div class="bar-value">$284M</div>
+                            </div>
+                            <div class="bar-label">Q4</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 50%; opacity: 0.4;">
+                                <div class="bar-value">$310M</div>
+                            </div>
+                            <div class="bar-label">Q1 '25</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 55%; opacity: 0.4;">
+                                <div class="bar-value">$342M</div>
+                            </div>
+                            <div class="bar-label">Q2 '25</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Insight Panel -->
+        <div class="insight-panel">
+            <div class="insight-card">
+                <div class="insight-icon">💡</div>
+                <div class="insight-title">Strategic Insight</div>
+                <div class="insight-text">
+                    Enterprise division outperforming projections by 23%, driven by platform expansion and increased contract values in financial services vertical. Recommend accelerating investment in sales enablement.
+                </div>
+                <div class="insight-metrics">
+                    <div class="insight-metric">
+                        <div class="insight-metric-value">23%</div>
+                        <div class="insight-metric-label">Above Target</div>
+                    </div>
+                    <div class="insight-metric">
+                        <div class="insight-metric-value">$47M</div>
+                        <div class="insight-metric-label">Pipeline</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="data-table-section">
+            <div class="table-card">
+                <div class="table-header">
+                    <div class="table-title">Division Performance Matrix</div>
+                    <div class="table-actions">
+                        <select class="table-filter">
+                            <option>All Divisions</option>
+                            <option>Enterprise</option>
+                            <option>Commercial</option>
+                            <option>Consumer</option>
+                        </select>
+                        <select class="table-filter">
+                            <option>Q4 2024</option>
+                            <option>Q3 2024</option>
+                            <option>Q2 2024</option>
+                        </select>
+                    </div>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Division</th>
+                            <th>Revenue</th>
+                            <th>Growth (YoY)</th>
+                            <th>Margin</th>
+                            <th>Accounts</th>
+                            <th>Pipeline</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Enterprise Solutions</strong></td>
+                            <td class="table-value">$119.3M</td>
+                            <td class="table-trend trend-up">↑ 28.4%</td>
+                            <td class="table-value">38.2%</td>
+                            <td>247</td>
+                            <td class="table-value">$47.2M</td>
+                            <td><span class="status-pill status-excellent">Excellent</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Commercial Services</strong></td>
+                            <td class="table-value">$79.5M</td>
+                            <td class="table-trend trend-up">↑ 18.7%</td>
+                            <td class="table-value">32.6%</td>
+                            <td>412</td>
+                            <td class="table-value">$28.4M</td>
+                            <td><span class="status-pill status-good">Good</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Consumer Platform</strong></td>
+                            <td class="table-value">$51.1M</td>
+                            <td class="table-trend trend-up">↑ 14.2%</td>
+                            <td class="table-value">28.4%</td>
+                            <td>1,847</td>
+                            <td class="table-value">$12.8M</td>
+                            <td><span class="status-pill status-good">Good</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Platform Services</strong></td>
+                            <td class="table-value">$34.1M</td>
+                            <td class="table-trend trend-up">↑ 22.1%</td>
+                            <td class="table-value">42.7%</td>
+                            <td>156</td>
+                            <td class="table-value">$18.2M</td>
+                            <td><span class="status-pill status-excellent">Excellent</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Global Markets</strong></td>
+                            <td class="table-value">$42.8M</td>
+                            <td class="table-trend trend-up">↑ 16.5%</td>
+                            <td class="table-value">24.3%</td>
+                            <td>328</td>
+                            <td class="table-value">$22.1M</td>
+                            <td><span class="status-pill status-moderate">Moderate</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Innovation Labs</strong></td>
+                            <td class="table-value">$8.2M</td>
+                            <td class="table-trend trend-up">↑ 48.2%</td>
+                            <td class="table-value">12.4%</td>
+                            <td>34</td>
+                            <td class="table-value">$8.7M</td>
+                            <td><span class="status-pill status-good">Good</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-agent">EXPLORER</div>
+                <div>Experimental Systems UX • Round 2 Light Mode Masterpiece</div>
+            </div>
+            <div class="footer-right">
+                Dashboard Design Tournament • Executive Boardroom Theme • Confidential & Proprietary
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Experimental interactive enhancements for Explorer design
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Interactive bar chart hover effects
+            const bars = document.querySelectorAll('.bar');
+            bars.forEach(bar => {
+                bar.addEventListener('mouseenter', function() {
+                    this.style.filter = 'brightness(1.3)';
+                });
+                bar.addEventListener('mouseleave', function() {
+                    this.style.filter = 'brightness(1)';
+                });
+            });
+
+            // Table row click for detailed view simulation
+            const tableRows = document.querySelectorAll('.data-table tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', function() {
+                    tableRows.forEach(r => r.style.background = '');
+                    this.style.background = 'var(--bg-accent)';
+                });
+            });
+
+            // KPI card subtle animation on scroll into view
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.kpi-card, .chart-card, .table-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                observer.observe(card);
+            });
+
+            // Radial chart rotation on hover
+            const radialChart = document.querySelector('.radial-progress');
+            if (radialChart) {
+                radialChart.addEventListener('mouseenter', function() {
+                    this.style.transform = 'rotate(5deg) scale(1.05)';
+                });
+                radialChart.addEventListener('mouseleave', function() {
+                    this.style.transform = 'rotate(0deg) scale(1)';
+                });
+            }
+
+            // Dynamic timestamp update
+            function updateTimestamp() {
+                const timestampElement = document.querySelector('.timestamp div:last-child');
+                const now = new Date();
+                const options = {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    timeZoneName: 'short'
+                };
+                timestampElement.textContent = now.toLocaleDateString('en-US', options);
+            }
+
+            // Table sorting simulation
+            const tableHeaders = document.querySelectorAll('.data-table th');
+            tableHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    tableHeaders.forEach(h => h.style.background = '');
+                    this.style.background = 'var(--navy-medium)';
+
+                    // Visual feedback for sorting
+                    const arrow = this.textContent.includes('↑') ? '↓' : '↑';
+                    const cleanText = this.textContent.replace(/[↑↓]/g, '').trim();
+                    this.textContent = cleanText + ' ' + arrow;
+                });
+            });
+
+            // Metric items pulse effect on click
+            const metricItems = document.querySelectorAll('.metric-item');
+            metricItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    this.style.animation = 'pulse 0.5s ease-out';
+                    setTimeout(() => {
+                        this.style.animation = '';
+                    }, 500);
+                });
+            });
+
+            // Console log for Explorer signature
+            console.log('%c EXPLORER Design System Active ', 'background: #1E3A5F; color: white; font-size: 16px; font-weight: bold; padding: 10px;');
+            console.log('%c Experimental Asymmetric Layout | Executive Boardroom Theme | Light Mode Masterpiece ', 'background: #B8860B; color: white; font-size: 12px; padding: 5px;');
+        });
+    </script>
+</body>
+</html>

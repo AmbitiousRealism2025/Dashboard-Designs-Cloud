@@ -1,0 +1,1920 @@
+<!-- Agent: Darno | Round: 2 - Light Mode Masterpiece | Theme: Financial Analyst CFO Mode | Intent: Maximum-density P&L and financial analysis with institutional precision and perfect numeric alignment for executive decision-making -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CFO Financial Dashboard - Q4 2024 | DARNO Analytics</title>
+    <style>
+        /* ============================================
+           DARNO LIGHT MODE CFO DASHBOARD
+           Financial Analyst / CFO Mode
+           Maximum Data Density | Institutional Design
+           ============================================ */
+
+        :root {
+            /* Light Mode Color System */
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F7FAFC;
+            --bg-tertiary: #EDF2F7;
+            --bg-hover: #E2E8F0;
+
+            /* Navy Palette */
+            --navy-dark: #1a2f4d;
+            --navy-primary: #2c5282;
+            --navy-medium: #3d5a80;
+            --navy-light: #4a6fa5;
+            --navy-pale: #cbd5e0;
+
+            /* Financial Colors */
+            --green-dark: #1a5f3a;
+            --green-primary: #2d7a50;
+            --green-light: #48bb78;
+            --green-pale: #c6f6d5;
+
+            --red-dark: #742a2a;
+            --red-primary: #c53030;
+            --red-light: #f56565;
+            --red-pale: #fed7d7;
+
+            /* Neutral Greys */
+            --grey-900: #1a202c;
+            --grey-800: #2d3748;
+            --grey-700: #4a5568;
+            --grey-600: #718096;
+            --grey-500: #a0aec0;
+            --grey-400: #cbd5e0;
+            --grey-300: #e2e8f0;
+            --grey-200: #edf2f7;
+            --grey-100: #f7fafc;
+
+            /* Borders */
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e0;
+            --border-dark: #a0aec0;
+
+            /* Typography */
+            --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+
+            /* Spacing */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-xxl: 48px;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-secondary);
+            color: var(--grey-900);
+            line-height: 1.5;
+            font-size: 14px;
+            overflow-x: hidden;
+        }
+
+        /* ============================================
+           HEADER - Institutional & Clean
+           ============================================ */
+
+        header {
+            background: var(--bg-primary);
+            border-bottom: 3px solid var(--navy-primary);
+            padding: var(--space-lg) var(--space-xl);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1920px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--navy-dark);
+            margin-bottom: var(--space-xs);
+            letter-spacing: -0.5px;
+        }
+
+        .header-left .subtitle {
+            font-size: 13px;
+            color: var(--grey-600);
+            font-weight: 500;
+        }
+
+        .agent-badge {
+            background: linear-gradient(135deg, var(--navy-primary), var(--navy-dark));
+            color: white;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-meta {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .meta-item {
+            text-align: right;
+        }
+
+        .meta-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--grey-600);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .meta-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--navy-dark);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ============================================
+           MAIN LAYOUT - Maximum Data Density
+           ============================================ */
+
+        main {
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: var(--space-lg);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            gap: var(--space-lg);
+        }
+
+        /* ============================================
+           KPI EXECUTIVE SUMMARY - Numeric Heaven
+           ============================================ */
+
+        .kpi-executive-strip {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .kpi-strip-header {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--navy-primary);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 2px solid var(--navy-pale);
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: var(--space-lg);
+        }
+
+        .kpi-cell {
+            border-right: 1px solid var(--border-light);
+            padding-right: var(--space-md);
+        }
+
+        .kpi-cell:last-child {
+            border-right: none;
+        }
+
+        .kpi-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--grey-600);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--navy-dark);
+            font-variant-numeric: tabular-nums;
+            margin-bottom: var(--space-xs);
+            line-height: 1.1;
+        }
+
+        .kpi-delta {
+            font-size: 11px;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .kpi-delta.positive {
+            color: var(--green-primary);
+        }
+
+        .kpi-delta.negative {
+            color: var(--red-primary);
+        }
+
+        .kpi-delta.neutral {
+            color: var(--grey-600);
+        }
+
+        .kpi-meta {
+            font-size: 10px;
+            color: var(--grey-500);
+            margin-top: 2px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ============================================
+           TWO-COLUMN LAYOUT - Charts + Tables
+           ============================================ */
+
+        .two-col-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+        }
+
+        .panel {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 2px solid var(--grey-200);
+        }
+
+        .panel-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--navy-primary);
+        }
+
+        .panel-subtitle {
+            font-size: 11px;
+            color: var(--grey-600);
+            font-weight: 500;
+        }
+
+        /* ============================================
+           WATERFALL CHART - Revenue to Net Income
+           ============================================ */
+
+        .waterfall-chart {
+            height: 320px;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            padding: var(--space-md) 0;
+            border-bottom: 2px solid var(--grey-800);
+        }
+
+        .waterfall-bar {
+            flex: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .bar-segment {
+            width: 100%;
+            position: relative;
+            transition: all 0.3s ease;
+            border-radius: 2px 2px 0 0;
+        }
+
+        .bar-segment:hover {
+            opacity: 0.85;
+            transform: translateY(-2px);
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -28px;
+            left: 0;
+            right: 0;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--grey-700);
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -22px;
+            left: 0;
+            right: 0;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--navy-dark);
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .waterfall-legend {
+            display: flex;
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border-light);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--grey-700);
+        }
+
+        .legend-box {
+            width: 16px;
+            height: 16px;
+            border-radius: 2px;
+        }
+
+        /* ============================================
+           P&L TABLE - Budget vs Actual with Variance
+           ============================================ */
+
+        .financial-table-wrapper {
+            overflow-x: auto;
+            margin-top: var(--space-md);
+        }
+
+        .financial-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        .financial-table thead {
+            background: var(--bg-tertiary);
+            border-bottom: 2px solid var(--navy-primary);
+        }
+
+        .financial-table th {
+            padding: var(--space-sm) var(--space-md);
+            text-align: right;
+            font-weight: 700;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--navy-dark);
+            border-right: 1px solid var(--border-light);
+        }
+
+        .financial-table th:first-child {
+            text-align: left;
+            position: sticky;
+            left: 0;
+            background: var(--bg-tertiary);
+            z-index: 10;
+        }
+
+        .financial-table tbody tr {
+            border-bottom: 1px solid var(--border-light);
+            transition: background 0.15s ease;
+        }
+
+        .financial-table tbody tr:hover {
+            background: var(--bg-hover);
+        }
+
+        .financial-table td {
+            padding: var(--space-sm) var(--space-md);
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            color: var(--grey-800);
+            border-right: 1px solid var(--grey-200);
+        }
+
+        .financial-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: var(--navy-dark);
+            position: sticky;
+            left: 0;
+            background: var(--bg-primary);
+            z-index: 5;
+        }
+
+        .financial-table tbody tr:hover td:first-child {
+            background: var(--bg-hover);
+        }
+
+        .financial-table .row-section {
+            background: var(--grey-100);
+            font-weight: 700;
+            color: var(--navy-dark);
+        }
+
+        .financial-table .row-total {
+            background: var(--navy-pale);
+            font-weight: 700;
+            border-top: 2px solid var(--navy-primary);
+            border-bottom: 2px solid var(--navy-primary);
+        }
+
+        .financial-table .row-total td {
+            color: var(--navy-dark);
+            font-size: 13px;
+        }
+
+        .financial-table .row-subtotal {
+            background: var(--grey-200);
+            font-weight: 700;
+            border-top: 1px solid var(--grey-400);
+        }
+
+        .financial-table .indent-1 {
+            padding-left: var(--space-lg);
+        }
+
+        .financial-table .indent-2 {
+            padding-left: var(--space-xl);
+        }
+
+        .variance-positive {
+            color: var(--green-primary);
+            font-weight: 600;
+        }
+
+        .variance-negative {
+            color: var(--red-primary);
+            font-weight: 600;
+        }
+
+        .variance-neutral {
+            color: var(--grey-600);
+        }
+
+        /* ============================================
+           CASH FLOW SUMMARY
+           ============================================ */
+
+        .cash-flow-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+        }
+
+        .cash-flow-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-medium);
+            border-radius: 4px;
+            padding: var(--space-md);
+            transition: all 0.2s ease;
+        }
+
+        .cash-flow-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .cash-flow-header {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--navy-primary);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 2px solid var(--navy-pale);
+        }
+
+        .cash-flow-items {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .cash-flow-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            font-size: 11px;
+        }
+
+        .cash-flow-item-label {
+            color: var(--grey-700);
+            font-weight: 500;
+        }
+
+        .cash-flow-item-value {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            color: var(--navy-dark);
+        }
+
+        .cash-flow-total {
+            margin-top: var(--space-sm);
+            padding-top: var(--space-sm);
+            border-top: 2px solid var(--navy-primary);
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--navy-dark);
+        }
+
+        /* ============================================
+           KEY RATIOS GRID
+           ============================================ */
+
+        .ratios-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+        }
+
+        .ratio-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-medium);
+            border-radius: 4px;
+            padding: var(--space-md);
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .ratio-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+            border-color: var(--navy-primary);
+        }
+
+        .ratio-category {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--grey-600);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .ratio-name {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--navy-dark);
+            margin-bottom: var(--space-sm);
+        }
+
+        .ratio-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--navy-primary);
+            font-variant-numeric: tabular-nums;
+            margin-bottom: var(--space-xs);
+        }
+
+        .ratio-benchmark {
+            font-size: 10px;
+            color: var(--grey-600);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .ratio-trend {
+            margin-top: var(--space-sm);
+            padding-top: var(--space-sm);
+            border-top: 1px solid var(--border-light);
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        /* ============================================
+           VARIANCE ANALYSIS TABLE
+           ============================================ */
+
+        .full-width-panel {
+            grid-column: 1 / -1;
+        }
+
+        .variance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: var(--space-md);
+        }
+
+        .variance-table thead {
+            background: var(--navy-dark);
+            color: white;
+        }
+
+        .variance-table th {
+            padding: var(--space-md);
+            text-align: left;
+            font-weight: 700;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .variance-table th.numeric {
+            text-align: right;
+        }
+
+        .variance-table tbody tr {
+            border-bottom: 1px solid var(--border-light);
+            transition: background 0.15s ease;
+        }
+
+        .variance-table tbody tr:hover {
+            background: var(--bg-hover);
+        }
+
+        .variance-table td {
+            padding: var(--space-md);
+            color: var(--grey-800);
+            border-right: 1px solid var(--grey-200);
+        }
+
+        .variance-table td.numeric {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .variance-table td:first-child {
+            font-weight: 600;
+            color: var(--navy-dark);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-on-track {
+            background: var(--green-pale);
+            color: var(--green-dark);
+        }
+
+        .status-at-risk {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-critical {
+            background: var(--red-pale);
+            color: var(--red-dark);
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: var(--grey-200);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--navy-primary);
+            transition: width 0.5s ease;
+        }
+
+        .progress-bar-fill.success {
+            background: var(--green-primary);
+        }
+
+        .progress-bar-fill.warning {
+            background: #f59e0b;
+        }
+
+        .progress-bar-fill.danger {
+            background: var(--red-primary);
+        }
+
+        /* ============================================
+           BALANCE SHEET SNAPSHOT
+           ============================================ */
+
+        .balance-sheet-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-lg);
+            margin-top: var(--space-md);
+        }
+
+        .balance-category {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-medium);
+            border-radius: 4px;
+            padding: var(--space-lg);
+        }
+
+        .balance-category-header {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--navy-primary);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 2px solid var(--navy-primary);
+        }
+
+        .balance-items {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .balance-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            font-size: 11px;
+        }
+
+        .balance-item-label {
+            color: var(--grey-700);
+            font-weight: 500;
+        }
+
+        .balance-item-value {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            color: var(--navy-dark);
+        }
+
+        .balance-subtotal {
+            margin-top: var(--space-sm);
+            padding-top: var(--space-sm);
+            border-top: 1px solid var(--grey-400);
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .balance-total {
+            margin-top: var(--space-sm);
+            padding-top: var(--space-sm);
+            border-top: 2px solid var(--navy-primary);
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--navy-dark);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+
+        footer {
+            background: var(--navy-dark);
+            color: white;
+            padding: var(--space-lg) var(--space-xl);
+            margin-top: var(--space-xxl);
+            border-top: 3px solid var(--navy-primary);
+        }
+
+        .footer-content {
+            max-width: 1920px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            font-size: 11px;
+            opacity: 0.9;
+        }
+
+        .footer-agent {
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 1.2px;
+            opacity: 1;
+        }
+
+        .footer-right {
+            font-size: 10px;
+            opacity: 0.8;
+            text-align: right;
+        }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .kpi-value {
+            animation: countUp 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .panel {
+            animation: slideIn 0.4s ease-out;
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+
+        @media (max-width: 1400px) {
+            .kpi-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .ratios-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 960px) {
+            .two-col-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cash-flow-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .balance-sheet-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header-content {
+                flex-direction: column;
+                gap: var(--space-md);
+                align-items: flex-start;
+            }
+
+            .header-meta {
+                flex-direction: column;
+                gap: var(--space-sm);
+                align-items: flex-start;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ratios-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         HEADER
+         ============================================ -->
+    <header>
+        <div class="header-content">
+            <div class="header-left">
+                <h1>CFO Financial Dashboard - Q4 2024</h1>
+                <p class="subtitle">Comprehensive P&L Analysis | Budget vs Actual Performance | Cash Flow & Balance Sheet Overview</p>
+            </div>
+            <div class="header-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Fiscal Period</div>
+                    <div class="meta-value">FY2024 Q4</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">As of</div>
+                    <div class="meta-value">Dec 31, 2024</div>
+                </div>
+                <div class="agent-badge">DARNO</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================
+         MAIN DASHBOARD
+         ============================================ -->
+    <main>
+        <div class="dashboard-grid">
+
+            <!-- ============================================
+                 EXECUTIVE KPI STRIP
+                 ============================================ -->
+            <div class="kpi-executive-strip">
+                <div class="kpi-strip-header">Executive Financial Summary - Q4 2024</div>
+                <div class="kpi-grid">
+                    <div class="kpi-cell">
+                        <div class="kpi-label">Total Revenue</div>
+                        <div class="kpi-value">$48.6M</div>
+                        <div class="kpi-delta positive">▲ 18.4%</div>
+                        <div class="kpi-meta">Budget: $46.2M</div>
+                    </div>
+                    <div class="kpi-cell">
+                        <div class="kpi-label">Gross Margin</div>
+                        <div class="kpi-value">64.2%</div>
+                        <div class="kpi-delta positive">▲ 2.1pp</div>
+                        <div class="kpi-meta">Target: 62.0%</div>
+                    </div>
+                    <div class="kpi-cell">
+                        <div class="kpi-label">EBITDA</div>
+                        <div class="kpi-value">$12.8M</div>
+                        <div class="kpi-delta positive">▲ 22.7%</div>
+                        <div class="kpi-meta">Margin: 26.3%</div>
+                    </div>
+                    <div class="kpi-cell">
+                        <div class="kpi-label">Net Income</div>
+                        <div class="kpi-value">$8.4M</div>
+                        <div class="kpi-delta positive">▲ 31.2%</div>
+                        <div class="kpi-meta">Margin: 17.3%</div>
+                    </div>
+                    <div class="kpi-cell">
+                        <div class="kpi-label">Free Cash Flow</div>
+                        <div class="kpi-value">$11.2M</div>
+                        <div class="kpi-delta positive">▲ 45.8%</div>
+                        <div class="kpi-meta">FCF Margin: 23.0%</div>
+                    </div>
+                    <div class="kpi-cell">
+                        <div class="kpi-label">Cash Runway</div>
+                        <div class="kpi-value">18 mo</div>
+                        <div class="kpi-delta positive">▲ 3 mo</div>
+                        <div class="kpi-meta">Cash: $54.3M</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 TWO-COLUMN SECTION: WATERFALL + CASH FLOW
+                 ============================================ -->
+            <div class="two-col-layout">
+                <!-- Waterfall Chart: Revenue to Net Income -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <div class="panel-title">Revenue to Net Income Waterfall</div>
+                            <div class="panel-subtitle">Q4 2024 - Breakdown of $48.6M to $8.4M Net Income</div>
+                        </div>
+                    </div>
+                    <div class="waterfall-chart">
+                        <div class="waterfall-bar">
+                            <div class="bar-segment" style="height: 280px; background: linear-gradient(to top, var(--navy-primary), var(--navy-light));">
+                                <div class="bar-value">$48.6M</div>
+                            </div>
+                            <div class="bar-label">Total<br>Revenue</div>
+                        </div>
+                        <div class="waterfall-bar">
+                            <div class="bar-segment" style="height: 100px; background: linear-gradient(to top, var(--red-primary), var(--red-light)); margin-top: 180px;">
+                                <div class="bar-value">($17.4M)</div>
+                            </div>
+                            <div class="bar-label">Cost of<br>Goods Sold</div>
+                        </div>
+                        <div class="waterfall-bar">
+                            <div class="bar-segment" style="height: 180px; background: linear-gradient(to top, var(--green-primary), var(--green-light));">
+                                <div class="bar-value">$31.2M</div>
+                            </div>
+                            <div class="bar-label">Gross<br>Profit</div>
+                        </div>
+                        <div class="waterfall-bar">
+                            <div class="bar-segment" style="height: 95px; background: linear-gradient(to top, var(--red-primary), var(--red-light)); margin-top: 85px;">
+                                <div class="bar-value">($14.6M)</div>
+                            </div>
+                            <div class="bar-label">Operating<br>Expenses</div>
+                        </div>
+                        <div class="waterfall-bar">
+                            <div class="bar-segment" style="height: 85px; background: linear-gradient(to top, var(--green-primary), var(--green-light));">
+                                <div class="bar-value">$16.6M</div>
+                            </div>
+                            <div class="bar-label">Operating<br>Income</div>
+                        </div>
+                        <div class="waterfall-bar">
+                            <div class="bar-segment" style="height: 42px; background: linear-gradient(to top, var(--red-primary), var(--red-light)); margin-top: 43px;">
+                                <div class="bar-value">($8.2M)</div>
+                            </div>
+                            <div class="bar-label">Taxes &<br>Interest</div>
+                        </div>
+                        <div class="waterfall-bar">
+                            <div class="bar-segment" style="height: 43px; background: linear-gradient(to top, #1e3a5f, #2d7a50);">
+                                <div class="bar-value">$8.4M</div>
+                            </div>
+                            <div class="bar-label">Net<br>Income</div>
+                        </div>
+                    </div>
+                    <div class="waterfall-legend">
+                        <div class="legend-item">
+                            <div class="legend-box" style="background: linear-gradient(135deg, var(--navy-primary), var(--navy-light));"></div>
+                            <span>Revenue</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-box" style="background: linear-gradient(135deg, var(--green-primary), var(--green-light));"></div>
+                            <span>Income</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-box" style="background: linear-gradient(135deg, var(--red-primary), var(--red-light));"></div>
+                            <span>Expenses</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cash Flow Summary -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <div class="panel-title">Statement of Cash Flows</div>
+                            <div class="panel-subtitle">Q4 2024 - Operating, Investing, and Financing Activities</div>
+                        </div>
+                    </div>
+                    <div class="cash-flow-grid">
+                        <div class="cash-flow-card">
+                            <div class="cash-flow-header">Operating Activities</div>
+                            <div class="cash-flow-items">
+                                <div class="cash-flow-item">
+                                    <span class="cash-flow-item-label">Net Income</span>
+                                    <span class="cash-flow-item-value">$8.4M</span>
+                                </div>
+                                <div class="cash-flow-item">
+                                    <span class="cash-flow-item-label">Depreciation</span>
+                                    <span class="cash-flow-item-value">$2.8M</span>
+                                </div>
+                                <div class="cash-flow-item">
+                                    <span class="cash-flow-item-label">Working Capital Δ</span>
+                                    <span class="cash-flow-item-value">($1.2M)</span>
+                                </div>
+                                <div class="cash-flow-item">
+                                    <span class="cash-flow-item-label">Other Adjustments</span>
+                                    <span class="cash-flow-item-value">$0.6M</span>
+                                </div>
+                            </div>
+                            <div class="cash-flow-total">
+                                <span>Operating CF</span>
+                                <span>$10.6M</span>
+                            </div>
+                        </div>
+
+                        <div class="cash-flow-card">
+                            <div class="cash-flow-header">Investing Activities</div>
+                            <div class="cash-flow-items">
+                                <div class="cash-flow-item">
+                                    <span class="cash-flow-item-label">CapEx</span>
+                                    <span class="cash-flow-item-value">($3.4M)</span>
+                                </div>
+                                <div class="cash-flow-item">
+                                    <span class="cash-flow-item-label">Asset Sales</span>
+                                    <span class="cash-flow-item-value">$0.4M</span>
+                                </div>
+                                <div class="cash-flow-item">
+                                    <span class="cash-flow-item-label">Acquisitions</span>
+                                    <span class="cash-flow-item-value">($1.8M)</span>
+                                </div>
+                                <div class="cash-flow-item">
+                                    <span class="cash-flow-item-label">Investments</span>
+                                    <span class="cash-flow-item-value">($0.6M)</span>
+                                </div>
+                            </div>
+                            <div class="cash-flow-total">
+                                <span>Investing CF</span>
+                                <span>($5.4M)</span>
+                            </div>
+                        </div>
+
+                        <div class="cash-flow-card">
+                            <div class="cash-flow-header">Financing Activities</div>
+                            <div class="cash-flow-items">
+                                <div class="cash-flow-item">
+                                    <span class="cash-flow-item-label">Debt Proceeds</span>
+                                    <span class="cash-flow-item-value">$8.0M</span>
+                                </div>
+                                <div class="cash-flow-item">
+                                    <span class="cash-flow-item-label">Debt Repayment</span>
+                                    <span class="cash-flow-item-value">($2.4M)</span>
+                                </div>
+                                <div class="cash-flow-item">
+                                    <span class="cash-flow-item-label">Dividends Paid</span>
+                                    <span class="cash-flow-item-value">($1.2M)</span>
+                                </div>
+                                <div class="cash-flow-item">
+                                    <span class="cash-flow-item-label">Equity Issuance</span>
+                                    <span class="cash-flow-item-value">$0.0M</span>
+                                </div>
+                            </div>
+                            <div class="cash-flow-total">
+                                <span>Financing CF</span>
+                                <span>$4.4M</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: var(--space-lg); padding: var(--space-md); background: var(--navy-pale); border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: 700; color: var(--navy-dark); font-size: 13px;">Net Change in Cash</span>
+                        <span style="font-weight: 700; color: var(--green-primary); font-size: 18px; font-variant-numeric: tabular-nums;">+$9.6M</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 DETAILED P&L TABLE
+                 ============================================ -->
+            <div class="panel full-width-panel">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-title">Income Statement - Budget vs Actual Analysis</div>
+                        <div class="panel-subtitle">Q4 2024 - Detailed P&L with Variance Analysis</div>
+                    </div>
+                </div>
+                <div class="financial-table-wrapper">
+                    <table class="financial-table">
+                        <thead>
+                            <tr>
+                                <th>Line Item</th>
+                                <th>Actual</th>
+                                <th>Budget</th>
+                                <th>Variance ($)</th>
+                                <th>Variance (%)</th>
+                                <th>% of Revenue</th>
+                                <th>YoY Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row-section">
+                                <td colspan="7">REVENUE</td>
+                            </tr>
+                            <tr>
+                                <td class="indent-1">Product Sales</td>
+                                <td>$32,400,000</td>
+                                <td>$30,800,000</td>
+                                <td class="variance-positive">$1,600,000</td>
+                                <td class="variance-positive">5.2%</td>
+                                <td>66.7%</td>
+                                <td class="variance-positive">+12.3%</td>
+                            </tr>
+                            <tr>
+                                <td class="indent-1">Service Revenue</td>
+                                <td>$12,800,000</td>
+                                <td>$11,200,000</td>
+                                <td class="variance-positive">$1,600,000</td>
+                                <td class="variance-positive">14.3%</td>
+                                <td>26.3%</td>
+                                <td class="variance-positive">+28.4%</td>
+                            </tr>
+                            <tr>
+                                <td class="indent-1">Subscription Revenue</td>
+                                <td>$3,400,000</td>
+                                <td>$4,200,000</td>
+                                <td class="variance-negative">($800,000)</td>
+                                <td class="variance-negative">-19.0%</td>
+                                <td>7.0%</td>
+                                <td class="variance-positive">+18.6%</td>
+                            </tr>
+                            <tr class="row-total">
+                                <td>Total Revenue</td>
+                                <td>$48,600,000</td>
+                                <td>$46,200,000</td>
+                                <td class="variance-positive">$2,400,000</td>
+                                <td class="variance-positive">5.2%</td>
+                                <td>100.0%</td>
+                                <td class="variance-positive">+18.4%</td>
+                            </tr>
+                            <tr class="row-section">
+                                <td colspan="7">COST OF REVENUE</td>
+                            </tr>
+                            <tr>
+                                <td class="indent-1">Direct Materials</td>
+                                <td>$9,200,000</td>
+                                <td>$10,100,000</td>
+                                <td class="variance-positive">$900,000</td>
+                                <td class="variance-positive">8.9%</td>
+                                <td>18.9%</td>
+                                <td class="variance-positive">-6.2%</td>
+                            </tr>
+                            <tr>
+                                <td class="indent-1">Direct Labor</td>
+                                <td>$5,600,000</td>
+                                <td>$5,800,000</td>
+                                <td class="variance-positive">$200,000</td>
+                                <td class="variance-positive">3.4%</td>
+                                <td>11.5%</td>
+                                <td class="variance-positive">+4.2%</td>
+                            </tr>
+                            <tr>
+                                <td class="indent-1">Manufacturing Overhead</td>
+                                <td>$2,600,000</td>
+                                <td>$2,400,000</td>
+                                <td class="variance-negative">($200,000)</td>
+                                <td class="variance-negative">-8.3%</td>
+                                <td>5.3%</td>
+                                <td class="variance-positive">+12.8%</td>
+                            </tr>
+                            <tr class="row-subtotal">
+                                <td>Total COGS</td>
+                                <td>$17,400,000</td>
+                                <td>$18,300,000</td>
+                                <td class="variance-positive">$900,000</td>
+                                <td class="variance-positive">4.9%</td>
+                                <td>35.8%</td>
+                                <td class="variance-positive">+2.8%</td>
+                            </tr>
+                            <tr class="row-total">
+                                <td>Gross Profit</td>
+                                <td>$31,200,000</td>
+                                <td>$27,900,000</td>
+                                <td class="variance-positive">$3,300,000</td>
+                                <td class="variance-positive">11.8%</td>
+                                <td>64.2%</td>
+                                <td class="variance-positive">+32.4%</td>
+                            </tr>
+                            <tr class="row-section">
+                                <td colspan="7">OPERATING EXPENSES</td>
+                            </tr>
+                            <tr>
+                                <td class="indent-1">Sales & Marketing</td>
+                                <td>$6,800,000</td>
+                                <td>$6,200,000</td>
+                                <td class="variance-negative">($600,000)</td>
+                                <td class="variance-negative">-9.7%</td>
+                                <td>14.0%</td>
+                                <td class="variance-positive">+18.2%</td>
+                            </tr>
+                            <tr>
+                                <td class="indent-1">Research & Development</td>
+                                <td>$4,200,000</td>
+                                <td>$4,800,000</td>
+                                <td class="variance-positive">$600,000</td>
+                                <td class="variance-positive">12.5%</td>
+                                <td>8.6%</td>
+                                <td class="variance-positive">+8.4%</td>
+                            </tr>
+                            <tr>
+                                <td class="indent-1">General & Administrative</td>
+                                <td>$3,600,000</td>
+                                <td>$3,400,000</td>
+                                <td class="variance-negative">($200,000)</td>
+                                <td class="variance-negative">-5.9%</td>
+                                <td>7.4%</td>
+                                <td class="variance-positive">+12.6%</td>
+                            </tr>
+                            <tr class="row-subtotal">
+                                <td>Total Operating Expenses</td>
+                                <td>$14,600,000</td>
+                                <td>$14,400,000</td>
+                                <td class="variance-negative">($200,000)</td>
+                                <td class="variance-negative">-1.4%</td>
+                                <td>30.0%</td>
+                                <td class="variance-positive">+14.2%</td>
+                            </tr>
+                            <tr class="row-total">
+                                <td>Operating Income (EBIT)</td>
+                                <td>$16,600,000</td>
+                                <td>$13,500,000</td>
+                                <td class="variance-positive">$3,100,000</td>
+                                <td class="variance-positive">23.0%</td>
+                                <td>34.2%</td>
+                                <td class="variance-positive">+42.8%</td>
+                            </tr>
+                            <tr>
+                                <td class="indent-1">Interest Income</td>
+                                <td>$400,000</td>
+                                <td>$300,000</td>
+                                <td class="variance-positive">$100,000</td>
+                                <td class="variance-positive">33.3%</td>
+                                <td>0.8%</td>
+                                <td class="variance-positive">+82.4%</td>
+                            </tr>
+                            <tr>
+                                <td class="indent-1">Interest Expense</td>
+                                <td>($1,200,000)</td>
+                                <td>($1,100,000)</td>
+                                <td class="variance-negative">($100,000)</td>
+                                <td class="variance-negative">-9.1%</td>
+                                <td>-2.5%</td>
+                                <td class="variance-positive">+14.2%</td>
+                            </tr>
+                            <tr>
+                                <td class="indent-1">Other Income/(Expense)</td>
+                                <td>($200,000)</td>
+                                <td>($100,000)</td>
+                                <td class="variance-negative">($100,000)</td>
+                                <td class="variance-negative">-100.0%</td>
+                                <td>-0.4%</td>
+                                <td class="variance-negative">+324.8%</td>
+                            </tr>
+                            <tr class="row-subtotal">
+                                <td>Pretax Income</td>
+                                <td>$15,600,000</td>
+                                <td>$12,600,000</td>
+                                <td class="variance-positive">$3,000,000</td>
+                                <td class="variance-positive">23.8%</td>
+                                <td>32.1%</td>
+                                <td class="variance-positive">+45.2%</td>
+                            </tr>
+                            <tr>
+                                <td class="indent-1">Income Tax Expense</td>
+                                <td>($7,200,000)</td>
+                                <td>($5,800,000)</td>
+                                <td class="variance-negative">($1,400,000)</td>
+                                <td class="variance-negative">-24.1%</td>
+                                <td>-14.8%</td>
+                                <td class="variance-positive">+52.8%</td>
+                            </tr>
+                            <tr class="row-total">
+                                <td>Net Income</td>
+                                <td>$8,400,000</td>
+                                <td>$6,800,000</td>
+                                <td class="variance-positive">$1,600,000</td>
+                                <td class="variance-positive">23.5%</td>
+                                <td>17.3%</td>
+                                <td class="variance-positive">+31.2%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 KEY FINANCIAL RATIOS
+                 ============================================ -->
+            <div class="panel full-width-panel">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-title">Key Financial Ratios & Metrics</div>
+                        <div class="panel-subtitle">Q4 2024 - Profitability, Liquidity, Efficiency, and Leverage Analysis</div>
+                    </div>
+                </div>
+                <div class="ratios-grid">
+                    <div class="ratio-card">
+                        <div class="ratio-category">Profitability</div>
+                        <div class="ratio-name">Gross Margin</div>
+                        <div class="ratio-value">64.2%</div>
+                        <div class="ratio-benchmark">Industry Avg: 58.5%</div>
+                        <div class="ratio-trend positive">▲ 2.1pp YoY</div>
+                    </div>
+                    <div class="ratio-card">
+                        <div class="ratio-category">Profitability</div>
+                        <div class="ratio-name">Operating Margin</div>
+                        <div class="ratio-value">34.2%</div>
+                        <div class="ratio-benchmark">Industry Avg: 28.2%</div>
+                        <div class="ratio-trend positive">▲ 4.8pp YoY</div>
+                    </div>
+                    <div class="ratio-card">
+                        <div class="ratio-category">Profitability</div>
+                        <div class="ratio-name">Net Margin</div>
+                        <div class="ratio-value">17.3%</div>
+                        <div class="ratio-benchmark">Industry Avg: 12.4%</div>
+                        <div class="ratio-trend positive">▲ 1.6pp YoY</div>
+                    </div>
+                    <div class="ratio-card">
+                        <div class="ratio-category">Profitability</div>
+                        <div class="ratio-name">EBITDA Margin</div>
+                        <div class="ratio-value">26.3%</div>
+                        <div class="ratio-benchmark">Industry Avg: 22.8%</div>
+                        <div class="ratio-trend positive">▲ 0.8pp YoY</div>
+                    </div>
+                    <div class="ratio-card">
+                        <div class="ratio-category">Liquidity</div>
+                        <div class="ratio-name">Current Ratio</div>
+                        <div class="ratio-value">2.84</div>
+                        <div class="ratio-benchmark">Target: > 2.00</div>
+                        <div class="ratio-trend positive">▲ 0.22 YoY</div>
+                    </div>
+                    <div class="ratio-card">
+                        <div class="ratio-category">Liquidity</div>
+                        <div class="ratio-name">Quick Ratio</div>
+                        <div class="ratio-value">2.12</div>
+                        <div class="ratio-benchmark">Target: > 1.50</div>
+                        <div class="ratio-trend positive">▲ 0.18 YoY</div>
+                    </div>
+                    <div class="ratio-card">
+                        <div class="ratio-category">Liquidity</div>
+                        <div class="ratio-name">Cash Ratio</div>
+                        <div class="ratio-value">1.64</div>
+                        <div class="ratio-benchmark">Target: > 1.00</div>
+                        <div class="ratio-trend positive">▲ 0.34 YoY</div>
+                    </div>
+                    <div class="ratio-card">
+                        <div class="ratio-category">Liquidity</div>
+                        <div class="ratio-name">Working Capital</div>
+                        <div class="ratio-value">$61.2M</div>
+                        <div class="ratio-benchmark">Prior Qtr: $54.8M</div>
+                        <div class="ratio-trend positive">▲ 11.7% QoQ</div>
+                    </div>
+                    <div class="ratio-card">
+                        <div class="ratio-category">Efficiency</div>
+                        <div class="ratio-name">Asset Turnover</div>
+                        <div class="ratio-value">1.86</div>
+                        <div class="ratio-benchmark">Industry Avg: 1.62</div>
+                        <div class="ratio-trend positive">▲ 0.12 YoY</div>
+                    </div>
+                    <div class="ratio-card">
+                        <div class="ratio-category">Efficiency</div>
+                        <div class="ratio-name">Inventory Turns</div>
+                        <div class="ratio-value">8.4</div>
+                        <div class="ratio-benchmark">Industry Avg: 6.8</div>
+                        <div class="ratio-trend positive">▲ 1.2 YoY</div>
+                    </div>
+                    <div class="ratio-card">
+                        <div class="ratio-category">Efficiency</div>
+                        <div class="ratio-name">Days Sales Out.</div>
+                        <div class="ratio-value">42</div>
+                        <div class="ratio-benchmark">Target: < 45 days</div>
+                        <div class="ratio-trend positive">▼ 4 days YoY</div>
+                    </div>
+                    <div class="ratio-card">
+                        <div class="ratio-category">Efficiency</div>
+                        <div class="ratio-name">ROA</div>
+                        <div class="ratio-value">18.6%</div>
+                        <div class="ratio-benchmark">Industry Avg: 14.2%</div>
+                        <div class="ratio-trend positive">▲ 3.4pp YoY</div>
+                    </div>
+                    <div class="ratio-card">
+                        <div class="ratio-category">Leverage</div>
+                        <div class="ratio-name">Debt-to-Equity</div>
+                        <div class="ratio-value">0.42</div>
+                        <div class="ratio-benchmark">Target: < 0.60</div>
+                        <div class="ratio-trend positive">▼ 0.08 YoY</div>
+                    </div>
+                    <div class="ratio-card">
+                        <div class="ratio-category">Leverage</div>
+                        <div class="ratio-name">Debt-to-Assets</div>
+                        <div class="ratio-value">0.24</div>
+                        <div class="ratio-benchmark">Industry Avg: 0.32</div>
+                        <div class="ratio-trend positive">▼ 0.04 YoY</div>
+                    </div>
+                    <div class="ratio-card">
+                        <div class="ratio-category">Leverage</div>
+                        <div class="ratio-name">Interest Coverage</div>
+                        <div class="ratio-value">13.8x</div>
+                        <div class="ratio-benchmark">Target: > 5.0x</div>
+                        <div class="ratio-trend positive">▲ 2.4x YoY</div>
+                    </div>
+                    <div class="ratio-card">
+                        <div class="ratio-category">Returns</div>
+                        <div class="ratio-name">ROE</div>
+                        <div class="ratio-value">26.4%</div>
+                        <div class="ratio-benchmark">Industry Avg: 18.6%</div>
+                        <div class="ratio-trend positive">▲ 4.8pp YoY</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 DEPARTMENTAL VARIANCE ANALYSIS
+                 ============================================ -->
+            <div class="panel full-width-panel">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-title">Departmental Budget Variance Analysis</div>
+                        <div class="panel-subtitle">Q4 2024 - Operating Expense Breakdown by Department</div>
+                    </div>
+                </div>
+                <table class="variance-table">
+                    <thead>
+                        <tr>
+                            <th>Department</th>
+                            <th class="numeric">Budget</th>
+                            <th class="numeric">Actual</th>
+                            <th class="numeric">Variance</th>
+                            <th class="numeric">Var %</th>
+                            <th class="numeric">Utilization</th>
+                            <th>Status</th>
+                            <th>Budget Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sales</td>
+                            <td class="numeric">$3,800,000</td>
+                            <td class="numeric">$4,200,000</td>
+                            <td class="numeric variance-negative">($400,000)</td>
+                            <td class="numeric variance-negative">-10.5%</td>
+                            <td class="numeric">110.5%</td>
+                            <td><span class="status-badge status-at-risk">At Risk</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill warning" style="width: 110.5%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Marketing</td>
+                            <td class="numeric">$2,400,000</td>
+                            <td class="numeric">$2,600,000</td>
+                            <td class="numeric variance-negative">($200,000)</td>
+                            <td class="numeric variance-negative">-8.3%</td>
+                            <td class="numeric">108.3%</td>
+                            <td><span class="status-badge status-at-risk">At Risk</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill warning" style="width: 100%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Engineering</td>
+                            <td class="numeric">$3,200,000</td>
+                            <td class="numeric">$2,800,000</td>
+                            <td class="numeric variance-positive">$400,000</td>
+                            <td class="numeric variance-positive">12.5%</td>
+                            <td class="numeric">87.5%</td>
+                            <td><span class="status-badge status-on-track">On Track</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill success" style="width: 87.5%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Product</td>
+                            <td class="numeric">$1,600,000</td>
+                            <td class="numeric">$1,400,000</td>
+                            <td class="numeric variance-positive">$200,000</td>
+                            <td class="numeric variance-positive">12.5%</td>
+                            <td class="numeric">87.5%</td>
+                            <td><span class="status-badge status-on-track">On Track</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill success" style="width: 87.5%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Finance</td>
+                            <td class="numeric">$1,200,000</td>
+                            <td class="numeric">$1,250,000</td>
+                            <td class="numeric variance-negative">($50,000)</td>
+                            <td class="numeric variance-negative">-4.2%</td>
+                            <td class="numeric">104.2%</td>
+                            <td><span class="status-badge status-on-track">On Track</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: 100%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>HR & Talent</td>
+                            <td class="numeric">$900,000</td>
+                            <td class="numeric">$820,000</td>
+                            <td class="numeric variance-positive">$80,000</td>
+                            <td class="numeric variance-positive">8.9%</td>
+                            <td class="numeric">91.1%</td>
+                            <td><span class="status-badge status-on-track">On Track</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill success" style="width: 91.1%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>IT & Infrastructure</td>
+                            <td class="numeric">$800,000</td>
+                            <td class="numeric">$780,000</td>
+                            <td class="numeric variance-positive">$20,000</td>
+                            <td class="numeric variance-positive">2.5%</td>
+                            <td class="numeric">97.5%</td>
+                            <td><span class="status-badge status-on-track">On Track</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill success" style="width: 97.5%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Legal & Compliance</td>
+                            <td class="numeric">$600,000</td>
+                            <td class="numeric">$650,000</td>
+                            <td class="numeric variance-negative">($50,000)</td>
+                            <td class="numeric variance-negative">-8.3%</td>
+                            <td class="numeric">108.3%</td>
+                            <td><span class="status-badge status-at-risk">At Risk</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill warning" style="width: 100%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Facilities</td>
+                            <td class="numeric">$500,000</td>
+                            <td class="numeric">$480,000</td>
+                            <td class="numeric variance-positive">$20,000</td>
+                            <td class="numeric variance-positive">4.0%</td>
+                            <td class="numeric">96.0%</td>
+                            <td><span class="status-badge status-on-track">On Track</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill success" style="width: 96%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Customer Success</td>
+                            <td class="numeric">$1,400,000</td>
+                            <td class="numeric">$1,220,000</td>
+                            <td class="numeric variance-positive">$180,000</td>
+                            <td class="numeric variance-positive">12.9%</td>
+                            <td class="numeric">87.1%</td>
+                            <td><span class="status-badge status-on-track">On Track</span></td>
+                            <td>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill success" style="width: 87.1%;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ============================================
+                 BALANCE SHEET SNAPSHOT
+                 ============================================ -->
+            <div class="panel full-width-panel">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-title">Balance Sheet Snapshot</div>
+                        <div class="panel-subtitle">As of December 31, 2024 - Assets, Liabilities & Equity Overview</div>
+                    </div>
+                </div>
+                <div class="balance-sheet-grid">
+                    <div class="balance-category">
+                        <div class="balance-category-header">Assets</div>
+                        <div class="balance-items">
+                            <div class="balance-item">
+                                <span class="balance-item-label">Cash & Cash Equivalents</span>
+                                <span class="balance-item-value">$54,300,000</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-item-label">Accounts Receivable</span>
+                                <span class="balance-item-value">$18,600,000</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-item-label">Inventory</span>
+                                <span class="balance-item-value">$12,400,000</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-item-label">Prepaid Expenses</span>
+                                <span class="balance-item-value">$2,800,000</span>
+                            </div>
+                            <div class="balance-item balance-subtotal">
+                                <span class="balance-item-label">Current Assets</span>
+                                <span class="balance-item-value">$88,100,000</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-item-label">Property, Plant & Equipment</span>
+                                <span class="balance-item-value">$32,400,000</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-item-label">Intangible Assets</span>
+                                <span class="balance-item-value">$8,600,000</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-item-label">Goodwill</span>
+                                <span class="balance-item-value">$14,200,000</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-item-label">Other Long-term Assets</span>
+                                <span class="balance-item-value">$4,800,000</span>
+                            </div>
+                            <div class="balance-item balance-subtotal">
+                                <span class="balance-item-label">Non-Current Assets</span>
+                                <span class="balance-item-value">$60,000,000</span>
+                            </div>
+                            <div class="balance-item balance-total">
+                                <span class="balance-item-label">Total Assets</span>
+                                <span class="balance-item-value">$148,100,000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="balance-category">
+                        <div class="balance-category-header">Liabilities</div>
+                        <div class="balance-items">
+                            <div class="balance-item">
+                                <span class="balance-item-label">Accounts Payable</span>
+                                <span class="balance-item-value">$14,200,000</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-item-label">Accrued Expenses</span>
+                                <span class="balance-item-value">$8,400,000</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-item-label">Deferred Revenue</span>
+                                <span class="balance-item-value">$3,600,000</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-item-label">Current Portion of Debt</span>
+                                <span class="balance-item-value">$4,800,000</span>
+                            </div>
+                            <div class="balance-item balance-subtotal">
+                                <span class="balance-item-label">Current Liabilities</span>
+                                <span class="balance-item-value">$31,000,000</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-item-label">Long-term Debt</span>
+                                <span class="balance-item-value">$28,600,000</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-item-label">Deferred Tax Liabilities</span>
+                                <span class="balance-item-value">$4,200,000</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-item-label">Other Long-term Liabilities</span>
+                                <span class="balance-item-value">$2,800,000</span>
+                            </div>
+                            <div class="balance-item balance-subtotal">
+                                <span class="balance-item-label">Non-Current Liabilities</span>
+                                <span class="balance-item-value">$35,600,000</span>
+                            </div>
+                            <div class="balance-item balance-total">
+                                <span class="balance-item-label">Total Liabilities</span>
+                                <span class="balance-item-value">$66,600,000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="balance-category">
+                        <div class="balance-category-header">Shareholders' Equity</div>
+                        <div class="balance-items">
+                            <div class="balance-item">
+                                <span class="balance-item-label">Common Stock</span>
+                                <span class="balance-item-value">$20,000,000</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-item-label">Additional Paid-in Capital</span>
+                                <span class="balance-item-value">$28,400,000</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-item-label">Retained Earnings</span>
+                                <span class="balance-item-value">$33,800,000</span>
+                            </div>
+                            <div class="balance-item">
+                                <span class="balance-item-label">Treasury Stock</span>
+                                <span class="balance-item-value">($700,000)</span>
+                            </div>
+                            <div class="balance-item balance-total">
+                                <span class="balance-item-label">Total Equity</span>
+                                <span class="balance-item-value">$81,500,000</span>
+                            </div>
+                            <div style="margin-top: var(--space-lg); padding-top: var(--space-lg); border-top: 3px double var(--navy-primary);">
+                                <div class="balance-item balance-total">
+                                    <span class="balance-item-label">Total Liab. + Equity</span>
+                                    <span class="balance-item-value">$148,100,000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-agent">DARNO Financial Analytics</div>
+                <div>Data-First Analytical UX | Institutional Financial Intelligence</div>
+            </div>
+            <div class="footer-right">
+                <div>Dashboard Generated: December 31, 2024</div>
+                <div>Confidential Financial Data - For Executive Use Only</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         JAVASCRIPT - Animated Counters
+         ============================================ -->
+    <script>
+        // Animate KPI counter values on load
+        function animateValue(element, start, end, duration, isPercentage = false, decimals = 1) {
+            const range = end - start;
+            const increment = range / (duration / 16);
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+                    current = end;
+                    clearInterval(timer);
+                }
+
+                let displayValue = current.toFixed(decimals);
+                if (isPercentage) {
+                    element.textContent = displayValue + '%';
+                } else if (end >= 1000000) {
+                    element.textContent = '$' + (current / 1000000).toFixed(1) + 'M';
+                } else {
+                    element.textContent = displayValue;
+                }
+            }, 16);
+        }
+
+        // Trigger animations on page load
+        window.addEventListener('load', () => {
+            // KPI Values (simplified for demo - normally would parse from data attributes)
+            const kpiValues = document.querySelectorAll('.kpi-value');
+            kpiValues.forEach(kpi => {
+                const text = kpi.textContent;
+                // Add subtle pulse effect
+                kpi.style.opacity = '0';
+                setTimeout(() => {
+                    kpi.style.transition = 'opacity 0.6s ease-out';
+                    kpi.style.opacity = '1';
+                }, Math.random() * 300);
+            });
+
+            // Animate progress bars
+            const progressBars = document.querySelectorAll('.progress-bar-fill');
+            progressBars.forEach(bar => {
+                const targetWidth = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.transition = 'width 1s ease-out';
+                    bar.style.width = targetWidth;
+                }, 200);
+            });
+        });
+
+        // Enhanced table row highlighting
+        const tableRows = document.querySelectorAll('.financial-table tbody tr, .variance-table tbody tr');
+        tableRows.forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.style.transform = 'translateX(4px)';
+            });
+            row.addEventListener('mouseleave', () => {
+                row.style.transform = 'translateX(0)';
+            });
+        });
+    </script>
+</body>
+</html>

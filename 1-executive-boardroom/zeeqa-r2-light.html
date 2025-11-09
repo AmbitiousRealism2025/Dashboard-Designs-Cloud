@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<!-- Agent: Zeeqa | Round: 2 - Light Mode Masterpiece | Theme: Executive Boardroom | Intent: Achieve maximum executive impact through radical minimalism, vast whitespace, and typographic precision -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Boardroom Dashboard · ZEEQA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════════════════════════
+           ZEEQA DESIGN SYSTEM: RADICAL MINIMALISM FOR EXECUTIVES
+           Philosophy: Maximum impact through reduction, precision, calm
+           ═══════════════════════════════════════════════════════════════ */
+
+        :root {
+            /* Monochromatic Foundation */
+            --white: #FFFFFF;
+            --pearl: #FAFAFA;
+            --mist: #F5F5F5;
+            --silk: #EEEEEE;
+            --stone: #E0E0E0;
+            --slate: #BDBDBD;
+            --graphite: #616161;
+            --charcoal: #2C2C2C;
+            --ink: #1A1A1A;
+
+            /* Single Accent: Muted Teal */
+            --accent: #5D7D7A;
+            --accent-light: #8BA6A3;
+            --accent-subtle: #E8EEEE;
+
+            /* Semantic Colors (Restrained) */
+            --positive: #4A6860;
+            --warning: #8B7355;
+            --negative: #7A5D5D;
+
+            /* Typography Scale */
+            --font-serif: 'Crimson Pro', 'Georgia', serif;
+            --font-sans: 'Inter', 'Helvetica Neue', sans-serif;
+
+            /* Spacing Philosophy: Generous, Deliberate */
+            --space-unit: 8px;
+            --space-xs: calc(var(--space-unit) * 2);
+            --space-s: calc(var(--space-unit) * 3);
+            --space-m: calc(var(--space-unit) * 4);
+            --space-l: calc(var(--space-unit) * 6);
+            --space-xl: calc(var(--space-unit) * 8);
+            --space-xxl: calc(var(--space-unit) * 12);
+
+            /* Subtle Shadow System */
+            --shadow-whisper: 0 1px 3px rgba(0, 0, 0, 0.04);
+            --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-lift: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--pearl);
+            color: var(--charcoal);
+            line-height: 1.6;
+            font-weight: 300;
+            letter-spacing: 0.01em;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           HEADER: MINIMAL BRANDING WITH UNDERSTATED ELEGANCE
+           ═══════════════════════════════════════════════════════════════ */
+
+        header {
+            background: var(--white);
+            border-bottom: 1px solid var(--stone);
+            padding: var(--space-m) var(--space-xl);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: baseline;
+            gap: var(--space-s);
+        }
+
+        .brand-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--ink);
+            letter-spacing: 0.02em;
+        }
+
+        .brand-agent {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .header-meta {
+            display: flex;
+            gap: var(--space-l);
+            align-items: center;
+        }
+
+        .period-selector {
+            font-size: 0.875rem;
+            color: var(--graphite);
+            font-weight: 400;
+            padding: var(--space-xs) var(--space-s);
+            border: 1px solid var(--stone);
+            background: var(--white);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.18s ease-out;
+        }
+
+        .period-selector:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .timestamp {
+            font-size: 0.75rem;
+            color: var(--slate);
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           MAIN CONTAINER: VAST WHITESPACE & BREATHING ROOM
+           ═══════════════════════════════════════════════════════════════ */
+
+        main {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: var(--space-xxl) var(--space-xl);
+        }
+
+        .page-title {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--ink);
+            margin-bottom: var(--space-xxl);
+            letter-spacing: 0.01em;
+            text-align: center;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           KPI GRID: CENTERED NUMBERS WITH MAXIMUM CLARITY
+           ═══════════════════════════════════════════════════════════════ */
+
+        .kpi-section {
+            margin-bottom: var(--space-xxl);
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-m);
+        }
+
+        .kpi-card {
+            background: var(--white);
+            padding: var(--space-xl);
+            border: 1px solid var(--silk);
+            text-align: center;
+            transition: all 0.2s ease-out;
+            min-height: 240px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lift);
+            border-color: var(--stone);
+        }
+
+        .kpi-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--slate);
+            font-weight: 500;
+            margin-bottom: var(--space-m);
+        }
+
+        .kpi-value {
+            font-family: var(--font-serif);
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: var(--ink);
+            line-height: 1;
+            margin-bottom: var(--space-s);
+            letter-spacing: -0.02em;
+        }
+
+        .kpi-delta {
+            font-size: 0.875rem;
+            font-weight: 400;
+            margin-bottom: var(--space-m);
+            letter-spacing: 0.03em;
+        }
+
+        .kpi-delta.positive {
+            color: var(--positive);
+        }
+
+        .kpi-delta.negative {
+            color: var(--negative);
+        }
+
+        .kpi-meta {
+            font-size: 0.75rem;
+            color: var(--graphite);
+            font-weight: 300;
+            margin-top: var(--space-s);
+        }
+
+        .kpi-sparkline {
+            width: 120px;
+            height: 32px;
+            margin: var(--space-s) auto 0;
+            position: relative;
+        }
+
+        .sparkline-path {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right,
+                var(--accent-subtle) 0%,
+                var(--accent-subtle) 20%,
+                var(--accent-light) 40%,
+                var(--accent) 60%,
+                var(--accent-light) 80%,
+                var(--accent-subtle) 100%);
+            clip-path: polygon(
+                0% 80%, 10% 70%, 20% 75%, 30% 60%, 40% 65%,
+                50% 45%, 60% 50%, 70% 35%, 80% 40%, 90% 25%, 100% 30%,
+                100% 100%, 0% 100%
+            );
+            opacity: 0.4;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           CHART SECTION: MINIMAL VISUALIZATION PLACEHOLDERS
+           ═══════════════════════════════════════════════════════════════ */
+
+        .chart-section {
+            margin-bottom: var(--space-xxl);
+        }
+
+        .section-header {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--charcoal);
+            margin-bottom: var(--space-l);
+            padding-bottom: var(--space-s);
+            border-bottom: 1px solid var(--silk);
+            letter-spacing: 0.02em;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-m);
+            margin-bottom: var(--space-m);
+        }
+
+        .chart-container {
+            background: var(--white);
+            padding: var(--space-l);
+            border: 1px solid var(--silk);
+            transition: all 0.2s ease-out;
+        }
+
+        .chart-container:hover {
+            box-shadow: var(--shadow-soft);
+        }
+
+        .chart-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--charcoal);
+            margin-bottom: var(--space-m);
+            letter-spacing: 0.03em;
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 280px;
+            position: relative;
+            background: linear-gradient(to top,
+                var(--mist) 0%,
+                var(--pearl) 100%);
+            border-left: 1px solid var(--stone);
+            border-bottom: 1px solid var(--stone);
+            display: flex;
+            align-items: flex-end;
+            padding: var(--space-s);
+            gap: 4px;
+        }
+
+        .bar {
+            flex: 1;
+            background: var(--accent);
+            opacity: 0.3;
+            transition: all 0.2s ease-out;
+            position: relative;
+        }
+
+        .bar:nth-child(odd) {
+            opacity: 0.2;
+        }
+
+        .bar:hover {
+            opacity: 0.6;
+        }
+
+        .bar.bar-1 { height: 45%; }
+        .bar.bar-2 { height: 62%; }
+        .bar.bar-3 { height: 58%; }
+        .bar.bar-4 { height: 73%; }
+        .bar.bar-5 { height: 68%; }
+        .bar.bar-6 { height: 81%; }
+        .bar.bar-7 { height: 77%; }
+        .bar.bar-8 { height: 89%; }
+        .bar.bar-9 { height: 85%; }
+        .bar.bar-10 { height: 95%; }
+        .bar.bar-11 { height: 91%; }
+        .bar.bar-12 { height: 88%; }
+
+        .donut-chart {
+            width: 100%;
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .donut-ring {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 32px solid var(--mist);
+            border-top-color: var(--accent);
+            border-right-color: var(--accent-light);
+            border-bottom-color: var(--accent-subtle);
+            position: relative;
+            transform: rotate(-45deg);
+        }
+
+        .donut-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            text-align: center;
+        }
+
+        .donut-value {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--ink);
+        }
+
+        .donut-label {
+            font-size: 0.75rem;
+            color: var(--slate);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: var(--space-m);
+            margin-top: var(--space-m);
+            justify-content: center;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-size: 0.75rem;
+            color: var(--graphite);
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.primary { background: var(--accent); }
+        .legend-dot.secondary { background: var(--accent-light); }
+        .legend-dot.tertiary { background: var(--accent-subtle); }
+
+        /* ═══════════════════════════════════════════════════════════════
+           LINE CHART: SUBTLE GRADIENT AREA
+           ═══════════════════════════════════════════════════════════════ */
+
+        .line-chart {
+            width: 100%;
+            height: 280px;
+            position: relative;
+            background: linear-gradient(to top,
+                var(--mist) 0%,
+                var(--pearl) 100%);
+            border-left: 1px solid var(--stone);
+            border-bottom: 1px solid var(--stone);
+            overflow: hidden;
+        }
+
+        .line-area {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom,
+                var(--accent-subtle) 0%,
+                transparent 100%);
+            clip-path: polygon(
+                0% 60%, 8% 55%, 16% 58%, 24% 48%, 32% 52%,
+                40% 42%, 48% 38%, 56% 32%, 64% 28%, 72% 35%,
+                80% 30%, 88% 25%, 96% 22%, 100% 20%,
+                100% 100%, 0% 100%
+            );
+        }
+
+        .grid-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        .grid-line {
+            width: 100%;
+            height: 1px;
+            background: var(--stone);
+            opacity: 0.3;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           DATA TABLE: CLEAN, READABLE, MINIMAL STYLING
+           ═══════════════════════════════════════════════════════════════ */
+
+        .table-section {
+            margin-bottom: var(--space-xxl);
+        }
+
+        .table-container {
+            background: var(--white);
+            border: 1px solid var(--silk);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            border-bottom: 1px solid var(--stone);
+        }
+
+        th {
+            text-align: left;
+            padding: var(--space-m) var(--space-s);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--slate);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            background: var(--mist);
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--silk);
+            transition: background 0.15s ease-out;
+        }
+
+        tbody tr:hover {
+            background: var(--pearl);
+        }
+
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        td {
+            padding: var(--space-m) var(--space-s);
+            font-size: 0.875rem;
+            color: var(--charcoal);
+            font-weight: 300;
+        }
+
+        td.metric-cell {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 2px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .status-pill.on-track {
+            background: rgba(74, 104, 96, 0.1);
+            color: var(--positive);
+        }
+
+        .status-pill.at-risk {
+            background: rgba(139, 115, 85, 0.1);
+            color: var(--warning);
+        }
+
+        .status-pill.delayed {
+            background: rgba(122, 93, 93, 0.1);
+            color: var(--negative);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           INSIGHTS PANEL: MINIMAL NARRATIVE BLOCKS
+           ═══════════════════════════════════════════════════════════════ */
+
+        .insights-section {
+            margin-bottom: var(--space-xxl);
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-m);
+        }
+
+        .insight-card {
+            background: var(--white);
+            padding: var(--space-l);
+            border-left: 2px solid var(--accent);
+            transition: all 0.2s ease-out;
+        }
+
+        .insight-card:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .insight-category {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent);
+            margin-bottom: var(--space-xs);
+            font-weight: 500;
+        }
+
+        .insight-title {
+            font-family: var(--font-serif);
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: var(--space-s);
+            letter-spacing: 0.01em;
+        }
+
+        .insight-text {
+            font-size: 0.875rem;
+            line-height: 1.7;
+            color: var(--graphite);
+            font-weight: 300;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           FOOTER: SUBTLE METADATA & ATTRIBUTION
+           ═══════════════════════════════════════════════════════════════ */
+
+        footer {
+            background: var(--white);
+            border-top: 1px solid var(--stone);
+            padding: var(--space-l) var(--space-xl);
+            margin-top: var(--space-xxl);
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-meta {
+            font-size: 0.75rem;
+            color: var(--slate);
+            font-weight: 300;
+        }
+
+        .footer-agent {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           RESPONSIVE DESIGN: GRACEFUL DEGRADATION
+           ═══════════════════════════════════════════════════════════════ */
+
+        @media (max-width: 1200px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --space-xl: calc(var(--space-unit) * 6);
+                --space-xxl: calc(var(--space-unit) * 8);
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .kpi-value {
+                font-size: 2.5rem;
+            }
+
+            .header-meta {
+                flex-direction: column;
+                gap: var(--space-s);
+                align-items: flex-end;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: var(--space-s);
+                text-align: center;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           MICROANIMATIONS: SUBTLE & PERFORMANT
+           ═══════════════════════════════════════════════════════════════ */
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .kpi-card,
+        .chart-container,
+        .insight-card,
+        .table-container {
+            animation: fadeInUp 0.4s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .kpi-card:nth-child(1) { animation-delay: 0.05s; }
+        .kpi-card:nth-child(2) { animation-delay: 0.1s; }
+        .kpi-card:nth-child(3) { animation-delay: 0.15s; }
+        .kpi-card:nth-child(4) { animation-delay: 0.2s; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .sparkline-path {
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         HEADER: MINIMAL BRANDING
+         ═══════════════════════════════════════════════════════════════ -->
+    <header>
+        <div class="header-content">
+            <div class="brand">
+                <h1 class="brand-title">Executive Overview</h1>
+                <span class="brand-agent">ZEEQA</span>
+            </div>
+            <div class="header-meta">
+                <select class="period-selector">
+                    <option>Q4 2025</option>
+                    <option>Q3 2025</option>
+                    <option>Q2 2025</option>
+                    <option>Full Year 2025</option>
+                </select>
+                <span class="timestamp">Updated: 09 Nov 2025, 14:30 UTC</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         MAIN CONTENT: VAST WHITESPACE & CLARITY
+         ═══════════════════════════════════════════════════════════════ -->
+    <main>
+
+        <h2 class="page-title">Quarterly Performance Report</h2>
+
+        <!-- KPI SECTION: BIG CENTERED NUMBERS -->
+        <section class="kpi-section">
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Total Revenue</div>
+                    <div class="kpi-value">$847M</div>
+                    <div class="kpi-delta positive">↑ 12.3%</div>
+                    <div class="kpi-sparkline">
+                        <div class="sparkline-path"></div>
+                    </div>
+                    <div class="kpi-meta">vs. prior quarter</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Operating Margin</div>
+                    <div class="kpi-value">31.2%</div>
+                    <div class="kpi-delta positive">↑ 2.4%</div>
+                    <div class="kpi-sparkline">
+                        <div class="sparkline-path"></div>
+                    </div>
+                    <div class="kpi-meta">expansion achieved</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Customer Retention</div>
+                    <div class="kpi-value">94.7%</div>
+                    <div class="kpi-delta positive">↑ 1.1%</div>
+                    <div class="kpi-sparkline">
+                        <div class="sparkline-path"></div>
+                    </div>
+                    <div class="kpi-meta">annual cohort</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Market Share</div>
+                    <div class="kpi-value">18.5%</div>
+                    <div class="kpi-delta positive">↑ 0.8%</div>
+                    <div class="kpi-sparkline">
+                        <div class="sparkline-path"></div>
+                    </div>
+                    <div class="kpi-meta">industry position</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHART SECTION: MINIMAL VISUALIZATIONS -->
+        <section class="chart-section">
+            <h3 class="section-header">Revenue Trajectory</h3>
+
+            <div class="chart-grid">
+                <div class="chart-container">
+                    <div class="chart-title">Monthly Revenue Performance (Trailing 12M)</div>
+                    <div class="chart-placeholder">
+                        <div class="bar bar-1"></div>
+                        <div class="bar bar-2"></div>
+                        <div class="bar bar-3"></div>
+                        <div class="bar bar-4"></div>
+                        <div class="bar bar-5"></div>
+                        <div class="bar bar-6"></div>
+                        <div class="bar bar-7"></div>
+                        <div class="bar bar-8"></div>
+                        <div class="bar bar-9"></div>
+                        <div class="bar bar-10"></div>
+                        <div class="bar bar-11"></div>
+                        <div class="bar bar-12"></div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-title">Revenue Mix by Segment</div>
+                    <div class="donut-chart">
+                        <div class="donut-ring">
+                            <div class="donut-center">
+                                <div class="donut-value">100%</div>
+                                <div class="donut-label">Total</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <div class="legend-dot primary"></div>
+                            <span>Enterprise (52%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot secondary"></div>
+                            <span>Mid-Market (31%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot tertiary"></div>
+                            <span>SMB (17%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-title">Quarterly Growth Trend Analysis</div>
+                <div class="line-chart">
+                    <div class="grid-lines">
+                        <div class="grid-line"></div>
+                        <div class="grid-line"></div>
+                        <div class="grid-line"></div>
+                        <div class="grid-line"></div>
+                        <div class="grid-line"></div>
+                    </div>
+                    <div class="line-area"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TABLE SECTION: CLEAN DATA PRESENTATION -->
+        <section class="table-section">
+            <h3 class="section-header">Strategic Initiative Performance</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Initiative Name</th>
+                            <th>Executive Owner</th>
+                            <th>Investment ($M)</th>
+                            <th>Expected ROI</th>
+                            <th>Timeline</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Global Market Expansion</td>
+                            <td>Sarah Chen, CRO</td>
+                            <td class="metric-cell">$124.5</td>
+                            <td class="metric-cell">3.2x</td>
+                            <td>Q1-Q4 2026</td>
+                            <td><span class="status-pill on-track">On Track</span></td>
+                        </tr>
+                        <tr>
+                            <td>Platform Modernization</td>
+                            <td>Marcus Liu, CTO</td>
+                            <td class="metric-cell">$89.2</td>
+                            <td class="metric-cell">2.8x</td>
+                            <td>Q2-Q3 2026</td>
+                            <td><span class="status-pill on-track">On Track</span></td>
+                        </tr>
+                        <tr>
+                            <td>Customer Success Program</td>
+                            <td>Elena Rodriguez, CCO</td>
+                            <td class="metric-cell">$47.8</td>
+                            <td class="metric-cell">4.1x</td>
+                            <td>Q1-Q2 2026</td>
+                            <td><span class="status-pill on-track">On Track</span></td>
+                        </tr>
+                        <tr>
+                            <td>Enterprise AI Integration</td>
+                            <td>David Park, CPO</td>
+                            <td class="metric-cell">$156.3</td>
+                            <td class="metric-cell">5.2x</td>
+                            <td>Q3 2025-Q2 2026</td>
+                            <td><span class="status-pill at-risk">At Risk</span></td>
+                        </tr>
+                        <tr>
+                            <td>Supply Chain Optimization</td>
+                            <td>Jennifer Wu, COO</td>
+                            <td class="metric-cell">$62.1</td>
+                            <td class="metric-cell">2.4x</td>
+                            <td>Q4 2025-Q1 2026</td>
+                            <td><span class="status-pill on-track">On Track</span></td>
+                        </tr>
+                        <tr>
+                            <td>Sustainability Initiative</td>
+                            <td>Thomas Anderson, CSO</td>
+                            <td class="metric-cell">$38.7</td>
+                            <td class="metric-cell">1.9x</td>
+                            <td>Q1-Q4 2026</td>
+                            <td><span class="status-pill delayed">Delayed</span></td>
+                        </tr>
+                        <tr>
+                            <td>Brand Repositioning</td>
+                            <td>Lisa Patel, CMO</td>
+                            <td class="metric-cell">$71.4</td>
+                            <td class="metric-cell">3.6x</td>
+                            <td>Q2-Q3 2026</td>
+                            <td><span class="status-pill on-track">On Track</span></td>
+                        </tr>
+                        <tr>
+                            <td>Talent Development Program</td>
+                            <td>Robert Kim, CHRO</td>
+                            <td class="metric-cell">$29.5</td>
+                            <td class="metric-cell">2.1x</td>
+                            <td>Q1-Q4 2026</td>
+                            <td><span class="status-pill on-track">On Track</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- INSIGHTS SECTION: NARRATIVE HIGHLIGHTS -->
+        <section class="insights-section">
+            <h3 class="section-header">Executive Insights</h3>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-category">Market Position</div>
+                    <div class="insight-title">Accelerating Market Share Growth</div>
+                    <div class="insight-text">
+                        Our enterprise segment demonstrated exceptional performance, capturing an additional 0.8% market share this quarter. This expansion was driven primarily by three strategic wins in the financial services sector, each representing multi-year commitments exceeding $25M annually.
+                    </div>
+                </div>
+
+                <div class="insight-card">
+                    <div class="insight-category">Operational Excellence</div>
+                    <div class="insight-title">Margin Expansion Through Efficiency</div>
+                    <div class="insight-text">
+                        Operating margin improved 2.4 percentage points quarter-over-quarter, reaching 31.2%. This expansion resulted from platform automation initiatives that reduced customer acquisition costs by 18% while simultaneously improving service delivery quality metrics.
+                    </div>
+                </div>
+
+                <div class="insight-card">
+                    <div class="insight-category">Customer Retention</div>
+                    <div class="insight-title">Record Retention Rates Sustained</div>
+                    <div class="insight-text">
+                        Customer retention reached 94.7%, marking the eighth consecutive quarter above 94%. The Customer Success Program implementation contributed directly to this achievement, with enterprise accounts showing a 97.3% retention rate and net revenue retention of 118%.
+                    </div>
+                </div>
+
+                <div class="insight-card">
+                    <div class="insight-category">Strategic Initiatives</div>
+                    <div class="insight-title">Platform Modernization Milestone Achieved</div>
+                    <div class="insight-text">
+                        The Platform Modernization initiative completed Phase 1 ahead of schedule, delivering a 35% improvement in system performance and enabling new AI-powered features. Early customer feedback indicates strong adoption, with 62% of enterprise customers already utilizing enhanced capabilities.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         FOOTER: SUBTLE ATTRIBUTION
+         ═══════════════════════════════════════════════════════════════ -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-meta">
+                Data as of 09 November 2025 · Confidential Board Materials
+            </div>
+            <div class="footer-agent">
+                Design by ZEEQA · Minimalist Aesthetic Systems
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════
+        // MINIMAL INTERACTIONS: SUBTLE ENHANCEMENTS ONLY
+        // ═══════════════════════════════════════════════════════════════
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Period selector interaction
+            const periodSelector = document.querySelector('.period-selector');
+            if (periodSelector) {
+                periodSelector.addEventListener('change', (e) => {
+                    console.log('Period changed to:', e.target.value);
+                    // In production: fetch new data based on period
+                });
+            }
+
+            // Table row interactions - subtle highlighting
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', () => {
+                    console.log('Initiative selected:', row.cells[0].textContent);
+                    // In production: show detailed initiative view
+                });
+            });
+
+            // KPI card interactions - data drill-down
+            const kpiCards = document.querySelectorAll('.kpi-card');
+            kpiCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const label = card.querySelector('.kpi-label').textContent;
+                    console.log('KPI selected:', label);
+                    // In production: show detailed metric analysis
+                });
+            });
+
+            // Update timestamp to current time
+            const updateTimestamp = () => {
+                const timestampEl = document.querySelector('.timestamp');
+                if (timestampEl) {
+                    const now = new Date();
+                    const formatted = now.toLocaleString('en-GB', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        timeZone: 'UTC',
+                        timeZoneName: 'short'
+                    });
+                    timestampEl.textContent = `Updated: ${formatted}`;
+                }
+            };
+
+            updateTimestamp();
+
+            // Refresh timestamp every 5 minutes
+            setInterval(updateTimestamp, 300000);
+
+            // Accessibility: keyboard navigation for interactive elements
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    // Clear any active selections
+                    document.activeElement.blur();
+                }
+            });
+
+            // Console signature
+            console.log('%c ZEEQA ', 'background: #5D7D7A; color: #FFFFFF; padding: 4px 8px; font-family: monospace;');
+            console.log('%c Minimalist Aesthetic Systems · Executive Boardroom Dashboard ', 'color: #5D7D7A; font-family: monospace;');
+            console.log('%c Radical minimalism through reduction, precision, and calm ', 'color: #BDBDBD; font-family: monospace; font-style: italic;');
+
+        });
+    </script>
+
+</body>
+</html>

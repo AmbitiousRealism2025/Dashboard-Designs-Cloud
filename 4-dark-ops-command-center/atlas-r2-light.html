@@ -1,0 +1,2020 @@
+<!-- Agent: Atlas | Round: 2 - Light Mode Masterpiece | Theme: Dark Ops Command Center (Light Mode) | Intent: Multi-panel infrastructure monitoring command center with real-time operational intelligence and comprehensive system health visualization -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATLAS Command Center - Infrastructure Monitoring Dashboard</title>
+    <style>
+        /* ============================
+           ATLAS LIGHT MODE COMMAND CENTER
+           Mission Control Aesthetic
+           ============================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.18s ease-out;
+        }
+
+        :root {
+            /* Light Mode Base */
+            --bg-primary: #FAFBFC;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #F4F6F8;
+            --bg-elevated: #FFFFFF;
+
+            /* Command Center Accents */
+            --accent-cyan: #00D9FF;
+            --accent-lime: #00FF88;
+            --accent-magenta: #FF00DD;
+            --accent-yellow: #FFD600;
+
+            /* Status Colors */
+            --status-critical: #FF1744;
+            --status-warning: #FF9100;
+            --status-healthy: #00E676;
+            --status-info: #00B8D4;
+            --status-offline: #9E9E9E;
+
+            /* Text */
+            --text-primary: #1A1D23;
+            --text-secondary: #5F6368;
+            --text-tertiary: #9AA0A6;
+            --text-inverted: #FFFFFF;
+
+            /* Borders & Grids */
+            --border-subtle: #E8EAED;
+            --border-medium: #DADCE0;
+            --border-strong: #BDC1C6;
+            --grid-line: rgba(0, 0, 0, 0.08);
+
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.12);
+            --shadow-glow-cyan: 0 0 12px rgba(0, 217, 255, 0.3);
+            --shadow-glow-lime: 0 0 12px rgba(0, 255, 136, 0.3);
+            --shadow-glow-magenta: 0 0 12px rgba(255, 0, 221, 0.3);
+
+            /* Typography */
+            --font-display: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            --font-mono: 'SF Mono', 'Consolas', 'Monaco', monospace;
+            --font-condensed: 'Arial Narrow', 'Roboto Condensed', sans-serif;
+
+            /* Spacing */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-xxl: 48px;
+        }
+
+        body {
+            font-family: var(--font-display);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ============================
+           HEADER - GLOBAL COMMAND
+           ============================ */
+
+        header {
+            background: var(--bg-elevated);
+            border-bottom: 2px solid var(--accent-cyan);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+
+        .header-content {
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: var(--space-md) var(--space-lg);
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .brand-logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-weight: 900;
+            font-size: 20px;
+            color: var(--text-inverted);
+            box-shadow: var(--shadow-glow-cyan);
+        }
+
+        .brand-info h1 {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+        }
+
+        .brand-info .subtitle {
+            font-size: 11px;
+            font-family: var(--font-condensed);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .global-status {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .system-health-badge {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid var(--status-healthy);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: var(--font-condensed);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--status-healthy);
+            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 8px var(--status-healthy);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .action-btn {
+            padding: var(--space-sm) var(--space-md);
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-medium);
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: var(--font-condensed);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-primary);
+        }
+
+        .action-btn:hover {
+            background: var(--bg-secondary);
+            border-color: var(--accent-cyan);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-1px);
+        }
+
+        .action-btn.primary {
+            background: var(--accent-cyan);
+            color: var(--text-inverted);
+            border-color: var(--accent-cyan);
+        }
+
+        /* ============================
+           KPI STRIP - CRITICAL METRICS
+           ============================ */
+
+        .kpi-strip {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: var(--space-lg) var(--space-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .kpi-grid {
+            max-width: 1920px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .kpi-card {
+            background: var(--bg-tertiary);
+            padding: var(--space-md);
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            opacity: 0;
+        }
+
+        .kpi-card:hover::before {
+            opacity: 1;
+        }
+
+        .kpi-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .kpi-label {
+            font-size: 11px;
+            font-family: var(--font-condensed);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-value {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            font-family: var(--font-mono);
+        }
+
+        .kpi-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .kpi-delta {
+            font-weight: 600;
+            font-family: var(--font-mono);
+        }
+
+        .kpi-delta.positive {
+            color: var(--status-healthy);
+        }
+
+        .kpi-delta.negative {
+            color: var(--status-critical);
+        }
+
+        .kpi-status {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .kpi-status.healthy {
+            background: rgba(0, 230, 118, 0.15);
+            color: var(--status-healthy);
+        }
+
+        .kpi-status.warning {
+            background: rgba(255, 145, 0, 0.15);
+            color: var(--status-warning);
+        }
+
+        .kpi-status.critical {
+            background: rgba(255, 23, 68, 0.15);
+            color: var(--status-critical);
+        }
+
+        /* ============================
+           MAIN DASHBOARD GRID
+           ============================ */
+
+        main {
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: var(--space-lg);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .panel {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 19px,
+                var(--grid-line) 19px,
+                var(--grid-line) 20px
+            ),
+            repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 19px,
+                var(--grid-line) 19px,
+                var(--grid-line) 20px
+            );
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            position: relative;
+            z-index: 1;
+        }
+
+        .panel-title {
+            font-size: 14px;
+            font-weight: 700;
+            font-family: var(--font-condensed);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+        }
+
+        .panel-controls {
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .panel-control {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .panel-control:hover {
+            background: var(--accent-cyan);
+            color: var(--text-inverted);
+            border-color: var(--accent-cyan);
+        }
+
+        /* ============================
+           SYSTEM HEALTH GRID
+           ============================ */
+
+        .system-grid {
+            grid-column: span 8;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: var(--space-sm);
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: var(--space-md);
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .service-icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto var(--space-sm);
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            border: 2px solid var(--border-medium);
+        }
+
+        .service-card.healthy .service-icon {
+            border-color: var(--status-healthy);
+            color: var(--status-healthy);
+        }
+
+        .service-card.warning .service-icon {
+            border-color: var(--status-warning);
+            color: var(--status-warning);
+        }
+
+        .service-card.critical .service-icon {
+            border-color: var(--status-critical);
+            color: var(--status-critical);
+        }
+
+        .service-name {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+            color: var(--text-primary);
+        }
+
+        .service-status {
+            font-size: 10px;
+            font-weight: 600;
+            font-family: var(--font-condensed);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+        }
+
+        .service-metric {
+            font-size: 16px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            margin-top: var(--space-xs);
+            color: var(--text-primary);
+        }
+
+        /* ============================
+           ALERT FEED
+           ============================ */
+
+        .alert-feed {
+            grid-column: span 4;
+            max-height: 480px;
+        }
+
+        .alert-list {
+            position: relative;
+            z-index: 1;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .alert-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .alert-list::-webkit-scrollbar-track {
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+        }
+
+        .alert-list::-webkit-scrollbar-thumb {
+            background: var(--border-medium);
+            border-radius: 3px;
+        }
+
+        .alert-item {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-left-width: 4px;
+            border-radius: 4px;
+            padding: var(--space-md);
+            margin-bottom: var(--space-sm);
+            cursor: pointer;
+        }
+
+        .alert-item:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateX(4px);
+        }
+
+        .alert-item.critical {
+            border-left-color: var(--status-critical);
+            background: rgba(255, 23, 68, 0.05);
+        }
+
+        .alert-item.warning {
+            border-left-color: var(--status-warning);
+            background: rgba(255, 145, 0, 0.05);
+        }
+
+        .alert-item.info {
+            border-left-color: var(--status-info);
+            background: rgba(0, 184, 212, 0.05);
+        }
+
+        .alert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-xs);
+        }
+
+        .alert-severity {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .alert-severity.critical {
+            background: var(--status-critical);
+            color: var(--text-inverted);
+        }
+
+        .alert-severity.warning {
+            background: var(--status-warning);
+            color: var(--text-inverted);
+        }
+
+        .alert-severity.info {
+            background: var(--status-info);
+            color: var(--text-inverted);
+        }
+
+        .alert-time {
+            font-size: 11px;
+            font-family: var(--font-mono);
+            color: var(--text-tertiary);
+        }
+
+        .alert-message {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+            color: var(--text-primary);
+        }
+
+        .alert-source {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+        }
+
+        /* ============================
+           TIMELINE STREAM
+           ============================ */
+
+        .timeline-panel {
+            grid-column: span 6;
+        }
+
+        .timeline {
+            position: relative;
+            z-index: 1;
+            padding-left: var(--space-lg);
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-cyan), var(--accent-magenta));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: var(--space-lg);
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -28px;
+            top: 4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 3px solid var(--accent-cyan);
+            box-shadow: 0 0 8px rgba(0, 217, 255, 0.5);
+        }
+
+        .timeline-item.warning .timeline-marker {
+            border-color: var(--status-warning);
+            box-shadow: 0 0 8px rgba(255, 145, 0, 0.5);
+        }
+
+        .timeline-item.critical .timeline-marker {
+            border-color: var(--status-critical);
+            box-shadow: 0 0 8px rgba(255, 23, 68, 0.5);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .timeline-content {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: var(--space-md);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+        }
+
+        .timeline-timestamp {
+            font-size: 11px;
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--accent-cyan);
+        }
+
+        .timeline-category {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 6px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-medium);
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .timeline-title {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+            color: var(--text-primary);
+        }
+
+        .timeline-description {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ============================
+           PERFORMANCE CHARTS
+           ============================ */
+
+        .chart-panel {
+            grid-column: span 6;
+        }
+
+        .chart-container {
+            position: relative;
+            z-index: 1;
+            height: 280px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            padding: var(--space-md);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            padding: var(--space-md) 0;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(180deg, var(--accent-cyan), var(--accent-magenta));
+            border-radius: 3px 3px 0 0;
+            opacity: 0.7;
+            position: relative;
+        }
+
+        .chart-bar:hover {
+            opacity: 1;
+            box-shadow: 0 -4px 12px rgba(0, 217, 255, 0.4);
+        }
+
+        .chart-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent calc(25% - 1px),
+                var(--grid-line) calc(25% - 1px),
+                var(--grid-line) 25%
+            );
+            pointer-events: none;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        /* ============================
+           INCIDENT LOG TABLE
+           ============================ */
+
+        .table-panel {
+            grid-column: span 12;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            position: relative;
+            z-index: 1;
+            font-size: 13px;
+        }
+
+        .data-table thead {
+            background: var(--bg-tertiary);
+            border-bottom: 2px solid var(--border-medium);
+        }
+
+        .data-table th {
+            padding: var(--space-md);
+            text-align: left;
+            font-size: 11px;
+            font-weight: 700;
+            font-family: var(--font-condensed);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .data-table th:hover {
+            color: var(--accent-cyan);
+        }
+
+        .data-table tbody tr {
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .data-table td {
+            padding: var(--space-md);
+            color: var(--text-primary);
+        }
+
+        .table-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table-status.resolved {
+            background: rgba(0, 230, 118, 0.15);
+            color: var(--status-healthy);
+        }
+
+        .table-status.investigating {
+            background: rgba(255, 145, 0, 0.15);
+            color: var(--status-warning);
+        }
+
+        .table-status.active {
+            background: rgba(255, 23, 68, 0.15);
+            color: var(--status-critical);
+        }
+
+        .table-priority {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-family: var(--font-mono);
+            font-weight: 700;
+        }
+
+        .priority-icon {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .priority-icon.p1 {
+            background: var(--status-critical);
+            box-shadow: 0 0 6px var(--status-critical);
+        }
+
+        .priority-icon.p2 {
+            background: var(--status-warning);
+        }
+
+        .priority-icon.p3 {
+            background: var(--status-info);
+        }
+
+        .table-code {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--accent-cyan);
+        }
+
+        /* ============================
+           INFRASTRUCTURE MAP
+           ============================ */
+
+        .infra-panel {
+            grid-column: span 6;
+        }
+
+        .infra-map {
+            position: relative;
+            z-index: 1;
+            height: 300px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            padding: var(--space-lg);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        .infra-region {
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
+
+        .region-label {
+            min-width: 100px;
+            font-size: 12px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+        }
+
+        .region-nodes {
+            display: flex;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+
+        .node {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: 2px solid var(--border-medium);
+            background: var(--bg-secondary);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .node.online {
+            border-color: var(--status-healthy);
+            background: rgba(0, 230, 118, 0.1);
+        }
+
+        .node.online::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background: var(--status-healthy);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .node.degraded {
+            border-color: var(--status-warning);
+            background: rgba(255, 145, 0, 0.1);
+        }
+
+        .node.offline {
+            border-color: var(--status-offline);
+            background: rgba(158, 158, 158, 0.1);
+        }
+
+        .node:hover {
+            transform: scale(1.15);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ============================
+           TEAM STATUS
+           ============================ */
+
+        .team-panel {
+            grid-column: span 6;
+        }
+
+        .team-grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+        }
+
+        .team-member {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .member-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-lime));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--text-inverted);
+            font-size: 18px;
+            border: 2px solid var(--bg-secondary);
+        }
+
+        .member-info {
+            flex: 1;
+        }
+
+        .member-name {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            color: var(--text-primary);
+        }
+
+        .member-role {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .member-status {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .member-status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--status-healthy);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* ============================
+           FOOTER
+           ============================ */
+
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            padding: var(--space-lg);
+            margin-top: var(--space-xl);
+        }
+
+        .footer-content {
+            max-width: 1920px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .footer-agent {
+            font-weight: 700;
+            font-family: var(--font-mono);
+            color: var(--accent-magenta);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-meta {
+            display: flex;
+            gap: var(--space-lg);
+        }
+
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .footer-item strong {
+            font-family: var(--font-mono);
+            color: var(--text-primary);
+        }
+
+        /* ============================
+           RESPONSIVE DESIGN
+           ============================ */
+
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(8, 1fr);
+            }
+
+            .system-grid {
+                grid-column: span 8;
+            }
+
+            .alert-feed {
+                grid-column: span 8;
+            }
+
+            .timeline-panel,
+            .chart-panel,
+            .infra-panel,
+            .team-panel {
+                grid-column: span 8;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .system-grid,
+            .alert-feed,
+            .timeline-panel,
+            .chart-panel,
+            .table-panel,
+            .infra-panel,
+            .team-panel {
+                grid-column: span 1;
+            }
+
+            .header-content {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+
+            .global-status {
+                flex-wrap: wrap;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================
+           SCAN LINE EFFECT
+           ============================ */
+
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            opacity: 0.3;
+            animation: scan 8s linear infinite;
+            pointer-events: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================
+         HEADER - GLOBAL COMMAND
+         ============================ -->
+    <header>
+        <div class="header-content">
+            <div class="brand">
+                <div class="brand-logo">A</div>
+                <div class="brand-info">
+                    <h1>ATLAS Command Center</h1>
+                    <div class="subtitle">Infrastructure Monitoring Platform</div>
+                </div>
+            </div>
+            <div class="global-status">
+                <div class="system-health-badge">
+                    <div class="status-dot"></div>
+                    All Systems Operational
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary);">
+                    Last Update: <strong style="color: var(--text-primary);">11:47:32 UTC</strong>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="action-btn">Filters</button>
+                <button class="action-btn">Export</button>
+                <button class="action-btn primary">New Incident</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================
+         KPI STRIP - CRITICAL METRICS
+         ============================ -->
+    <section class="kpi-strip">
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-label">System Uptime</div>
+                <div class="kpi-value">99.97%</div>
+                <div class="kpi-meta">
+                    <span class="kpi-delta positive">+0.02%</span>
+                    <span class="kpi-status healthy">Healthy</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Active Incidents</div>
+                <div class="kpi-value">3</div>
+                <div class="kpi-meta">
+                    <span class="kpi-delta negative">+1</span>
+                    <span class="kpi-status warning">Warning</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Avg Response Time</div>
+                <div class="kpi-value">127ms</div>
+                <div class="kpi-meta">
+                    <span class="kpi-delta positive">-15ms</span>
+                    <span class="kpi-status healthy">Optimal</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Requests / Min</div>
+                <div class="kpi-value">45.2K</div>
+                <div class="kpi-meta">
+                    <span class="kpi-delta positive">+8.3%</span>
+                    <span class="kpi-status healthy">Normal</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Error Rate</div>
+                <div class="kpi-value">0.03%</div>
+                <div class="kpi-meta">
+                    <span class="kpi-delta positive">-0.01%</span>
+                    <span class="kpi-status healthy">Low</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">CPU Utilization</div>
+                <div class="kpi-value">42%</div>
+                <div class="kpi-meta">
+                    <span class="kpi-delta positive">-5%</span>
+                    <span class="kpi-status healthy">Normal</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================
+         MAIN DASHBOARD GRID
+         ============================ -->
+    <main>
+        <div class="dashboard-grid">
+            <!-- System Health Grid -->
+            <div class="panel system-grid">
+                <div class="panel-header">
+                    <h2 class="panel-title">System Health Monitor</h2>
+                    <div class="panel-controls">
+                        <div class="panel-control">↻</div>
+                        <div class="panel-control">⋮</div>
+                    </div>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card healthy">
+                        <div class="service-icon">⚡</div>
+                        <div class="service-name">API Gateway</div>
+                        <div class="service-status">Online</div>
+                        <div class="service-metric">99.9%</div>
+                    </div>
+                    <div class="service-card healthy">
+                        <div class="service-icon">🗄️</div>
+                        <div class="service-name">Database</div>
+                        <div class="service-status">Healthy</div>
+                        <div class="service-metric">98.7%</div>
+                    </div>
+                    <div class="service-card warning">
+                        <div class="service-icon">🔄</div>
+                        <div class="service-name">Cache Layer</div>
+                        <div class="service-status">Degraded</div>
+                        <div class="service-metric">89.2%</div>
+                    </div>
+                    <div class="service-card healthy">
+                        <div class="service-icon">🔐</div>
+                        <div class="service-name">Auth Service</div>
+                        <div class="service-status">Online</div>
+                        <div class="service-metric">100%</div>
+                    </div>
+                    <div class="service-card healthy">
+                        <div class="service-icon">📨</div>
+                        <div class="service-name">Message Queue</div>
+                        <div class="service-status">Active</div>
+                        <div class="service-metric">99.5%</div>
+                    </div>
+                    <div class="service-card critical">
+                        <div class="service-icon">💾</div>
+                        <div class="service-name">Storage</div>
+                        <div class="service-status">Critical</div>
+                        <div class="service-metric">78.3%</div>
+                    </div>
+                    <div class="service-card healthy">
+                        <div class="service-icon">🌐</div>
+                        <div class="service-name">CDN</div>
+                        <div class="service-status">Optimal</div>
+                        <div class="service-metric">99.8%</div>
+                    </div>
+                    <div class="service-card healthy">
+                        <div class="service-icon">🔍</div>
+                        <div class="service-name">Search Index</div>
+                        <div class="service-status">Online</div>
+                        <div class="service-metric">97.2%</div>
+                    </div>
+                    <div class="service-card healthy">
+                        <div class="service-icon">📊</div>
+                        <div class="service-name">Analytics</div>
+                        <div class="service-status">Running</div>
+                        <div class="service-metric">99.1%</div>
+                    </div>
+                    <div class="service-card warning">
+                        <div class="service-icon">⚙️</div>
+                        <div class="service-name">Workers</div>
+                        <div class="service-status">Elevated</div>
+                        <div class="service-metric">91.8%</div>
+                    </div>
+                    <div class="service-card healthy">
+                        <div class="service-icon">📡</div>
+                        <div class="service-name">Webhooks</div>
+                        <div class="service-status">Active</div>
+                        <div class="service-metric">99.4%</div>
+                    </div>
+                    <div class="service-card healthy">
+                        <div class="service-icon">🔔</div>
+                        <div class="service-name">Notifications</div>
+                        <div class="service-status">Online</div>
+                        <div class="service-metric">98.9%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alert Feed -->
+            <div class="panel alert-feed">
+                <div class="panel-header">
+                    <h2 class="panel-title">Active Alerts</h2>
+                    <div class="panel-controls">
+                        <div class="panel-control">🔔</div>
+                        <div class="panel-control">⋮</div>
+                    </div>
+                </div>
+                <div class="alert-list">
+                    <div class="alert-item critical">
+                        <div class="alert-header">
+                            <span class="alert-severity critical">Critical</span>
+                            <span class="alert-time">11:42:15</span>
+                        </div>
+                        <div class="alert-message">Storage capacity at 78% - threshold exceeded</div>
+                        <div class="alert-source">us-east-1/storage-cluster-02</div>
+                    </div>
+                    <div class="alert-item warning">
+                        <div class="alert-header">
+                            <span class="alert-severity warning">Warning</span>
+                            <span class="alert-time">11:38:47</span>
+                        </div>
+                        <div class="alert-message">Cache hit ratio dropped below 90%</div>
+                        <div class="alert-source">global/redis-cache</div>
+                    </div>
+                    <div class="alert-item warning">
+                        <div class="alert-header">
+                            <span class="alert-severity warning">Warning</span>
+                            <span class="alert-time">11:35:22</span>
+                        </div>
+                        <div class="alert-message">Worker queue backlog increasing</div>
+                        <div class="alert-source">background-workers-pool</div>
+                    </div>
+                    <div class="alert-item info">
+                        <div class="alert-header">
+                            <span class="alert-severity info">Info</span>
+                            <span class="alert-time">11:30:10</span>
+                        </div>
+                        <div class="alert-message">Scheduled maintenance completed successfully</div>
+                        <div class="alert-source">eu-west-1/database-primary</div>
+                    </div>
+                    <div class="alert-item info">
+                        <div class="alert-header">
+                            <span class="alert-severity info">Info</span>
+                            <span class="alert-time">11:25:05</span>
+                        </div>
+                        <div class="alert-message">Auto-scaling triggered - 2 new instances launched</div>
+                        <div class="alert-source">us-west-2/api-cluster</div>
+                    </div>
+                    <div class="alert-item info">
+                        <div class="alert-header">
+                            <span class="alert-severity info">Info</span>
+                            <span class="alert-time">11:18:33</span>
+                        </div>
+                        <div class="alert-message">SSL certificate renewed for api.platform.com</div>
+                        <div class="alert-source">security/certificate-manager</div>
+                    </div>
+                    <div class="alert-item info">
+                        <div class="alert-header">
+                            <span class="alert-severity info">Info</span>
+                            <span class="alert-time">11:12:18</span>
+                        </div>
+                        <div class="alert-message">Backup completed - 450GB archived</div>
+                        <div class="alert-source">backup-service/daily-snapshot</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline Stream -->
+            <div class="panel timeline-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Event Timeline</h2>
+                    <div class="panel-controls">
+                        <div class="panel-control">📅</div>
+                        <div class="panel-control">⋮</div>
+                    </div>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item critical">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <span class="timeline-timestamp">11:42:15 UTC</span>
+                                <span class="timeline-category">Storage</span>
+                            </div>
+                            <div class="timeline-title">Storage Capacity Alert Triggered</div>
+                            <div class="timeline-description">
+                                Primary storage cluster reached 78% capacity. Automated cleanup initiated and ops team notified.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item warning">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <span class="timeline-timestamp">11:38:47 UTC</span>
+                                <span class="timeline-category">Cache</span>
+                            </div>
+                            <div class="timeline-title">Cache Performance Degradation</div>
+                            <div class="timeline-description">
+                                Redis cache hit ratio dropped to 89.2%. Investigation in progress - possible memory pressure.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <span class="timeline-timestamp">11:30:10 UTC</span>
+                                <span class="timeline-category">Maintenance</span>
+                            </div>
+                            <div class="timeline-title">Database Maintenance Completed</div>
+                            <div class="timeline-description">
+                                Scheduled index optimization on EU primary database completed. Performance improved by 12%.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <span class="timeline-timestamp">11:25:05 UTC</span>
+                                <span class="timeline-category">Scaling</span>
+                            </div>
+                            <div class="timeline-title">Auto-Scaling Event</div>
+                            <div class="timeline-description">
+                                Traffic surge detected. Auto-scaler launched 2 additional API instances in us-west-2.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <span class="timeline-timestamp">11:18:33 UTC</span>
+                                <span class="timeline-category">Security</span>
+                            </div>
+                            <div class="timeline-title">SSL Certificate Renewal</div>
+                            <div class="timeline-description">
+                                Automated renewal of SSL certificate for api.platform.com completed successfully.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Chart -->
+            <div class="panel chart-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Response Time Trends (24h)</h2>
+                    <div class="panel-controls">
+                        <div class="panel-control">📈</div>
+                        <div class="panel-control">⋮</div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-placeholder">
+                        <div class="chart-grid"></div>
+                        <div class="chart-bar" style="height: 45%;"></div>
+                        <div class="chart-bar" style="height: 52%;"></div>
+                        <div class="chart-bar" style="height: 48%;"></div>
+                        <div class="chart-bar" style="height: 55%;"></div>
+                        <div class="chart-bar" style="height: 62%;"></div>
+                        <div class="chart-bar" style="height: 58%;"></div>
+                        <div class="chart-bar" style="height: 51%;"></div>
+                        <div class="chart-bar" style="height: 47%;"></div>
+                        <div class="chart-bar" style="height: 43%;"></div>
+                        <div class="chart-bar" style="height: 49%;"></div>
+                        <div class="chart-bar" style="height: 54%;"></div>
+                        <div class="chart-bar" style="height: 61%;"></div>
+                        <div class="chart-bar" style="height: 57%;"></div>
+                        <div class="chart-bar" style="height: 52%;"></div>
+                        <div class="chart-bar" style="height: 46%;"></div>
+                        <div class="chart-bar" style="height: 42%;"></div>
+                        <div class="chart-bar" style="height: 38%;"></div>
+                        <div class="chart-bar" style="height: 41%;"></div>
+                        <div class="chart-bar" style="height: 44%;"></div>
+                        <div class="chart-bar" style="height: 39%;"></div>
+                    </div>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));"></div>
+                        <span>Avg Response Time</span>
+                    </div>
+                    <div class="legend-item">
+                        <span style="color: var(--text-tertiary);">Current: <strong style="color: var(--text-primary); font-family: var(--font-mono);">127ms</strong></span>
+                    </div>
+                    <div class="legend-item">
+                        <span style="color: var(--text-tertiary);">Target: <strong style="color: var(--status-healthy); font-family: var(--font-mono);">&lt;150ms</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Infrastructure Map -->
+            <div class="panel infra-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Infrastructure Status Map</h2>
+                    <div class="panel-controls">
+                        <div class="panel-control">🗺️</div>
+                        <div class="panel-control">⋮</div>
+                    </div>
+                </div>
+                <div class="infra-map">
+                    <div class="infra-region">
+                        <div class="region-label">US-EAST-1</div>
+                        <div class="region-nodes">
+                            <div class="node online" title="Node 1"></div>
+                            <div class="node online" title="Node 2"></div>
+                            <div class="node online" title="Node 3"></div>
+                            <div class="node online" title="Node 4"></div>
+                            <div class="node online" title="Node 5"></div>
+                            <div class="node degraded" title="Node 6"></div>
+                            <div class="node online" title="Node 7"></div>
+                            <div class="node online" title="Node 8"></div>
+                        </div>
+                    </div>
+                    <div class="infra-region">
+                        <div class="region-label">US-WEST-2</div>
+                        <div class="region-nodes">
+                            <div class="node online" title="Node 1"></div>
+                            <div class="node online" title="Node 2"></div>
+                            <div class="node online" title="Node 3"></div>
+                            <div class="node online" title="Node 4"></div>
+                            <div class="node online" title="Node 5"></div>
+                            <div class="node online" title="Node 6"></div>
+                        </div>
+                    </div>
+                    <div class="infra-region">
+                        <div class="region-label">EU-WEST-1</div>
+                        <div class="region-nodes">
+                            <div class="node online" title="Node 1"></div>
+                            <div class="node online" title="Node 2"></div>
+                            <div class="node online" title="Node 3"></div>
+                            <div class="node online" title="Node 4"></div>
+                            <div class="node online" title="Node 5"></div>
+                        </div>
+                    </div>
+                    <div class="infra-region">
+                        <div class="region-label">AP-SOUTH-1</div>
+                        <div class="region-nodes">
+                            <div class="node online" title="Node 1"></div>
+                            <div class="node online" title="Node 2"></div>
+                            <div class="node online" title="Node 3"></div>
+                            <div class="node online" title="Node 4"></div>
+                        </div>
+                    </div>
+                    <div class="infra-region">
+                        <div class="region-label">AP-NORTHEAST-1</div>
+                        <div class="region-nodes">
+                            <div class="node online" title="Node 1"></div>
+                            <div class="node online" title="Node 2"></div>
+                            <div class="node online" title="Node 3"></div>
+                            <div class="node offline" title="Node 4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Status -->
+            <div class="panel team-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Response Team Status</h2>
+                    <div class="panel-controls">
+                        <div class="panel-control">👥</div>
+                        <div class="panel-control">⋮</div>
+                    </div>
+                </div>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-avatar">SK</div>
+                        <div class="member-info">
+                            <div class="member-name">Sarah Kim</div>
+                            <div class="member-role">Site Reliability Engineer</div>
+                            <div class="member-status">
+                                <div class="member-status-dot"></div>
+                                <span>On Call - Active</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-avatar" style="background: linear-gradient(135deg, var(--accent-magenta), var(--accent-yellow));">MJ</div>
+                        <div class="member-info">
+                            <div class="member-name">Marcus Johnson</div>
+                            <div class="member-role">DevOps Lead</div>
+                            <div class="member-status">
+                                <div class="member-status-dot"></div>
+                                <span>Available</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-avatar" style="background: linear-gradient(135deg, var(--accent-lime), var(--accent-cyan));">TP</div>
+                        <div class="member-info">
+                            <div class="member-name">Tanya Patel</div>
+                            <div class="member-role">Infrastructure Architect</div>
+                            <div class="member-status">
+                                <div class="member-status-dot"></div>
+                                <span>Monitoring</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-avatar" style="background: linear-gradient(135deg, var(--accent-yellow), var(--accent-magenta));">RC</div>
+                        <div class="member-info">
+                            <div class="member-name">Robert Chen</div>
+                            <div class="member-role">Security Engineer</div>
+                            <div class="member-status">
+                                <div class="member-status-dot"></div>
+                                <span>On Call - Standby</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Incident Log Table -->
+            <div class="panel table-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Recent Incident Log</h2>
+                    <div class="panel-controls">
+                        <div class="panel-control">🔍</div>
+                        <div class="panel-control">⬇</div>
+                        <div class="panel-control">⋮</div>
+                    </div>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Incident ID</th>
+                            <th>Priority</th>
+                            <th>Title</th>
+                            <th>Affected Service</th>
+                            <th>Status</th>
+                            <th>Assignee</th>
+                            <th>Created</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="table-code">INC-2847</span></td>
+                            <td>
+                                <div class="table-priority">
+                                    <div class="priority-icon p1"></div>
+                                    P1
+                                </div>
+                            </td>
+                            <td>Storage capacity threshold exceeded</td>
+                            <td>Storage Cluster 02</td>
+                            <td><span class="table-status active">Active</span></td>
+                            <td>Sarah Kim</td>
+                            <td>11:42:15</td>
+                            <td>5m 17s</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-code">INC-2846</span></td>
+                            <td>
+                                <div class="table-priority">
+                                    <div class="priority-icon p2"></div>
+                                    P2
+                                </div>
+                            </td>
+                            <td>Cache hit ratio degradation</td>
+                            <td>Redis Cache</td>
+                            <td><span class="table-status investigating">Investigating</span></td>
+                            <td>Marcus Johnson</td>
+                            <td>11:38:47</td>
+                            <td>8m 45s</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-code">INC-2845</span></td>
+                            <td>
+                                <div class="table-priority">
+                                    <div class="priority-icon p2"></div>
+                                    P2
+                                </div>
+                            </td>
+                            <td>Worker queue backlog increasing</td>
+                            <td>Background Workers</td>
+                            <td><span class="table-status investigating">Investigating</span></td>
+                            <td>Tanya Patel</td>
+                            <td>11:35:22</td>
+                            <td>12m 10s</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-code">INC-2844</span></td>
+                            <td>
+                                <div class="table-priority">
+                                    <div class="priority-icon p3"></div>
+                                    P3
+                                </div>
+                            </td>
+                            <td>Elevated API error rate in EU region</td>
+                            <td>API Gateway EU</td>
+                            <td><span class="table-status resolved">Resolved</span></td>
+                            <td>Sarah Kim</td>
+                            <td>10:15:33</td>
+                            <td>23m 44s</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-code">INC-2843</span></td>
+                            <td>
+                                <div class="table-priority">
+                                    <div class="priority-icon p1"></div>
+                                    P1
+                                </div>
+                            </td>
+                            <td>Database connection pool exhaustion</td>
+                            <td>Primary Database</td>
+                            <td><span class="table-status resolved">Resolved</span></td>
+                            <td>Marcus Johnson</td>
+                            <td>09:42:18</td>
+                            <td>18m 52s</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-code">INC-2842</span></td>
+                            <td>
+                                <div class="table-priority">
+                                    <div class="priority-icon p2"></div>
+                                    P2
+                                </div>
+                            </td>
+                            <td>CDN cache invalidation failure</td>
+                            <td>CDN Service</td>
+                            <td><span class="table-status resolved">Resolved</span></td>
+                            <td>Robert Chen</td>
+                            <td>08:28:05</td>
+                            <td>12m 38s</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-code">INC-2841</span></td>
+                            <td>
+                                <div class="table-priority">
+                                    <div class="priority-icon p3"></div>
+                                    P3
+                                </div>
+                            </td>
+                            <td>SSL certificate expiration warning</td>
+                            <td>Certificate Manager</td>
+                            <td><span class="table-status resolved">Resolved</span></td>
+                            <td>Robert Chen</td>
+                            <td>07:15:22</td>
+                            <td>5m 10s</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-code">INC-2840</span></td>
+                            <td>
+                                <div class="table-priority">
+                                    <div class="priority-icon p2"></div>
+                                    P2
+                                </div>
+                            </td>
+                            <td>Search index replication lag</td>
+                            <td>Search Service</td>
+                            <td><span class="table-status resolved">Resolved</span></td>
+                            <td>Tanya Patel</td>
+                            <td>06:45:11</td>
+                            <td>32m 15s</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-code">INC-2839</span></td>
+                            <td>
+                                <div class="table-priority">
+                                    <div class="priority-icon p3"></div>
+                                    P3
+                                </div>
+                            </td>
+                            <td>Webhook delivery delays</td>
+                            <td>Webhook Service</td>
+                            <td><span class="table-status resolved">Resolved</span></td>
+                            <td>Sarah Kim</td>
+                            <td>05:22:47</td>
+                            <td>8m 33s</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-code">INC-2838</span></td>
+                            <td>
+                                <div class="table-priority">
+                                    <div class="priority-icon p1"></div>
+                                    P1
+                                </div>
+                            </td>
+                            <td>Authentication service timeout spike</td>
+                            <td>Auth Service</td>
+                            <td><span class="table-status resolved">Resolved</span></td>
+                            <td>Marcus Johnson</td>
+                            <td>03:18:05</td>
+                            <td>45m 22s</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- ============================
+         FOOTER
+         ============================ -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-agent">Agent: ATLAS</div>
+            <div class="footer-meta">
+                <div class="footer-item">
+                    <span>Round 2:</span>
+                    <strong>Light Mode Masterpiece</strong>
+                </div>
+                <div class="footer-item">
+                    <span>Theme:</span>
+                    <strong>Dark Ops Command Center (Light Mode)</strong>
+                </div>
+                <div class="footer-item">
+                    <span>Last Refresh:</span>
+                    <strong>11:47:32 UTC</strong>
+                </div>
+                <div class="footer-item">
+                    <span>Monitoring:</span>
+                    <strong>156 Services</strong>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ============================
+        // REAL-TIME SIMULATIONS
+        // ============================
+
+        // Update timestamp
+        function updateTimestamp() {
+            const now = new Date();
+            const timeString = now.toUTCString().split(' ')[4];
+            document.querySelectorAll('strong').forEach(el => {
+                if (el.textContent.includes(':') && el.textContent.includes('UTC')) {
+                    el.textContent = timeString + ' UTC';
+                }
+            });
+        }
+
+        setInterval(updateTimestamp, 1000);
+
+        // Simulate KPI value updates
+        function animateKPIValue(element) {
+            const originalValue = element.textContent;
+            element.style.transform = 'scale(1.1)';
+            element.style.color = 'var(--accent-cyan)';
+
+            setTimeout(() => {
+                element.style.transform = 'scale(1)';
+                element.style.color = 'var(--text-primary)';
+            }, 300);
+        }
+
+        // Random KPI animations
+        setInterval(() => {
+            const kpiValues = document.querySelectorAll('.kpi-value');
+            const randomKPI = kpiValues[Math.floor(Math.random() * kpiValues.length)];
+            if (randomKPI) {
+                animateKPIValue(randomKPI);
+            }
+        }, 5000);
+
+        // Service card interactions
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const serviceName = this.querySelector('.service-name').textContent;
+                const serviceStatus = this.querySelector('.service-status').textContent;
+                console.log(`Service clicked: ${serviceName} - ${serviceStatus}`);
+
+                // Visual feedback
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+
+        // Alert item interactions
+        document.querySelectorAll('.alert-item').forEach(alert => {
+            alert.addEventListener('click', function() {
+                const message = this.querySelector('.alert-message').textContent;
+                console.log(`Alert clicked: ${message}`);
+
+                // Visual feedback
+                this.style.borderLeftWidth = '6px';
+                setTimeout(() => {
+                    this.style.borderLeftWidth = '4px';
+                }, 200);
+            });
+        });
+
+        // Infrastructure node tooltips
+        document.querySelectorAll('.node').forEach(node => {
+            node.addEventListener('mouseenter', function() {
+                const title = this.getAttribute('title');
+                const status = this.classList.contains('online') ? 'Online' :
+                              this.classList.contains('degraded') ? 'Degraded' : 'Offline';
+                console.log(`Node: ${title} - ${status}`);
+            });
+        });
+
+        // Table row interactions
+        document.querySelectorAll('.data-table tbody tr').forEach(row => {
+            row.addEventListener('click', function() {
+                const incidentId = this.querySelector('.table-code').textContent;
+                console.log(`Incident selected: ${incidentId}`);
+
+                // Highlight row
+                document.querySelectorAll('.data-table tbody tr').forEach(r => {
+                    r.style.background = '';
+                });
+                this.style.background = 'rgba(0, 217, 255, 0.08)';
+            });
+        });
+
+        // Panel refresh simulation
+        document.querySelectorAll('.panel-control').forEach(control => {
+            if (control.textContent === '↻') {
+                control.addEventListener('click', function() {
+                    const panel = this.closest('.panel');
+                    panel.style.opacity = '0.5';
+
+                    setTimeout(() => {
+                        panel.style.opacity = '1';
+                        console.log('Panel refreshed');
+                    }, 500);
+                });
+            }
+        });
+
+        // Chart bar hover effects with tooltip
+        document.querySelectorAll('.chart-bar').forEach((bar, index) => {
+            bar.addEventListener('mouseenter', function(e) {
+                const height = parseInt(this.style.height);
+                const value = Math.round(80 + (height * 1.5));
+                console.log(`Time slot ${index}: ${value}ms response time`);
+            });
+        });
+
+        // Action button handlers
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                console.log(`Action: ${this.textContent}`);
+
+                // Visual feedback
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-1px)';
+                }, 150);
+            });
+        });
+
+        // Console welcome message
+        console.log('%c🎯 ATLAS Command Center - Light Mode', 'color: #00D9FF; font-size: 16px; font-weight: bold;');
+        console.log('%cMulti-panel Infrastructure Monitoring Dashboard', 'color: #5F6368; font-size: 12px;');
+        console.log('%cInteractive elements: Service cards, alerts, timeline, incident log', 'color: #9AA0A6; font-size: 11px;');
+
+        // Initialize timestamp
+        updateTimestamp();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1384 @@
+<!-- Agent: Zeeqa | Round: 2 - Light Mode Masterpiece | Theme: Customer Journey CX Studio | Intent: Ultra-minimal customer experience canvas with vast whitespace, warm coral/amber/teal touches, and typographic clarity that makes every customer voice heard -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Experience — Journey Studio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Warm CX palette - minimal usage */
+            --coral: #FF6F61;
+            --amber: #FFB347;
+            --teal: #4ECDC4;
+            --soft-coral: #FFE5E3;
+            --soft-amber: #FFF4E6;
+            --soft-teal: #E6FAF8;
+
+            /* Extreme minimalism palette */
+            --pure-white: #FFFFFF;
+            --barely-there: #FAFAFA;
+            --whisper: #F5F5F5;
+            --breath: #EEEEEE;
+            --hint: #E0E0E0;
+            --subtle: #BDBDBD;
+            --text-primary: #2C2C2C;
+            --text-secondary: #757575;
+            --text-tertiary: #9E9E9E;
+
+            /* Spacing system - generous */
+            --space-xs: 8px;
+            --space-s: 16px;
+            --space-m: 32px;
+            --space-l: 64px;
+            --space-xl: 96px;
+            --space-xxl: 128px;
+
+            /* Typography */
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-display: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--pure-white);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Header - Ultra minimal */
+        header {
+            padding: var(--space-l) var(--space-l) var(--space-m);
+            border-bottom: 1px solid var(--breath);
+            background: var(--pure-white);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .brand-title {
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+        }
+
+        .brand-subtitle {
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+        }
+
+        .header-meta {
+            text-align: right;
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Main container */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-l);
+        }
+
+        /* Section spacing */
+        .section {
+            margin-bottom: var(--space-xxl);
+        }
+
+        .section-header {
+            margin-bottom: var(--space-l);
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .section-description {
+            font-size: 16px;
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 600px;
+        }
+
+        /* KPI Grid - Extreme spacing */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-l);
+            margin-bottom: var(--space-xxl);
+        }
+
+        .kpi-card {
+            padding: var(--space-l);
+            background: var(--pure-white);
+            border: 1px solid var(--breath);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .kpi-card:hover {
+            border-color: var(--hint);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+        }
+
+        .kpi-label {
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: var(--space-m);
+        }
+
+        .kpi-value {
+            font-size: 48px;
+            font-weight: 200;
+            letter-spacing: -1px;
+            color: var(--text-primary);
+            margin-bottom: var(--space-s);
+        }
+
+        .kpi-delta {
+            font-size: 13px;
+            font-weight: 400;
+            margin-bottom: var(--space-m);
+        }
+
+        .kpi-delta.positive {
+            color: var(--teal);
+        }
+
+        .kpi-delta.negative {
+            color: var(--coral);
+        }
+
+        .kpi-meta {
+            font-size: 13px;
+            color: var(--text-secondary);
+            padding-top: var(--space-s);
+            border-top: 1px solid var(--whisper);
+        }
+
+        /* Journey stages - Horizontal minimal timeline */
+        .journey-timeline {
+            display: flex;
+            gap: var(--space-s);
+            margin-bottom: var(--space-xl);
+            padding: var(--space-l);
+            background: var(--barely-there);
+            border-radius: 2px;
+            overflow-x: auto;
+        }
+
+        .journey-stage {
+            flex: 1;
+            min-width: 200px;
+            padding: var(--space-m);
+            background: var(--pure-white);
+            border: 1px solid var(--breath);
+            border-radius: 2px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .journey-stage:hover {
+            border-color: var(--coral);
+        }
+
+        .journey-stage::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--hint);
+            font-size: 20px;
+            font-weight: 200;
+        }
+
+        .journey-stage:last-child::after {
+            display: none;
+        }
+
+        .stage-name {
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: var(--space-s);
+        }
+
+        .stage-metric {
+            font-size: 32px;
+            font-weight: 200;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .stage-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .stage-accent {
+            width: 40px;
+            height: 2px;
+            margin-top: var(--space-s);
+            border-radius: 2px;
+        }
+
+        .journey-stage:nth-child(1) .stage-accent {
+            background: var(--coral);
+        }
+
+        .journey-stage:nth-child(2) .stage-accent {
+            background: var(--amber);
+        }
+
+        .journey-stage:nth-child(3) .stage-accent {
+            background: var(--teal);
+        }
+
+        .journey-stage:nth-child(4) .stage-accent {
+            background: var(--coral);
+        }
+
+        /* Customer voices - Testimonial cards with minimal design */
+        .voices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-l);
+            margin-bottom: var(--space-xl);
+        }
+
+        .voice-card {
+            padding: var(--space-l);
+            background: var(--pure-white);
+            border-left: 2px solid var(--breath);
+            transition: all 0.4s ease;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .voice-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .voice-card:nth-child(2) {
+            animation-delay: 0.2s;
+            border-left-color: var(--coral);
+        }
+
+        .voice-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .voice-card:nth-child(4) {
+            animation-delay: 0.4s;
+            border-left-color: var(--teal);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .voice-card:hover {
+            border-left-color: var(--coral);
+            transform: translateX(4px);
+        }
+
+        .voice-quote {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-primary);
+            font-weight: 300;
+            margin-bottom: var(--space-m);
+            font-style: italic;
+        }
+
+        .voice-author {
+            display: flex;
+            align-items: center;
+            gap: var(--space-s);
+        }
+
+        .voice-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--whisper);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .voice-details {
+            flex: 1;
+        }
+
+        .voice-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .voice-context {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .voice-sentiment {
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .voice-sentiment.positive {
+            background: var(--soft-teal);
+            color: var(--teal);
+        }
+
+        .voice-sentiment.neutral {
+            background: var(--soft-amber);
+            color: #D4A574;
+        }
+
+        /* Charts grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--space-l);
+            margin-bottom: var(--space-xl);
+        }
+
+        .chart-container {
+            padding: var(--space-l);
+            background: var(--pure-white);
+            border: 1px solid var(--breath);
+            border-radius: 2px;
+        }
+
+        .chart-header {
+            margin-bottom: var(--space-m);
+        }
+
+        .chart-title {
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .chart-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .chart-visual {
+            height: 280px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: var(--space-s);
+            padding: var(--space-m) 0;
+            border-top: 1px solid var(--breath);
+            position: relative;
+        }
+
+        /* NPS Score visualization */
+        .nps-score-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 280px;
+            position: relative;
+        }
+
+        .nps-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 1px solid var(--breath);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+        }
+
+        .nps-value {
+            font-size: 64px;
+            font-weight: 200;
+            letter-spacing: -2px;
+            color: var(--teal);
+        }
+
+        .nps-label {
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+        }
+
+        .nps-breakdown {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            gap: var(--space-s);
+        }
+
+        .nps-segment {
+            flex: 1;
+            padding: var(--space-s);
+            text-align: center;
+        }
+
+        .nps-segment-value {
+            font-size: 20px;
+            font-weight: 300;
+            margin-bottom: 4px;
+        }
+
+        .nps-segment-label {
+            font-size: 10px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+        }
+
+        .nps-segment:nth-child(1) .nps-segment-value {
+            color: var(--teal);
+        }
+
+        .nps-segment:nth-child(3) .nps-segment-value {
+            color: var(--coral);
+        }
+
+        /* Bar chart for CSAT */
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: var(--space-s);
+            height: 100%;
+            padding-top: var(--space-m);
+        }
+
+        .bar {
+            flex: 1;
+            background: var(--whisper);
+            border-radius: 2px 2px 0 0;
+            position: relative;
+            transition: all 0.3s ease;
+            min-height: 40px;
+        }
+
+        .bar:hover {
+            background: var(--coral);
+            opacity: 0.8;
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            color: var(--text-tertiary);
+            white-space: nowrap;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        /* Funnel chart for conversion */
+        .funnel-chart {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-s);
+            height: 100%;
+            justify-content: center;
+        }
+
+        .funnel-stage {
+            padding: var(--space-s) var(--space-m);
+            background: var(--whisper);
+            border-left: 3px solid var(--breath);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .funnel-stage:hover {
+            border-left-color: var(--amber);
+            background: var(--soft-amber);
+        }
+
+        .funnel-stage:nth-child(1) {
+            width: 100%;
+        }
+
+        .funnel-stage:nth-child(2) {
+            width: 75%;
+        }
+
+        .funnel-stage:nth-child(3) {
+            width: 50%;
+        }
+
+        .funnel-stage:nth-child(4) {
+            width: 30%;
+        }
+
+        .funnel-stage-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .funnel-stage-value {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* Data table - Ultra clean */
+        .table-container {
+            background: var(--pure-white);
+            border: 1px solid var(--breath);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: var(--space-xl);
+        }
+
+        .table-header-section {
+            padding: var(--space-l);
+            border-bottom: 1px solid var(--breath);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--barely-there);
+        }
+
+        th {
+            padding: var(--space-s) var(--space-l);
+            text-align: left;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            border-bottom: 1px solid var(--breath);
+        }
+
+        td {
+            padding: var(--space-m) var(--space-l);
+            font-size: 14px;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--whisper);
+        }
+
+        tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: var(--barely-there);
+        }
+
+        .customer-cell {
+            display: flex;
+            align-items: center;
+            gap: var(--space-s);
+        }
+
+        .customer-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--whisper);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .customer-info {
+            flex: 1;
+        }
+
+        .customer-name {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .customer-id {
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 2px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .status-pill.active {
+            background: var(--soft-teal);
+            color: var(--teal);
+        }
+
+        .status-pill.at-risk {
+            background: var(--soft-amber);
+            color: #D4A574;
+        }
+
+        .status-pill.churned {
+            background: var(--soft-coral);
+            color: var(--coral);
+        }
+
+        .score-cell {
+            font-weight: 400;
+            font-size: 16px;
+        }
+
+        .score-cell.high {
+            color: var(--teal);
+        }
+
+        .score-cell.medium {
+            color: #D4A574;
+        }
+
+        .score-cell.low {
+            color: var(--coral);
+        }
+
+        /* Footer - Minimal */
+        footer {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-l);
+            border-top: 1px solid var(--breath);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-agent {
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        .footer-timestamp {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 960px) {
+            :root {
+                --space-l: 48px;
+                --space-xl: 72px;
+                --space-xxl: 96px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-m);
+            }
+
+            .header-meta {
+                text-align: left;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .journey-timeline {
+                flex-direction: column;
+            }
+
+            .journey-stage::after {
+                display: none;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .voices-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            :root {
+                --space-l: 32px;
+                --space-xl: 48px;
+                --space-xxl: 64px;
+            }
+
+            main {
+                padding: var(--space-l) var(--space-s);
+            }
+
+            header {
+                padding: var(--space-m) var(--space-s);
+            }
+
+            .brand-subtitle {
+                font-size: 22px;
+            }
+
+            .kpi-value {
+                font-size: 36px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: var(--space-s);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="brand">
+                <div class="brand-title">ZEEQA — Minimalist Systems</div>
+                <div class="brand-subtitle">Customer Experience Studio</div>
+            </div>
+            <div class="header-meta">
+                <div>Q4 2024 • Customer Journey Analytics</div>
+                <div>Last updated: Nov 9, 2025 • 14:32 UTC</div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- KPI Overview -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-title">Overview</div>
+                <div class="section-description">
+                    Core customer experience metrics across the entire lifecycle
+                </div>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Net Promoter Score</div>
+                    <div class="kpi-value">72</div>
+                    <div class="kpi-delta positive">↑ 8 points vs Q3</div>
+                    <div class="kpi-meta">86% promoters • Industry benchmark: 65</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Customer Satisfaction</div>
+                    <div class="kpi-value">4.7</div>
+                    <div class="kpi-delta positive">↑ 0.3 points</div>
+                    <div class="kpi-meta">Out of 5.0 • 12,847 responses this quarter</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Churn Rate</div>
+                    <div class="kpi-value">2.1%</div>
+                    <div class="kpi-delta positive">↓ 0.7% vs Q3</div>
+                    <div class="kpi-meta">Monthly average • Target: &lt;2.5%</div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Customer Lifetime Value</div>
+                    <div class="kpi-value">$4,280</div>
+                    <div class="kpi-delta positive">↑ 12% vs Q3</div>
+                    <div class="kpi-meta">Average across all segments</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Journey Timeline -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-title">Customer Journey Stages</div>
+                <div class="section-description">
+                    Conversion and retention metrics across the lifecycle
+                </div>
+            </div>
+
+            <div class="journey-timeline">
+                <div class="journey-stage">
+                    <div class="stage-name">Acquire</div>
+                    <div class="stage-metric">8,240</div>
+                    <div class="stage-label">New signups</div>
+                    <div class="stage-accent"></div>
+                </div>
+
+                <div class="journey-stage">
+                    <div class="stage-name">Onboard</div>
+                    <div class="stage-metric">73%</div>
+                    <div class="stage-label">Activation rate</div>
+                    <div class="stage-accent"></div>
+                </div>
+
+                <div class="journey-stage">
+                    <div class="stage-name">Engage</div>
+                    <div class="stage-metric">4.2x</div>
+                    <div class="stage-label">Weekly sessions</div>
+                    <div class="stage-accent"></div>
+                </div>
+
+                <div class="journey-stage">
+                    <div class="stage-name">Retain</div>
+                    <div class="stage-metric">89%</div>
+                    <div class="stage-label">12-mo retention</div>
+                    <div class="stage-accent"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Voices -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-title">Customer Voices</div>
+                <div class="section-description">
+                    Recent feedback from customers across different journey stages
+                </div>
+            </div>
+
+            <div class="voices-grid">
+                <div class="voice-card">
+                    <div class="voice-quote">
+                        "The onboarding experience was incredibly smooth. Within 10 minutes I had everything set up and was already seeing value. The guided tutorials felt personal, not automated."
+                    </div>
+                    <div class="voice-author">
+                        <div class="voice-avatar">SM</div>
+                        <div class="voice-details">
+                            <div class="voice-name">Sarah Mitchell</div>
+                            <div class="voice-context">Enterprise • Day 7</div>
+                        </div>
+                        <div class="voice-sentiment positive">Promoter</div>
+                    </div>
+                </div>
+
+                <div class="voice-card">
+                    <div class="voice-quote">
+                        "I appreciate how the support team proactively reached out before I even encountered issues. The level of care and attention to customer success is remarkable."
+                    </div>
+                    <div class="voice-author">
+                        <div class="voice-avatar">JC</div>
+                        <div class="voice-details">
+                            <div class="voice-name">James Chen</div>
+                            <div class="voice-context">Growth • Month 3</div>
+                        </div>
+                        <div class="voice-sentiment positive">Promoter</div>
+                    </div>
+                </div>
+
+                <div class="voice-card">
+                    <div class="voice-quote">
+                        "The product delivers on its promises, but I wish there were more advanced analytics features. The roadmap looks promising though."
+                    </div>
+                    <div class="voice-author">
+                        <div class="voice-avatar">AK</div>
+                        <div class="voice-details">
+                            <div class="voice-name">Aisha Kumar</div>
+                            <div class="voice-context">Professional • Month 8</div>
+                        </div>
+                        <div class="voice-sentiment neutral">Passive</div>
+                    </div>
+                </div>
+
+                <div class="voice-card">
+                    <div class="voice-quote">
+                        "Best decision we made this year. The ROI was clear within the first month. Our team efficiency increased by 40% and customer complaints dropped significantly."
+                    </div>
+                    <div class="voice-author">
+                        <div class="voice-avatar">RL</div>
+                        <div class="voice-details">
+                            <div class="voice-name">Robert Liu</div>
+                            <div class="voice-context">Enterprise • Year 1</div>
+                        </div>
+                        <div class="voice-sentiment positive">Promoter</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Grid -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-title">Analytics</div>
+                <div class="section-description">
+                    Deep dive into satisfaction trends and conversion patterns
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <!-- NPS Distribution -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Net Promoter Score</div>
+                        <div class="chart-subtitle">Current quarter distribution</div>
+                    </div>
+                    <div class="nps-score-visual">
+                        <div class="nps-circle">
+                            <div class="nps-value">72</div>
+                            <div class="nps-label">NPS Score</div>
+                        </div>
+                        <div class="nps-breakdown">
+                            <div class="nps-segment">
+                                <div class="nps-segment-value">86%</div>
+                                <div class="nps-segment-label">Promoters</div>
+                            </div>
+                            <div class="nps-segment">
+                                <div class="nps-segment-value">10%</div>
+                                <div class="nps-segment-label">Passive</div>
+                            </div>
+                            <div class="nps-segment">
+                                <div class="nps-segment-value">4%</div>
+                                <div class="nps-segment-label">Detractors</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CSAT Trend -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Customer Satisfaction</div>
+                        <div class="chart-subtitle">Monthly average ratings (5-point scale)</div>
+                    </div>
+                    <div class="chart-visual">
+                        <div class="bar-chart">
+                            <div class="bar" style="height: 65%;">
+                                <div class="bar-value">4.3</div>
+                                <div class="bar-label">Jul</div>
+                            </div>
+                            <div class="bar" style="height: 70%;">
+                                <div class="bar-value">4.4</div>
+                                <div class="bar-label">Aug</div>
+                            </div>
+                            <div class="bar" style="height: 80%;">
+                                <div class="bar-value">4.6</div>
+                                <div class="bar-label">Sep</div>
+                            </div>
+                            <div class="bar" style="height: 90%;">
+                                <div class="bar-value">4.7</div>
+                                <div class="bar-label">Oct</div>
+                            </div>
+                            <div class="bar" style="height: 92%;">
+                                <div class="bar-value">4.7</div>
+                                <div class="bar-label">Nov</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conversion Funnel -->
+                <div class="chart-container" style="grid-column: span 2;">
+                    <div class="chart-header">
+                        <div class="chart-title">Onboarding Conversion Funnel</div>
+                        <div class="chart-subtitle">Last 30 days • From signup to active user</div>
+                    </div>
+                    <div class="chart-visual">
+                        <div class="funnel-chart">
+                            <div class="funnel-stage">
+                                <div class="funnel-stage-label">Signup Completed</div>
+                                <div class="funnel-stage-value">8,240 users</div>
+                            </div>
+                            <div class="funnel-stage">
+                                <div class="funnel-stage-label">Email Verified</div>
+                                <div class="funnel-stage-value">7,418 users (90%)</div>
+                            </div>
+                            <div class="funnel-stage">
+                                <div class="funnel-stage-label">Profile Completed</div>
+                                <div class="funnel-stage-value">6,240 users (76%)</div>
+                            </div>
+                            <div class="funnel-stage">
+                                <div class="funnel-stage-label">First Action Taken</div>
+                                <div class="funnel-stage-value">6,015 users (73%)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Health Table -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-title">Customer Health</div>
+                <div class="section-description">
+                    Recent customer accounts requiring attention or celebration
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Segment</th>
+                            <th>NPS Score</th>
+                            <th>Health Score</th>
+                            <th>Status</th>
+                            <th>Last Contact</th>
+                            <th>Next Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar">AC</div>
+                                    <div class="customer-info">
+                                        <div class="customer-name">Acme Corporation</div>
+                                        <div class="customer-id">ENT-2847</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Enterprise</td>
+                            <td class="score-cell high">92</td>
+                            <td class="score-cell high">98</td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>Nov 7, 2025</td>
+                            <td>Quarterly review</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar">GS</div>
+                                    <div class="customer-info">
+                                        <div class="customer-name">Global Systems Inc</div>
+                                        <div class="customer-id">ENT-1293</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Enterprise</td>
+                            <td class="score-cell medium">68</td>
+                            <td class="score-cell medium">72</td>
+                            <td><span class="status-pill at-risk">At Risk</span></td>
+                            <td>Nov 2, 2025</td>
+                            <td>Executive touchpoint</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar">TC</div>
+                                    <div class="customer-info">
+                                        <div class="customer-name">TechCore Solutions</div>
+                                        <div class="customer-id">GRO-5621</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Growth</td>
+                            <td class="score-cell high">88</td>
+                            <td class="score-cell high">94</td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>Nov 8, 2025</td>
+                            <td>Upsell opportunity</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar">NI</div>
+                                    <div class="customer-info">
+                                        <div class="customer-name">NextGen Industries</div>
+                                        <div class="customer-id">PRO-8874</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Professional</td>
+                            <td class="score-cell high">81</td>
+                            <td class="score-cell high">86</td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>Nov 6, 2025</td>
+                            <td>Success story</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar">VD</div>
+                                    <div class="customer-info">
+                                        <div class="customer-name">Vertex Dynamics</div>
+                                        <div class="customer-id">GRO-3402</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Growth</td>
+                            <td class="score-cell medium">54</td>
+                            <td class="score-cell medium">61</td>
+                            <td><span class="status-pill at-risk">At Risk</span></td>
+                            <td>Oct 28, 2025</td>
+                            <td>Retention call</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar">BP</div>
+                                    <div class="customer-info">
+                                        <div class="customer-name">Brightpath LLC</div>
+                                        <div class="customer-id">PRO-6729</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Professional</td>
+                            <td class="score-cell high">95</td>
+                            <td class="score-cell high">97</td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>Nov 9, 2025</td>
+                            <td>Referral request</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar">OS</div>
+                                    <div class="customer-info">
+                                        <div class="customer-name">Omega Strategies</div>
+                                        <div class="customer-id">ENT-1847</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Enterprise</td>
+                            <td class="score-cell low">42</td>
+                            <td class="score-cell low">38</td>
+                            <td><span class="status-pill churned">Churned</span></td>
+                            <td>Oct 15, 2025</td>
+                            <td>Exit interview</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar">FP</div>
+                                    <div class="customer-info">
+                                        <div class="customer-name">FusionPoint Digital</div>
+                                        <div class="customer-id">GRO-9214</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Growth</td>
+                            <td class="score-cell high">77</td>
+                            <td class="score-cell high">82</td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>Nov 5, 2025</td>
+                            <td>Feature training</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Insights Section -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-title">Key Insights</div>
+                <div class="section-description">
+                    Strategic observations from this quarter's data
+                </div>
+            </div>
+
+            <div class="voices-grid">
+                <div class="voice-card">
+                    <div class="voice-quote">
+                        Enterprise customers who complete onboarding within 7 days show 3.2x higher NPS scores and 92% 12-month retention vs. those taking longer.
+                    </div>
+                </div>
+
+                <div class="voice-card">
+                    <div class="voice-quote">
+                        Proactive outreach at day 30 reduces churn risk by 47%. Customers appreciate check-ins before they encounter friction points.
+                    </div>
+                </div>
+
+                <div class="voice-card">
+                    <div class="voice-quote">
+                        Most common feature request: advanced analytics and custom reporting. 68% of passive customers cite this as improvement area.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-agent">ZEEQA — Minimalist Aesthetic Systems</div>
+        <div class="footer-timestamp">Generated Nov 9, 2025 @ 14:32 UTC • Dashboard v2.0</div>
+    </footer>
+
+    <script>
+        // Minimal interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add gentle hover effects to interactive elements
+            const cards = document.querySelectorAll('.kpi-card, .voice-card, .chart-container');
+
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.3s ease';
+                });
+            });
+
+            // Animate bars on load
+            const bars = document.querySelectorAll('.bar');
+            bars.forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.style.opacity = '0';
+                    bar.style.height = '0';
+                    setTimeout(() => {
+                        bar.style.transition = 'all 0.8s ease';
+                        bar.style.opacity = '1';
+                        bar.style.height = bar.getAttribute('style').match(/height:\s*(\d+%)/)[1];
+                    }, 50);
+                }, index * 100);
+            });
+
+            // Gentle funnel animation
+            const funnelStages = document.querySelectorAll('.funnel-stage');
+            funnelStages.forEach((stage, index) => {
+                stage.style.opacity = '0';
+                stage.style.transform = 'translateX(-20px)';
+                setTimeout(() => {
+                    stage.style.transition = 'all 0.6s ease';
+                    stage.style.opacity = '1';
+                    stage.style.transform = 'translateX(0)';
+                }, index * 150);
+            });
+
+            // Table row interactions
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', function() {
+                    // Subtle click feedback
+                    this.style.transform = 'scale(0.995)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 100);
+                });
+            });
+
+            // Journey stage interactions
+            const journeyStages = document.querySelectorAll('.journey-stage');
+            journeyStages.forEach(stage => {
+                stage.addEventListener('mouseenter', function() {
+                    const accent = this.querySelector('.stage-accent');
+                    if (accent) {
+                        accent.style.width = '60px';
+                        accent.style.transition = 'width 0.3s ease';
+                    }
+                });
+
+                stage.addEventListener('mouseleave', function() {
+                    const accent = this.querySelector('.stage-accent');
+                    if (accent) {
+                        accent.style.width = '40px';
+                    }
+                });
+            });
+
+            // NPS circle pulse effect
+            const npsCircle = document.querySelector('.nps-circle');
+            if (npsCircle) {
+                setInterval(() => {
+                    npsCircle.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        npsCircle.style.transform = 'scale(1)';
+                    }, 1000);
+                }, 4000);
+            }
+
+            // Smooth scroll for any internal links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Console signature
+            console.log('%cZEEQA', 'font-size: 24px; font-weight: 200; color: #4ECDC4; letter-spacing: 4px;');
+            console.log('%cMinimalist Aesthetic Systems', 'font-size: 12px; color: #9E9E9E; letter-spacing: 2px;');
+            console.log('%cCustomer Journey CX Studio — Light Mode Masterpiece', 'font-size: 10px; color: #BDBDBD;');
+        });
+    </script>
+</body>
+</html>

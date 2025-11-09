@@ -1,0 +1,1597 @@
+<!-- Agent: Darno | Round: 2 - Light Mode Masterpiece | Theme: Executive Boardroom | Intent: Maximum information density with surgical precision for C-suite data consumption -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Operations Dashboard | Darno Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #FAFBFC;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #F5F7FA;
+            --bg-accent: #F0F2F5;
+
+            --text-primary: #1A2332;
+            --text-secondary: #4A5568;
+            --text-tertiary: #718096;
+            --text-muted: #A0AEC0;
+
+            --navy-deep: #1E3A5F;
+            --navy-mid: #2C5282;
+            --navy-light: #4A7BA7;
+
+            --gold-dark: #9B7E46;
+            --gold-mid: #C9A961;
+            --gold-light: #E8D4A0;
+
+            --teal-dark: #2C7A7B;
+            --teal-mid: #319795;
+            --teal-light: #4FD1C5;
+
+            --success: #2F855A;
+            --success-light: #C6F6D5;
+            --warning: #C05621;
+            --warning-light: #FED7D7;
+            --danger: #9B2C2C;
+            --danger-light: #FED7D7;
+
+            --border-light: #E2E8F0;
+            --border-mid: #CBD5E0;
+            --border-dark: #A0AEC0;
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 12px;
+            --spacing-lg: 16px;
+            --spacing-xl: 24px;
+            --spacing-2xl: 32px;
+            --spacing-3xl: 48px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            font-size: 14px;
+            overflow-x: hidden;
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-mid) 100%);
+            color: #FFFFFF;
+            padding: var(--spacing-lg) var(--spacing-2xl);
+            border-bottom: 3px solid var(--gold-mid);
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: var(--spacing-xl);
+        }
+
+        .header-brand {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+
+        .brand-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+
+        .brand-subtitle {
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            opacity: 0.85;
+            color: var(--gold-light);
+        }
+
+        .header-meta {
+            display: grid;
+            grid-template-columns: repeat(3, auto);
+            gap: var(--spacing-xl);
+            font-size: 12px;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .meta-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            opacity: 0.7;
+        }
+
+        .meta-value {
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .header-agent {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: var(--spacing-xl);
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--navy-deep);
+        }
+
+        .section-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--navy-deep);
+            letter-spacing: -0.3px;
+        }
+
+        .section-subtitle {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--navy-mid), var(--gold-mid));
+            opacity: 0;
+            transition: opacity 0.2s ease-out;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-mid);
+        }
+
+        .kpi-card:hover::before {
+            opacity: 1;
+        }
+
+        .kpi-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .kpi-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--navy-deep);
+            line-height: 1.1;
+            margin-bottom: var(--spacing-xs);
+            font-feature-settings: 'tnum';
+        }
+
+        .kpi-metrics {
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+            margin-top: var(--spacing-sm);
+        }
+
+        .kpi-delta {
+            font-size: 13px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-feature-settings: 'tnum';
+        }
+
+        .kpi-delta.positive {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .kpi-delta.negative {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .kpi-delta.neutral {
+            background: var(--bg-accent);
+            color: var(--text-secondary);
+        }
+
+        .kpi-meta {
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        .kpi-sparkline {
+            height: 24px;
+            margin-top: var(--spacing-sm);
+            background: linear-gradient(to right,
+                transparent 0%,
+                transparent 10%,
+                var(--navy-light) 10%,
+                var(--navy-light) 15%,
+                transparent 15%,
+                transparent 25%,
+                var(--navy-light) 25%,
+                var(--navy-light) 35%,
+                transparent 35%,
+                transparent 45%,
+                var(--navy-light) 45%,
+                var(--navy-light) 58%,
+                transparent 58%,
+                transparent 68%,
+                var(--navy-light) 68%,
+                var(--navy-light) 82%,
+                transparent 82%,
+                transparent 92%,
+                var(--navy-light) 92%,
+                var(--navy-light) 100%
+            );
+            background-size: 100% 100%;
+            background-position: bottom;
+            background-repeat: no-repeat;
+            opacity: 0.3;
+            border-radius: 2px;
+        }
+
+        /* Data Table Styling */
+        .data-table-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .data-table thead {
+            background: var(--bg-tertiary);
+            border-bottom: 2px solid var(--border-mid);
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: var(--spacing-md) var(--spacing-lg);
+            font-weight: 700;
+            color: var(--navy-deep);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            white-space: nowrap;
+        }
+
+        .data-table th.align-right,
+        .data-table td.align-right {
+            text-align: right;
+        }
+
+        .data-table th.align-center,
+        .data-table td.align-center {
+            text-align: center;
+        }
+
+        .data-table tbody tr {
+            border-bottom: 1px solid var(--border-light);
+            transition: background-color 0.15s ease-out;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .data-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .data-table td {
+            padding: var(--spacing-md) var(--spacing-lg);
+            color: var(--text-primary);
+            font-feature-settings: 'tnum';
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pill.success {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .status-pill.warning {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .status-pill.danger {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .status-pill.neutral {
+            background: var(--bg-accent);
+            color: var(--text-secondary);
+        }
+
+        /* Chart Container */
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .chart-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease-out;
+        }
+
+        .chart-container:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-mid);
+        }
+
+        .chart-header {
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .chart-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--navy-deep);
+        }
+
+        .chart-legend {
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        .chart-placeholder {
+            height: 240px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 100%;
+            padding: var(--spacing-lg);
+            gap: var(--spacing-sm);
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--navy-mid), var(--navy-light));
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            transition: all 0.2s ease-out;
+            opacity: 0.85;
+        }
+
+        .chart-bar:hover {
+            opacity: 1;
+            transform: translateY(-4px);
+        }
+
+        .chart-line {
+            position: relative;
+            height: 100%;
+            padding: var(--spacing-lg);
+        }
+
+        .chart-line::before {
+            content: '';
+            position: absolute;
+            bottom: var(--spacing-lg);
+            left: var(--spacing-lg);
+            right: var(--spacing-lg);
+            height: 2px;
+            background: var(--border-mid);
+        }
+
+        .chart-line-path {
+            position: absolute;
+            bottom: var(--spacing-lg);
+            left: var(--spacing-lg);
+            right: var(--spacing-lg);
+            height: 80%;
+            background: linear-gradient(to bottom right,
+                transparent 0%,
+                transparent 45%,
+                var(--teal-mid) 45%,
+                var(--teal-mid) 47%,
+                transparent 47%,
+                transparent 52%,
+                var(--teal-mid) 52%,
+                var(--teal-mid) 54%,
+                transparent 54%
+            );
+            opacity: 0.6;
+        }
+
+        .chart-grid-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 19%,
+                var(--border-light) 19%,
+                var(--border-light) 20%
+            );
+        }
+
+        /* Detailed Tables Layout */
+        .table-dual-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        /* Financial Summary Section */
+        .financial-summary {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .financial-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-xl);
+        }
+
+        .financial-item {
+            border-right: 1px solid var(--border-light);
+            padding-right: var(--spacing-xl);
+        }
+
+        .financial-item:last-child {
+            border-right: none;
+            padding-right: 0;
+        }
+
+        .financial-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-tertiary);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .financial-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--navy-deep);
+            font-feature-settings: 'tnum';
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .financial-subtext {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Insight Banner */
+        .insight-banner {
+            background: linear-gradient(135deg, var(--teal-dark), var(--teal-mid));
+            color: #FFFFFF;
+            padding: var(--spacing-lg) var(--spacing-xl);
+            border-radius: 6px;
+            margin-bottom: var(--spacing-xl);
+            border-left: 4px solid var(--gold-mid);
+            box-shadow: var(--shadow-md);
+        }
+
+        .insight-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .insight-text {
+            font-size: 13px;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 2px solid var(--navy-deep);
+            padding: var(--spacing-xl) var(--spacing-2xl);
+            margin-top: var(--spacing-3xl);
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: var(--spacing-xl);
+            align-items: center;
+        }
+
+        .footer-info {
+            display: flex;
+            gap: var(--spacing-2xl);
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .footer-agent {
+            font-family: 'Crimson Pro', serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--navy-deep);
+            letter-spacing: 2px;
+        }
+
+        /* Compact Table Variant */
+        .compact-table {
+            font-size: 12px;
+        }
+
+        .compact-table th,
+        .compact-table td {
+            padding: var(--spacing-sm) var(--spacing-md);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .financial-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .table-dual-column {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 960px) {
+            .header-content {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+
+            .header-meta {
+                grid-template-columns: repeat(2, auto);
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .financial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .financial-item {
+                border-right: none;
+                border-bottom: 1px solid var(--border-light);
+                padding-right: 0;
+                padding-bottom: var(--spacing-md);
+                margin-bottom: var(--spacing-md);
+            }
+
+            .financial-item:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+                margin-bottom: 0;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: var(--spacing-md);
+            }
+
+            header {
+                padding: var(--spacing-md);
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .data-table {
+                font-size: 11px;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: var(--spacing-sm);
+            }
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-tertiary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-mid);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--border-dark);
+        }
+
+        /* Utility Classes */
+        .text-number {
+            font-feature-settings: 'tnum';
+            font-weight: 600;
+        }
+
+        .text-positive {
+            color: var(--success);
+        }
+
+        .text-negative {
+            color: var(--danger);
+        }
+
+        .text-warning {
+            color: var(--warning);
+        }
+
+        .text-bold {
+            font-weight: 700;
+        }
+
+        .text-small {
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="header-brand">
+                <div class="brand-title">Executive Operations Dashboard</div>
+                <div class="brand-subtitle">Q4 2025 Performance Analysis</div>
+            </div>
+            <div class="header-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Period</div>
+                    <div class="meta-value">Oct 1 - Nov 9, 2025</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Last Updated</div>
+                    <div class="meta-value">Nov 9, 08:45 EST</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Data Refresh</div>
+                    <div class="meta-value">Real-time</div>
+                </div>
+            </div>
+            <div class="header-agent">DARNO</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- KPI Overview -->
+        <div class="section">
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Total Revenue</div>
+                    <div class="kpi-value">$47.8M</div>
+                    <div class="kpi-metrics">
+                        <div class="kpi-delta positive">+12.4%</div>
+                        <div class="kpi-meta">vs Q3</div>
+                    </div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Operating Margin</div>
+                    <div class="kpi-value">23.7%</div>
+                    <div class="kpi-metrics">
+                        <div class="kpi-delta positive">+2.1pp</div>
+                        <div class="kpi-meta">YoY improvement</div>
+                    </div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Cash Position</div>
+                    <div class="kpi-value">$18.2M</div>
+                    <div class="kpi-metrics">
+                        <div class="kpi-delta neutral">-3.2%</div>
+                        <div class="kpi-meta">Strategic investments</div>
+                    </div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Headcount</div>
+                    <div class="kpi-value">284</div>
+                    <div class="kpi-metrics">
+                        <div class="kpi-delta positive">+18</div>
+                        <div class="kpi-meta">Since Q3 start</div>
+                    </div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Customer Lifetime Value</div>
+                    <div class="kpi-value">$142K</div>
+                    <div class="kpi-metrics">
+                        <div class="kpi-delta positive">+8.9%</div>
+                        <div class="kpi-meta">6-month trend</div>
+                    </div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Net Promoter Score</div>
+                    <div class="kpi-value">68</div>
+                    <div class="kpi-metrics">
+                        <div class="kpi-delta positive">+5pts</div>
+                        <div class="kpi-meta">Industry leader</div>
+                    </div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Insight Banner -->
+        <div class="insight-banner">
+            <div class="insight-title">Strategic Insight</div>
+            <div class="insight-text">
+                Revenue growth acceleration driven by enterprise segment (+18.7% QoQ) and expanded international presence.
+                Operating margin improvement reflects automation initiatives and improved sales efficiency.
+                Recommend maintaining current investment trajectory while monitoring cash conversion metrics.
+            </div>
+        </div>
+
+        <!-- Financial Summary -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-title">Financial Performance Summary</div>
+                <div class="section-subtitle">Q4 2025 YTD</div>
+            </div>
+
+            <div class="financial-summary">
+                <div class="financial-grid">
+                    <div class="financial-item">
+                        <div class="financial-label">Gross Profit</div>
+                        <div class="financial-value">$38.2M</div>
+                        <div class="financial-subtext">79.9% margin (+1.8pp)</div>
+                    </div>
+                    <div class="financial-item">
+                        <div class="financial-label">EBITDA</div>
+                        <div class="financial-value">$14.6M</div>
+                        <div class="financial-subtext">30.5% margin (+3.2pp)</div>
+                    </div>
+                    <div class="financial-item">
+                        <div class="financial-label">Operating Income</div>
+                        <div class="financial-value">$11.3M</div>
+                        <div class="financial-subtext">23.7% margin (+2.1pp)</div>
+                    </div>
+                    <div class="financial-item">
+                        <div class="financial-label">Free Cash Flow</div>
+                        <div class="financial-value">$8.9M</div>
+                        <div class="financial-subtext">78.8% conversion rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-title">Performance Trends & Analytics</div>
+                <div class="section-subtitle">6-Month Historical View</div>
+            </div>
+
+            <div class="chart-grid">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Monthly Revenue Progression</div>
+                        <div class="chart-legend">May - Oct 2025</div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div class="chart-grid-lines"></div>
+                        <div class="chart-bars">
+                            <div class="chart-bar" style="height: 62%;"></div>
+                            <div class="chart-bar" style="height: 68%;"></div>
+                            <div class="chart-bar" style="height: 71%;"></div>
+                            <div class="chart-bar" style="height: 75%;"></div>
+                            <div class="chart-bar" style="height: 82%;"></div>
+                            <div class="chart-bar" style="height: 89%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Customer Acquisition Trend</div>
+                        <div class="chart-legend">Weekly cohorts</div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div class="chart-grid-lines"></div>
+                        <div class="chart-line">
+                            <div class="chart-line-path"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Operating Expense Breakdown</div>
+                        <div class="chart-legend">% of revenue</div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div class="chart-grid-lines"></div>
+                        <div class="chart-bars">
+                            <div class="chart-bar" style="height: 45%; background: linear-gradient(to top, #C9A961, #E8D4A0);"></div>
+                            <div class="chart-bar" style="height: 28%; background: linear-gradient(to top, #2C7A7B, #4FD1C5);"></div>
+                            <div class="chart-bar" style="height: 18%; background: linear-gradient(to top, #1E3A5F, #4A7BA7);"></div>
+                            <div class="chart-bar" style="height: 14%; background: linear-gradient(to top, #9B7E46, #C9A961);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Revenue Breakdown Table -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-title">Revenue Analysis by Segment</div>
+                <div class="section-subtitle">Q4 YTD Performance</div>
+            </div>
+
+            <div class="data-table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Business Segment</th>
+                            <th class="align-right">Q4 Revenue</th>
+                            <th class="align-right">QoQ Growth</th>
+                            <th class="align-right">YoY Growth</th>
+                            <th class="align-right">% of Total</th>
+                            <th class="align-right">Margin</th>
+                            <th class="align-center">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-bold">Enterprise Solutions</td>
+                            <td class="align-right text-number">$24,850,000</td>
+                            <td class="align-right text-number text-positive">+18.7%</td>
+                            <td class="align-right text-number text-positive">+34.2%</td>
+                            <td class="align-right text-number">52.0%</td>
+                            <td class="align-right text-number">82.4%</td>
+                            <td class="align-center"><span class="status-pill success">On Target</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">Mid-Market</td>
+                            <td class="align-right text-number">$14,340,000</td>
+                            <td class="align-right text-number text-positive">+9.2%</td>
+                            <td class="align-right text-number text-positive">+21.5%</td>
+                            <td class="align-right text-number">30.0%</td>
+                            <td class="align-right text-number">78.1%</td>
+                            <td class="align-center"><span class="status-pill success">On Target</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">SMB / Self-Serve</td>
+                            <td class="align-right text-number">$5,730,000</td>
+                            <td class="align-right text-number text-positive">+5.8%</td>
+                            <td class="align-right text-number text-positive">+12.3%</td>
+                            <td class="align-right text-number">12.0%</td>
+                            <td class="align-right text-number">71.2%</td>
+                            <td class="align-center"><span class="status-pill warning">Watch</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">Professional Services</td>
+                            <td class="align-right text-number">$2,150,000</td>
+                            <td class="align-right text-number text-positive">+14.3%</td>
+                            <td class="align-right text-number text-positive">+28.9%</td>
+                            <td class="align-right text-number">4.5%</td>
+                            <td class="align-right text-number">65.8%</td>
+                            <td class="align-center"><span class="status-pill success">On Target</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">Other Revenue</td>
+                            <td class="align-right text-number">$730,000</td>
+                            <td class="align-right text-number text-neutral">+2.1%</td>
+                            <td class="align-right text-number text-positive">+8.4%</td>
+                            <td class="align-right text-number">1.5%</td>
+                            <td class="align-right text-number">58.3%</td>
+                            <td class="align-center"><span class="status-pill neutral">Stable</span></td>
+                        </tr>
+                        <tr style="background: var(--bg-accent); font-weight: 700;">
+                            <td>Total Revenue</td>
+                            <td class="align-right text-number">$47,800,000</td>
+                            <td class="align-right text-number text-positive">+12.4%</td>
+                            <td class="align-right text-number text-positive">+24.8%</td>
+                            <td class="align-right text-number">100.0%</td>
+                            <td class="align-right text-number">79.9%</td>
+                            <td class="align-center"><span class="status-pill success">Exceeding</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Dual Column Tables -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-title">Operational Metrics & Key Performance Indicators</div>
+                <div class="section-subtitle">Cross-Functional Dashboard</div>
+            </div>
+
+            <div class="table-dual-column">
+                <!-- Sales Pipeline -->
+                <div class="data-table-container">
+                    <table class="data-table compact-table">
+                        <thead>
+                            <tr>
+                                <th colspan="4" style="background: var(--navy-deep); color: white; text-align: center; padding: 10px;">Sales Pipeline Status</th>
+                            </tr>
+                            <tr>
+                                <th>Stage</th>
+                                <th class="align-right">Opportunities</th>
+                                <th class="align-right">Value</th>
+                                <th class="align-right">Win Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Prospecting</td>
+                                <td class="align-right text-number">247</td>
+                                <td class="align-right text-number">$18.4M</td>
+                                <td class="align-right text-number">12%</td>
+                            </tr>
+                            <tr>
+                                <td>Qualification</td>
+                                <td class="align-right text-number">168</td>
+                                <td class="align-right text-number">$24.7M</td>
+                                <td class="align-right text-number">28%</td>
+                            </tr>
+                            <tr>
+                                <td>Proposal</td>
+                                <td class="align-right text-number">94</td>
+                                <td class="align-right text-number">$31.2M</td>
+                                <td class="align-right text-number">45%</td>
+                            </tr>
+                            <tr>
+                                <td>Negotiation</td>
+                                <td class="align-right text-number">52</td>
+                                <td class="align-right text-number">$28.9M</td>
+                                <td class="align-right text-number">67%</td>
+                            </tr>
+                            <tr>
+                                <td>Closed Won</td>
+                                <td class="align-right text-number">38</td>
+                                <td class="align-right text-number">$19.3M</td>
+                                <td class="align-right text-number">100%</td>
+                            </tr>
+                            <tr style="background: var(--bg-accent); font-weight: 600;">
+                                <td>Total Pipeline</td>
+                                <td class="align-right text-number">599</td>
+                                <td class="align-right text-number">$122.5M</td>
+                                <td class="align-right text-number">—</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Customer Metrics -->
+                <div class="data-table-container">
+                    <table class="data-table compact-table">
+                        <thead>
+                            <tr>
+                                <th colspan="4" style="background: var(--teal-dark); color: white; text-align: center; padding: 10px;">Customer Health Metrics</th>
+                            </tr>
+                            <tr>
+                                <th>Tier</th>
+                                <th class="align-right">Accounts</th>
+                                <th class="align-right">ARR</th>
+                                <th class="align-center">Health</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Enterprise (>$100K)</td>
+                                <td class="align-right text-number">89</td>
+                                <td class="align-right text-number">$28.4M</td>
+                                <td class="align-center"><span class="status-pill success">Healthy</span></td>
+                            </tr>
+                            <tr>
+                                <td>Mid-Market ($25-100K)</td>
+                                <td class="align-right text-number">247</td>
+                                <td class="align-right text-number">$15.8M</td>
+                                <td class="align-center"><span class="status-pill success">Healthy</span></td>
+                            </tr>
+                            <tr>
+                                <td>Growth ($10-25K)</td>
+                                <td class="align-right text-number">534</td>
+                                <td class="align-right text-number">$8.2M</td>
+                                <td class="align-center"><span class="status-pill warning">Monitor</span></td>
+                            </tr>
+                            <tr>
+                                <td>Starter (<$10K)</td>
+                                <td class="align-right text-number">1,289</td>
+                                <td class="align-right text-number">$4.9M</td>
+                                <td class="align-center"><span class="status-pill neutral">Stable</span></td>
+                            </tr>
+                            <tr>
+                                <td>At Risk (Churn)</td>
+                                <td class="align-right text-number">76</td>
+                                <td class="align-right text-number">$1.2M</td>
+                                <td class="align-center"><span class="status-pill danger">Critical</span></td>
+                            </tr>
+                            <tr style="background: var(--bg-accent); font-weight: 600;">
+                                <td>Total Active</td>
+                                <td class="align-right text-number">2,235</td>
+                                <td class="align-right text-number">$58.5M</td>
+                                <td class="align-center">—</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Department Performance Table -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-title">Departmental Efficiency & Resource Allocation</div>
+                <div class="section-subtitle">Q4 Operating Metrics</div>
+            </div>
+
+            <div class="data-table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Department</th>
+                            <th class="align-right">Headcount</th>
+                            <th class="align-right">Budget ($M)</th>
+                            <th class="align-right">Spend ($M)</th>
+                            <th class="align-right">Variance</th>
+                            <th class="align-right">Productivity Index</th>
+                            <th class="align-center">Performance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-bold">Engineering</td>
+                            <td class="align-right text-number">128</td>
+                            <td class="align-right text-number">$8.45</td>
+                            <td class="align-right text-number">$8.12</td>
+                            <td class="align-right text-number text-positive">-3.9%</td>
+                            <td class="align-right text-number">127</td>
+                            <td class="align-center"><span class="status-pill success">Excellent</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">Sales</td>
+                            <td class="align-right text-number">62</td>
+                            <td class="align-right text-number">$5.82</td>
+                            <td class="align-right text-number">$5.94</td>
+                            <td class="align-right text-number text-negative">+2.1%</td>
+                            <td class="align-right text-number">142</td>
+                            <td class="align-center"><span class="status-pill success">Excellent</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">Customer Success</td>
+                            <td class="align-right text-number">38</td>
+                            <td class="align-right text-number">$2.14</td>
+                            <td class="align-right text-number">$2.08</td>
+                            <td class="align-right text-number text-positive">-2.8%</td>
+                            <td class="align-right text-number">118</td>
+                            <td class="align-center"><span class="status-pill success">On Target</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">Marketing</td>
+                            <td class="align-right text-number">24</td>
+                            <td class="align-right text-number">$3.28</td>
+                            <td class="align-right text-number">$3.45</td>
+                            <td class="align-right text-number text-negative">+5.2%</td>
+                            <td class="align-right text-number">109</td>
+                            <td class="align-center"><span class="status-pill warning">Watch</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">Product Management</td>
+                            <td class="align-right text-number">14</td>
+                            <td class="align-right text-number">$1.18</td>
+                            <td class="align-right text-number">$1.14</td>
+                            <td class="align-right text-number text-positive">-3.4%</td>
+                            <td class="align-right text-number">135</td>
+                            <td class="align-center"><span class="status-pill success">Excellent</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">Operations & Finance</td>
+                            <td class="align-right text-number">18</td>
+                            <td class="align-right text-number">$1.24</td>
+                            <td class="align-right text-number">$1.19</td>
+                            <td class="align-right text-number text-positive">-4.0%</td>
+                            <td class="align-right text-number">122</td>
+                            <td class="align-center"><span class="status-pill success">On Target</span></td>
+                        </tr>
+                        <tr style="background: var(--bg-accent); font-weight: 700;">
+                            <td>Total Organization</td>
+                            <td class="align-right text-number">284</td>
+                            <td class="align-right text-number">$22.11</td>
+                            <td class="align-right text-number">$21.92</td>
+                            <td class="align-right text-number text-positive">-0.9%</td>
+                            <td class="align-right text-number">126</td>
+                            <td class="align-center"><span class="status-pill success">On Target</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Product Performance -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-title">Product Line Performance Analysis</div>
+                <div class="section-subtitle">Usage & Adoption Metrics</div>
+            </div>
+
+            <div class="data-table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Product Module</th>
+                            <th class="align-right">Active Users</th>
+                            <th class="align-right">MAU Growth</th>
+                            <th class="align-right">Engagement Score</th>
+                            <th class="align-right">Retention (30d)</th>
+                            <th class="align-right">Feature Adoption</th>
+                            <th class="align-center">Trend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-bold">Core Platform</td>
+                            <td class="align-right text-number">12,847</td>
+                            <td class="align-right text-number text-positive">+14.2%</td>
+                            <td class="align-right text-number">8.7/10</td>
+                            <td class="align-right text-number">94.2%</td>
+                            <td class="align-right text-number">87.3%</td>
+                            <td class="align-center"><span class="status-pill success">Growing</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">Advanced Analytics</td>
+                            <td class="align-right text-number">8,234</td>
+                            <td class="align-right text-number text-positive">+22.8%</td>
+                            <td class="align-right text-number">9.1/10</td>
+                            <td class="align-right text-number">91.8%</td>
+                            <td class="align-right text-number">78.4%</td>
+                            <td class="align-center"><span class="status-pill success">Growing</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">Automation Suite</td>
+                            <td class="align-right text-number">5,912</td>
+                            <td class="align-right text-number text-positive">+31.5%</td>
+                            <td class="align-right text-number">8.9/10</td>
+                            <td class="align-right text-number">89.3%</td>
+                            <td class="align-right text-number">71.2%</td>
+                            <td class="align-center"><span class="status-pill success">Growing</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">Collaboration Tools</td>
+                            <td class="align-right text-number">9,456</td>
+                            <td class="align-right text-number text-positive">+8.4%</td>
+                            <td class="align-right text-number">7.8/10</td>
+                            <td class="align-right text-number">86.7%</td>
+                            <td class="align-right text-number">82.9%</td>
+                            <td class="align-center"><span class="status-pill warning">Slowing</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">Mobile Experience</td>
+                            <td class="align-right text-number">6,728</td>
+                            <td class="align-right text-number text-positive">+18.9%</td>
+                            <td class="align-right text-number">8.3/10</td>
+                            <td class="align-right text-number">88.4%</td>
+                            <td class="align-right text-number">68.7%</td>
+                            <td class="align-center"><span class="status-pill success">Growing</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">Integrations Hub</td>
+                            <td class="align-right text-number">4,289</td>
+                            <td class="align-right text-number text-positive">+12.1%</td>
+                            <td class="align-right text-number">8.5/10</td>
+                            <td class="align-right text-number">92.1%</td>
+                            <td class="align-right text-number">74.5%</td>
+                            <td class="align-center"><span class="status-pill success">Steady</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Geographic Performance -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-title">Geographic Market Performance</div>
+                <div class="section-subtitle">Regional Revenue & Growth</div>
+            </div>
+
+            <div class="data-table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Region</th>
+                            <th class="align-right">Q4 Revenue</th>
+                            <th class="align-right">% of Total</th>
+                            <th class="align-right">QoQ Growth</th>
+                            <th class="align-right">YoY Growth</th>
+                            <th class="align-right">Customer Count</th>
+                            <th class="align-right">Avg Deal Size</th>
+                            <th class="align-center">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-bold">North America</td>
+                            <td class="align-right text-number">$28,680,000</td>
+                            <td class="align-right text-number">60.0%</td>
+                            <td class="align-right text-number text-positive">+10.8%</td>
+                            <td class="align-right text-number text-positive">+22.4%</td>
+                            <td class="align-right text-number">1,247</td>
+                            <td class="align-right text-number">$23,000</td>
+                            <td class="align-center"><span class="status-pill success">Strong</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">EMEA</td>
+                            <td class="align-right text-number">$13,062,000</td>
+                            <td class="align-right text-number">27.3%</td>
+                            <td class="align-right text-number text-positive">+16.2%</td>
+                            <td class="align-right text-number text-positive">+31.8%</td>
+                            <td class="align-right text-number">628</td>
+                            <td class="align-right text-number">$20,800</td>
+                            <td class="align-center"><span class="status-pill success">Growing</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">Asia-Pacific</td>
+                            <td class="align-right text-number">$4,302,000</td>
+                            <td class="align-right text-number">9.0%</td>
+                            <td class="align-right text-number text-positive">+24.7%</td>
+                            <td class="align-right text-number text-positive">+45.3%</td>
+                            <td class="align-right text-number">284</td>
+                            <td class="align-right text-number">$15,200</td>
+                            <td class="align-center"><span class="status-pill success">Emerging</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">Latin America</td>
+                            <td class="align-right text-number">$1,434,000</td>
+                            <td class="align-right text-number">3.0%</td>
+                            <td class="align-right text-number text-positive">+8.9%</td>
+                            <td class="align-right text-number text-positive">+18.2%</td>
+                            <td class="align-right text-number">76</td>
+                            <td class="align-right text-number">$18,900</td>
+                            <td class="align-center"><span class="status-pill warning">Watch</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">Other Markets</td>
+                            <td class="align-right text-number">$322,000</td>
+                            <td class="align-right text-number">0.7%</td>
+                            <td class="align-right text-number text-positive">+12.3%</td>
+                            <td class="align-right text-number text-positive">+28.7%</td>
+                            <td class="align-right text-number">—</td>
+                            <td class="align-right text-number">—</td>
+                            <td class="align-center"><span class="status-pill neutral">New</span></td>
+                        </tr>
+                        <tr style="background: var(--bg-accent); font-weight: 700;">
+                            <td>Global Total</td>
+                            <td class="align-right text-number">$47,800,000</td>
+                            <td class="align-right text-number">100.0%</td>
+                            <td class="align-right text-number text-positive">+12.4%</td>
+                            <td class="align-right text-number text-positive">+24.8%</td>
+                            <td class="align-right text-number">2,235</td>
+                            <td class="align-right text-number">$21,400</td>
+                            <td class="align-center"><span class="status-pill success">Exceeding</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Final Insight -->
+        <div class="insight-banner">
+            <div class="insight-title">Executive Summary & Recommendations</div>
+            <div class="insight-text">
+                Organizational performance significantly exceeds Q4 targets across all key dimensions. Enterprise segment strength (+18.7% QoQ) and international expansion (+24.7% APAC growth) position company for sustained momentum.
+                Priority actions: (1) Accelerate APAC market development while maintaining unit economics, (2) Address SMB segment velocity concerns through enhanced automation,
+                (3) Optimize marketing spend efficiency to reduce budget variance, (4) Maintain focus on customer retention initiatives for at-risk cohort ($1.2M ARR).
+                Cash position remains robust for planned Q1 2026 strategic initiatives.
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <div>Generated: November 9, 2025 @ 08:45:23 EST</div>
+                <div>Data Source: Enterprise Data Warehouse (EDW)</div>
+                <div>Refresh Cadence: Real-time with 5-minute cache</div>
+                <div>Classification: Internal - Executive Distribution</div>
+            </div>
+            <div class="footer-agent">DARNO</div>
+        </div>
+    </footer>
+
+    <script>
+        // Subtle animation on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const kpiCards = document.querySelectorAll('.kpi-card');
+            const tables = document.querySelectorAll('.data-table-container');
+            const charts = document.querySelectorAll('.chart-container');
+
+            // Stagger KPI card animations
+            kpiCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.4s ease-out';
+
+                    requestAnimationFrame(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    });
+                }, index * 50);
+            });
+
+            // Add sortable table functionality (visual only for demo)
+            const tableHeaders = document.querySelectorAll('.data-table th');
+            tableHeaders.forEach(header => {
+                if (header.textContent.trim() && !header.hasAttribute('colspan')) {
+                    header.style.cursor = 'pointer';
+                    header.addEventListener('click', function() {
+                        // Visual feedback only - full implementation would require data structure
+                        this.style.background = 'var(--navy-light)';
+                        this.style.color = 'white';
+                        setTimeout(() => {
+                            this.style.background = '';
+                            this.style.color = '';
+                        }, 200);
+                    });
+                }
+            });
+
+            // Add interactive chart hover states
+            const chartBars = document.querySelectorAll('.chart-bar');
+            chartBars.forEach(bar => {
+                bar.addEventListener('mouseenter', function() {
+                    const tooltip = document.createElement('div');
+                    tooltip.style.position = 'absolute';
+                    tooltip.style.background = 'var(--navy-deep)';
+                    tooltip.style.color = 'white';
+                    tooltip.style.padding = '6px 12px';
+                    tooltip.style.borderRadius = '4px';
+                    tooltip.style.fontSize = '11px';
+                    tooltip.style.fontWeight = '600';
+                    tooltip.style.pointerEvents = 'none';
+                    tooltip.style.zIndex = '1000';
+                    tooltip.textContent = 'Data point: $' + (Math.random() * 10 + 5).toFixed(1) + 'M';
+                    tooltip.className = 'chart-tooltip';
+                    this.appendChild(tooltip);
+                });
+
+                bar.addEventListener('mouseleave', function() {
+                    const tooltip = this.querySelector('.chart-tooltip');
+                    if (tooltip) {
+                        tooltip.remove();
+                    }
+                });
+            });
+
+            // Add timestamp update simulation
+            function updateTimestamp() {
+                const now = new Date();
+                const timeString = now.toLocaleString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false,
+                    timeZoneName: 'short'
+                });
+
+                const footerTimestamp = document.querySelector('.footer-info div:first-child');
+                if (footerTimestamp) {
+                    // Keep static for demo, but this shows where live updates would occur
+                    // footerTimestamp.textContent = 'Generated: ' + timeString;
+                }
+            }
+
+            // Simulate data refresh indicator
+            setInterval(() => {
+                const headerMeta = document.querySelector('.meta-value');
+                if (headerMeta && Math.random() > 0.95) {
+                    headerMeta.style.opacity = '0.5';
+                    setTimeout(() => {
+                        headerMeta.style.opacity = '1';
+                    }, 300);
+                }
+            }, 10000);
+
+            // Add keyboard navigation for tables
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    const focused = document.activeElement;
+                    if (focused.tagName === 'TR') {
+                        e.preventDefault();
+                        // Navigate through table rows with tab
+                    }
+                }
+            });
+
+            // Performance monitoring (console output for demo)
+            const perfData = performance.getEntriesByType('navigation')[0];
+            if (perfData) {
+                console.log('Dashboard Load Time:', Math.round(perfData.loadEventEnd - perfData.fetchStart), 'ms');
+                console.log('DOM Content Loaded:', Math.round(perfData.domContentLoadedEventEnd - perfData.fetchStart), 'ms');
+            }
+
+            // Accessibility: Announce dynamic content updates
+            const ariaLive = document.createElement('div');
+            ariaLive.setAttribute('role', 'status');
+            ariaLive.setAttribute('aria-live', 'polite');
+            ariaLive.style.position = 'absolute';
+            ariaLive.style.left = '-10000px';
+            ariaLive.style.width = '1px';
+            ariaLive.style.height = '1px';
+            ariaLive.style.overflow = 'hidden';
+            document.body.appendChild(ariaLive);
+
+            // Responsive table scroll hint
+            const tables = document.querySelectorAll('.data-table');
+            tables.forEach(table => {
+                const container = table.closest('.data-table-container');
+                if (container && table.scrollWidth > container.clientWidth) {
+                    container.style.position = 'relative';
+                    const hint = document.createElement('div');
+                    hint.textContent = '← Scroll for more data →';
+                    hint.style.cssText = `
+                        position: absolute;
+                        bottom: 8px;
+                        right: 8px;
+                        font-size: 10px;
+                        color: var(--text-tertiary);
+                        background: var(--bg-secondary);
+                        padding: 4px 8px;
+                        border-radius: 3px;
+                        pointer-events: none;
+                        opacity: 0.7;
+                    `;
+                    container.appendChild(hint);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

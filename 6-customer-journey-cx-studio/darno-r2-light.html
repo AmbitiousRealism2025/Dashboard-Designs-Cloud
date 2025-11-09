@@ -1,0 +1,1930 @@
+<!-- Agent: Darno | Round: 2 - Light Mode Masterpiece | Theme: Customer Journey CX Studio | Intent: Precision customer analytics with warm humanity - data-dense lifecycle cohort analysis with NPS segmentation -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Journey Analytics Studio | DARNO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.18s ease-out;
+        }
+
+        :root {
+            /* Light Mode Color System */
+            --bg-primary: #FAFAFA;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #F5F5F5;
+
+            /* Warm Accent Palette */
+            --coral: #FF6B6B;
+            --coral-light: #FFE5E5;
+            --coral-dark: #E35555;
+            --amber: #FFA94D;
+            --amber-light: #FFE8CC;
+            --amber-dark: #E68E33;
+            --teal: #20C997;
+            --teal-light: #D4F4E8;
+            --teal-dark: #17A57A;
+
+            /* Semantic Colors */
+            --success: #20C997;
+            --success-bg: #D4F4E8;
+            --warning: #FFA94D;
+            --warning-bg: #FFE8CC;
+            --danger: #FF6B6B;
+            --danger-bg: #FFE5E5;
+            --info: #4DABF7;
+            --info-bg: #E0F4FF;
+
+            /* Neutrals */
+            --text-primary: #2B2D42;
+            --text-secondary: #495057;
+            --text-tertiary: #868E96;
+            --border-light: #E9ECEF;
+            --border-medium: #DEE2E6;
+            --border-dark: #CED4DA;
+
+            /* Typography */
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-display: 'Nunito', sans-serif;
+
+            /* Spacing System */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 12px;
+            --space-lg: 16px;
+            --space-xl: 24px;
+            --space-2xl: 32px;
+            --space-3xl: 48px;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 13px;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 2px solid var(--border-medium);
+            padding: var(--space-lg) var(--space-2xl);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--coral), var(--amber));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            font-size: 16px;
+            font-family: var(--font-display);
+        }
+
+        .logo-text h1 {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-text p {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        .header-meta {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .data-refresh {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            background: var(--teal-light);
+            border-radius: 6px;
+            font-size: 11px;
+            color: var(--teal-dark);
+            font-weight: 600;
+        }
+
+        .refresh-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--teal);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+
+        .period-selector {
+            display: flex;
+            gap: var(--space-xs);
+            background: var(--bg-tertiary);
+            padding: 4px;
+            border-radius: 8px;
+        }
+
+        .period-btn {
+            padding: 6px 14px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 6px;
+            font-family: var(--font-main);
+        }
+
+        .period-btn.active {
+            background: white;
+            color: var(--coral);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-2xl);
+        }
+
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: var(--space-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--coral), var(--amber));
+        }
+
+        .kpi-card.teal::before {
+            background: linear-gradient(90deg, var(--teal), var(--info));
+        }
+
+        .kpi-card.amber::before {
+            background: linear-gradient(90deg, var(--amber), var(--coral));
+        }
+
+        .kpi-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-tertiary);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-family: var(--font-display);
+            line-height: 1;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-delta {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-delta.positive {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .kpi-delta.negative {
+            background: var(--danger-bg);
+            color: var(--danger);
+        }
+
+        .kpi-delta.neutral {
+            background: var(--warning-bg);
+            color: var(--warning);
+        }
+
+        .kpi-meta {
+            font-size: 10px;
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        .sparkline-mini {
+            height: 32px;
+            margin-top: var(--space-sm);
+            background: linear-gradient(to right,
+                transparent 0%,
+                var(--coral-light) 20%,
+                var(--coral-light) 40%,
+                transparent 60%,
+                var(--teal-light) 80%,
+                var(--teal-light) 100%
+            );
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sparkline-mini::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--coral) 0%, var(--amber) 50%, var(--teal) 100%);
+        }
+
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .section-badge {
+            background: var(--coral-light);
+            color: var(--coral-dark);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        /* Lifecycle Grid */
+        .lifecycle-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .lifecycle-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: var(--space-lg);
+            position: relative;
+        }
+
+        .lifecycle-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .lifecycle-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .lifecycle-card.acquire .lifecycle-icon {
+            background: var(--coral-light);
+            color: var(--coral-dark);
+        }
+
+        .lifecycle-card.onboard .lifecycle-icon {
+            background: var(--amber-light);
+            color: var(--amber-dark);
+        }
+
+        .lifecycle-card.engage .lifecycle-icon {
+            background: var(--teal-light);
+            color: var(--teal-dark);
+        }
+
+        .lifecycle-card.retain .lifecycle-icon {
+            background: var(--info-bg);
+            color: var(--info);
+        }
+
+        .lifecycle-title {
+            flex: 1;
+        }
+
+        .lifecycle-title h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+            font-family: var(--font-display);
+        }
+
+        .lifecycle-title p {
+            font-size: 10px;
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        .lifecycle-metrics {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-sm) 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .metric-value {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-family: var(--font-display);
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+        }
+
+        /* NPS Breakdown Table */
+        .data-table-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table thead {
+            background: var(--bg-tertiary);
+            border-bottom: 2px solid var(--border-medium);
+        }
+
+        .data-table th {
+            padding: var(--space-md) var(--space-lg);
+            text-align: left;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+        }
+
+        .data-table th.numeric {
+            text-align: right;
+        }
+
+        .data-table td {
+            padding: var(--space-md) var(--space-lg);
+            font-size: 12px;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .data-table td.numeric {
+            text-align: right;
+            font-family: var(--font-display);
+            font-weight: 600;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .segment-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .segment-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .score-badge {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+            font-family: var(--font-display);
+        }
+
+        .score-badge.promoter {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .score-badge.passive {
+            background: var(--warning-bg);
+            color: var(--warning);
+        }
+
+        .score-badge.detractor {
+            background: var(--danger-bg);
+            color: var(--danger);
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--border-light);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--teal), var(--info));
+            border-radius: 3px;
+            transition: width 0.4s ease-out;
+        }
+
+        .progress-fill.coral {
+            background: linear-gradient(90deg, var(--coral), var(--amber));
+        }
+
+        .progress-fill.amber {
+            background: linear-gradient(90deg, var(--amber), var(--warning));
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: var(--space-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .chart-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-family: var(--font-display);
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: var(--space-lg);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .chart-visual {
+            height: 240px;
+            background:
+                linear-gradient(to right, var(--border-light) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--border-light) 1px, transparent 1px);
+            background-size: 60px 40px;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .funnel-visual {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            padding: var(--space-lg);
+        }
+
+        .funnel-stage {
+            position: relative;
+            height: 42px;
+            background: linear-gradient(90deg, var(--coral-light), var(--coral-light));
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--space-lg);
+            border-left: 4px solid var(--coral);
+        }
+
+        .funnel-stage:nth-child(2) {
+            width: 85%;
+            background: linear-gradient(90deg, var(--amber-light), var(--amber-light));
+            border-left-color: var(--amber);
+        }
+
+        .funnel-stage:nth-child(3) {
+            width: 68%;
+            background: linear-gradient(90deg, var(--teal-light), var(--teal-light));
+            border-left-color: var(--teal);
+        }
+
+        .funnel-stage:nth-child(4) {
+            width: 52%;
+            background: linear-gradient(90deg, var(--info-bg), var(--info-bg));
+            border-left-color: var(--info);
+        }
+
+        .funnel-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .funnel-value {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-family: var(--font-display);
+        }
+
+        /* Customer Voices */
+        .voices-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .voice-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: var(--space-xl);
+            position: relative;
+            animation: fadeInUp 0.4s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .voice-card:nth-child(1) { animation-delay: 0.1s; }
+        .voice-card:nth-child(2) { animation-delay: 0.2s; }
+        .voice-card:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .voice-card:hover {
+            border-color: var(--coral);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .quote-mark {
+            font-size: 48px;
+            line-height: 1;
+            color: var(--coral-light);
+            font-family: Georgia, serif;
+            margin-bottom: var(--space-md);
+        }
+
+        .voice-text {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-primary);
+            margin-bottom: var(--space-lg);
+            font-style: italic;
+        }
+
+        .voice-author {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border-light);
+        }
+
+        .author-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--coral), var(--amber));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .author-info {
+            flex: 1;
+        }
+
+        .author-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .author-meta {
+            font-size: 10px;
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        .voice-score {
+            padding: 4px 10px;
+            background: var(--success-bg);
+            color: var(--success);
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            font-family: var(--font-display);
+        }
+
+        /* Cohort Analysis Grid */
+        .cohort-grid {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .cohort-heatmap {
+            display: grid;
+            grid-template-columns: 120px repeat(12, 1fr);
+            gap: 4px;
+            font-size: 11px;
+        }
+
+        .cohort-cell {
+            padding: var(--space-sm);
+            text-align: center;
+            font-weight: 600;
+            border-radius: 4px;
+            font-family: var(--font-display);
+        }
+
+        .cohort-cell.header {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .cohort-cell.label {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .cohort-cell.value {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .cohort-cell.high {
+            background: var(--teal-light);
+            color: var(--teal-dark);
+        }
+
+        .cohort-cell.medium {
+            background: var(--amber-light);
+            color: var(--amber-dark);
+        }
+
+        .cohort-cell.low {
+            background: var(--coral-light);
+            color: var(--coral-dark);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 2px solid var(--border-medium);
+            padding: var(--space-xl) var(--space-2xl);
+            margin-top: var(--space-3xl);
+        }
+
+        .footer-content {
+            max-width: 1920px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-info {
+            display: flex;
+            gap: var(--space-2xl);
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        .footer-info strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .agent-badge {
+            background: linear-gradient(135deg, var(--coral), var(--amber));
+            color: white;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            font-family: var(--font-display);
+        }
+
+        /* Three Column Layout */
+        .three-column {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+        }
+
+        /* Churn Risk Analysis */
+        .risk-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .risk-table thead {
+            background: var(--bg-tertiary);
+            border-bottom: 2px solid var(--border-medium);
+        }
+
+        .risk-table th {
+            padding: var(--space-sm) var(--space-md);
+            text-align: left;
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .risk-table td {
+            padding: var(--space-sm) var(--space-md);
+            font-size: 11px;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .risk-table tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .risk-level {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .risk-level.high {
+            background: var(--danger-bg);
+            color: var(--danger);
+        }
+
+        .risk-level.medium {
+            background: var(--warning-bg);
+            color: var(--warning);
+        }
+
+        .risk-level.low {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        /* Responsive */
+        @media (max-width: 1400px) {
+            .kpi-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .lifecycle-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .voices-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 960px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .lifecycle-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .two-column,
+            .three-column {
+                grid-template-columns: 1fr;
+            }
+
+            .voices-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cohort-heatmap {
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: var(--space-lg);
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: var(--space-md) var(--space-lg);
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="header-left">
+                <div class="logo">
+                    <div class="logo-icon">CX</div>
+                    <div class="logo-text">
+                        <h1>Customer Journey Analytics Studio</h1>
+                        <p>Data-Precision Customer Experience Intelligence</p>
+                    </div>
+                </div>
+            </div>
+            <div class="header-meta">
+                <div class="data-refresh">
+                    <div class="refresh-dot"></div>
+                    <span>Live Data • Updated 2 min ago</span>
+                </div>
+                <div class="period-selector">
+                    <button class="period-btn">7D</button>
+                    <button class="period-btn">30D</button>
+                    <button class="period-btn active">90D</button>
+                    <button class="period-btn">1Y</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- KPI Strip -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-label">Net Promoter Score</div>
+                <div class="kpi-value">+47</div>
+                <div class="kpi-delta positive">↑ 8 pts</div>
+                <div class="kpi-meta">Industry avg: +32</div>
+                <div class="sparkline-mini"></div>
+            </div>
+
+            <div class="kpi-card teal">
+                <div class="kpi-label">Customer Sat (CSAT)</div>
+                <div class="kpi-value">87.2%</div>
+                <div class="kpi-delta positive">↑ 4.3%</div>
+                <div class="kpi-meta">12,847 responses</div>
+                <div class="sparkline-mini"></div>
+            </div>
+
+            <div class="kpi-card amber">
+                <div class="kpi-label">Churn Rate</div>
+                <div class="kpi-value">3.8%</div>
+                <div class="kpi-delta positive">↓ 1.2%</div>
+                <div class="kpi-meta">Monthly annualized</div>
+                <div class="sparkline-mini"></div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">Avg Lifetime Value</div>
+                <div class="kpi-value">$8,945</div>
+                <div class="kpi-delta positive">↑ 12%</div>
+                <div class="kpi-meta">Cohort 2024-Q3</div>
+                <div class="sparkline-mini"></div>
+            </div>
+
+            <div class="kpi-card teal">
+                <div class="kpi-label">Support Resolution</div>
+                <div class="kpi-value">94.3%</div>
+                <div class="kpi-delta positive">↑ 2.1%</div>
+                <div class="kpi-meta">First contact resolution</div>
+                <div class="sparkline-mini"></div>
+            </div>
+
+            <div class="kpi-card amber">
+                <div class="kpi-label">Product Adoption</div>
+                <div class="kpi-value">68.7%</div>
+                <div class="kpi-delta positive">↑ 5.4%</div>
+                <div class="kpi-meta">Feature activation rate</div>
+                <div class="sparkline-mini"></div>
+            </div>
+        </div>
+
+        <!-- Lifecycle Stage Cards -->
+        <div class="section-header">
+            <div class="section-title">
+                Customer Lifecycle Performance
+                <span class="section-badge">BY STAGE</span>
+            </div>
+        </div>
+
+        <div class="lifecycle-grid">
+            <div class="lifecycle-card acquire">
+                <div class="lifecycle-header">
+                    <div class="lifecycle-icon">A</div>
+                    <div class="lifecycle-title">
+                        <h3>Acquire</h3>
+                        <p>Lead to Customer</p>
+                    </div>
+                </div>
+                <div class="lifecycle-metrics">
+                    <div class="metric-row">
+                        <span class="metric-label">Conversion Rate</span>
+                        <span class="metric-value">18.4%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Avg Time to Convert</span>
+                        <span class="metric-value">14.2 days</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Cost per Acquisition</span>
+                        <span class="metric-value">$287</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Lead Quality Score</span>
+                        <span class="metric-value">8.3/10</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">New Customers (90d)</span>
+                        <span class="metric-value">2,847</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lifecycle-card onboard">
+                <div class="lifecycle-header">
+                    <div class="lifecycle-icon">O</div>
+                    <div class="lifecycle-title">
+                        <h3>Onboard</h3>
+                        <p>Activation Phase</p>
+                    </div>
+                </div>
+                <div class="lifecycle-metrics">
+                    <div class="metric-row">
+                        <span class="metric-label">Activation Rate</span>
+                        <span class="metric-value">82.6%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Time to First Value</span>
+                        <span class="metric-value">3.8 days</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Onboarding Complete</span>
+                        <span class="metric-value">76.3%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Support Tickets (avg)</span>
+                        <span class="metric-value">1.2</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Early Satisfaction</span>
+                        <span class="metric-value">91.4%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lifecycle-card engage">
+                <div class="lifecycle-header">
+                    <div class="lifecycle-icon">E</div>
+                    <div class="lifecycle-title">
+                        <h3>Engage</h3>
+                        <p>Active Usage</p>
+                    </div>
+                </div>
+                <div class="lifecycle-metrics">
+                    <div class="metric-row">
+                        <span class="metric-label">Daily Active Users</span>
+                        <span class="metric-value">68.9%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Feature Adoption</span>
+                        <span class="metric-value">4.7/7</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Session Duration</span>
+                        <span class="metric-value">24.3 min</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Product NPS</span>
+                        <span class="metric-value">+52</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Power Users</span>
+                        <span class="metric-value">34.2%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lifecycle-card retain">
+                <div class="lifecycle-header">
+                    <div class="lifecycle-icon">R</div>
+                    <div class="lifecycle-title">
+                        <h3>Retain</h3>
+                        <p>Loyalty & Growth</p>
+                    </div>
+                </div>
+                <div class="lifecycle-metrics">
+                    <div class="metric-row">
+                        <span class="metric-label">Retention Rate (90d)</span>
+                        <span class="metric-value">96.2%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Expansion Revenue</span>
+                        <span class="metric-value">$142K</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Upsell Conversion</span>
+                        <span class="metric-value">23.8%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Referral Rate</span>
+                        <span class="metric-value">12.4%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Loyalty Score</span>
+                        <span class="metric-value">8.9/10</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Two Column: NPS Breakdown + Funnel -->
+        <div class="two-column">
+            <div class="data-table-container">
+                <div class="section-header" style="margin: var(--space-lg) var(--space-lg) 0;">
+                    <div class="section-title">
+                        NPS Breakdown by Segment
+                        <span class="section-badge">DETAILED</span>
+                    </div>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Customer Segment</th>
+                            <th class="numeric">Respondents</th>
+                            <th class="numeric">NPS</th>
+                            <th class="numeric">Promoters</th>
+                            <th class="numeric">Passives</th>
+                            <th class="numeric">Detractors</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="segment-badge">
+                                    <div class="segment-dot" style="background: var(--coral);"></div>
+                                    Enterprise
+                                </div>
+                            </td>
+                            <td class="numeric">1,247</td>
+                            <td class="numeric"><span class="score-badge promoter">+62</span></td>
+                            <td class="numeric">74.3%</td>
+                            <td class="numeric">13.6%</td>
+                            <td class="numeric">12.1%</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="segment-badge">
+                                    <div class="segment-dot" style="background: var(--amber);"></div>
+                                    Mid-Market
+                                </div>
+                            </td>
+                            <td class="numeric">3,892</td>
+                            <td class="numeric"><span class="score-badge promoter">+51</span></td>
+                            <td class="numeric">68.2%</td>
+                            <td class="numeric">14.6%</td>
+                            <td class="numeric">17.2%</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="segment-badge">
+                                    <div class="segment-dot" style="background: var(--teal);"></div>
+                                    SMB
+                                </div>
+                            </td>
+                            <td class="numeric">5,634</td>
+                            <td class="numeric"><span class="score-badge promoter">+42</span></td>
+                            <td class="numeric">61.8%</td>
+                            <td class="numeric">18.6%</td>
+                            <td class="numeric">19.6%</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="segment-badge">
+                                    <div class="segment-dot" style="background: var(--info);"></div>
+                                    Startup
+                                </div>
+                            </td>
+                            <td class="numeric">2,074</td>
+                            <td class="numeric"><span class="score-badge promoter">+38</span></td>
+                            <td class="numeric">59.4%</td>
+                            <td class="numeric">19.2%</td>
+                            <td class="numeric">21.4%</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="segment-badge">
+                                    <div class="segment-dot" style="background: var(--text-tertiary);"></div>
+                                    Trial Users
+                                </div>
+                            </td>
+                            <td class="numeric">847</td>
+                            <td class="numeric"><span class="score-badge passive">+18</span></td>
+                            <td class="numeric">47.3%</td>
+                            <td class="numeric">23.5%</td>
+                            <td class="numeric">29.2%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Customer Acquisition Funnel (90-Day)</div>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: var(--coral);"></div>
+                            <span>Website Visitors</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: var(--amber);"></div>
+                            <span>Trial Signups</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: var(--teal);"></div>
+                            <span>Active Users</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: var(--info);"></div>
+                            <span>Paid Customers</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="funnel-visual">
+                    <div class="funnel-stage">
+                        <span class="funnel-label">Website Visitors</span>
+                        <span class="funnel-value">154,782</span>
+                    </div>
+                    <div class="funnel-stage">
+                        <span class="funnel-label">Trial Signups (18.4%)</span>
+                        <span class="funnel-value">28,479</span>
+                    </div>
+                    <div class="funnel-stage">
+                        <span class="funnel-label">Activated Users (62.8%)</span>
+                        <span class="funnel-value">17,885</span>
+                    </div>
+                    <div class="funnel-stage">
+                        <span class="funnel-label">Paid Conversions (52.3%)</span>
+                        <span class="funnel-value">9,354</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Voices -->
+        <div class="section-header">
+            <div class="section-title">
+                Customer Voices
+                <span class="section-badge">RECENT FEEDBACK</span>
+            </div>
+        </div>
+
+        <div class="voices-grid">
+            <div class="voice-card">
+                <div class="quote-mark">"</div>
+                <div class="voice-text">
+                    The onboarding experience was exceptional. Our team was up and running within 48 hours, and the support team was incredibly responsive to our questions. The product intuitive design made training new users effortless.
+                </div>
+                <div class="voice-author">
+                    <div class="author-avatar">SJ</div>
+                    <div class="author-info">
+                        <div class="author-name">Sarah Johnson</div>
+                        <div class="author-meta">VP Operations • Enterprise • 6 months</div>
+                    </div>
+                    <div class="voice-score">NPS: 10</div>
+                </div>
+            </div>
+
+            <div class="voice-card">
+                <div class="quote-mark">"</div>
+                <div class="voice-text">
+                    Love the analytics dashboard and reporting features. We've been able to make data-driven decisions faster than ever. The integration with our existing tools was seamless. Worth every penny.
+                </div>
+                <div class="voice-author">
+                    <div class="author-avatar">MR</div>
+                    <div class="author-info">
+                        <div class="author-name">Michael Rodriguez</div>
+                        <div class="author-meta">Director of Analytics • Mid-Market • 14 months</div>
+                    </div>
+                    <div class="voice-score">NPS: 9</div>
+                </div>
+            </div>
+
+            <div class="voice-card">
+                <div class="quote-mark">"</div>
+                <div class="voice-text">
+                    Great product overall. The feature set is comprehensive and the UI is clean. Would appreciate more customization options in the reporting module, but the core functionality is solid.
+                </div>
+                <div class="voice-author">
+                    <div class="author-avatar">EK</div>
+                    <div class="author-info">
+                        <div class="author-name">Emily Kim</div>
+                        <div class="author-meta">Product Manager • SMB • 4 months</div>
+                    </div>
+                    <div class="voice-score">NPS: 8</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cohort Retention Analysis -->
+        <div class="section-header">
+            <div class="section-title">
+                Cohort Retention Analysis
+                <span class="section-badge">12-MONTH VIEW</span>
+            </div>
+        </div>
+
+        <div class="cohort-grid">
+            <div class="cohort-heatmap">
+                <div class="cohort-cell header">Cohort</div>
+                <div class="cohort-cell header">M0</div>
+                <div class="cohort-cell header">M1</div>
+                <div class="cohort-cell header">M2</div>
+                <div class="cohort-cell header">M3</div>
+                <div class="cohort-cell header">M4</div>
+                <div class="cohort-cell header">M5</div>
+                <div class="cohort-cell header">M6</div>
+                <div class="cohort-cell header">M7</div>
+                <div class="cohort-cell header">M8</div>
+                <div class="cohort-cell header">M9</div>
+                <div class="cohort-cell header">M10</div>
+                <div class="cohort-cell header">M11</div>
+
+                <div class="cohort-cell label">2024-Jan</div>
+                <div class="cohort-cell value">100%</div>
+                <div class="cohort-cell high">94.2%</div>
+                <div class="cohort-cell high">91.8%</div>
+                <div class="cohort-cell high">89.4%</div>
+                <div class="cohort-cell high">87.6%</div>
+                <div class="cohort-cell medium">85.3%</div>
+                <div class="cohort-cell medium">83.7%</div>
+                <div class="cohort-cell medium">82.1%</div>
+                <div class="cohort-cell medium">80.8%</div>
+                <div class="cohort-cell medium">79.4%</div>
+                <div class="cohort-cell medium">78.2%</div>
+                <div class="cohort-cell medium">77.1%</div>
+
+                <div class="cohort-cell label">2024-Feb</div>
+                <div class="cohort-cell value">100%</div>
+                <div class="cohort-cell high">95.1%</div>
+                <div class="cohort-cell high">92.6%</div>
+                <div class="cohort-cell high">90.3%</div>
+                <div class="cohort-cell high">88.7%</div>
+                <div class="cohort-cell high">86.9%</div>
+                <div class="cohort-cell medium">85.4%</div>
+                <div class="cohort-cell medium">84.1%</div>
+                <div class="cohort-cell medium">82.6%</div>
+                <div class="cohort-cell medium">81.3%</div>
+                <div class="cohort-cell medium">80.1%</div>
+                <div class="cohort-cell value">—</div>
+
+                <div class="cohort-cell label">2024-Mar</div>
+                <div class="cohort-cell value">100%</div>
+                <div class="cohort-cell high">96.3%</div>
+                <div class="cohort-cell high">93.8%</div>
+                <div class="cohort-cell high">91.7%</div>
+                <div class="cohort-cell high">89.9%</div>
+                <div class="cohort-cell high">88.2%</div>
+                <div class="cohort-cell high">86.8%</div>
+                <div class="cohort-cell medium">85.3%</div>
+                <div class="cohort-cell medium">84.1%</div>
+                <div class="cohort-cell medium">82.8%</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+
+                <div class="cohort-cell label">2024-Apr</div>
+                <div class="cohort-cell value">100%</div>
+                <div class="cohort-cell high">94.8%</div>
+                <div class="cohort-cell high">92.1%</div>
+                <div class="cohort-cell high">90.4%</div>
+                <div class="cohort-cell high">88.6%</div>
+                <div class="cohort-cell high">87.1%</div>
+                <div class="cohort-cell medium">85.7%</div>
+                <div class="cohort-cell medium">84.2%</div>
+                <div class="cohort-cell medium">82.9%</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+
+                <div class="cohort-cell label">2024-May</div>
+                <div class="cohort-cell value">100%</div>
+                <div class="cohort-cell high">95.7%</div>
+                <div class="cohort-cell high">93.2%</div>
+                <div class="cohort-cell high">91.6%</div>
+                <div class="cohort-cell high">89.8%</div>
+                <div class="cohort-cell high">88.4%</div>
+                <div class="cohort-cell high">86.9%</div>
+                <div class="cohort-cell medium">85.6%</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+
+                <div class="cohort-cell label">2024-Jun</div>
+                <div class="cohort-cell value">100%</div>
+                <div class="cohort-cell high">96.2%</div>
+                <div class="cohort-cell high">94.1%</div>
+                <div class="cohort-cell high">92.3%</div>
+                <div class="cohort-cell high">90.7%</div>
+                <div class="cohort-cell high">89.2%</div>
+                <div class="cohort-cell high">87.8%</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+
+                <div class="cohort-cell label">2024-Jul</div>
+                <div class="cohort-cell value">100%</div>
+                <div class="cohort-cell high">97.1%</div>
+                <div class="cohort-cell high">94.8%</div>
+                <div class="cohort-cell high">93.1%</div>
+                <div class="cohort-cell high">91.4%</div>
+                <div class="cohort-cell high">89.9%</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+
+                <div class="cohort-cell label">2024-Aug</div>
+                <div class="cohort-cell value">100%</div>
+                <div class="cohort-cell high">96.8%</div>
+                <div class="cohort-cell high">94.3%</div>
+                <div class="cohort-cell high">92.7%</div>
+                <div class="cohort-cell high">91.1%</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+
+                <div class="cohort-cell label">2024-Sep</div>
+                <div class="cohort-cell value">100%</div>
+                <div class="cohort-cell high">97.4%</div>
+                <div class="cohort-cell high">95.2%</div>
+                <div class="cohort-cell high">93.6%</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+
+                <div class="cohort-cell label">2024-Oct</div>
+                <div class="cohort-cell value">100%</div>
+                <div class="cohort-cell high">96.9%</div>
+                <div class="cohort-cell high">94.7%</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+
+                <div class="cohort-cell label">2024-Nov</div>
+                <div class="cohort-cell value">100%</div>
+                <div class="cohort-cell high">97.8%</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+                <div class="cohort-cell value">—</div>
+            </div>
+        </div>
+
+        <!-- Three Column: CSAT, Churn Risk, Support -->
+        <div class="three-column">
+            <div class="data-table-container">
+                <div class="section-header" style="margin: var(--space-lg) var(--space-lg) 0;">
+                    <div class="section-title" style="font-size: 13px;">
+                        CSAT by Channel
+                    </div>
+                </div>
+                <table class="risk-table">
+                    <thead>
+                        <tr>
+                            <th>Support Channel</th>
+                            <th>Score</th>
+                            <th>Vol.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Live Chat</td>
+                            <td class="numeric">92.4%</td>
+                            <td class="numeric">5,847</td>
+                        </tr>
+                        <tr>
+                            <td>Email Support</td>
+                            <td class="numeric">87.1%</td>
+                            <td class="numeric">3,294</td>
+                        </tr>
+                        <tr>
+                            <td>Phone Support</td>
+                            <td class="numeric">89.6%</td>
+                            <td class="numeric">1,538</td>
+                        </tr>
+                        <tr>
+                            <td>Knowledge Base</td>
+                            <td class="numeric">84.3%</td>
+                            <td class="numeric">12,674</td>
+                        </tr>
+                        <tr>
+                            <td>Community Forum</td>
+                            <td class="numeric">81.7%</td>
+                            <td class="numeric">947</td>
+                        </tr>
+                        <tr>
+                            <td>Video Tutorials</td>
+                            <td class="numeric">88.9%</td>
+                            <td class="numeric">2,163</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="data-table-container">
+                <div class="section-header" style="margin: var(--space-lg) var(--space-lg) 0;">
+                    <div class="section-title" style="font-size: 13px;">
+                        Churn Risk Analysis
+                    </div>
+                </div>
+                <table class="risk-table">
+                    <thead>
+                        <tr>
+                            <th>Account Segment</th>
+                            <th>Risk</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Low Engagement</td>
+                            <td><span class="risk-level high">High</span></td>
+                            <td class="numeric">147</td>
+                        </tr>
+                        <tr>
+                            <td>Support Escalations</td>
+                            <td><span class="risk-level high">High</span></td>
+                            <td class="numeric">83</td>
+                        </tr>
+                        <tr>
+                            <td>License Under-Utilization</td>
+                            <td><span class="risk-level medium">Med</span></td>
+                            <td class="numeric">294</td>
+                        </tr>
+                        <tr>
+                            <td>Billing Disputes</td>
+                            <td><span class="risk-level medium">Med</span></td>
+                            <td class="numeric">56</td>
+                        </tr>
+                        <tr>
+                            <td>Feature Adoption Lag</td>
+                            <td><span class="risk-level medium">Med</span></td>
+                            <td class="numeric">412</td>
+                        </tr>
+                        <tr>
+                            <td>Healthy Accounts</td>
+                            <td><span class="risk-level low">Low</span></td>
+                            <td class="numeric">8,731</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="data-table-container">
+                <div class="section-header" style="margin: var(--space-lg) var(--space-lg) 0;">
+                    <div class="section-title" style="font-size: 13px;">
+                        Support Metrics
+                    </div>
+                </div>
+                <table class="risk-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Value</th>
+                            <th>Δ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Avg Response Time</td>
+                            <td class="numeric">4.2 min</td>
+                            <td class="numeric" style="color: var(--success);">↓ 8%</td>
+                        </tr>
+                        <tr>
+                            <td>First Contact Resolution</td>
+                            <td class="numeric">94.3%</td>
+                            <td class="numeric" style="color: var(--success);">↑ 2%</td>
+                        </tr>
+                        <tr>
+                            <td>Ticket Volume</td>
+                            <td class="numeric">1,847</td>
+                            <td class="numeric" style="color: var(--danger);">↑ 5%</td>
+                        </tr>
+                        <tr>
+                            <td>Avg Resolution Time</td>
+                            <td class="numeric">2.3 hrs</td>
+                            <td class="numeric" style="color: var(--success);">↓ 12%</td>
+                        </tr>
+                        <tr>
+                            <td>Escalation Rate</td>
+                            <td class="numeric">5.7%</td>
+                            <td class="numeric" style="color: var(--success);">↓ 1%</td>
+                        </tr>
+                        <tr>
+                            <td>Agent Satisfaction</td>
+                            <td class="numeric">96.1%</td>
+                            <td class="numeric" style="color: var(--success);">↑ 3%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Feature Adoption Table -->
+        <div class="section-header">
+            <div class="section-title">
+                Feature Adoption by Customer Segment
+                <span class="section-badge">USAGE INTELLIGENCE</span>
+            </div>
+        </div>
+
+        <div class="data-table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Feature Module</th>
+                        <th class="numeric">Enterprise</th>
+                        <th class="numeric">Mid-Market</th>
+                        <th class="numeric">SMB</th>
+                        <th class="numeric">Startup</th>
+                        <th class="numeric">Overall Adoption</th>
+                        <th class="numeric">Avg Sessions/Week</th>
+                        <th class="numeric">Power User %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Core Dashboard</strong></td>
+                        <td class="numeric">98.7%</td>
+                        <td class="numeric">96.4%</td>
+                        <td class="numeric">94.2%</td>
+                        <td class="numeric">91.8%</td>
+                        <td class="numeric">95.3%</td>
+                        <td class="numeric">18.4</td>
+                        <td class="numeric">67.2%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Advanced Analytics</strong></td>
+                        <td class="numeric">87.3%</td>
+                        <td class="numeric">74.6%</td>
+                        <td class="numeric">58.1%</td>
+                        <td class="numeric">43.7%</td>
+                        <td class="numeric">65.9%</td>
+                        <td class="numeric">12.7</td>
+                        <td class="numeric">42.3%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Collaboration Tools</strong></td>
+                        <td class="numeric">92.1%</td>
+                        <td class="numeric">86.3%</td>
+                        <td class="numeric">79.4%</td>
+                        <td class="numeric">71.2%</td>
+                        <td class="numeric">82.3%</td>
+                        <td class="numeric">14.2</td>
+                        <td class="numeric">54.8%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>API & Integrations</strong></td>
+                        <td class="numeric">76.4%</td>
+                        <td class="numeric">62.8%</td>
+                        <td class="numeric">47.3%</td>
+                        <td class="numeric">38.9%</td>
+                        <td class="numeric">56.4%</td>
+                        <td class="numeric">8.3</td>
+                        <td class="numeric">31.7%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Custom Reporting</strong></td>
+                        <td class="numeric">84.2%</td>
+                        <td class="numeric">71.9%</td>
+                        <td class="numeric">54.6%</td>
+                        <td class="numeric">41.3%</td>
+                        <td class="numeric">63.0%</td>
+                        <td class="numeric">9.6</td>
+                        <td class="numeric">38.4%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mobile App</strong></td>
+                        <td class="numeric">68.7%</td>
+                        <td class="numeric">72.3%</td>
+                        <td class="numeric">78.4%</td>
+                        <td class="numeric">81.6%</td>
+                        <td class="numeric">75.3%</td>
+                        <td class="numeric">11.4</td>
+                        <td class="numeric">48.9%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Automation Workflows</strong></td>
+                        <td class="numeric">79.3%</td>
+                        <td class="numeric">64.7%</td>
+                        <td class="numeric">48.2%</td>
+                        <td class="numeric">34.6%</td>
+                        <td class="numeric">56.7%</td>
+                        <td class="numeric">7.8</td>
+                        <td class="numeric">29.3%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <div>
+                    <strong>Data Source:</strong> Customer Analytics Platform v4.2
+                </div>
+                <div>
+                    <strong>Last Updated:</strong> 2024-11-09 14:23:47 UTC
+                </div>
+                <div>
+                    <strong>Sample Size:</strong> 12,847 active customers
+                </div>
+                <div>
+                    <strong>Confidence:</strong> 95% (±2.1%)
+                </div>
+            </div>
+            <div class="agent-badge">DARNO</div>
+        </div>
+    </footer>
+
+    <script>
+        // Lightweight interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Period selector
+            const periodButtons = document.querySelectorAll('.period-btn');
+            periodButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    periodButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Table row interactions
+            const tableRows = document.querySelectorAll('.data-table tbody tr, .risk-table tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', function() {
+                    this.style.backgroundColor = 'var(--coral-light)';
+                    setTimeout(() => {
+                        this.style.backgroundColor = '';
+                    }, 300);
+                });
+            });
+
+            // Animate progress bars on load
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 100);
+            });
+
+            // Voice card hover effects
+            const voiceCards = document.querySelectorAll('.voice-card');
+            voiceCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.querySelector('.quote-mark').style.color = 'var(--coral)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.querySelector('.quote-mark').style.color = 'var(--coral-light)';
+                });
+            });
+
+            // Lifecycle card interactions
+            const lifecycleCards = document.querySelectorAll('.lifecycle-card');
+            lifecycleCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 6px 16px rgba(0,0,0,0.08)';
+                    this.style.transform = 'translateY(-3px)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '';
+                    this.style.transform = '';
+                });
+            });
+
+            // KPI card hover
+            const kpiCards = document.querySelectorAll('.kpi-card');
+            kpiCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.06)';
+                    this.style.transform = 'translateY(-2px)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '';
+                    this.style.transform = '';
+                });
+            });
+
+            console.log('🎯 DARNO Customer Journey Analytics Studio initialized');
+            console.log('📊 Data-precision CX intelligence loaded');
+            console.log('💚 Light mode with warm humanity activated');
+        });
+    </script>
+</body>
+</html>

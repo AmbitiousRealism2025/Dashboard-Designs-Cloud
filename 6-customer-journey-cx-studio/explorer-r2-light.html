@@ -1,0 +1,1870 @@
+<!-- Agent: Explorer | Round: 2 - Light Mode Masterpiece | Theme: Customer Journey CX Studio | Intent: Asymmetric journey-path dashboard with floating customer personas and experimental lifecycle visualization -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CX Studio Journey Dashboard - Explorer Design</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        :root {
+            /* Warm Light Palette */
+            --bg-primary: #FAFAF8;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #FFF8F3;
+            --bg-accent: #FFF5E6;
+
+            /* Warm Accents */
+            --coral-main: #FF6B6B;
+            --coral-light: #FF8E8E;
+            --coral-lighter: #FFE5E5;
+            --amber-main: #FFB84D;
+            --amber-light: #FFCF7D;
+            --amber-lighter: #FFF3DC;
+            --teal-main: #4ECDC4;
+            --teal-light: #7FE0D8;
+            --teal-lighter: #D4F5F2;
+
+            /* Neutrals */
+            --neutral-100: #F5F5F0;
+            --neutral-200: #E8E8E3;
+            --neutral-300: #D4D4CF;
+            --neutral-400: #A8A8A0;
+            --neutral-500: #7A7A72;
+
+            /* Text */
+            --text-primary: #2D2D2D;
+            --text-secondary: #5A5A5A;
+            --text-tertiary: #8A8A82;
+
+            /* Semantic */
+            --success: #6BCF7F;
+            --warning: #FFB84D;
+            --danger: #FF6B6B;
+            --info: #4ECDC4;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 0.75rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(45, 45, 45, 0.06);
+            --shadow-md: 0 4px 16px rgba(45, 45, 45, 0.08);
+            --shadow-lg: 0 8px 32px rgba(45, 45, 45, 0.12);
+            --shadow-float: 0 12px 40px rgba(255, 107, 107, 0.15);
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .dashboard-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-secondary);
+            padding: var(--space-lg) var(--space-2xl);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--coral-lighter);
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .brand-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--coral-main), var(--amber-main));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: var(--shadow-md);
+            transform: rotate(-5deg);
+        }
+
+        .brand-text h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .brand-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--space-sm);
+            align-items: center;
+        }
+
+        .btn {
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 12px;
+            border: none;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--coral-main), var(--amber-main));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 2px solid var(--neutral-200);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--coral-main);
+            background: var(--coral-lighter);
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+            padding: var(--space-2xl);
+        }
+
+        /* Dashboard Header Section */
+        .dashboard-header {
+            margin-bottom: var(--space-2xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: var(--space-lg);
+        }
+
+        .dashboard-title-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .dashboard-title-section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--coral-main), var(--amber-main));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-xs);
+        }
+
+        .dashboard-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .time-filter {
+            background: var(--bg-secondary);
+            padding: var(--space-sm);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .time-filter button {
+            padding: var(--space-sm) var(--space-md);
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .time-filter button.active {
+            background: linear-gradient(135deg, var(--coral-lighter), var(--amber-lighter));
+            color: var(--coral-main);
+        }
+
+        /* KPI Strip - Asymmetric Layout */
+        .kpi-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            padding: var(--space-lg);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--coral-main), var(--amber-main));
+        }
+
+        .kpi-card:nth-child(2)::before {
+            background: linear-gradient(90deg, var(--amber-main), var(--teal-main));
+        }
+
+        .kpi-card:nth-child(3)::before {
+            background: linear-gradient(90deg, var(--teal-main), var(--coral-main));
+        }
+
+        .kpi-card:nth-child(4)::before {
+            background: linear-gradient(90deg, var(--coral-main), var(--teal-main));
+        }
+
+        .kpi-card:nth-child(5)::before {
+            background: linear-gradient(90deg, var(--amber-main), var(--coral-main));
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px) rotate(1deg);
+            box-shadow: var(--shadow-float);
+            border-color: var(--coral-lighter);
+        }
+
+        .kpi-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            line-height: 1;
+        }
+
+        .kpi-delta {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-delta.positive {
+            background: #D4F5E4;
+            color: #28A745;
+        }
+
+        .kpi-delta.negative {
+            background: var(--coral-lighter);
+            color: var(--coral-main);
+        }
+
+        .kpi-meta {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        .sparkline {
+            height: 40px;
+            background: linear-gradient(90deg,
+                var(--coral-lighter) 0%,
+                var(--amber-lighter) 50%,
+                var(--teal-lighter) 100%);
+            border-radius: 6px;
+            margin-top: var(--space-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sparkline::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg,
+                var(--coral-main) 0%,
+                var(--amber-main) 30%,
+                var(--teal-main) 60%,
+                var(--coral-main) 100%);
+            transform: translateY(-50%);
+            animation: sparklineMove 3s ease-in-out infinite;
+        }
+
+        @keyframes sparklineMove {
+            0%, 100% { transform: translateY(-50%) scaleY(1); }
+            50% { transform: translateY(-50%) scaleY(1.5); }
+        }
+
+        /* Journey Path Section - Experimental Curved Layout */
+        .journey-section {
+            margin-bottom: var(--space-2xl);
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-header h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .journey-path {
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .journey-path::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 30%, var(--coral-lighter) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, var(--teal-lighter) 0%, transparent 50%);
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .journey-stages {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-xl);
+        }
+
+        .stage-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-md);
+            border: 3px solid var(--neutral-100);
+            position: relative;
+            transform-origin: center;
+        }
+
+        .stage-card:nth-child(1) {
+            border-color: var(--coral-lighter);
+            transform: rotate(-2deg);
+        }
+
+        .stage-card:nth-child(2) {
+            border-color: var(--amber-lighter);
+            transform: rotate(1deg);
+        }
+
+        .stage-card:nth-child(3) {
+            border-color: var(--teal-lighter);
+            transform: rotate(-1deg);
+        }
+
+        .stage-card:nth-child(4) {
+            border-color: var(--coral-lighter);
+            transform: rotate(2deg);
+        }
+
+        .stage-card:hover {
+            transform: rotate(0deg) translateY(-8px);
+            box-shadow: var(--shadow-float);
+            border-width: 4px;
+        }
+
+        .stage-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: var(--space-md);
+        }
+
+        .stage-card:nth-child(1) .stage-icon {
+            background: linear-gradient(135deg, var(--coral-main), var(--coral-light));
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .stage-card:nth-child(2) .stage-icon {
+            background: linear-gradient(135deg, var(--amber-main), var(--amber-light));
+            box-shadow: 0 8px 20px rgba(255, 184, 77, 0.3);
+        }
+
+        .stage-card:nth-child(3) .stage-icon {
+            background: linear-gradient(135deg, var(--teal-main), var(--teal-light));
+            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.3);
+        }
+
+        .stage-card:nth-child(4) .stage-icon {
+            background: linear-gradient(135deg, var(--coral-light), var(--amber-main));
+            box-shadow: 0 8px 20px rgba(255, 142, 142, 0.3);
+        }
+
+        .stage-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .stage-metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-sm) 0;
+            border-bottom: 1px solid var(--neutral-100);
+        }
+
+        .stage-metric:last-child {
+            border-bottom: none;
+        }
+
+        .stage-metric-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .stage-metric-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .stage-progress {
+            margin-top: var(--space-md);
+            height: 8px;
+            background: var(--neutral-100);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .stage-progress-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease-out;
+        }
+
+        .stage-card:nth-child(1) .stage-progress-bar {
+            background: linear-gradient(90deg, var(--coral-main), var(--coral-light));
+            width: 78%;
+        }
+
+        .stage-card:nth-child(2) .stage-progress-bar {
+            background: linear-gradient(90deg, var(--amber-main), var(--amber-light));
+            width: 65%;
+        }
+
+        .stage-card:nth-child(3) .stage-progress-bar {
+            background: linear-gradient(90deg, var(--teal-main), var(--teal-light));
+            width: 82%;
+        }
+
+        .stage-card:nth-child(4) .stage-progress-bar {
+            background: linear-gradient(90deg, var(--coral-light), var(--amber-main));
+            width: 71%;
+        }
+
+        /* Customer Voices - Asymmetric Floating Cards */
+        .voices-section {
+            margin-bottom: var(--space-2xl);
+        }
+
+        .voices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .voice-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            border-left: 4px solid var(--coral-main);
+            animation: floatIn 0.6s ease-out backwards;
+        }
+
+        .voice-card:nth-child(1) {
+            animation-delay: 0.1s;
+            border-left-color: var(--coral-main);
+        }
+
+        .voice-card:nth-child(2) {
+            animation-delay: 0.2s;
+            border-left-color: var(--amber-main);
+            transform: rotate(-1deg);
+        }
+
+        .voice-card:nth-child(3) {
+            animation-delay: 0.3s;
+            border-left-color: var(--teal-main);
+            transform: rotate(1deg);
+        }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .voice-card:hover {
+            transform: rotate(0deg) translateY(-6px);
+            box-shadow: var(--shadow-float);
+        }
+
+        .customer-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .customer-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--coral-main), var(--amber-main));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .voice-card:nth-child(2) .customer-avatar {
+            background: linear-gradient(135deg, var(--amber-main), var(--teal-main));
+        }
+
+        .voice-card:nth-child(3) .customer-avatar {
+            background: linear-gradient(135deg, var(--teal-main), var(--coral-main));
+        }
+
+        .customer-info h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .customer-role {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .voice-quote {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+            font-style: italic;
+            margin-bottom: var(--space-md);
+            position: relative;
+            padding-left: var(--space-lg);
+        }
+
+        .voice-quote::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -10px;
+            font-size: 3rem;
+            color: var(--coral-lighter);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .voice-sentiment {
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
+
+        .sentiment-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .sentiment-positive {
+            background: #D4F5E4;
+            color: #28A745;
+        }
+
+        .sentiment-neutral {
+            background: var(--amber-lighter);
+            color: #E67E22;
+        }
+
+        .voice-score {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            font-weight: 600;
+        }
+
+        /* Analytics Grid - Asymmetric Layout */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .analytics-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--neutral-100);
+        }
+
+        .analytics-card:hover {
+            border-color: var(--coral-lighter);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-lg);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .card-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--coral-lighter), var(--amber-lighter));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        /* Funnel Visualization */
+        .funnel-visual {
+            position: relative;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            padding: var(--space-md) 0;
+        }
+
+        .funnel-stage {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .funnel-bar {
+            height: 50px;
+            border-radius: 0 12px 12px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--space-lg);
+            color: white;
+            font-weight: 700;
+            transition: all 0.3s ease-out;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .funnel-stage:nth-child(1) .funnel-bar {
+            width: 100%;
+            background: linear-gradient(90deg, var(--coral-main), var(--coral-light));
+        }
+
+        .funnel-stage:nth-child(2) .funnel-bar {
+            width: 75%;
+            background: linear-gradient(90deg, var(--amber-main), var(--amber-light));
+        }
+
+        .funnel-stage:nth-child(3) .funnel-bar {
+            width: 58%;
+            background: linear-gradient(90deg, var(--teal-main), var(--teal-light));
+        }
+
+        .funnel-stage:nth-child(4) .funnel-bar {
+            width: 42%;
+            background: linear-gradient(90deg, var(--coral-light), var(--amber-main));
+        }
+
+        .funnel-bar:hover {
+            transform: translateX(8px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .funnel-label {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .funnel-value {
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+
+        /* NPS Gauge */
+        .nps-gauge {
+            position: relative;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gauge-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--coral-main) 0deg,
+                var(--amber-main) 120deg,
+                var(--teal-main) 240deg,
+                var(--coral-main) 360deg
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .gauge-inner {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .nps-score {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--coral-main), var(--amber-main));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .nps-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: var(--space-xs);
+        }
+
+        .nps-breakdown {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+            justify-content: center;
+        }
+
+        .nps-segment {
+            text-align: center;
+        }
+
+        .nps-segment-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .nps-segment-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .nps-segment:nth-child(1) .nps-segment-value {
+            color: var(--success);
+        }
+
+        .nps-segment:nth-child(2) .nps-segment-value {
+            color: var(--warning);
+        }
+
+        .nps-segment:nth-child(3) .nps-segment-value {
+            color: var(--danger);
+        }
+
+        /* Sentiment Heatmap */
+        .sentiment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .sentiment-cell {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            text-align: center;
+            border: 2px solid var(--neutral-100);
+            transition: all 0.2s ease-out;
+        }
+
+        .sentiment-cell:hover {
+            transform: scale(1.05);
+            border-color: var(--coral-main);
+        }
+
+        .sentiment-emoji {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-sm);
+            display: block;
+        }
+
+        .sentiment-percent {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .sentiment-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        /* Cohort Table */
+        .cohort-section {
+            margin-bottom: var(--space-2xl);
+        }
+
+        .table-container {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-md);
+            overflow-x: auto;
+            border: 2px solid var(--neutral-100);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        thead {
+            background: linear-gradient(135deg, var(--coral-lighter), var(--amber-lighter));
+        }
+
+        th {
+            padding: var(--space-md) var(--space-lg);
+            text-align: left;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 3px solid var(--coral-main);
+        }
+
+        th:first-child {
+            border-radius: 12px 0 0 0;
+        }
+
+        th:last-child {
+            border-radius: 0 12px 0 0;
+        }
+
+        tbody tr {
+            transition: all 0.2s ease-out;
+        }
+
+        tbody tr:hover {
+            background: var(--bg-tertiary);
+            transform: scale(1.01);
+        }
+
+        td {
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 1px solid var(--neutral-100);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-active {
+            background: #D4F5E4;
+            color: #28A745;
+        }
+
+        .status-at-risk {
+            background: var(--amber-lighter);
+            color: #E67E22;
+        }
+
+        .status-churned {
+            background: var(--coral-lighter);
+            color: var(--coral-main);
+        }
+
+        .cohort-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--teal-main), var(--coral-main));
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.75rem;
+            margin-right: var(--space-sm);
+        }
+
+        .health-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--neutral-100);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .health-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease-out;
+        }
+
+        .health-fill.high {
+            background: linear-gradient(90deg, var(--success), #6BCF7F);
+        }
+
+        .health-fill.medium {
+            background: linear-gradient(90deg, var(--warning), var(--amber-light));
+        }
+
+        .health-fill.low {
+            background: linear-gradient(90deg, var(--danger), var(--coral-light));
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            padding: var(--space-xl) var(--space-2xl);
+            border-top: 3px solid var(--coral-lighter);
+            box-shadow: 0 -4px 16px rgba(0,0,0,0.03);
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .agent-badge {
+            background: linear-gradient(135deg, var(--coral-main), var(--amber-main));
+            color: white;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .footer-meta {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+        }
+
+        .footer-right {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: var(--coral-main);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 960px) {
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .journey-stages {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-title-section h2 {
+                font-size: 2rem;
+            }
+
+            main {
+                padding: var(--space-lg);
+            }
+        }
+
+        @media (max-width: 640px) {
+            header {
+                padding: var(--space-md);
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .kpi-strip {
+                grid-template-columns: 1fr;
+            }
+
+            .voices-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sentiment-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-title-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .table-container {
+                padding: var(--space-md);
+            }
+
+            th, td {
+                padding: var(--space-sm);
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Experimental Flourishes */
+        .floating-orb {
+            position: fixed;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--coral-lighter), transparent);
+            opacity: 0.2;
+            pointer-events: none;
+            animation: floatOrb 8s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .floating-orb:nth-child(2) {
+            top: 20%;
+            right: 10%;
+            animation-delay: 2s;
+            background: radial-gradient(circle, var(--teal-lighter), transparent);
+        }
+
+        .floating-orb:nth-child(3) {
+            bottom: 30%;
+            left: 5%;
+            animation-delay: 4s;
+            background: radial-gradient(circle, var(--amber-lighter), transparent);
+        }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -30px) scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-orb"></div>
+    <div class="floating-orb"></div>
+    <div class="floating-orb"></div>
+
+    <div class="dashboard-container">
+        <header>
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="brand">
+                        <div class="brand-icon">❤️</div>
+                        <div class="brand-text">
+                            <h1>CX Journey Studio</h1>
+                            <div class="brand-subtitle">EXPLORER Design</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary">
+                        <span>📊</span>
+                        <span>Export Report</span>
+                    </button>
+                    <button class="btn btn-primary">
+                        <span>👥</span>
+                        <span>View Segments</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="dashboard-header">
+                <div class="dashboard-title-section">
+                    <h2>Customer Experience Dashboard</h2>
+                    <p class="dashboard-subtitle">Track customer health, sentiment, and journey progression across all touchpoints</p>
+                </div>
+                <div class="time-filter">
+                    <button>7D</button>
+                    <button class="active">30D</button>
+                    <button>90D</button>
+                    <button>1Y</button>
+                </div>
+            </div>
+
+            <!-- KPI Strip -->
+            <div class="kpi-strip">
+                <div class="kpi-card">
+                    <div class="kpi-label">Net Promoter Score</div>
+                    <div class="kpi-value">72</div>
+                    <div class="kpi-delta positive">↑ 8 pts</div>
+                    <div class="kpi-meta">Industry benchmark: 58</div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Customer Satisfaction</div>
+                    <div class="kpi-value">4.6</div>
+                    <div class="kpi-delta positive">↑ 0.3</div>
+                    <div class="kpi-meta">Based on 1,247 responses</div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Active Customers</div>
+                    <div class="kpi-value">12,483</div>
+                    <div class="kpi-delta positive">↑ 12%</div>
+                    <div class="kpi-meta">+1,337 this month</div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Churn Rate</div>
+                    <div class="kpi-value">2.3%</div>
+                    <div class="kpi-delta negative">↑ 0.4%</div>
+                    <div class="kpi-meta">287 customers at risk</div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Avg. Lifetime Value</div>
+                    <div class="kpi-value">$8,420</div>
+                    <div class="kpi-delta positive">↑ 15%</div>
+                    <div class="kpi-meta">+$1,095 vs last quarter</div>
+                    <div class="sparkline"></div>
+                </div>
+            </div>
+
+            <!-- Journey Path Section -->
+            <div class="journey-section">
+                <div class="section-header">
+                    <h3>Customer Lifecycle Journey</h3>
+                    <p class="section-subtitle">Track customer progression through key lifecycle stages</p>
+                </div>
+                <div class="journey-path">
+                    <div class="journey-stages">
+                        <div class="stage-card">
+                            <div class="stage-icon">🎯</div>
+                            <div class="stage-title">Acquisition</div>
+                            <div class="stage-metric">
+                                <span class="stage-metric-label">New Signups</span>
+                                <span class="stage-metric-value">2,847</span>
+                            </div>
+                            <div class="stage-metric">
+                                <span class="stage-metric-label">Conversion Rate</span>
+                                <span class="stage-metric-value">28.3%</span>
+                            </div>
+                            <div class="stage-metric">
+                                <span class="stage-metric-label">CAC</span>
+                                <span class="stage-metric-value">$142</span>
+                            </div>
+                            <div class="stage-progress">
+                                <div class="stage-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <div class="stage-card">
+                            <div class="stage-icon">🚀</div>
+                            <div class="stage-title">Onboarding</div>
+                            <div class="stage-metric">
+                                <span class="stage-metric-label">In Progress</span>
+                                <span class="stage-metric-value">1,849</span>
+                            </div>
+                            <div class="stage-metric">
+                                <span class="stage-metric-label">Completion Rate</span>
+                                <span class="stage-metric-value">65%</span>
+                            </div>
+                            <div class="stage-metric">
+                                <span class="stage-metric-label">Avg. Time</span>
+                                <span class="stage-metric-value">4.2 days</span>
+                            </div>
+                            <div class="stage-progress">
+                                <div class="stage-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <div class="stage-card">
+                            <div class="stage-icon">💎</div>
+                            <div class="stage-title">Engagement</div>
+                            <div class="stage-metric">
+                                <span class="stage-metric-label">Active Users</span>
+                                <span class="stage-metric-value">10,124</span>
+                            </div>
+                            <div class="stage-metric">
+                                <span class="stage-metric-label">Weekly Sessions</span>
+                                <span class="stage-metric-value">8.7</span>
+                            </div>
+                            <div class="stage-metric">
+                                <span class="stage-metric-label">Feature Adoption</span>
+                                <span class="stage-metric-value">82%</span>
+                            </div>
+                            <div class="stage-progress">
+                                <div class="stage-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <div class="stage-card">
+                            <div class="stage-icon">🌟</div>
+                            <div class="stage-title">Retention</div>
+                            <div class="stage-metric">
+                                <span class="stage-metric-label">Retained</span>
+                                <span class="stage-metric-value">8,817</span>
+                            </div>
+                            <div class="stage-metric">
+                                <span class="stage-metric-label">Retention Rate</span>
+                                <span class="stage-metric-value">87.1%</span>
+                            </div>
+                            <div class="stage-metric">
+                                <span class="stage-metric-label">Upsells</span>
+                                <span class="stage-metric-value">1,247</span>
+                            </div>
+                            <div class="stage-progress">
+                                <div class="stage-progress-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Voices Section -->
+            <div class="voices-section">
+                <div class="section-header">
+                    <h3>Customer Voices</h3>
+                    <p class="section-subtitle">Recent feedback and testimonials from your customers</p>
+                </div>
+                <div class="voices-grid">
+                    <div class="voice-card">
+                        <div class="customer-header">
+                            <div class="customer-avatar">👩</div>
+                            <div class="customer-info">
+                                <h4>Sarah Martinez</h4>
+                                <div class="customer-role">Head of Marketing, TechCorp</div>
+                            </div>
+                        </div>
+                        <p class="voice-quote">
+                            The onboarding process was incredibly smooth. Within just 2 days, our entire team was up and running. The support team went above and beyond to ensure we had everything we needed.
+                        </p>
+                        <div class="voice-sentiment">
+                            <div class="sentiment-badge sentiment-positive">😊 Positive</div>
+                            <div class="voice-score">NPS: 9/10</div>
+                        </div>
+                    </div>
+
+                    <div class="voice-card">
+                        <div class="customer-header">
+                            <div class="customer-avatar">👨</div>
+                            <div class="customer-info">
+                                <h4>James Chen</h4>
+                                <div class="customer-role">Product Manager, InnovateLab</div>
+                            </div>
+                        </div>
+                        <p class="voice-quote">
+                            Great product overall, but I'd love to see more integrations with third-party tools. The reporting features are fantastic and have saved us countless hours each week.
+                        </p>
+                        <div class="voice-sentiment">
+                            <div class="sentiment-badge sentiment-neutral">😐 Neutral</div>
+                            <div class="voice-score">NPS: 7/10</div>
+                        </div>
+                    </div>
+
+                    <div class="voice-card">
+                        <div class="customer-header">
+                            <div class="customer-avatar">👩</div>
+                            <div class="customer-info">
+                                <h4>Emily Rodriguez</h4>
+                                <div class="customer-role">CX Director, GrowthCo</div>
+                            </div>
+                        </div>
+                        <p class="voice-quote">
+                            This platform has transformed how we understand our customers. The insights are actionable, the interface is intuitive, and the ROI has been remarkable. Highly recommended!
+                        </p>
+                        <div class="voice-sentiment">
+                            <div class="sentiment-badge sentiment-positive">😊 Positive</div>
+                            <div class="voice-score">NPS: 10/10</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Grid -->
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Conversion Funnel</h3>
+                            <p class="card-subtitle">Customer journey progression</p>
+                        </div>
+                        <div class="card-icon">📊</div>
+                    </div>
+                    <div class="funnel-visual">
+                        <div class="funnel-stage">
+                            <div class="funnel-bar">
+                                <span class="funnel-label">Website Visitors</span>
+                                <span class="funnel-value">10,056</span>
+                            </div>
+                        </div>
+                        <div class="funnel-stage">
+                            <div class="funnel-bar">
+                                <span class="funnel-label">Trial Signups</span>
+                                <span class="funnel-value">7,542</span>
+                            </div>
+                        </div>
+                        <div class="funnel-stage">
+                            <div class="funnel-bar">
+                                <span class="funnel-label">Activated Users</span>
+                                <span class="funnel-value">5,832</span>
+                            </div>
+                        </div>
+                        <div class="funnel-stage">
+                            <div class="funnel-bar">
+                                <span class="funnel-label">Paid Conversions</span>
+                                <span class="funnel-value">4,223</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analytics-card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Net Promoter Score</h3>
+                            <p class="card-subtitle">Customer advocacy metric</p>
+                        </div>
+                        <div class="card-icon">⭐</div>
+                    </div>
+                    <div class="nps-gauge">
+                        <div class="gauge-circle">
+                            <div class="gauge-inner">
+                                <div class="nps-score">72</div>
+                                <div class="nps-label">Excellent</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nps-breakdown">
+                        <div class="nps-segment">
+                            <div class="nps-segment-label">Promoters</div>
+                            <div class="nps-segment-value">68%</div>
+                        </div>
+                        <div class="nps-segment">
+                            <div class="nps-segment-label">Passives</div>
+                            <div class="nps-segment-value">24%</div>
+                        </div>
+                        <div class="nps-segment">
+                            <div class="nps-segment-label">Detractors</div>
+                            <div class="nps-segment-value">8%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sentiment Analysis -->
+            <div class="voices-section">
+                <div class="section-header">
+                    <h3>Customer Sentiment Analysis</h3>
+                    <p class="section-subtitle">Emotional response distribution across all touchpoints</p>
+                </div>
+                <div class="analytics-card">
+                    <div class="sentiment-grid">
+                        <div class="sentiment-cell">
+                            <span class="sentiment-emoji">😍</span>
+                            <div class="sentiment-percent">42%</div>
+                            <div class="sentiment-label">Delighted</div>
+                        </div>
+                        <div class="sentiment-cell">
+                            <span class="sentiment-emoji">😊</span>
+                            <div class="sentiment-percent">31%</div>
+                            <div class="sentiment-label">Satisfied</div>
+                        </div>
+                        <div class="sentiment-cell">
+                            <span class="sentiment-emoji">😐</span>
+                            <div class="sentiment-percent">18%</div>
+                            <div class="sentiment-label">Neutral</div>
+                        </div>
+                        <div class="sentiment-cell">
+                            <span class="sentiment-emoji">😕</span>
+                            <div class="sentiment-percent">6%</div>
+                            <div class="sentiment-label">Confused</div>
+                        </div>
+                        <div class="sentiment-cell">
+                            <span class="sentiment-emoji">😞</span>
+                            <div class="sentiment-percent">3%</div>
+                            <div class="sentiment-label">Frustrated</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Cohort Table -->
+            <div class="cohort-section">
+                <div class="section-header">
+                    <h3>Customer Cohort Analysis</h3>
+                    <p class="section-subtitle">Detailed breakdown of customer segments and health metrics</p>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Customer Segment</th>
+                                <th>Cohort Size</th>
+                                <th>Avg. LTV</th>
+                                <th>Health Score</th>
+                                <th>Last Activity</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="cohort-avatar">E</span>
+                                    Enterprise (500+ employees)
+                                </td>
+                                <td>247</td>
+                                <td>$24,580</td>
+                                <td>
+                                    <div class="health-bar">
+                                        <div class="health-fill high" style="width: 92%;"></div>
+                                    </div>
+                                </td>
+                                <td>2 hours ago</td>
+                                <td><span class="status-pill status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="cohort-avatar">M</span>
+                                    Mid-Market (100-500)
+                                </td>
+                                <td>892</td>
+                                <td>$12,340</td>
+                                <td>
+                                    <div class="health-bar">
+                                        <div class="health-fill high" style="width: 85%;"></div>
+                                    </div>
+                                </td>
+                                <td>5 hours ago</td>
+                                <td><span class="status-pill status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="cohort-avatar">S</span>
+                                    SMB (10-100)
+                                </td>
+                                <td>3,421</td>
+                                <td>$5,670</td>
+                                <td>
+                                    <div class="health-bar">
+                                        <div class="health-fill medium" style="width: 71%;"></div>
+                                    </div>
+                                </td>
+                                <td>1 day ago</td>
+                                <td><span class="status-pill status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="cohort-avatar">F</span>
+                                    Freelancers/Solo
+                                </td>
+                                <td>7,923</td>
+                                <td>$2,180</td>
+                                <td>
+                                    <div class="health-bar">
+                                        <div class="health-fill medium" style="width: 68%;"></div>
+                                    </div>
+                                </td>
+                                <td>3 days ago</td>
+                                <td><span class="status-pill status-at-risk">At Risk</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="cohort-avatar">T</span>
+                                    Trial Users (Active)
+                                </td>
+                                <td>1,849</td>
+                                <td>$0</td>
+                                <td>
+                                    <div class="health-bar">
+                                        <div class="health-fill high" style="width: 78%;"></div>
+                                    </div>
+                                </td>
+                                <td>1 hour ago</td>
+                                <td><span class="status-pill status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="cohort-avatar">I</span>
+                                    Inactive (30+ days)
+                                </td>
+                                <td>487</td>
+                                <td>$3,420</td>
+                                <td>
+                                    <div class="health-bar">
+                                        <div class="health-fill low" style="width: 32%;"></div>
+                                    </div>
+                                </td>
+                                <td>45 days ago</td>
+                                <td><span class="status-pill status-at-risk">At Risk</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="cohort-avatar">C</span>
+                                    Churned (Last 90 days)
+                                </td>
+                                <td>231</td>
+                                <td>$1,890</td>
+                                <td>
+                                    <div class="health-bar">
+                                        <div class="health-fill low" style="width: 12%;"></div>
+                                    </div>
+                                </td>
+                                <td>67 days ago</td>
+                                <td><span class="status-pill status-churned">Churned</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-left">
+                    <div class="agent-badge">EXPLORER</div>
+                    <div class="footer-meta">
+                        Last updated: 2025-11-09 14:32 UTC • Data refreshed every 5 minutes
+                    </div>
+                </div>
+                <div class="footer-right">
+                    <a href="#" class="footer-link">Export Data</a>
+                    <a href="#" class="footer-link">Customer Support</a>
+                    <a href="#" class="footer-link">Settings</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Gentle entrance animations
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animate KPI cards on load
+            const kpiCards = document.querySelectorAll('.kpi-card');
+            kpiCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 50);
+                }, index * 100);
+            });
+
+            // Funnel bar animations
+            const funnelBars = document.querySelectorAll('.funnel-bar');
+            funnelBars.forEach((bar, index) => {
+                const originalWidth = bar.style.width || getComputedStyle(bar).width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = originalWidth;
+                }, 500 + index * 200);
+            });
+
+            // Health bar animations
+            const healthFills = document.querySelectorAll('.health-fill');
+            healthFills.forEach((fill, index) => {
+                const targetWidth = fill.style.width;
+                fill.style.width = '0';
+                setTimeout(() => {
+                    fill.style.width = targetWidth;
+                }, 800 + index * 100);
+            });
+
+            // Stage progress bars
+            const progressBars = document.querySelectorAll('.stage-progress-bar');
+            progressBars.forEach((bar, index) => {
+                const targetWidth = getComputedStyle(bar).width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                }, 600 + index * 150);
+            });
+
+            // Time filter functionality
+            const timeButtons = document.querySelectorAll('.time-filter button');
+            timeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    timeButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    // Simulate data refresh
+                    const kpiValues = document.querySelectorAll('.kpi-value');
+                    kpiValues.forEach(value => {
+                        value.style.transform = 'scale(1.1)';
+                        setTimeout(() => {
+                            value.style.transform = 'scale(1)';
+                        }, 200);
+                    });
+                });
+            });
+
+            // Table row hover effects with additional details
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseenter', () => {
+                    row.style.cursor = 'pointer';
+                });
+            });
+
+            // Voice card stagger animation
+            const voiceCards = document.querySelectorAll('.voice-card');
+            voiceCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+
+            // Sentiment cells hover interaction
+            const sentimentCells = document.querySelectorAll('.sentiment-cell');
+            sentimentCells.forEach(cell => {
+                cell.addEventListener('mouseenter', () => {
+                    const emoji = cell.querySelector('.sentiment-emoji');
+                    emoji.style.transform = 'scale(1.2) rotate(10deg)';
+                });
+                cell.addEventListener('mouseleave', () => {
+                    const emoji = cell.querySelector('.sentiment-emoji');
+                    emoji.style.transform = 'scale(1) rotate(0deg)';
+                });
+            });
+
+            // Stage card rotation reset on hover
+            const stageCards = document.querySelectorAll('.stage-card');
+            stageCards.forEach(card => {
+                const originalTransform = getComputedStyle(card).transform;
+                card.addEventListener('mouseenter', () => {
+                    card.dataset.originalTransform = originalTransform;
+                });
+            });
+
+            // NPS gauge interaction
+            const gaugeCircle = document.querySelector('.gauge-circle');
+            if (gaugeCircle) {
+                gaugeCircle.addEventListener('mouseenter', () => {
+                    gaugeCircle.style.animationPlayState = 'paused';
+                });
+                gaugeCircle.addEventListener('mouseleave', () => {
+                    gaugeCircle.style.animationPlayState = 'running';
+                });
+            }
+
+            // Floating orbs random movement enhancement
+            const orbs = document.querySelectorAll('.floating-orb');
+            orbs.forEach((orb, index) => {
+                setInterval(() => {
+                    const randomX = Math.random() * 100 - 50;
+                    const randomY = Math.random() * 100 - 50;
+                    orb.style.transform = `translate(${randomX}px, ${randomY}px)`;
+                }, 3000 + index * 1000);
+            });
+
+            // Console log for experimental design signature
+            console.log('%c🎨 EXPLORER Design System Active', 'color: #FF6B6B; font-size: 16px; font-weight: bold;');
+            console.log('%cExperimental CX Journey Dashboard - Light Mode', 'color: #4ECDC4; font-size: 12px;');
+            console.log('%cFeatures: Asymmetric layouts, floating personas, curved journey paths', 'color: #FFB84D; font-size: 10px;');
+        });
+
+        // Simulated real-time updates
+        setInterval(() => {
+            const randomKpi = Math.floor(Math.random() * 5);
+            const kpiValues = document.querySelectorAll('.kpi-value');
+            if (kpiValues[randomKpi]) {
+                kpiValues[randomKpi].style.color = 'var(--coral-main)';
+                setTimeout(() => {
+                    kpiValues[randomKpi].style.color = 'var(--text-primary)';
+                }, 1000);
+            }
+        }, 8000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,1650 @@
+<!-- Agent: Teeqa | Round: 2 - Light Mode Masterpiece | Theme: Minimalist Analytical | Intent: Restrained elegance through precision typography, strategic accent color, and refined micro-interactions in a data-dense analytical workspace -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytical Dashboard - Teeqa Light</title>
+    <style>
+        /* =====================================================
+           THEME 3: MINIMALIST ANALYTICAL - TEEQA LIGHT MODE
+           Grayscale foundation with strategic blue accent
+           ===================================================== */
+
+        :root {
+            /* Grayscale Palette - Foundation */
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #eeeeee;
+            --gray-300: #e0e0e0;
+            --gray-400: #bdbdbd;
+            --gray-500: #9e9e9e;
+            --gray-600: #757575;
+            --gray-700: #616161;
+            --gray-800: #424242;
+            --gray-900: #212121;
+
+            /* The ONE Accent Color - Blue */
+            --accent-blue: #2962ff;
+            --accent-blue-light: #448aff;
+            --accent-blue-pale: #e3f2fd;
+
+            /* Semantic Colors (muted) */
+            --success-green: #43a047;
+            --warning-amber: #f57c00;
+            --error-red: #d32f2f;
+
+            /* Surface & Text */
+            --surface-white: #ffffff;
+            --surface-light: var(--gray-50);
+            --text-primary: var(--gray-900);
+            --text-secondary: var(--gray-600);
+            --text-tertiary: var(--gray-500);
+
+            /* Border & Divider */
+            --border-light: var(--gray-200);
+            --border-medium: var(--gray-300);
+
+            /* Spacing System */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+
+            /* Typography Scale - Tight & Efficient */
+            --font-size-xs: 11px;
+            --font-size-sm: 12px;
+            --font-size-base: 13px;
+            --font-size-md: 14px;
+            --font-size-lg: 16px;
+            --font-size-xl: 20px;
+            --font-size-2xl: 24px;
+            --font-size-3xl: 32px;
+            --font-size-metric: 40px;
+
+            /* Line Height - Tight */
+            --line-tight: 1.2;
+            --line-normal: 1.4;
+            --line-relaxed: 1.6;
+        }
+
+        /* =====================================================
+           RESET & BASE STYLES
+           ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: var(--font-size-base);
+            line-height: var(--line-normal);
+            color: var(--text-primary);
+            background: var(--surface-light);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* =====================================================
+           LAYOUT GRID - MINIMAL & EFFICIENT
+           ===================================================== */
+
+        .dashboard-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header - Horizontal, Minimal */
+        .dashboard-header {
+            background: var(--surface-white);
+            border-bottom: 1px solid var(--border-light);
+            padding: var(--space-md) var(--space-xl);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .brand-logo {
+            width: 28px;
+            height: 28px;
+            background: var(--accent-blue);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-sm);
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.3px;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .nav-tab {
+            padding: var(--space-sm) var(--space-md);
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.15s ease;
+            font-weight: 500;
+        }
+
+        .nav-tab:hover {
+            background: var(--gray-100);
+            color: var(--text-primary);
+        }
+
+        .nav-tab.active {
+            background: var(--accent-blue-pale);
+            color: var(--accent-blue);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .time-selector {
+            display: flex;
+            gap: var(--space-xs);
+            background: var(--gray-100);
+            padding: var(--space-xs);
+            border-radius: 6px;
+        }
+
+        .time-option {
+            padding: var(--space-xs) var(--space-sm);
+            font-size: var(--font-size-xs);
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.12s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .time-option:hover {
+            color: var(--text-primary);
+        }
+
+        .time-option.active {
+            background: var(--surface-white);
+            color: var(--accent-blue);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .user-badge {
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .user-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--gray-300);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        /* Main Content Area */
+        .dashboard-main {
+            flex: 1;
+            padding: var(--space-xl);
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* =====================================================
+           KPI STRIP - FLAT, BORDERLESS, TYPOGRAPHY-FOCUSED
+           ===================================================== */
+
+        .kpi-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .kpi-card {
+            background: var(--surface-white);
+            padding: var(--space-lg);
+            border-radius: 0;
+            border: 1px solid var(--border-light);
+            transition: all 0.15s ease;
+        }
+
+        .kpi-card:hover {
+            border-color: var(--border-medium);
+            transform: translateY(-1px);
+        }
+
+        .kpi-label {
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-value {
+            font-size: var(--font-size-metric);
+            font-weight: 300;
+            color: var(--text-primary);
+            line-height: var(--line-tight);
+            margin-bottom: var(--space-xs);
+            letter-spacing: -1px;
+        }
+
+        .kpi-value.accent {
+            color: var(--accent-blue);
+        }
+
+        .kpi-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: var(--font-size-xs);
+            color: var(--text-secondary);
+        }
+
+        .kpi-delta {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: var(--font-size-xs);
+            font-weight: 600;
+        }
+
+        .kpi-delta.positive { color: var(--success-green); }
+        .kpi-delta.negative { color: var(--error-red); }
+        .kpi-delta.neutral { color: var(--text-tertiary); }
+
+        .delta-arrow {
+            font-size: 10px;
+        }
+
+        .kpi-sparkline {
+            margin-top: var(--space-md);
+            height: 32px;
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+        }
+
+        .spark-bar {
+            flex: 1;
+            background: var(--gray-200);
+            border-radius: 1px;
+            transition: all 0.2s ease;
+            min-height: 4px;
+        }
+
+        .kpi-card:hover .spark-bar {
+            background: var(--accent-blue-pale);
+        }
+
+        /* =====================================================
+           GRID LAYOUT - CHARTS & DATA SECTIONS
+           ===================================================== */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+
+        .content-section {
+            background: var(--surface-white);
+            border: 1px solid var(--border-light);
+            padding: var(--space-lg);
+            border-radius: 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .section-title {
+            font-size: var(--font-size-md);
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.2px;
+        }
+
+        .section-subtitle {
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .section-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .action-btn {
+            padding: var(--space-xs) var(--space-sm);
+            font-size: var(--font-size-xs);
+            color: var(--text-secondary);
+            background: transparent;
+            border: 1px solid var(--border-medium);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.12s ease;
+            font-weight: 500;
+        }
+
+        .action-btn:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            background: var(--accent-blue-pale);
+        }
+
+        /* =====================================================
+           CHARTS - MINIMALIST LINE CHARTS
+           ===================================================== */
+
+        .chart-container {
+            position: relative;
+            height: 280px;
+            padding: var(--space-md) 0;
+        }
+
+        .chart-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: var(--space-md) 0;
+        }
+
+        .grid-line {
+            height: 1px;
+            background: var(--gray-200);
+            position: relative;
+        }
+
+        .grid-label {
+            position: absolute;
+            left: -40px;
+            top: -6px;
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        .chart-canvas {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            padding: var(--space-md) 0;
+        }
+
+        .chart-line {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .line-bar {
+            width: 100%;
+            background: linear-gradient(to top, var(--accent-blue) 0%, var(--accent-blue-light) 100%);
+            border-radius: 2px 2px 0 0;
+            transition: all 0.2s ease;
+            opacity: 0.85;
+        }
+
+        .chart-line:hover .line-bar {
+            opacity: 1;
+            transform: scaleY(1.02);
+        }
+
+        .line-label {
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Area Chart Variant */
+        .area-chart {
+            position: relative;
+            height: 200px;
+            background:
+                linear-gradient(to bottom,
+                    transparent 0%,
+                    transparent 20%,
+                    var(--accent-blue-pale) 80%,
+                    var(--accent-blue-pale) 100%
+                );
+            border-bottom: 2px solid var(--accent-blue);
+            border-radius: 0;
+        }
+
+        .area-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        .area-line {
+            height: 1px;
+            background: var(--gray-200);
+        }
+
+        .area-points {
+            position: absolute;
+            top: 20%;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .area-point {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--surface-white);
+            transition: all 0.15s ease;
+        }
+
+        .area-point:hover {
+            transform: scale(1.5);
+            box-shadow: 0 0 0 6px var(--accent-blue-pale);
+        }
+
+        /* =====================================================
+           DATA TABLE - DENSE & EFFICIENT
+           ===================================================== */
+
+        .data-table-wrapper {
+            overflow-x: auto;
+            margin-top: var(--space-md);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: var(--font-size-sm);
+        }
+
+        .data-table thead {
+            background: var(--gray-50);
+            border-top: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-medium);
+        }
+
+        .data-table th {
+            padding: var(--space-sm) var(--space-md);
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: var(--font-size-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table th.sortable {
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.12s ease;
+        }
+
+        .data-table th.sortable:hover {
+            color: var(--accent-blue);
+        }
+
+        .sort-icon {
+            display: inline-block;
+            margin-left: 4px;
+            font-size: 10px;
+            opacity: 0.4;
+        }
+
+        .data-table tbody tr {
+            border-bottom: 1px solid var(--border-light);
+            transition: background 0.12s ease;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--gray-50);
+        }
+
+        .data-table td {
+            padding: var(--space-md);
+            color: var(--text-primary);
+        }
+
+        .data-table td.metric {
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .data-table td.accent {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: var(--font-size-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .status-pill.success {
+            background: #e8f5e9;
+            color: var(--success-green);
+        }
+
+        .status-pill.warning {
+            background: #fff3e0;
+            color: var(--warning-amber);
+        }
+
+        .status-pill.error {
+            background: #ffebee;
+            color: var(--error-red);
+        }
+
+        .status-pill.neutral {
+            background: var(--gray-100);
+            color: var(--text-secondary);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        /* =====================================================
+           COMPARISON PANELS - SPLIT VIEW
+           ===================================================== */
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+
+        .comparison-panel {
+            background: var(--surface-white);
+            border: 1px solid var(--border-light);
+            padding: var(--space-lg);
+            border-radius: 0;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .panel-title {
+            font-size: var(--font-size-md);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .panel-metric {
+            font-size: var(--font-size-2xl);
+            font-weight: 300;
+            color: var(--accent-blue);
+            letter-spacing: -0.5px;
+        }
+
+        .metric-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-sm) 0;
+        }
+
+        .metric-label {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .metric-value {
+            font-size: var(--font-size-md);
+            font-weight: 600;
+            color: var(--text-primary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .metric-bar {
+            margin-top: var(--space-xs);
+            height: 3px;
+            background: var(--gray-200);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .metric-fill {
+            height: 100%;
+            background: var(--accent-blue);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        /* =====================================================
+           INSIGHTS BAR - MINIMAL ALERT STRIP
+           ===================================================== */
+
+        .insights-bar {
+            background: var(--accent-blue-pale);
+            border: 1px solid var(--accent-blue-light);
+            padding: var(--space-md) var(--space-lg);
+            margin-bottom: var(--space-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            border-radius: 0;
+        }
+
+        .insight-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .insight-text {
+            flex: 1;
+            font-size: var(--font-size-sm);
+            color: var(--text-primary);
+            line-height: var(--line-normal);
+        }
+
+        .insight-action {
+            font-size: var(--font-size-xs);
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            transition: opacity 0.12s ease;
+        }
+
+        .insight-action:hover {
+            opacity: 0.7;
+        }
+
+        /* =====================================================
+           DISTRIBUTION CHART - HORIZONTAL BARS
+           ===================================================== */
+
+        .distribution-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+            margin-top: var(--space-md);
+        }
+
+        .distribution-item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .dist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .dist-label {
+            font-size: var(--font-size-sm);
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .dist-value {
+            font-size: var(--font-size-sm);
+            color: var(--accent-blue);
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .dist-bar-track {
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .dist-bar-fill {
+            height: 100%;
+            background: var(--accent-blue);
+            border-radius: 4px;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .distribution-item:hover .dist-bar-fill {
+            background: var(--accent-blue-light);
+        }
+
+        /* =====================================================
+           FOOTER - MINIMAL METADATA
+           ===================================================== */
+
+        .dashboard-footer {
+            background: var(--surface-white);
+            border-top: 1px solid var(--border-light);
+            padding: var(--space-md) var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+        }
+
+        .footer-brand {
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        .footer-meta {
+            display: flex;
+            gap: var(--space-lg);
+        }
+
+        .footer-link {
+            color: var(--text-tertiary);
+            text-decoration: none;
+            transition: color 0.12s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-blue);
+        }
+
+        /* =====================================================
+           RESPONSIVE DESIGN
+           ===================================================== */
+
+        @media (max-width: 960px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-strip {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .dashboard-main {
+                padding: var(--space-md);
+            }
+
+            .kpi-strip {
+                grid-template-columns: 1fr;
+            }
+
+            .header-nav {
+                display: none;
+            }
+
+            .time-selector {
+                display: none;
+            }
+        }
+
+        /* =====================================================
+           MICRO-INTERACTIONS & ANIMATIONS
+           ===================================================== */
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .kpi-card,
+        .content-section,
+        .comparison-panel {
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        .kpi-card:nth-child(1) { animation-delay: 0.05s; }
+        .kpi-card:nth-child(2) { animation-delay: 0.1s; }
+        .kpi-card:nth-child(3) { animation-delay: 0.15s; }
+        .kpi-card:nth-child(4) { animation-delay: 0.2s; }
+        .kpi-card:nth-child(5) { animation-delay: 0.25s; }
+
+        /* Pulse animation for status dots */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .status-dot {
+            animation: pulse 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- =====================================================
+             HEADER - HORIZONTAL NAV
+             ===================================================== -->
+        <header class="dashboard-header">
+            <div class="header-brand">
+                <div class="brand-logo">T</div>
+                <h1 class="brand-title">Analytics Workspace</h1>
+            </div>
+
+            <nav class="header-nav">
+                <button class="nav-tab active">Overview</button>
+                <button class="nav-tab">Performance</button>
+                <button class="nav-tab">Segments</button>
+                <button class="nav-tab">Reports</button>
+            </nav>
+
+            <div class="header-actions">
+                <div class="time-selector">
+                    <button class="time-option">24h</button>
+                    <button class="time-option">7d</button>
+                    <button class="time-option active">30d</button>
+                    <button class="time-option">90d</button>
+                </div>
+                <div class="user-badge">
+                    <div class="user-avatar">TQ</div>
+                    <span>TEEQA</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- =====================================================
+             MAIN CONTENT
+             ===================================================== -->
+        <main class="dashboard-main">
+            <!-- Insights Bar -->
+            <div class="insights-bar">
+                <div class="insight-icon">!</div>
+                <div class="insight-text">
+                    <strong>Revenue trend alert:</strong> Q4 projections are tracking 12% above forecast.
+                    Consider accelerating hiring timeline for customer success roles.
+                </div>
+                <a href="#" class="insight-action">View Details →</a>
+            </div>
+
+            <!-- KPI Strip -->
+            <section class="kpi-strip">
+                <div class="kpi-card">
+                    <div class="kpi-label">Total Revenue</div>
+                    <div class="kpi-value accent">$2.4M</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">
+                            <span class="delta-arrow">▲</span>
+                            <span>18.2%</span>
+                        </span>
+                        <span>vs last period</span>
+                    </div>
+                    <div class="kpi-sparkline">
+                        <div class="spark-bar" style="height: 45%;"></div>
+                        <div class="spark-bar" style="height: 52%;"></div>
+                        <div class="spark-bar" style="height: 48%;"></div>
+                        <div class="spark-bar" style="height: 61%;"></div>
+                        <div class="spark-bar" style="height: 68%;"></div>
+                        <div class="spark-bar" style="height: 75%;"></div>
+                        <div class="spark-bar" style="height: 82%;"></div>
+                        <div class="spark-bar" style="height: 90%;"></div>
+                        <div class="spark-bar" style="height: 95%;"></div>
+                        <div class="spark-bar" style="height: 100%;"></div>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Active Users</div>
+                    <div class="kpi-value">18,492</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">
+                            <span class="delta-arrow">▲</span>
+                            <span>8.4%</span>
+                        </span>
+                        <span>MoM growth</span>
+                    </div>
+                    <div class="kpi-sparkline">
+                        <div class="spark-bar" style="height: 55%;"></div>
+                        <div class="spark-bar" style="height: 58%;"></div>
+                        <div class="spark-bar" style="height: 62%;"></div>
+                        <div class="spark-bar" style="height: 60%;"></div>
+                        <div class="spark-bar" style="height: 65%;"></div>
+                        <div class="spark-bar" style="height: 70%;"></div>
+                        <div class="spark-bar" style="height: 75%;"></div>
+                        <div class="spark-bar" style="height: 80%;"></div>
+                        <div class="spark-bar" style="height: 88%;"></div>
+                        <div class="spark-bar" style="height: 100%;"></div>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Conversion Rate</div>
+                    <div class="kpi-value">3.84%</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta negative">
+                            <span class="delta-arrow">▼</span>
+                            <span>2.1%</span>
+                        </span>
+                        <span>needs attention</span>
+                    </div>
+                    <div class="kpi-sparkline">
+                        <div class="spark-bar" style="height: 70%;"></div>
+                        <div class="spark-bar" style="height: 68%;"></div>
+                        <div class="spark-bar" style="height: 65%;"></div>
+                        <div class="spark-bar" style="height: 62%;"></div>
+                        <div class="spark-bar" style="height: 58%;"></div>
+                        <div class="spark-bar" style="height: 55%;"></div>
+                        <div class="spark-bar" style="height: 52%;"></div>
+                        <div class="spark-bar" style="height: 50%;"></div>
+                        <div class="spark-bar" style="height: 48%;"></div>
+                        <div class="spark-bar" style="height: 45%;"></div>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Avg Session</div>
+                    <div class="kpi-value">12m 34s</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">
+                            <span class="delta-arrow">▲</span>
+                            <span>5.3%</span>
+                        </span>
+                        <span>engagement up</span>
+                    </div>
+                    <div class="kpi-sparkline">
+                        <div class="spark-bar" style="height: 50%;"></div>
+                        <div class="spark-bar" style="height: 52%;"></div>
+                        <div class="spark-bar" style="height: 55%;"></div>
+                        <div class="spark-bar" style="height: 58%;"></div>
+                        <div class="spark-bar" style="height: 62%;"></div>
+                        <div class="spark-bar" style="height: 65%;"></div>
+                        <div class="spark-bar" style="height: 70%;"></div>
+                        <div class="spark-bar" style="height: 75%;"></div>
+                        <div class="spark-bar" style="height: 80%;"></div>
+                        <div class="spark-bar" style="height: 85%;"></div>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Customer LTV</div>
+                    <div class="kpi-value accent">$8,420</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">
+                            <span class="delta-arrow">▲</span>
+                            <span>14.7%</span>
+                        </span>
+                        <span>lifetime value</span>
+                    </div>
+                    <div class="kpi-sparkline">
+                        <div class="spark-bar" style="height: 60%;"></div>
+                        <div class="spark-bar" style="height: 62%;"></div>
+                        <div class="spark-bar" style="height: 65%;"></div>
+                        <div class="spark-bar" style="height: 68%;"></div>
+                        <div class="spark-bar" style="height: 72%;"></div>
+                        <div class="spark-bar" style="height: 76%;"></div>
+                        <div class="spark-bar" style="height: 80%;"></div>
+                        <div class="spark-bar" style="height: 85%;"></div>
+                        <div class="spark-bar" style="height: 92%;"></div>
+                        <div class="spark-bar" style="height: 100%;"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Content Grid -->
+            <div class="content-grid">
+                <!-- Revenue Trend Chart -->
+                <section class="content-section">
+                    <div class="section-header">
+                        <div>
+                            <div class="section-subtitle">30-Day Trend</div>
+                            <h2 class="section-title">Revenue Performance</h2>
+                        </div>
+                        <div class="section-actions">
+                            <button class="action-btn">Daily</button>
+                            <button class="action-btn">Weekly</button>
+                            <button class="action-btn">Monthly</button>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-grid">
+                            <div class="grid-line">
+                                <span class="grid-label">$300k</span>
+                            </div>
+                            <div class="grid-line">
+                                <span class="grid-label">$225k</span>
+                            </div>
+                            <div class="grid-line">
+                                <span class="grid-label">$150k</span>
+                            </div>
+                            <div class="grid-line">
+                                <span class="grid-label">$75k</span>
+                            </div>
+                            <div class="grid-line">
+                                <span class="grid-label">$0</span>
+                            </div>
+                        </div>
+
+                        <div class="chart-canvas">
+                            <div class="chart-line">
+                                <div class="line-bar" style="height: 45%;"></div>
+                                <div class="line-label">W1</div>
+                            </div>
+                            <div class="chart-line">
+                                <div class="line-bar" style="height: 52%;"></div>
+                                <div class="line-label">W2</div>
+                            </div>
+                            <div class="chart-line">
+                                <div class="line-bar" style="height: 58%;"></div>
+                                <div class="line-label">W3</div>
+                            </div>
+                            <div class="chart-line">
+                                <div class="line-bar" style="height: 62%;"></div>
+                                <div class="line-label">W4</div>
+                            </div>
+                            <div class="chart-line">
+                                <div class="line-bar" style="height: 68%;"></div>
+                                <div class="line-label">W5</div>
+                            </div>
+                            <div class="chart-line">
+                                <div class="line-bar" style="height: 75%;"></div>
+                                <div class="line-label">W6</div>
+                            </div>
+                            <div class="chart-line">
+                                <div class="line-bar" style="height: 82%;"></div>
+                                <div class="line-label">W7</div>
+                            </div>
+                            <div class="chart-line">
+                                <div class="line-bar" style="height: 88%;"></div>
+                                <div class="line-label">W8</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Traffic Distribution -->
+                <section class="content-section">
+                    <div class="section-header">
+                        <div>
+                            <div class="section-subtitle">Channel Mix</div>
+                            <h2 class="section-title">Traffic Sources</h2>
+                        </div>
+                    </div>
+
+                    <div class="distribution-list">
+                        <div class="distribution-item">
+                            <div class="dist-header">
+                                <span class="dist-label">Organic Search</span>
+                                <span class="dist-value">42.8%</span>
+                            </div>
+                            <div class="dist-bar-track">
+                                <div class="dist-bar-fill" style="width: 42.8%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="distribution-item">
+                            <div class="dist-header">
+                                <span class="dist-label">Direct Traffic</span>
+                                <span class="dist-value">28.4%</span>
+                            </div>
+                            <div class="dist-bar-track">
+                                <div class="dist-bar-fill" style="width: 28.4%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="distribution-item">
+                            <div class="dist-header">
+                                <span class="dist-label">Paid Campaigns</span>
+                                <span class="dist-value">18.2%</span>
+                            </div>
+                            <div class="dist-bar-track">
+                                <div class="dist-bar-fill" style="width: 18.2%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="distribution-item">
+                            <div class="dist-header">
+                                <span class="dist-label">Social Media</span>
+                                <span class="dist-value">6.8%</span>
+                            </div>
+                            <div class="dist-bar-track">
+                                <div class="dist-bar-fill" style="width: 6.8%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="distribution-item">
+                            <div class="dist-header">
+                                <span class="dist-label">Email Referrals</span>
+                                <span class="dist-value">3.8%</span>
+                            </div>
+                            <div class="dist-bar-track">
+                                <div class="dist-bar-fill" style="width: 3.8%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Comparison Panels -->
+            <div class="comparison-grid">
+                <section class="comparison-panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title">Current Quarter</h3>
+                        <div class="panel-metric">Q4 2025</div>
+                    </div>
+
+                    <div class="metric-list">
+                        <div class="metric-row">
+                            <span class="metric-label">Monthly Recurring Revenue</span>
+                            <span class="metric-value">$842,000</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 84%;"></div>
+                        </div>
+
+                        <div class="metric-row">
+                            <span class="metric-label">New Customer Acquisition</span>
+                            <span class="metric-value">1,248</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 76%;"></div>
+                        </div>
+
+                        <div class="metric-row">
+                            <span class="metric-label">Churn Rate</span>
+                            <span class="metric-value">2.4%</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 24%;"></div>
+                        </div>
+
+                        <div class="metric-row">
+                            <span class="metric-label">Net Promoter Score</span>
+                            <span class="metric-value">68</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 68%;"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="comparison-panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title">Previous Quarter</h3>
+                        <div class="panel-metric">Q3 2025</div>
+                    </div>
+
+                    <div class="metric-list">
+                        <div class="metric-row">
+                            <span class="metric-label">Monthly Recurring Revenue</span>
+                            <span class="metric-value">$712,000</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 71%;"></div>
+                        </div>
+
+                        <div class="metric-row">
+                            <span class="metric-label">New Customer Acquisition</span>
+                            <span class="metric-value">1,094</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 68%;"></div>
+                        </div>
+
+                        <div class="metric-row">
+                            <span class="metric-label">Churn Rate</span>
+                            <span class="metric-value">3.1%</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 31%;"></div>
+                        </div>
+
+                        <div class="metric-row">
+                            <span class="metric-label">Net Promoter Score</span>
+                            <span class="metric-value">64</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 64%;"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- User Engagement Area Chart -->
+            <section class="content-section">
+                <div class="section-header">
+                    <div>
+                        <div class="section-subtitle">90-Day Overview</div>
+                        <h2 class="section-title">User Engagement Trend</h2>
+                    </div>
+                    <div class="section-actions">
+                        <button class="action-btn">Sessions</button>
+                        <button class="action-btn">Pageviews</button>
+                        <button class="action-btn">Duration</button>
+                    </div>
+                </div>
+
+                <div class="area-chart">
+                    <div class="area-overlay">
+                        <div class="area-line"></div>
+                        <div class="area-line"></div>
+                        <div class="area-line"></div>
+                        <div class="area-line"></div>
+                    </div>
+                    <div class="area-points">
+                        <div class="area-point"></div>
+                        <div class="area-point"></div>
+                        <div class="area-point"></div>
+                        <div class="area-point"></div>
+                        <div class="area-point"></div>
+                        <div class="area-point"></div>
+                        <div class="area-point"></div>
+                        <div class="area-point"></div>
+                        <div class="area-point"></div>
+                        <div class="area-point"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Performance Data Table -->
+            <section class="content-section">
+                <div class="section-header">
+                    <div>
+                        <div class="section-subtitle">Top Performing</div>
+                        <h2 class="section-title">Product Performance Matrix</h2>
+                    </div>
+                    <div class="section-actions">
+                        <button class="action-btn">Export CSV</button>
+                        <button class="action-btn">Configure</button>
+                    </div>
+                </div>
+
+                <div class="data-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th class="sortable">Product Name <span class="sort-icon">▼</span></th>
+                                <th class="sortable">Category <span class="sort-icon">▼</span></th>
+                                <th class="sortable">Revenue <span class="sort-icon">▼</span></th>
+                                <th class="sortable">Units Sold <span class="sort-icon">▼</span></th>
+                                <th class="sortable">Conversion <span class="sort-icon">▼</span></th>
+                                <th class="sortable">Growth <span class="sort-icon">▼</span></th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Enterprise Suite Pro</strong></td>
+                                <td>SaaS Platform</td>
+                                <td class="metric accent">$684,200</td>
+                                <td class="metric">1,248</td>
+                                <td class="metric">4.82%</td>
+                                <td class="metric">+24.3%</td>
+                                <td>
+                                    <span class="status-pill success">
+                                        <span class="status-dot"></span>
+                                        Strong
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Analytics Dashboard</strong></td>
+                                <td>Data Tools</td>
+                                <td class="metric accent">$428,900</td>
+                                <td class="metric">2,184</td>
+                                <td class="metric">5.12%</td>
+                                <td class="metric">+18.7%</td>
+                                <td>
+                                    <span class="status-pill success">
+                                        <span class="status-dot"></span>
+                                        Strong
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Workflow Automation</strong></td>
+                                <td>Productivity</td>
+                                <td class="metric accent">$312,400</td>
+                                <td class="metric">1,892</td>
+                                <td class="metric">3.94%</td>
+                                <td class="metric">+12.4%</td>
+                                <td>
+                                    <span class="status-pill success">
+                                        <span class="status-dot"></span>
+                                        Stable
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Team Collaboration Hub</strong></td>
+                                <td>Communication</td>
+                                <td class="metric">$284,100</td>
+                                <td class="metric">3,421</td>
+                                <td class="metric">3.68%</td>
+                                <td class="metric">+8.2%</td>
+                                <td>
+                                    <span class="status-pill warning">
+                                        <span class="status-dot"></span>
+                                        Monitor
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mobile SDK Toolkit</strong></td>
+                                <td>Developer Tools</td>
+                                <td class="metric">$198,500</td>
+                                <td class="metric">842</td>
+                                <td class="metric">2.84%</td>
+                                <td class="metric">+5.1%</td>
+                                <td>
+                                    <span class="status-pill warning">
+                                        <span class="status-dot"></span>
+                                        Review
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Integration Connectors</strong></td>
+                                <td>API Services</td>
+                                <td class="metric">$142,800</td>
+                                <td class="metric">1,284</td>
+                                <td class="metric">3.12%</td>
+                                <td class="metric">-2.4%</td>
+                                <td>
+                                    <span class="status-pill error">
+                                        <span class="status-dot"></span>
+                                        At Risk
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Security Compliance Pack</strong></td>
+                                <td>Security</td>
+                                <td class="metric">$124,200</td>
+                                <td class="metric">394</td>
+                                <td class="metric">2.48%</td>
+                                <td class="metric">+14.8%</td>
+                                <td>
+                                    <span class="status-pill success">
+                                        <span class="status-dot"></span>
+                                        Growing
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Customer Portal Starter</strong></td>
+                                <td>Support Tools</td>
+                                <td class="metric">$98,400</td>
+                                <td class="metric">1,842</td>
+                                <td class="metric">4.24%</td>
+                                <td class="metric">+6.3%</td>
+                                <td>
+                                    <span class="status-pill neutral">
+                                        <span class="status-dot"></span>
+                                        Steady
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Reporting Engine Plus</strong></td>
+                                <td>Analytics</td>
+                                <td class="metric">$86,900</td>
+                                <td class="metric">624</td>
+                                <td class="metric">3.56%</td>
+                                <td class="metric">+9.2%</td>
+                                <td>
+                                    <span class="status-pill neutral">
+                                        <span class="status-dot"></span>
+                                        Steady
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Training Module Library</strong></td>
+                                <td>Education</td>
+                                <td class="metric">$64,200</td>
+                                <td class="metric">1,128</td>
+                                <td class="metric">2.94%</td>
+                                <td class="metric">+3.8%</td>
+                                <td>
+                                    <span class="status-pill warning">
+                                        <span class="status-dot"></span>
+                                        Monitor
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <!-- =====================================================
+             FOOTER
+             ===================================================== -->
+        <footer class="dashboard-footer">
+            <div class="footer-brand">DESIGNED BY TEEQA</div>
+            <div class="footer-meta">
+                <span>Last updated: 2025-11-09 14:32 UTC</span>
+                <a href="#" class="footer-link">Documentation</a>
+                <a href="#" class="footer-link">API Reference</a>
+                <a href="#" class="footer-link">Support</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- =====================================================
+         MINIMAL JAVASCRIPT - INTERACTIONS
+         ===================================================== -->
+    <script>
+        // Table sorting interaction
+        document.querySelectorAll('.data-table th.sortable').forEach(header => {
+            header.addEventListener('click', function() {
+                // Visual feedback only - no actual sorting in this demo
+                const icon = this.querySelector('.sort-icon');
+                if (icon.textContent === '▼') {
+                    icon.textContent = '▲';
+                } else {
+                    icon.textContent = '▼';
+                }
+            });
+        });
+
+        // Nav tab switching
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Time period selector
+        document.querySelectorAll('.time-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.time-option').forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Action buttons hover effect (additional polish)
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-1px)';
+            });
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Animate metric bars on load
+        window.addEventListener('load', function() {
+            document.querySelectorAll('.metric-fill').forEach((fill, index) => {
+                const targetWidth = fill.style.width;
+                fill.style.width = '0%';
+                setTimeout(() => {
+                    fill.style.width = targetWidth;
+                }, 100 + (index * 50));
+            });
+
+            document.querySelectorAll('.dist-bar-fill').forEach((fill, index) => {
+                const targetWidth = fill.style.width;
+                fill.style.width = '0%';
+                setTimeout(() => {
+                    fill.style.width = targetWidth;
+                }, 200 + (index * 80));
+            });
+        });
+
+        // KPI card interactive sparklines
+        document.querySelectorAll('.kpi-card').forEach(card => {
+            const sparkBars = card.querySelectorAll('.spark-bar');
+            card.addEventListener('mouseenter', function() {
+                sparkBars.forEach((bar, index) => {
+                    setTimeout(() => {
+                        bar.style.transform = 'scaleY(1.05)';
+                    }, index * 20);
+                });
+            });
+            card.addEventListener('mouseleave', function() {
+                sparkBars.forEach(bar => {
+                    bar.style.transform = 'scaleY(1)';
+                });
+            });
+        });
+
+        // Area chart point interactions
+        document.querySelectorAll('.area-point').forEach(point => {
+            point.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(2)';
+            });
+            point.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Table row selection effect
+        document.querySelectorAll('.data-table tbody tr').forEach(row => {
+            row.addEventListener('click', function() {
+                document.querySelectorAll('.data-table tbody tr').forEach(r => {
+                    r.style.background = '';
+                });
+                this.style.background = 'var(--accent-blue-pale)';
+            });
+        });
+
+        console.log('🎨 Teeqa Light Mode Dashboard - Minimalist Analytical Theme');
+        console.log('📊 Design Focus: Restrained elegance with strategic accent color');
+        console.log('✨ Interactions: Subtle, fast, opacity & scale based');
+    </script>
+</body>
+</html>

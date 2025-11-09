@@ -1,0 +1,1456 @@
+<!-- Agent: Teeqa | Round: 2 - Light Mode Masterpiece | Theme: Executive Boardroom | Intent: Bringing premium SaaS polish and approachable warmth to the C-suite with sophisticated gradients, refined typography, and delightful microinteractions -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Performance Dashboard | TEEQA</title>
+    <style>
+        /* ============================================
+           TEEQA EXECUTIVE BOARDROOM - LIGHT MODE
+           Premium SaaS Polish Meets C-Suite Sophistication
+           ============================================ */
+
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            /* Executive Color Palette - Light Mode */
+            --bg-primary: #FAFBFC;
+            --bg-secondary: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --bg-hover: #F8F9FA;
+
+            /* Deep Navy Primary */
+            --navy-deep: #1a2d4a;
+            --navy-medium: #2d4165;
+            --navy-light: #4a5f82;
+            --navy-subtle: #e8ebef;
+
+            /* Muted Accent Colors */
+            --teal-primary: #3a7d8f;
+            --teal-light: #5a9daf;
+            --teal-subtle: #e6f2f5;
+
+            --bronze-primary: #a87c4f;
+            --bronze-light: #c89a6f;
+            --bronze-subtle: #f5f0eb;
+
+            --gold-accent: #b8934f;
+            --gold-light: #d4b57f;
+
+            /* Semantic Colors */
+            --success: #2d8659;
+            --success-bg: #e6f4ed;
+            --warning: #b87333;
+            --warning-bg: #fdf3e7;
+            --danger: #c5434a;
+            --danger-bg: #fce8e9;
+
+            /* Text Colors */
+            --text-primary: #1a1d23;
+            --text-secondary: #4a5160;
+            --text-muted: #7a8191;
+            --text-inverse: #FFFFFF;
+
+            /* Spacing & Sizing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 0.75rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+
+            /* Borders & Radius */
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --border-light: 1px solid #e5e8ec;
+            --border-medium: 1px solid #d0d5dd;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(26, 45, 74, 0.06);
+            --shadow-md: 0 4px 12px rgba(26, 45, 74, 0.08);
+            --shadow-lg: 0 8px 24px rgba(26, 45, 74, 0.10);
+            --shadow-hover: 0 6px 20px rgba(26, 45, 74, 0.12);
+
+            /* Typography */
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ============================================
+           HEADER - Premium Brand Navigation
+           ============================================ */
+
+        header {
+            background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-medium) 100%);
+            color: var(--text-inverse);
+            padding: var(--spacing-lg) var(--spacing-2xl);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--gold-accent);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--spacing-lg);
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+        }
+
+        .logo-mark {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, var(--teal-primary), var(--teal-light));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(58, 125, 143, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .logo-mark:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 18px rgba(58, 125, 143, 0.35);
+        }
+
+        .brand-text h1 {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.15rem;
+        }
+
+        .brand-text p {
+            font-size: 0.875rem;
+            opacity: 0.85;
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+        }
+
+        .period-selector {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-inverse);
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-sans);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .period-selector:hover {
+            background: rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, var(--gold-accent), var(--gold-light));
+            color: var(--navy-deep);
+            padding: 0.625rem 1.5rem;
+            border-radius: var(--radius-sm);
+            border: none;
+            font-family: var(--font-sans);
+            font-size: 0.875rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(184, 147, 79, 0.25);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(184, 147, 79, 0.35);
+        }
+
+        /* ============================================
+           MAIN CONTAINER
+           ============================================ */
+
+        main {
+            flex: 1;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            padding: var(--spacing-2xl);
+        }
+
+        /* ============================================
+           KPI METRICS STRIP - Executive Summary
+           ============================================ */
+
+        .kpi-section {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .section-header {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .section-header h2 {
+            font-family: var(--font-serif);
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--navy-deep);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .kpi-card {
+            background: var(--bg-card);
+            border: var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--teal-primary), var(--teal-light));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--navy-subtle);
+        }
+
+        .kpi-card:hover::before {
+            opacity: 1;
+        }
+
+        .kpi-card.positive::before {
+            background: linear-gradient(90deg, var(--success), #3da870);
+        }
+
+        .kpi-card.warning::before {
+            background: linear-gradient(90deg, var(--warning), #d48a4f);
+        }
+
+        .kpi-card.neutral::before {
+            background: linear-gradient(90deg, var(--teal-primary), var(--teal-light));
+        }
+
+        .kpi-label {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: var(--spacing-sm);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .kpi-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--navy-subtle);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        .kpi-value {
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--navy-deep);
+            line-height: 1.1;
+            margin-bottom: var(--spacing-sm);
+            letter-spacing: -0.02em;
+        }
+
+        .kpi-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+
+        .kpi-delta {
+            font-size: 0.9375rem;
+            font-weight: 700;
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-sm);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .kpi-delta.positive {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .kpi-delta.negative {
+            background: var(--danger-bg);
+            color: var(--danger);
+        }
+
+        .kpi-delta.neutral {
+            background: var(--bronze-subtle);
+            color: var(--bronze-primary);
+        }
+
+        .kpi-context {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .sparkline {
+            height: 40px;
+            margin-top: var(--spacing-md);
+            background: linear-gradient(to right,
+                transparent 0%,
+                var(--teal-subtle) 50%,
+                transparent 100%);
+            border-radius: var(--radius-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sparkline::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                transparent,
+                rgba(58, 125, 143, 0.15),
+                transparent);
+            animation: shimmer 2.5s infinite;
+        }
+
+        @keyframes shimmer {
+            to {
+                left: 100%;
+            }
+        }
+
+        /* ============================================
+           CHARTS & VISUALIZATIONS
+           ============================================ */
+
+        .charts-section {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            border: var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s ease;
+        }
+
+        .chart-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--navy-subtle);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: var(--border-light);
+        }
+
+        .chart-title {
+            font-family: var(--font-serif);
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: var(--navy-deep);
+            margin-bottom: 0.25rem;
+        }
+
+        .chart-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: var(--spacing-md);
+            font-size: 0.8125rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-revenue {
+            background: linear-gradient(135deg, var(--teal-primary), var(--teal-light));
+        }
+
+        .dot-target {
+            background: linear-gradient(135deg, var(--gold-accent), var(--gold-light));
+        }
+
+        .dot-growth {
+            background: linear-gradient(135deg, var(--success), #3da870);
+        }
+
+        /* Revenue Trend Chart */
+        .chart-canvas {
+            height: 280px;
+            position: relative;
+            background: linear-gradient(to bottom, var(--teal-subtle) 0%, transparent 100%);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md);
+            display: flex;
+            align-items: flex-end;
+            gap: 0.5rem;
+            border: var(--border-light);
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--teal-primary), var(--teal-light));
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .chart-bar:hover {
+            opacity: 0.8;
+            transform: translateY(-4px);
+        }
+
+        .chart-bar::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background: var(--navy-deep);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .chart-bar:hover::after {
+            opacity: 1;
+        }
+
+        /* Regional Performance Chart */
+        .regional-chart {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+            padding: var(--spacing-md) 0;
+        }
+
+        .region-row {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .region-label {
+            width: 120px;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .region-bar-container {
+            flex: 1;
+            height: 36px;
+            background: var(--bg-hover);
+            border-radius: var(--radius-sm);
+            position: relative;
+            overflow: hidden;
+            border: var(--border-light);
+        }
+
+        .region-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--navy-medium), var(--navy-light));
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: var(--spacing-md);
+            color: var(--text-inverse);
+            font-weight: 700;
+            font-size: 0.875rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .region-bar:hover {
+            filter: brightness(1.1);
+        }
+
+        .region-value {
+            min-width: 80px;
+            text-align: right;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy-deep);
+        }
+
+        /* ============================================
+           DATA TABLE - Executive Metrics
+           ============================================ */
+
+        .table-section {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .table-card {
+            background: var(--bg-card);
+            border: var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .table-header {
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--navy-deep);
+        }
+
+        .table-filters {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .filter-tag {
+            padding: 0.5rem 1rem;
+            background: var(--bg-hover);
+            border: var(--border-light);
+            border-radius: var(--radius-sm);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-tag:hover,
+        .filter-tag.active {
+            background: var(--navy-deep);
+            color: var(--text-inverse);
+            border-color: var(--navy-deep);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 0.9375rem;
+        }
+
+        .data-table thead {
+            background: linear-gradient(135deg, var(--navy-deep), var(--navy-medium));
+            color: var(--text-inverse);
+        }
+
+        .data-table th {
+            padding: var(--spacing-md) var(--spacing-lg);
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.8125rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid var(--gold-accent);
+        }
+
+        .data-table th:first-child {
+            border-radius: var(--radius-md) 0 0 0;
+        }
+
+        .data-table th:last-child {
+            border-radius: 0 var(--radius-md) 0 0;
+        }
+
+        .data-table tbody tr {
+            background: var(--bg-card);
+            border-bottom: var(--border-light);
+            transition: all 0.2s ease;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-hover);
+            transform: scale(1.01);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .data-table td {
+            padding: var(--spacing-md) var(--spacing-lg);
+            color: var(--text-primary);
+        }
+
+        .table-metric-name {
+            font-weight: 600;
+            color: var(--navy-deep);
+        }
+
+        .table-value {
+            font-weight: 700;
+            font-size: 1.0625rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.375rem 0.875rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.8125rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .status-badge.on-track {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .status-badge.at-risk {
+            background: var(--warning-bg);
+            color: var(--warning);
+        }
+
+        .status-badge.critical {
+            background: var(--danger-bg);
+            color: var(--danger);
+        }
+
+        .status-badge.excellent {
+            background: linear-gradient(135deg, var(--teal-subtle), var(--bronze-subtle));
+            color: var(--teal-primary);
+            border: 1px solid var(--teal-primary);
+        }
+
+        .trend-indicator {
+            font-weight: 700;
+            font-size: 0.9375rem;
+        }
+
+        .trend-indicator.up {
+            color: var(--success);
+        }
+
+        .trend-indicator.down {
+            color: var(--danger);
+        }
+
+        .trend-indicator.stable {
+            color: var(--text-muted);
+        }
+
+        /* ============================================
+           INSIGHTS PANEL
+           ============================================ */
+
+        .insights-section {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .insight-card {
+            background: linear-gradient(135deg, var(--bronze-subtle) 0%, var(--bg-card) 100%);
+            border: var(--border-light);
+            border-left: 4px solid var(--bronze-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s ease;
+        }
+
+        .insight-card:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
+            border-left-color: var(--gold-accent);
+        }
+
+        .insight-badge {
+            display: inline-block;
+            padding: 0.375rem 0.875rem;
+            background: var(--bronze-primary);
+            color: var(--text-inverse);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .insight-title {
+            font-family: var(--font-serif);
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--navy-deep);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .insight-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.9375rem;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+
+        footer {
+            background: var(--navy-deep);
+            color: var(--text-inverse);
+            padding: var(--spacing-xl) var(--spacing-2xl);
+            margin-top: auto;
+            border-top: 3px solid var(--gold-accent);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+
+        .footer-brand {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .footer-badge {
+            padding: 0.375rem 0.875rem;
+            background: linear-gradient(135deg, var(--teal-primary), var(--teal-light));
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-meta {
+            display: flex;
+            gap: var(--spacing-lg);
+            font-size: 0.875rem;
+            opacity: 0.85;
+        }
+
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+
+        @media (max-width: 960px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            main {
+                padding: var(--spacing-lg);
+            }
+
+            header {
+                padding: var(--spacing-md);
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .data-table {
+                font-size: 0.8125rem;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: var(--spacing-sm) var(--spacing-md);
+            }
+
+            .region-label {
+                width: 80px;
+                font-size: 0.8125rem;
+            }
+        }
+
+        /* ============================================
+           MICRO-ANIMATIONS & POLISH
+           ============================================ */
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .kpi-card,
+        .chart-card,
+        .table-card,
+        .insight-card {
+            animation: fadeInUp 0.5s ease-out backwards;
+        }
+
+        .kpi-card:nth-child(1) { animation-delay: 0.05s; }
+        .kpi-card:nth-child(2) { animation-delay: 0.1s; }
+        .kpi-card:nth-child(3) { animation-delay: 0.15s; }
+        .kpi-card:nth-child(4) { animation-delay: 0.2s; }
+        .kpi-card:nth-child(5) { animation-delay: 0.25s; }
+
+        .chart-card:nth-child(1) { animation-delay: 0.3s; }
+        .chart-card:nth-child(2) { animation-delay: 0.35s; }
+
+        /* Pulse animation for status indicators */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        .status-badge.critical::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--danger);
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         HEADER - EXECUTIVE NAVIGATION
+         ============================================ -->
+    <header>
+        <div class="header-container">
+            <div class="brand-section">
+                <div class="logo-mark">T</div>
+                <div class="brand-text">
+                    <h1>Executive Dashboard</h1>
+                    <p>Powered by TEEQA Analytics Suite</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <select class="period-selector">
+                    <option>Q4 2024</option>
+                    <option>Q3 2024</option>
+                    <option>Q2 2024</option>
+                    <option>YTD 2024</option>
+                </select>
+                <button class="action-btn">Generate Report</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================
+         MAIN CONTENT AREA
+         ============================================ -->
+    <main>
+        <!-- KPI METRICS STRIP -->
+        <section class="kpi-section">
+            <div class="section-header">
+                <h2>Key Performance Indicators</h2>
+                <p class="section-subtitle">Company-wide performance snapshot for Q4 2024</p>
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi-card positive">
+                    <div class="kpi-label">
+                        <span class="kpi-icon">$</span>
+                        Total Revenue
+                    </div>
+                    <div class="kpi-value">$84.2M</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">
+                            ▲ 18.5%
+                        </span>
+                        <span class="kpi-context">vs Q3 2024</span>
+                    </div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card positive">
+                    <div class="kpi-label">
+                        <span class="kpi-icon">%</span>
+                        Operating Margin
+                    </div>
+                    <div class="kpi-value">32.8%</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">
+                            ▲ 4.2%
+                        </span>
+                        <span class="kpi-context">Improved efficiency</span>
+                    </div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card neutral">
+                    <div class="kpi-label">
+                        <span class="kpi-icon">👥</span>
+                        Customer Growth
+                    </div>
+                    <div class="kpi-value">12,847</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta neutral">
+                            ▲ 6.3%
+                        </span>
+                        <span class="kpi-context">Active customers</span>
+                    </div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card positive">
+                    <div class="kpi-label">
+                        <span class="kpi-icon">⭐</span>
+                        Net Retention
+                    </div>
+                    <div class="kpi-value">124%</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">
+                            ▲ 8.0%
+                        </span>
+                        <span class="kpi-context">Best in class</span>
+                    </div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card warning">
+                    <div class="kpi-label">
+                        <span class="kpi-icon">📊</span>
+                        EBITDA
+                    </div>
+                    <div class="kpi-value">$27.6M</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta neutral">
+                            ▲ 2.1%
+                        </span>
+                        <span class="kpi-context">Watch closely</span>
+                    </div>
+                    <div class="sparkline"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHARTS & VISUALIZATIONS -->
+        <section class="charts-section">
+            <div class="section-header">
+                <h2>Performance Analytics</h2>
+                <p class="section-subtitle">Detailed breakdown of revenue and regional performance</p>
+            </div>
+            <div class="charts-grid">
+                <!-- Revenue Trend Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div>
+                            <h3 class="chart-title">Quarterly Revenue Trend</h3>
+                            <p class="chart-subtitle">12-month performance view</p>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-dot dot-revenue"></span>
+                                Actual
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot dot-target"></span>
+                                Target
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-canvas">
+                        <div class="chart-bar" style="height: 65%;"></div>
+                        <div class="chart-bar" style="height: 72%;"></div>
+                        <div class="chart-bar" style="height: 78%;"></div>
+                        <div class="chart-bar" style="height: 68%;"></div>
+                        <div class="chart-bar" style="height: 82%;"></div>
+                        <div class="chart-bar" style="height: 88%;"></div>
+                        <div class="chart-bar" style="height: 85%;"></div>
+                        <div class="chart-bar" style="height: 92%;"></div>
+                        <div class="chart-bar" style="height: 95%;"></div>
+                        <div class="chart-bar" style="height: 90%;"></div>
+                        <div class="chart-bar" style="height: 97%;"></div>
+                        <div class="chart-bar" style="height: 100%;"></div>
+                    </div>
+                </div>
+
+                <!-- Regional Performance Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div>
+                            <h3 class="chart-title">Regional Performance</h3>
+                            <p class="chart-subtitle">Revenue by geographic market</p>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-dot dot-growth"></span>
+                                Growth Rate
+                            </div>
+                        </div>
+                    </div>
+                    <div class="regional-chart">
+                        <div class="region-row">
+                            <span class="region-label">North America</span>
+                            <div class="region-bar-container">
+                                <div class="region-bar" style="width: 92%;">$38.5M</div>
+                            </div>
+                            <span class="region-value">+22%</span>
+                        </div>
+                        <div class="region-row">
+                            <span class="region-label">Europe</span>
+                            <div class="region-bar-container">
+                                <div class="region-bar" style="width: 78%;">$28.1M</div>
+                            </div>
+                            <span class="region-value">+15%</span>
+                        </div>
+                        <div class="region-row">
+                            <span class="region-label">Asia Pacific</span>
+                            <div class="region-bar-container">
+                                <div class="region-bar" style="width: 65%;">$12.4M</div>
+                            </div>
+                            <span class="region-value">+28%</span>
+                        </div>
+                        <div class="region-row">
+                            <span class="region-label">Latin America</span>
+                            <div class="region-bar-container">
+                                <div class="region-bar" style="width: 42%;">$5.2M</div>
+                            </div>
+                            <span class="region-value">+18%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXECUTIVE METRICS TABLE -->
+        <section class="table-section">
+            <div class="table-card">
+                <div class="table-header">
+                    <h3 class="table-title">Executive Metrics Overview</h3>
+                    <div class="table-filters">
+                        <span class="filter-tag active">All Metrics</span>
+                        <span class="filter-tag">Financial</span>
+                        <span class="filter-tag">Operational</span>
+                    </div>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Current Value</th>
+                            <th>Target</th>
+                            <th>Variance</th>
+                            <th>Trend</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="table-metric-name">Annual Recurring Revenue (ARR)</td>
+                            <td class="table-value">$312.5M</td>
+                            <td>$295.0M</td>
+                            <td><span class="trend-indicator up">▲ +5.9%</span></td>
+                            <td><span class="trend-indicator up">▲ 18.2%</span></td>
+                            <td><span class="status-badge excellent">Excellent</span></td>
+                        </tr>
+                        <tr>
+                            <td class="table-metric-name">Customer Acquisition Cost (CAC)</td>
+                            <td class="table-value">$12,450</td>
+                            <td>$15,000</td>
+                            <td><span class="trend-indicator up">▼ -17.0%</span></td>
+                            <td><span class="trend-indicator up">▼ 12.3%</span></td>
+                            <td><span class="status-badge on-track">On Track</span></td>
+                        </tr>
+                        <tr>
+                            <td class="table-metric-name">Customer Lifetime Value (LTV)</td>
+                            <td class="table-value">$184,200</td>
+                            <td>$175,000</td>
+                            <td><span class="trend-indicator up">▲ +5.3%</span></td>
+                            <td><span class="trend-indicator up">▲ 9.8%</span></td>
+                            <td><span class="status-badge on-track">On Track</span></td>
+                        </tr>
+                        <tr>
+                            <td class="table-metric-name">Gross Margin</td>
+                            <td class="table-value">68.5%</td>
+                            <td>70.0%</td>
+                            <td><span class="trend-indicator down">▼ -2.1%</span></td>
+                            <td><span class="trend-indicator stable">→ 0.2%</span></td>
+                            <td><span class="status-badge at-risk">At Risk</span></td>
+                        </tr>
+                        <tr>
+                            <td class="table-metric-name">Churn Rate (Monthly)</td>
+                            <td class="table-value">1.8%</td>
+                            <td>2.5%</td>
+                            <td><span class="trend-indicator up">▼ -28.0%</span></td>
+                            <td><span class="trend-indicator up">▼ 0.4%</span></td>
+                            <td><span class="status-badge excellent">Excellent</span></td>
+                        </tr>
+                        <tr>
+                            <td class="table-metric-name">Sales Pipeline Value</td>
+                            <td class="table-value">$156.8M</td>
+                            <td>$180.0M</td>
+                            <td><span class="trend-indicator down">▼ -12.9%</span></td>
+                            <td><span class="trend-indicator down">▼ 8.5%</span></td>
+                            <td><span class="status-badge critical">Critical</span></td>
+                        </tr>
+                        <tr>
+                            <td class="table-metric-name">Employee Productivity Index</td>
+                            <td class="table-value">127.4</td>
+                            <td>120.0</td>
+                            <td><span class="trend-indicator up">▲ +6.2%</span></td>
+                            <td><span class="trend-indicator up">▲ 14.8%</span></td>
+                            <td><span class="status-badge on-track">On Track</span></td>
+                        </tr>
+                        <tr>
+                            <td class="table-metric-name">Market Share Growth</td>
+                            <td class="table-value">8.3%</td>
+                            <td>10.0%</td>
+                            <td><span class="trend-indicator down">▼ -17.0%</span></td>
+                            <td><span class="trend-indicator up">▲ 2.1%</span></td>
+                            <td><span class="status-badge at-risk">At Risk</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- INSIGHTS & RECOMMENDATIONS -->
+        <section class="insights-section">
+            <div class="section-header">
+                <h2>Strategic Insights</h2>
+                <p class="section-subtitle">AI-powered recommendations for executive action</p>
+            </div>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <span class="insight-badge">Revenue Opportunity</span>
+                    <h4 class="insight-title">Asia Pacific Market Acceleration</h4>
+                    <p class="insight-text">
+                        With 28% growth in APAC region, consider accelerating investment in regional sales and support infrastructure. Current trajectory suggests potential for $25M additional ARR within 18 months.
+                    </p>
+                </div>
+                <div class="insight-card">
+                    <span class="insight-badge">Risk Mitigation</span>
+                    <h4 class="insight-title">Pipeline Recovery Initiative</h4>
+                    <p class="insight-text">
+                        Sales pipeline value is 12.9% below target. Immediate focus on lead generation campaigns and sales enablement could recover $20M+ in pipeline value by end of Q1 2025.
+                    </p>
+                </div>
+                <div class="insight-card">
+                    <span class="insight-badge">Operational Excellence</span>
+                    <h4 class="insight-title">Customer Success Impact</h4>
+                    <p class="insight-text">
+                        Record-low churn rate of 1.8% and 124% net retention demonstrate exceptional customer success performance. Consider case study development for investor and customer marketing.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                Dashboard by
+                <span class="footer-badge">TEEQA</span>
+            </div>
+            <div class="footer-meta">
+                <div class="footer-item">
+                    <span>📅</span>
+                    <span>Updated: November 9, 2025 - 14:32 UTC</span>
+                </div>
+                <div class="footer-item">
+                    <span>🔒</span>
+                    <span>Confidential - Board Use Only</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         INTERACTIVE ENHANCEMENTS
+         ============================================ -->
+    <script>
+        // Teeqa's signature: Delightful micro-interactions and smooth polish
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate chart bars on scroll into view
+            const observerOptions = {
+                threshold: 0.3,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.chart-card, .insight-card').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Enhanced table row interactions
+            const tableRows = document.querySelectorAll('.data-table tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', function() {
+                    // Visual feedback on row selection
+                    tableRows.forEach(r => r.style.background = '');
+                    this.style.background = 'var(--teal-subtle)';
+
+                    // Smooth scroll effect
+                    this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                });
+            });
+
+            // KPI card hover interactions with detailed tooltips
+            const kpiCards = document.querySelectorAll('.kpi-card');
+            kpiCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.zIndex = '10';
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    this.style.zIndex = '1';
+                });
+            });
+
+            // Chart bar animations on hover
+            const chartBars = document.querySelectorAll('.chart-bar');
+            chartBars.forEach((bar, index) => {
+                bar.style.animationDelay = `${index * 0.05}s`;
+
+                bar.addEventListener('click', function() {
+                    // Simulate drill-down interaction
+                    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    const height = this.style.height;
+                    const revenue = (parseFloat(height) * 0.842).toFixed(1);
+
+                    alert(`${months[index]} 2024\\nRevenue: $${revenue}M\\n\\nClick OK to see detailed breakdown`);
+                });
+            });
+
+            // Regional chart bar animations
+            const regionBars = document.querySelectorAll('.region-bar');
+            regionBars.forEach((bar, index) => {
+                const targetWidth = bar.style.width;
+                bar.style.width = '0%';
+
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                }, 500 + (index * 150));
+            });
+
+            // Filter tag interactions
+            const filterTags = document.querySelectorAll('.filter-tag');
+            filterTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    filterTags.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Visual feedback with smooth transition
+                    const tableCard = document.querySelector('.table-card');
+                    tableCard.style.opacity = '0.7';
+                    setTimeout(() => {
+                        tableCard.style.opacity = '1';
+                    }, 200);
+                });
+            });
+
+            // Smooth scrolling for insight cards
+            const insightCards = document.querySelectorAll('.insight-card');
+            insightCards.forEach((card, index) => {
+                card.style.animationDelay = `${0.5 + (index * 0.1)}s`;
+            });
+
+            // Period selector change handler
+            const periodSelector = document.querySelector('.period-selector');
+            periodSelector.addEventListener('change', function() {
+                // Visual feedback for data refresh
+                const main = document.querySelector('main');
+                main.style.opacity = '0.6';
+
+                setTimeout(() => {
+                    main.style.opacity = '1';
+                    // In a real app, this would fetch new data
+                    console.log(`Data refreshed for period: ${this.value}`);
+                }, 400);
+            });
+
+            // Action button click handler
+            const actionBtn = document.querySelector('.action-btn');
+            actionBtn.addEventListener('click', function() {
+                this.textContent = 'Generating...';
+                this.style.opacity = '0.7';
+
+                setTimeout(() => {
+                    this.textContent = 'Generate Report';
+                    this.style.opacity = '1';
+                    alert('Executive report generated successfully!\\n\\nDownload will begin shortly...');
+                }, 1500);
+            });
+
+            // Add smooth hover effects to status badges
+            const statusBadges = document.querySelectorAll('.status-badge');
+            statusBadges.forEach(badge => {
+                badge.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.1)';
+                });
+
+                badge.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            // Console branding
+            console.log('%c🎨 TEEQA Executive Dashboard',
+                'color: #3a7d8f; font-size: 20px; font-weight: bold; font-family: Playfair Display, serif;');
+            console.log('%cBrand-forward design meets executive excellence',
+                'color: #4a5160; font-size: 12px; font-family: Inter, sans-serif;');
+            console.log('%cBuilt with ❤️ and premium polish',
+                'color: #a87c4f; font-size: 11px; font-style: italic;');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1726 @@
+<!-- Agent: Zeeqa | Round: 2 - Light Mode Masterpiece | Theme: Workshop Discovery Session | Intent: Transform workshop chaos into calm clarity through minimalist sticky note architecture and vast breathing space -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Discovery Session | Zeeqa Minimalist Canvas</title>
+    <style>
+        /* ═══════════════════════════════════════════════════════════════
+           ZEEQA LIGHT MODE WORKSHOP DISCOVERY SESSION
+           Minimalist sticky note canvas with vast whitespace
+           ═══════════════════════════════════════════════════════════════ */
+
+        :root {
+            /* Light mode base palette */
+            --canvas-bg: #fafaf8;
+            --paper-white: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6b6b6b;
+            --text-tertiary: #9a9a9a;
+
+            /* Sticky note colors - vibrant and distinct */
+            --sticky-yellow: #fff3cd;
+            --sticky-yellow-dark: #ffd93d;
+            --sticky-pink: #ffe4f0;
+            --sticky-pink-dark: #ff85c0;
+            --sticky-blue: #d4edff;
+            --sticky-blue-dark: #5eb8ff;
+            --sticky-mint: #d4f5e9;
+            --sticky-mint-dark: #4dd4ac;
+
+            /* Semantic colors */
+            --accent-active: #2563eb;
+            --success-green: #10b981;
+            --warning-amber: #f59e0b;
+            --critical-red: #ef4444;
+
+            /* Spacing system - generous for projection */
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 32px;
+            --space-lg: 48px;
+            --space-xl: 64px;
+            --space-xxl: 96px;
+
+            /* Typography - large and readable */
+            --font-display: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+            /* Shadows for sticky notes */
+            --shadow-sticky: 0 3px 8px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-sticky-hover: 0 8px 20px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.08);
+            --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--canvas-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           HEADER - Clean workshop session banner
+           ═══════════════════════════════════════════════════════════════ */
+
+        header {
+            background: var(--paper-white);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            padding: var(--space-md) var(--space-xl);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .header-left {
+            flex: 1;
+        }
+
+        .workshop-title {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .workshop-meta {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .session-badge {
+            background: var(--sticky-blue);
+            color: var(--text-primary);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: var(--shadow-sticky);
+        }
+
+        .agent-signature {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-tertiary);
+            font-weight: 600;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           MAIN CONTAINER - Maximum breathing space
+           ═══════════════════════════════════════════════════════════════ */
+
+        main {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+        }
+
+        section {
+            margin-bottom: var(--space-xxl);
+        }
+
+        .section-header {
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+            margin-bottom: var(--space-xs);
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           KPI METRICS - Workshop session stats
+           ═══════════════════════════════════════════════════════════════ */
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .kpi-card {
+            background: var(--paper-white);
+            padding: var(--space-md);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            transition: all 0.2s ease-out;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sticky);
+        }
+
+        .kpi-label {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xs);
+            font-weight: 500;
+        }
+
+        .kpi-value {
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-delta {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .kpi-delta.positive {
+            color: var(--success-green);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           STICKY NOTE CARDS - Core workshop visual element
+           ═══════════════════════════════════════════════════════════════ */
+
+        .sticky-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .sticky-note {
+            background: var(--sticky-yellow);
+            padding: var(--space-md);
+            border-radius: 4px;
+            box-shadow: var(--shadow-sticky);
+            transition: all 0.2s ease-out;
+            position: relative;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            animation: dropIn 0.4s ease-out;
+            cursor: pointer;
+        }
+
+        .sticky-note::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg,
+                rgba(255, 217, 61, 0.4) 0%,
+                transparent 100%);
+            border-radius: 4px 4px 0 0;
+        }
+
+        .sticky-note:hover {
+            transform: translateY(-4px) rotate(-1deg);
+            box-shadow: var(--shadow-sticky-hover);
+        }
+
+        .sticky-note.pink {
+            background: var(--sticky-pink);
+        }
+
+        .sticky-note.pink::before {
+            background: linear-gradient(90deg,
+                rgba(255, 133, 192, 0.4) 0%,
+                transparent 100%);
+        }
+
+        .sticky-note.blue {
+            background: var(--sticky-blue);
+        }
+
+        .sticky-note.blue::before {
+            background: linear-gradient(90deg,
+                rgba(94, 184, 255, 0.4) 0%,
+                transparent 100%);
+        }
+
+        .sticky-note.mint {
+            background: var(--sticky-mint);
+        }
+
+        .sticky-note.mint::before {
+            background: linear-gradient(90deg,
+                rgba(77, 212, 172, 0.4) 0%,
+                transparent 100%);
+        }
+
+        @keyframes dropIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) rotate(2deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+
+        .sticky-category {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+            font-weight: 600;
+        }
+
+        .sticky-content {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-primary);
+            flex: 1;
+            margin-bottom: var(--space-sm);
+        }
+
+        .sticky-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--space-sm);
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            font-size: 12px;
+            color: var(--text-secondary);
+            opacity: 0;
+            transition: opacity 0.2s ease-out;
+        }
+
+        .sticky-note:hover .sticky-meta {
+            opacity: 1;
+        }
+
+        .sticky-owner {
+            font-weight: 500;
+        }
+
+        .sticky-status {
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 500;
+            background: rgba(0, 0, 0, 0.08);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           WORKSHOP SECTIONS - Organized clusters
+           ═══════════════════════════════════════════════════════════════ */
+
+        .workshop-cluster {
+            margin-bottom: var(--space-xxl);
+        }
+
+        .cluster-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .cluster-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .cluster-icon.insights {
+            background: var(--sticky-yellow);
+        }
+
+        .cluster-icon.ideas {
+            background: var(--sticky-pink);
+        }
+
+        .cluster-icon.risks {
+            background: var(--sticky-blue);
+        }
+
+        .cluster-icon.actions {
+            background: var(--sticky-mint);
+        }
+
+        .cluster-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .cluster-count {
+            background: rgba(0, 0, 0, 0.06);
+            color: var(--text-secondary);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-left: auto;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           PROGRESS VISUALIZATION - Simple bars with sticky colors
+           ═══════════════════════════════════════════════════════════════ */
+
+        .progress-section {
+            background: var(--paper-white);
+            padding: var(--space-lg);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            margin-bottom: var(--space-xl);
+        }
+
+        .progress-item {
+            margin-bottom: var(--space-md);
+        }
+
+        .progress-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-xs);
+        }
+
+        .progress-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .progress-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar-container {
+            height: 8px;
+            background: rgba(0, 0, 0, 0.04);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.6s ease-out;
+        }
+
+        .progress-bar.yellow {
+            background: var(--sticky-yellow-dark);
+        }
+
+        .progress-bar.pink {
+            background: var(--sticky-pink-dark);
+        }
+
+        .progress-bar.blue {
+            background: var(--sticky-blue-dark);
+        }
+
+        .progress-bar.mint {
+            background: var(--sticky-mint-dark);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           ACTION ITEMS TABLE - Clean and minimal
+           ═══════════════════════════════════════════════════════════════ */
+
+        .table-container {
+            background: var(--paper-white);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            margin-bottom: var(--space-xl);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: rgba(0, 0, 0, 0.02);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        th {
+            text-align: left;
+            padding: var(--space-sm) var(--space-md);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        td {
+            padding: var(--space-sm) var(--space-md);
+            font-size: 14px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr {
+            transition: background 0.15s ease-out;
+        }
+
+        tbody tr:hover {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .action-title {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .action-owner {
+            color: var(--text-secondary);
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .priority-badge.high {
+            background: var(--sticky-pink);
+            color: var(--text-primary);
+        }
+
+        .priority-badge.medium {
+            background: var(--sticky-yellow);
+            color: var(--text-primary);
+        }
+
+        .priority-badge.low {
+            background: var(--sticky-mint);
+            color: var(--text-primary);
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-dot.todo {
+            background: var(--text-tertiary);
+        }
+
+        .status-dot.progress {
+            background: var(--sticky-blue-dark);
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.done {
+            background: var(--success-green);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           LIVE NOTES SECTION - Recent decisions and insights
+           ═══════════════════════════════════════════════════════════════ */
+
+        .live-notes {
+            background: linear-gradient(135deg,
+                rgba(212, 237, 255, 0.3) 0%,
+                rgba(212, 245, 233, 0.3) 100%);
+            padding: var(--space-lg);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .live-note-item {
+            background: var(--paper-white);
+            padding: var(--space-md);
+            border-radius: 6px;
+            margin-bottom: var(--space-sm);
+            border-left: 4px solid var(--sticky-blue-dark);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .live-note-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .live-note-time {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+            margin-bottom: var(--space-xs);
+            font-weight: 600;
+        }
+
+        .live-note-content {
+            font-size: 15px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           CHART PLACEHOLDER - Minimal visualization
+           ═══════════════════════════════════════════════════════════════ */
+
+        .chart-container {
+            background: var(--paper-white);
+            padding: var(--space-lg);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            margin-bottom: var(--space-xl);
+        }
+
+        .chart-header {
+            margin-bottom: var(--space-md);
+        }
+
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .chart-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .chart-visual {
+            height: 240px;
+            display: flex;
+            align-items: flex-end;
+            gap: var(--space-sm);
+            padding: var(--space-md) 0;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: var(--sticky-yellow);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            transition: all 0.3s ease-out;
+            min-height: 40px;
+        }
+
+        .chart-bar:nth-child(2) {
+            background: var(--sticky-pink);
+        }
+
+        .chart-bar:nth-child(3) {
+            background: var(--sticky-blue);
+        }
+
+        .chart-bar:nth-child(4) {
+            background: var(--sticky-mint);
+        }
+
+        .chart-bar:hover {
+            opacity: 0.8;
+            transform: translateY(-4px);
+        }
+
+        .chart-bar-label {
+            position: absolute;
+            bottom: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           FOOTER - Session metadata
+           ═══════════════════════════════════════════════════════════════ */
+
+        footer {
+            background: var(--paper-white);
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            padding: var(--space-md) var(--space-xl);
+            margin-top: var(--space-xxl);
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .footer-left {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-label {
+            font-weight: 500;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           RESPONSIVE DESIGN - Tablet and mobile adjustments
+           ═══════════════════════════════════════════════════════════════ */
+
+        @media (max-width: 960px) {
+            main {
+                padding: var(--space-lg);
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .sticky-board {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: var(--space-md);
+            }
+
+            .workshop-title {
+                font-size: 24px;
+            }
+
+            section {
+                margin-bottom: var(--space-xl);
+            }
+        }
+
+        @media (max-width: 640px) {
+            header {
+                padding: var(--space-sm) var(--space-md);
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-sm);
+            }
+
+            main {
+                padding: var(--space-md);
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sticky-board {
+                grid-template-columns: 1fr;
+            }
+
+            .workshop-title {
+                font-size: 20px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-sm);
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+            th, td {
+                padding: var(--space-xs) var(--space-sm);
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           UTILITIES - Helper classes
+           ═══════════════════════════════════════════════════════════════ */
+
+        .hidden {
+            display: none;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-0 {
+            margin-bottom: 0 !important;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+        }
+
+        @media (max-width: 960px) {
+            .grid-2col {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         HEADER - Workshop session banner
+         ═══════════════════════════════════════════════════════════════ -->
+    <header>
+        <div class="header-content">
+            <div class="header-left">
+                <h1 class="workshop-title">Q4 Product Strategy Workshop</h1>
+                <div class="workshop-meta">Discovery Session · November 9, 2025 · Facilitated by Product Team</div>
+            </div>
+            <div class="header-right">
+                <div class="session-badge">Live Session</div>
+                <div class="agent-signature">ZEEQA</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         MAIN CONTENT - Workshop canvas
+         ═══════════════════════════════════════════════════════════════ -->
+    <main>
+
+        <!-- Session Metrics KPIs -->
+        <section>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Participants</div>
+                    <div class="kpi-value">18</div>
+                    <div class="kpi-delta">Cross-functional team</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Ideas Generated</div>
+                    <div class="kpi-value">47</div>
+                    <div class="kpi-delta positive">↑ 12 from last session</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Actions Defined</div>
+                    <div class="kpi-value">23</div>
+                    <div class="kpi-delta">Ready for sprint planning</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Session Duration</div>
+                    <div class="kpi-value">2.5h</div>
+                    <div class="kpi-delta">45 min remaining</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Insights Cluster -->
+        <section class="workshop-cluster">
+            <div class="cluster-header">
+                <div class="cluster-icon insights">💡</div>
+                <h2 class="cluster-title">Key Insights</h2>
+                <div class="cluster-count">8 insights</div>
+            </div>
+            <div class="sticky-board">
+                <div class="sticky-note yellow">
+                    <div class="sticky-category">Customer Research</div>
+                    <div class="sticky-content">
+                        Users are requesting offline mode functionality in 78% of support tickets—critical gap in current mobile experience
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Sarah Chen</span>
+                        <span class="sticky-status">Validated</span>
+                    </div>
+                </div>
+                <div class="sticky-note yellow">
+                    <div class="sticky-category">Market Analysis</div>
+                    <div class="sticky-content">
+                        Competitors launching AI features in Q1 2026—we need to accelerate our ML roadmap to maintain differentiation
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Marcus Thompson</span>
+                        <span class="sticky-status">Research</span>
+                    </div>
+                </div>
+                <div class="sticky-note yellow">
+                    <div class="sticky-category">User Behavior</div>
+                    <div class="sticky-content">
+                        Power users spend 65% of time in analytics view but UI is optimized for basic dashboard—needs redesign priority
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Jamie Rodriguez</span>
+                        <span class="sticky-status">Validated</span>
+                    </div>
+                </div>
+                <div class="sticky-note yellow">
+                    <div class="sticky-category">Technical Debt</div>
+                    <div class="sticky-content">
+                        Legacy API causing 3-5 second delays on data refresh—blocking real-time feature development
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Dev Team</span>
+                        <span class="sticky-status">Critical</span>
+                    </div>
+                </div>
+                <div class="sticky-note yellow">
+                    <div class="sticky-category">Revenue Impact</div>
+                    <div class="sticky-content">
+                        Enterprise customers willing to pay 40% premium for advanced collaboration features—major upsell opportunity
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Alex Kim</span>
+                        <span class="sticky-status">Sales Data</span>
+                    </div>
+                </div>
+                <div class="sticky-note yellow">
+                    <div class="sticky-category">Platform Insight</div>
+                    <div class="sticky-content">
+                        Mobile usage grew 120% YoY but conversion rate is 60% lower than desktop—UX friction point identified
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Analytics Team</span>
+                        <span class="sticky-status">Trending</span>
+                    </div>
+                </div>
+                <div class="sticky-note yellow">
+                    <div class="sticky-category">Customer Success</div>
+                    <div class="sticky-content">
+                        Onboarding takes average 14 days for enterprise vs 2 days for SMB—need streamlined activation flow
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">CS Team</span>
+                        <span class="sticky-status">Pain Point</span>
+                    </div>
+                </div>
+                <div class="sticky-note yellow">
+                    <div class="sticky-category">Integration</div>
+                    <div class="sticky-content">
+                        Top 3 requested integrations are Slack, Teams, and Salesforce—would unlock 30% of pipeline deals
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Partnerships</span>
+                        <span class="sticky-status">Strategic</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Ideas Cluster -->
+        <section class="workshop-cluster">
+            <div class="cluster-header">
+                <div class="cluster-icon ideas">🚀</div>
+                <h2 class="cluster-title">New Ideas</h2>
+                <div class="cluster-count">12 concepts</div>
+            </div>
+            <div class="sticky-board">
+                <div class="sticky-note pink">
+                    <div class="sticky-category">Product Feature</div>
+                    <div class="sticky-content">
+                        AI-powered dashboard builder that learns user preferences and auto-generates custom views
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Product Team</span>
+                        <span class="sticky-status">Q1 Concept</span>
+                    </div>
+                </div>
+                <div class="sticky-note pink">
+                    <div class="sticky-category">Growth Initiative</div>
+                    <div class="sticky-content">
+                        Freemium tier with viral sharing mechanics—users can invite 10 collaborators to drive organic growth
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Growth Team</span>
+                        <span class="sticky-status">Testing</span>
+                    </div>
+                </div>
+                <div class="sticky-note pink">
+                    <div class="sticky-category">Developer Experience</div>
+                    <div class="sticky-content">
+                        Public API marketplace where third-party developers can build and monetize extensions
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Platform Team</span>
+                        <span class="sticky-status">Research</span>
+                    </div>
+                </div>
+                <div class="sticky-note pink">
+                    <div class="sticky-category">Customer Experience</div>
+                    <div class="sticky-content">
+                        Interactive product tours with contextual tooltips—reduce support tickets by 40% based on beta tests
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">UX Team</span>
+                        <span class="sticky-status">Prototyping</span>
+                    </div>
+                </div>
+                <div class="sticky-note pink">
+                    <div class="sticky-category">Enterprise Feature</div>
+                    <div class="sticky-content">
+                        Role-based access control with audit logs and compliance certifications (SOC2, GDPR)
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Security Team</span>
+                        <span class="sticky-status">Planning</span>
+                    </div>
+                </div>
+                <div class="sticky-note pink">
+                    <div class="sticky-category">Mobile Innovation</div>
+                    <div class="sticky-content">
+                        Gesture-based navigation for mobile app—swipe left for filters, right for sharing, up for search
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Mobile Team</span>
+                        <span class="sticky-status">Concept</span>
+                    </div>
+                </div>
+                <div class="sticky-note pink">
+                    <div class="sticky-category">Analytics</div>
+                    <div class="sticky-content">
+                        Predictive insights engine using machine learning to forecast trends and alert users to anomalies
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Data Science</span>
+                        <span class="sticky-status">POC Phase</span>
+                    </div>
+                </div>
+                <div class="sticky-note pink">
+                    <div class="sticky-category">Collaboration</div>
+                    <div class="sticky-content">
+                        Real-time co-editing of dashboards with presence indicators and live commenting
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Collab Team</span>
+                        <span class="sticky-status">High Demand</span>
+                    </div>
+                </div>
+                <div class="sticky-note pink">
+                    <div class="sticky-category">Content Strategy</div>
+                    <div class="sticky-content">
+                        Template library with 100+ pre-built dashboards for different industries and use cases
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Marketing</span>
+                        <span class="sticky-status">Content Plan</span>
+                    </div>
+                </div>
+                <div class="sticky-note pink">
+                    <div class="sticky-category">Monetization</div>
+                    <div class="sticky-content">
+                        Usage-based pricing model that scales with data volume—better aligns cost with customer value
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Pricing Team</span>
+                        <span class="sticky-status">Analysis</span>
+                    </div>
+                </div>
+                <div class="sticky-note pink">
+                    <div class="sticky-category">Performance</div>
+                    <div class="sticky-content">
+                        Edge caching for global users—reduce latency from 800ms to under 100ms for international markets
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Infrastructure</span>
+                        <span class="sticky-status">Technical</span>
+                    </div>
+                </div>
+                <div class="sticky-note pink">
+                    <div class="sticky-category">Accessibility</div>
+                    <div class="sticky-content">
+                        WCAG 2.2 compliance with screen reader optimization and keyboard-first navigation
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">A11y Team</span>
+                        <span class="sticky-status">Priority</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workshop Progress Tracking -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title">Session Progress</h2>
+                <p class="section-subtitle">Activity completion across workshop phases</p>
+            </div>
+            <div class="progress-section">
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span class="progress-label">Problem Definition</span>
+                        <span class="progress-value">100%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar yellow" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span class="progress-label">Ideation & Brainstorming</span>
+                        <span class="progress-value">85%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar pink" style="width: 85%;"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span class="progress-label">Prioritization & Voting</span>
+                        <span class="progress-value">60%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar blue" style="width: 60%;"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span class="progress-label">Action Planning</span>
+                        <span class="progress-value">40%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar mint" style="width: 40%;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Risks & Concerns -->
+        <section class="workshop-cluster">
+            <div class="cluster-header">
+                <div class="cluster-icon risks">⚠️</div>
+                <h2 class="cluster-title">Risks & Concerns</h2>
+                <div class="cluster-count">6 flagged</div>
+            </div>
+            <div class="sticky-board">
+                <div class="sticky-note blue">
+                    <div class="sticky-category">Resource Constraint</div>
+                    <div class="sticky-content">
+                        Engineering bandwidth at 110% capacity—need to deprioritize or hire before adding scope
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Engineering Lead</span>
+                        <span class="sticky-status">Critical</span>
+                    </div>
+                </div>
+                <div class="sticky-note blue">
+                    <div class="sticky-category">Market Timing</div>
+                    <div class="sticky-content">
+                        If we delay Q1 launch, competitor will own category narrative—go-to-market timing is crucial
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Strategy Team</span>
+                        <span class="sticky-status">Strategic</span>
+                    </div>
+                </div>
+                <div class="sticky-note blue">
+                    <div class="sticky-category">Technical Risk</div>
+                    <div class="sticky-content">
+                        Data migration from legacy system has unknown complexity—could add 6-8 weeks to timeline
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Platform Team</span>
+                        <span class="sticky-status">Unknown</span>
+                    </div>
+                </div>
+                <div class="sticky-note blue">
+                    <div class="sticky-category">Customer Impact</div>
+                    <div class="sticky-content">
+                        Breaking API changes will affect 200+ enterprise integrations—need phased rollout plan
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">API Team</span>
+                        <span class="sticky-status">Migration</span>
+                    </div>
+                </div>
+                <div class="sticky-note blue">
+                    <div class="sticky-category">Budget</div>
+                    <div class="sticky-content">
+                        Infrastructure costs will double with real-time features—need CFO approval for expanded budget
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Finance Team</span>
+                        <span class="sticky-status">Approval Needed</span>
+                    </div>
+                </div>
+                <div class="sticky-note blue">
+                    <div class="sticky-category">Dependency</div>
+                    <div class="sticky-content">
+                        Waiting on third-party vendor API update—our launch timeline depends on their Q4 roadmap
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Partnerships</span>
+                        <span class="sticky-status">External Block</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Idea Category Distribution Chart -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title">Idea Distribution</h2>
+                <p class="section-subtitle">Ideas generated by category</p>
+            </div>
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Category Breakdown</div>
+                    <div class="chart-subtitle">Total 47 ideas across 4 focus areas</div>
+                </div>
+                <div class="chart-visual">
+                    <div class="chart-bar" style="height: 85%;">
+                        <div class="chart-bar-label">Product (18)</div>
+                    </div>
+                    <div class="chart-bar" style="height: 68%;">
+                        <div class="chart-bar-label">Growth (12)</div>
+                    </div>
+                    <div class="chart-bar" style="height: 55%;">
+                        <div class="chart-bar-label">Tech (10)</div>
+                    </div>
+                    <div class="chart-bar" style="height: 40%;">
+                        <div class="chart-bar-label">Process (7)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Actions -->
+        <section class="workshop-cluster">
+            <div class="cluster-header">
+                <div class="cluster-icon actions">✓</div>
+                <h2 class="cluster-title">Next Actions</h2>
+                <div class="cluster-count">15 defined</div>
+            </div>
+            <div class="sticky-board">
+                <div class="sticky-note mint">
+                    <div class="sticky-category">Research</div>
+                    <div class="sticky-content">
+                        Conduct user interviews with 20 power users about analytics redesign preferences
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Sarah Chen</span>
+                        <span class="sticky-status">Due: Nov 16</span>
+                    </div>
+                </div>
+                <div class="sticky-note mint">
+                    <div class="sticky-category">Technical Spec</div>
+                    <div class="sticky-content">
+                        Write API migration plan with backward compatibility strategy and timeline
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Dev Team</span>
+                        <span class="sticky-status">Due: Nov 12</span>
+                    </div>
+                </div>
+                <div class="sticky-note mint">
+                    <div class="sticky-category">Design</div>
+                    <div class="sticky-content">
+                        Create high-fidelity mockups for mobile gesture navigation concept
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">UX Team</span>
+                        <span class="sticky-status">Due: Nov 20</span>
+                    </div>
+                </div>
+                <div class="sticky-note mint">
+                    <div class="sticky-category">Business Case</div>
+                    <div class="sticky-content">
+                        Build ROI model for enterprise collaboration features with pricing scenarios
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Product Ops</span>
+                        <span class="sticky-status">Due: Nov 15</span>
+                    </div>
+                </div>
+                <div class="sticky-note mint">
+                    <div class="sticky-category">Competitive Analysis</div>
+                    <div class="sticky-content">
+                        Map competitor AI feature launches and identify differentiation opportunities
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Strategy</span>
+                        <span class="sticky-status">Due: Nov 13</span>
+                    </div>
+                </div>
+                <div class="sticky-note mint">
+                    <div class="sticky-category">Prototype</div>
+                    <div class="sticky-content">
+                        Build working demo of AI dashboard builder for executive stakeholder review
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Engineering</span>
+                        <span class="sticky-status">Due: Nov 30</span>
+                    </div>
+                </div>
+                <div class="sticky-note mint">
+                    <div class="sticky-category">Partnership</div>
+                    <div class="sticky-content">
+                        Initiate integration discussions with Slack, Teams, and Salesforce teams
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Partnerships</span>
+                        <span class="sticky-status">Due: Nov 18</span>
+                    </div>
+                </div>
+                <div class="sticky-note mint">
+                    <div class="sticky-category">Testing</div>
+                    <div class="sticky-content">
+                        Run A/B test on freemium sharing mechanics with 5K user cohort
+                    </div>
+                    <div class="sticky-meta">
+                        <span class="sticky-owner">Growth Team</span>
+                        <span class="sticky-status">Due: Dec 1</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Action Items Table -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title">Action Items Tracker</h2>
+                <p class="section-subtitle">All workshop commitments with owners and deadlines</p>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Action Item</th>
+                            <th>Owner</th>
+                            <th>Priority</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="action-title">Conduct user interviews about analytics redesign</td>
+                            <td class="action-owner">Sarah Chen</td>
+                            <td><span class="priority-badge high">High</span></td>
+                            <td>Nov 16, 2025</td>
+                            <td><span class="status-dot progress"></span>In Progress</td>
+                        </tr>
+                        <tr>
+                            <td class="action-title">Write API migration plan with compatibility strategy</td>
+                            <td class="action-owner">Dev Team</td>
+                            <td><span class="priority-badge high">High</span></td>
+                            <td>Nov 12, 2025</td>
+                            <td><span class="status-dot todo"></span>To Do</td>
+                        </tr>
+                        <tr>
+                            <td class="action-title">Create mockups for mobile gesture navigation</td>
+                            <td class="action-owner">Jamie Rodriguez</td>
+                            <td><span class="priority-badge medium">Medium</span></td>
+                            <td>Nov 20, 2025</td>
+                            <td><span class="status-dot todo"></span>To Do</td>
+                        </tr>
+                        <tr>
+                            <td class="action-title">Build ROI model for enterprise features</td>
+                            <td class="action-owner">Alex Kim</td>
+                            <td><span class="priority-badge high">High</span></td>
+                            <td>Nov 15, 2025</td>
+                            <td><span class="status-dot progress"></span>In Progress</td>
+                        </tr>
+                        <tr>
+                            <td class="action-title">Map competitor AI launches and opportunities</td>
+                            <td class="action-owner">Marcus Thompson</td>
+                            <td><span class="priority-badge high">High</span></td>
+                            <td>Nov 13, 2025</td>
+                            <td><span class="status-dot todo"></span>To Do</td>
+                        </tr>
+                        <tr>
+                            <td class="action-title">Build AI dashboard builder demo prototype</td>
+                            <td class="action-owner">Engineering Team</td>
+                            <td><span class="priority-badge medium">Medium</span></td>
+                            <td>Nov 30, 2025</td>
+                            <td><span class="status-dot todo"></span>To Do</td>
+                        </tr>
+                        <tr>
+                            <td class="action-title">Initiate Slack/Teams/Salesforce integration talks</td>
+                            <td class="action-owner">Partnerships</td>
+                            <td><span class="priority-badge medium">Medium</span></td>
+                            <td>Nov 18, 2025</td>
+                            <td><span class="status-dot todo"></span>To Do</td>
+                        </tr>
+                        <tr>
+                            <td class="action-title">Run A/B test on freemium sharing mechanics</td>
+                            <td class="action-owner">Growth Team</td>
+                            <td><span class="priority-badge medium">Medium</span></td>
+                            <td>Dec 1, 2025</td>
+                            <td><span class="status-dot todo"></span>To Do</td>
+                        </tr>
+                        <tr>
+                            <td class="action-title">Assess engineering capacity and hiring needs</td>
+                            <td class="action-owner">Engineering Lead</td>
+                            <td><span class="priority-badge high">High</span></td>
+                            <td>Nov 11, 2025</td>
+                            <td><span class="status-dot progress"></span>In Progress</td>
+                        </tr>
+                        <tr>
+                            <td class="action-title">Document phased API rollout plan</td>
+                            <td class="action-owner">Platform Team</td>
+                            <td><span class="priority-badge high">High</span></td>
+                            <td>Nov 14, 2025</td>
+                            <td><span class="status-dot todo"></span>To Do</td>
+                        </tr>
+                        <tr>
+                            <td class="action-title">Get CFO approval for infrastructure budget</td>
+                            <td class="action-owner">Finance Team</td>
+                            <td><span class="priority-badge high">High</span></td>
+                            <td>Nov 17, 2025</td>
+                            <td><span class="status-dot todo"></span>To Do</td>
+                        </tr>
+                        <tr>
+                            <td class="action-title">Create template library content strategy</td>
+                            <td class="action-owner">Marketing</td>
+                            <td><span class="priority-badge low">Low</span></td>
+                            <td>Nov 25, 2025</td>
+                            <td><span class="status-dot todo"></span>To Do</td>
+                        </tr>
+                        <tr>
+                            <td class="action-title">Audit WCAG 2.2 compliance gaps</td>
+                            <td class="action-owner">Accessibility Team</td>
+                            <td><span class="priority-badge medium">Medium</span></td>
+                            <td>Nov 22, 2025</td>
+                            <td><span class="status-dot todo"></span>To Do</td>
+                        </tr>
+                        <tr>
+                            <td class="action-title">Research edge caching solutions for global users</td>
+                            <td class="action-owner">Infrastructure</td>
+                            <td><span class="priority-badge low">Low</span></td>
+                            <td>Nov 28, 2025</td>
+                            <td><span class="status-dot todo"></span>To Do</td>
+                        </tr>
+                        <tr>
+                            <td class="action-title">Schedule follow-up workshop for Q1 planning</td>
+                            <td class="action-owner">Product Lead</td>
+                            <td><span class="priority-badge medium">Medium</span></td>
+                            <td>Nov 10, 2025</td>
+                            <td><span class="status-dot done"></span>Done</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Live Notes Section -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title">Live Notes & Decisions</h2>
+                <p class="section-subtitle">Key decisions and insights captured during the session</p>
+            </div>
+            <div class="live-notes">
+                <div class="live-note-item">
+                    <div class="live-note-time">14:35 PM</div>
+                    <div class="live-note-content">
+                        <strong>Decision:</strong> Prioritize offline mode feature for Q1 launch based on customer research data showing 78% request rate in support tickets. Engineering to scope by Nov 12.
+                    </div>
+                </div>
+                <div class="live-note-item">
+                    <div class="live-note-time">14:28 PM</div>
+                    <div class="live-note-content">
+                        <strong>Insight:</strong> Power users spending 65% of time in analytics view highlights need for advanced dashboard redesign. Sarah to interview 20 users by Nov 16.
+                    </div>
+                </div>
+                <div class="live-note-item">
+                    <div class="live-note-time">14:15 PM</div>
+                    <div class="live-note-content">
+                        <strong>Decision:</strong> Approved concept for AI-powered dashboard builder. Engineering to build working demo for executive review by Nov 30. Budget approved pending CFO sign-off.
+                    </div>
+                </div>
+                <div class="live-note-item">
+                    <div class="live-note-time">14:02 PM</div>
+                    <div class="live-note-content">
+                        <strong>Risk Flag:</strong> Engineering bandwidth at 110% capacity. Team lead to assess hiring needs and present options by Nov 11. May need to deprioritize non-critical features.
+                    </div>
+                </div>
+                <div class="live-note-item">
+                    <div class="live-note-time">13:48 PM</div>
+                    <div class="live-note-content">
+                        <strong>Strategic Insight:</strong> Competitor AI launches in Q1 2026 create urgency. Marcus to complete competitive analysis by Nov 13 to identify differentiation opportunities.
+                    </div>
+                </div>
+                <div class="live-note-item">
+                    <div class="live-note-time">13:30 PM</div>
+                    <div class="live-note-content">
+                        <strong>Decision:</strong> Green-lit integration partnerships with Slack, Teams, and Salesforce. Partnerships team to initiate discussions by Nov 18. Would unlock 30% of pipeline.
+                    </div>
+                </div>
+                <div class="live-note-item">
+                    <div class="live-note-time">13:15 PM</div>
+                    <div class="live-note-content">
+                        <strong>Agreement:</strong> Freemium tier with viral sharing mechanics approved for A/B testing. Growth team to run 5K user test starting Dec 1. Hypothesis: 10 free collaborator invites drive organic growth.
+                    </div>
+                </div>
+                <div class="live-note-item">
+                    <div class="live-note-time">13:00 PM</div>
+                    <div class="live-note-content">
+                        <strong>Session Start:</strong> Workshop kicked off with 18 cross-functional participants. Agenda: Problem definition → Ideation → Prioritization → Action planning. Target: Define Q4 product strategy.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Participation Metrics Chart -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title">Participation Metrics</h2>
+                <p class="section-subtitle">Team engagement across workshop activities</p>
+            </div>
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Ideas Contributed by Team</div>
+                    <div class="chart-subtitle">Individual participation breakdown</div>
+                </div>
+                <div class="chart-visual">
+                    <div class="chart-bar" style="height: 95%;">
+                        <div class="chart-bar-label">Product (14)</div>
+                    </div>
+                    <div class="chart-bar" style="height: 78%;">
+                        <div class="chart-bar-label">Engineering (11)</div>
+                    </div>
+                    <div class="chart-bar" style="height: 72%;">
+                        <div class="chart-bar-label">Design (10)</div>
+                    </div>
+                    <div class="chart-bar" style="height: 58%;">
+                        <div class="chart-bar-label">Growth (8)</div>
+                    </div>
+                    <div class="chart-bar" style="height: 32%;">
+                        <div class="chart-bar-label">Other (4)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         FOOTER - Session metadata
+         ═══════════════════════════════════════════════════════════════ -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-item">
+                    <span class="footer-label">Session ID:</span>
+                    <span>WS-2025-Q4-001</span>
+                </div>
+                <div class="footer-item">
+                    <span class="footer-label">Facilitator:</span>
+                    <span>Product Team</span>
+                </div>
+                <div class="footer-item">
+                    <span class="footer-label">Last Updated:</span>
+                    <span>Nov 9, 2025 · 14:35 PM</span>
+                </div>
+            </div>
+            <div class="footer-right">
+                <span>Designed by ZEEQA · Minimalist Workshop Canvas</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════
+        // MINIMAL INTERACTIVITY - Smooth animations and hover effects
+        // ═══════════════════════════════════════════════════════════════
+
+        // Staggered animation for sticky notes
+        document.addEventListener('DOMContentLoaded', () => {
+            const stickyNotes = document.querySelectorAll('.sticky-note');
+            stickyNotes.forEach((note, index) => {
+                note.style.animationDelay = `${index * 0.05}s`;
+            });
+
+            // Animate progress bars on load
+            const progressBars = document.querySelectorAll('.progress-bar');
+            progressBars.forEach((bar, index) => {
+                const targetWidth = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                }, 300 + (index * 100));
+            });
+
+            // Animate chart bars on load
+            const chartBars = document.querySelectorAll('.chart-bar');
+            chartBars.forEach((bar, index) => {
+                const targetHeight = bar.style.height;
+                bar.style.height = '0%';
+                setTimeout(() => {
+                    bar.style.height = targetHeight;
+                }, 500 + (index * 150));
+            });
+
+            // Add subtle rotation variety to sticky notes
+            const applyRotation = () => {
+                stickyNotes.forEach((note) => {
+                    const randomRotate = (Math.random() - 0.5) * 1.5;
+                    note.style.setProperty('--initial-rotate', `${randomRotate}deg`);
+                });
+            };
+            applyRotation();
+
+            // Live timestamp update
+            const updateTimestamp = () => {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                });
+                const dateString = now.toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+
+                const lastUpdated = document.querySelector('.footer-content .footer-item:last-child span:last-child');
+                if (lastUpdated) {
+                    lastUpdated.textContent = `${dateString} · ${timeString}`;
+                }
+            };
+
+            // Update timestamp every minute
+            updateTimestamp();
+            setInterval(updateTimestamp, 60000);
+
+            // Add click interaction for sticky notes (expand on click)
+            stickyNotes.forEach(note => {
+                note.addEventListener('click', function() {
+                    this.classList.toggle('expanded');
+                });
+            });
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Table row highlight on hover
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(4px)';
+                });
+                row.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+
+            // Add pulse animation to live session badge
+            const sessionBadge = document.querySelector('.session-badge');
+            if (sessionBadge) {
+                setInterval(() => {
+                    sessionBadge.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        sessionBadge.style.transform = 'scale(1)';
+                    }, 200);
+                }, 3000);
+            }
+
+            // Console signature
+            console.log('%c✨ ZEEQA Workshop Dashboard ', 'background: #d4edff; color: #1a1a1a; padding: 8px 16px; font-size: 14px; font-weight: bold;');
+            console.log('%cMinimalist aesthetic systems · Light mode masterpiece', 'color: #6b6b6b; font-size: 12px;');
+        });
+
+        // Keyboard navigation enhancement
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.sticky-note.expanded').forEach(note => {
+                    note.classList.remove('expanded');
+                });
+            }
+        });
+
+        // Performance optimization: Reduce animations on low-end devices
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        if (prefersReducedMotion.matches) {
+            document.querySelectorAll('*').forEach(el => {
+                el.style.animation = 'none';
+                el.style.transition = 'none';
+            });
+        }
+    </script>
+
+</body>
+</html>

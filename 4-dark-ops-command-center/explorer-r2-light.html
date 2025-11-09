@@ -1,0 +1,1285 @@
+<!-- Agent: Explorer | Round: 2 - Light Mode Masterpiece | Theme: Dark Ops Command Center (Light Mode) | Intent: Asymmetric hexagonal grid system with real-time monitoring aesthetic and experimental status visualizations -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS Command Console - Light Mode Operations Center</title>
+    <style>
+        /* ==================== CORE RESET & VARIABLES ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        :root {
+            /* Light Mode Command Center Palette */
+            --bg-primary: #FAFBFC;
+            --bg-secondary: #F4F6F8;
+            --bg-tertiary: #FFFFFF;
+            --bg-grid: #E8ECF0;
+
+            /* Technical Accent Colors */
+            --accent-cyan: #00D9FF;
+            --accent-lime: #B4FF00;
+            --accent-magenta: #FF00FF;
+            --accent-red: #FF3366;
+            --accent-amber: #FFB800;
+
+            /* Text Colors */
+            --text-primary: #1A1F2E;
+            --text-secondary: #4A5568;
+            --text-muted: #8892A6;
+            --text-inverse: #FFFFFF;
+
+            /* Border & Grid */
+            --border-color: #D1D9E3;
+            --border-accent: #00D9FF;
+            --grid-lines: #E0E6ED;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-glow-cyan: 0 0 20px rgba(0, 217, 255, 0.3);
+            --shadow-glow-lime: 0 0 20px rgba(180, 255, 0, 0.3);
+            --shadow-glow-red: 0 0 20px rgba(255, 51, 102, 0.3);
+
+            /* Spacing System */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+        }
+
+        /* ==================== TYPOGRAPHY ==================== */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .condensed {
+            font-family: 'Roboto Condensed', 'Arial Narrow', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .mono {
+            font-family: 'Courier New', 'Consolas', monospace;
+            font-size: 0.85em;
+            letter-spacing: -0.3px;
+        }
+
+        /* ==================== GRID BACKGROUND PATTERN ==================== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(0deg, var(--grid-lines) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-lines) 1px, transparent 1px);
+            background-size: 20px 20px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        /* ==================== LAYOUT STRUCTURE ==================== */
+        .app-container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ==================== HEADER ==================== */
+        header {
+            background: var(--bg-tertiary);
+            border-bottom: 3px solid var(--accent-cyan);
+            padding: var(--space-md) var(--space-lg);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .header-brand h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .agent-badge {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));
+            color: var(--text-inverse);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            box-shadow: var(--shadow-glow-cyan);
+        }
+
+        .header-status {
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        .status-dot.online { background: var(--accent-lime); }
+        .status-dot.warning { background: var(--accent-amber); }
+        .status-dot.critical { background: var(--accent-red); }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: 2px solid var(--border-color);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary {
+            background: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+            color: var(--text-inverse);
+        }
+
+        .btn-primary:hover {
+            box-shadow: var(--shadow-glow-cyan);
+        }
+
+        /* ==================== MAIN CONTENT ==================== */
+        main {
+            flex: 1;
+            padding: var(--space-lg);
+            display: grid;
+            gap: var(--space-lg);
+            max-width: 1800px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ==================== EXPERIMENTAL HEXAGONAL KPI GRID ==================== */
+        .kpi-hexagon-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .kpi-hex {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: var(--space-md);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .kpi-hex::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
+            animation: scan-line 4s linear infinite;
+        }
+
+        @keyframes scan-line {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .kpi-hex:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-cyan);
+        }
+
+        .kpi-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+
+        .kpi-delta {
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .kpi-delta.positive { color: var(--accent-lime); }
+        .kpi-delta.negative { color: var(--accent-red); }
+        .kpi-delta.neutral { color: var(--text-muted); }
+
+        .kpi-sparkline {
+            margin-top: var(--space-sm);
+            height: 30px;
+            background: linear-gradient(to right,
+                transparent 0%,
+                var(--accent-cyan) 20%,
+                var(--accent-lime) 40%,
+                var(--accent-cyan) 60%,
+                var(--accent-magenta) 80%,
+                transparent 100%);
+            opacity: 0.2;
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-sparkline::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* ==================== ASYMMETRIC COMMAND LAYOUT ==================== */
+        .command-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: auto auto;
+            gap: var(--space-lg);
+        }
+
+        /* ==================== ALERT PANEL ==================== */
+        .alert-panel {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--accent-red);
+            border-radius: 8px;
+            padding: var(--space-md);
+            box-shadow: var(--shadow-glow-red);
+            grid-column: 1 / 2;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .panel-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .panel-count {
+            background: var(--accent-red);
+            color: var(--text-inverse);
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .alert-item {
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--accent-red);
+            padding: var(--space-sm);
+            margin-bottom: var(--space-sm);
+            border-radius: 4px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: var(--space-sm);
+            align-items: center;
+        }
+
+        .alert-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .alert-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--accent-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .alert-content h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .alert-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .alert-time {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'Courier New', monospace;
+        }
+
+        /* ==================== SYSTEM STATUS GRID ==================== */
+        .status-grid {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            grid-column: 2 / 3;
+            grid-row: 1 / 3;
+        }
+
+        .status-items {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .status-item {
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            padding: var(--space-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 3px solid transparent;
+        }
+
+        .status-item.operational {
+            border-left-color: var(--accent-lime);
+        }
+
+        .status-item.degraded {
+            border-left-color: var(--accent-amber);
+        }
+
+        .status-item.offline {
+            border-left-color: var(--accent-red);
+        }
+
+        .status-item-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.7rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-badge.operational {
+            background: var(--accent-lime);
+            color: var(--text-primary);
+        }
+
+        .status-badge.degraded {
+            background: var(--accent-amber);
+            color: var(--text-primary);
+        }
+
+        .status-badge.offline {
+            background: var(--accent-red);
+            color: var(--text-inverse);
+        }
+
+        /* ==================== NETWORK TOPOLOGY MAP ==================== */
+        .topology-map {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            grid-column: 1 / 2;
+            position: relative;
+            min-height: 300px;
+        }
+
+        .topology-canvas {
+            position: relative;
+            height: 280px;
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .topology-canvas::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(0deg, var(--grid-lines) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-lines) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.3;
+        }
+
+        .topology-node {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: var(--bg-tertiary);
+            border: 3px solid var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            box-shadow: var(--shadow-glow-cyan);
+            cursor: pointer;
+        }
+
+        .topology-node:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+
+        .topology-node.core {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border-color: var(--accent-magenta);
+            box-shadow: var(--shadow-glow-red);
+        }
+
+        .topology-node.edge1 { top: 20px; left: 20px; }
+        .topology-node.edge2 { top: 20px; right: 20px; }
+        .topology-node.edge3 { bottom: 20px; left: 20px; }
+        .topology-node.edge4 { bottom: 20px; right: 20px; }
+        .topology-node.edge5 { top: 50%; left: 20px; transform: translateY(-50%); }
+        .topology-node.edge6 { top: 50%; right: 20px; transform: translateY(-50%); }
+
+        .node-pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-lime);
+            border-radius: 50%;
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            animation: pulse-dot 1.5s ease-in-out infinite;
+        }
+
+        /* ==================== CHARTS SECTION ==================== */
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+
+        .chart-container {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: var(--space-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .chart-container:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: var(--shadow-md);
+        }
+
+        .chart-placeholder {
+            height: 250px;
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: var(--space-sm);
+            gap: 4px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--accent-cyan), var(--accent-magenta));
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            opacity: 0.7;
+        }
+
+        .chart-bar:hover {
+            opacity: 1;
+            transform: scaleY(1.05);
+        }
+
+        .chart-bar:nth-child(1) { height: 40%; }
+        .chart-bar:nth-child(2) { height: 65%; }
+        .chart-bar:nth-child(3) { height: 85%; }
+        .chart-bar:nth-child(4) { height: 55%; }
+        .chart-bar:nth-child(5) { height: 90%; }
+        .chart-bar:nth-child(6) { height: 75%; }
+        .chart-bar:nth-child(7) { height: 60%; }
+        .chart-bar:nth-child(8) { height: 95%; }
+        .chart-bar:nth-child(9) { height: 70%; }
+        .chart-bar:nth-child(10) { height: 80%; }
+
+        /* Line Chart Variant */
+        .chart-line {
+            background:
+                linear-gradient(120deg, transparent 48%, var(--accent-cyan) 48%, var(--accent-cyan) 52%, transparent 52%),
+                linear-gradient(60deg, transparent 48%, var(--accent-lime) 48%, var(--accent-lime) 52%, transparent 52%);
+            background-size: 20px 20px;
+            position: relative;
+        }
+
+        .chart-line::before {
+            content: '';
+            position: absolute;
+            bottom: 30%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right,
+                var(--accent-cyan),
+                var(--accent-lime),
+                var(--accent-magenta),
+                var(--accent-red));
+            border-radius: 2px;
+            opacity: 0.6;
+        }
+
+        /* ==================== EVENT STREAM ==================== */
+        .event-stream {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            margin-top: var(--space-lg);
+        }
+
+        .event-log {
+            background: var(--text-primary);
+            color: var(--accent-lime);
+            border-radius: 6px;
+            padding: var(--space-md);
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .log-entry {
+            display: grid;
+            grid-template-columns: auto auto 1fr;
+            gap: var(--space-sm);
+            margin-bottom: 0.3rem;
+        }
+
+        .log-timestamp {
+            color: var(--accent-cyan);
+        }
+
+        .log-level {
+            font-weight: 700;
+        }
+
+        .log-level.info { color: var(--accent-cyan); }
+        .log-level.warn { color: var(--accent-amber); }
+        .log-level.error { color: var(--accent-red); }
+        .log-level.success { color: var(--accent-lime); }
+
+        .log-message {
+            color: #FFFFFF;
+        }
+
+        /* ==================== DATA TABLE ==================== */
+        .data-table-section {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            margin-top: var(--space-lg);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        thead {
+            background: var(--bg-secondary);
+            border-bottom: 3px solid var(--accent-cyan);
+        }
+
+        th {
+            padding: var(--space-sm);
+            text-align: left;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tbody tr:hover {
+            background: var(--bg-secondary);
+        }
+
+        td {
+            padding: var(--space-sm);
+            color: var(--text-secondary);
+        }
+
+        .table-badge {
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table-badge.active {
+            background: var(--accent-lime);
+            color: var(--text-primary);
+        }
+
+        .table-badge.pending {
+            background: var(--accent-amber);
+            color: var(--text-primary);
+        }
+
+        .table-badge.failed {
+            background: var(--accent-red);
+            color: var(--text-inverse);
+        }
+
+        .table-badge.inactive {
+            background: var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            background: var(--bg-tertiary);
+            border-top: 2px solid var(--border-color);
+            padding: var(--space-md) var(--space-lg);
+            margin-top: var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-agent {
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        /* ==================== RESPONSIVE DESIGN ==================== */
+        @media (max-width: 1200px) {
+            .kpi-hexagon-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .command-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .status-grid {
+                grid-column: 1 / 2;
+                grid-row: auto;
+            }
+
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                grid-template-columns: 1fr;
+                gap: var(--space-sm);
+            }
+
+            .header-actions {
+                flex-wrap: wrap;
+            }
+
+            .kpi-hexagon-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            main {
+                padding: var(--space-md);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .kpi-hexagon-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header>
+            <div class="header-brand">
+                <h1>NEXUS COMMAND</h1>
+                <span class="agent-badge">EXPLORER</span>
+            </div>
+            <div class="header-status">
+                <div class="status-indicator">
+                    <span class="status-dot online"></span>
+                    <span>Systems Online</span>
+                </div>
+                <div class="status-indicator">
+                    <span class="status-dot warning"></span>
+                    <span>3 Warnings</span>
+                </div>
+                <div class="status-indicator">
+                    <span class="status-dot critical"></span>
+                    <span>2 Critical</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn">Refresh</button>
+                <button class="btn btn-primary">Deploy</button>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <main>
+            <!-- HEXAGONAL KPI GRID -->
+            <section class="kpi-hexagon-grid">
+                <div class="kpi-hex">
+                    <div class="kpi-label condensed">Total Nodes</div>
+                    <div class="kpi-value">847</div>
+                    <div class="kpi-delta positive">↑ 12.3%</div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+                <div class="kpi-hex">
+                    <div class="kpi-label condensed">Active Connections</div>
+                    <div class="kpi-value">15.2K</div>
+                    <div class="kpi-delta positive">↑ 8.7%</div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+                <div class="kpi-hex">
+                    <div class="kpi-label condensed">Uptime</div>
+                    <div class="kpi-value">99.97%</div>
+                    <div class="kpi-delta positive">↑ 0.02%</div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+                <div class="kpi-hex">
+                    <div class="kpi-label condensed">Latency (ms)</div>
+                    <div class="kpi-value">23</div>
+                    <div class="kpi-delta positive">↓ 15%</div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+                <div class="kpi-hex">
+                    <div class="kpi-label condensed">Throughput</div>
+                    <div class="kpi-value">2.8TB</div>
+                    <div class="kpi-delta positive">↑ 22%</div>
+                    <div class="kpi-sparkline"></div>
+                </div>
+            </section>
+
+            <!-- ASYMMETRIC COMMAND LAYOUT -->
+            <div class="command-grid">
+                <!-- ALERT PANEL -->
+                <section class="alert-panel">
+                    <div class="panel-header">
+                        <h2 class="panel-title">Critical Alerts</h2>
+                        <span class="panel-count">2</span>
+                    </div>
+                    <div class="alert-item">
+                        <div class="alert-icon">!</div>
+                        <div class="alert-content">
+                            <h4>Database Connection Pool Exhausted</h4>
+                            <p>Primary DB cluster experiencing high connection count</p>
+                        </div>
+                        <div class="alert-time">14:23:45</div>
+                    </div>
+                    <div class="alert-item">
+                        <div class="alert-icon">!</div>
+                        <div class="alert-content">
+                            <h4>Memory Threshold Exceeded</h4>
+                            <p>Node-07 memory usage at 94%, automatic scaling initiated</p>
+                        </div>
+                        <div class="alert-time">14:19:12</div>
+                    </div>
+                </section>
+
+                <!-- SYSTEM STATUS GRID -->
+                <section class="status-grid">
+                    <div class="panel-header">
+                        <h2 class="panel-title">System Status</h2>
+                    </div>
+                    <div class="status-items">
+                        <div class="status-item operational">
+                            <span class="status-item-label">API Gateway</span>
+                            <span class="status-badge operational">Operational</span>
+                        </div>
+                        <div class="status-item operational">
+                            <span class="status-item-label">Load Balancer</span>
+                            <span class="status-badge operational">Operational</span>
+                        </div>
+                        <div class="status-item degraded">
+                            <span class="status-item-label">Database Cluster</span>
+                            <span class="status-badge degraded">Degraded</span>
+                        </div>
+                        <div class="status-item operational">
+                            <span class="status-item-label">Cache Layer</span>
+                            <span class="status-badge operational">Operational</span>
+                        </div>
+                        <div class="status-item operational">
+                            <span class="status-item-label">Message Queue</span>
+                            <span class="status-badge operational">Operational</span>
+                        </div>
+                        <div class="status-item degraded">
+                            <span class="status-item-label">Storage Backend</span>
+                            <span class="status-badge degraded">Degraded</span>
+                        </div>
+                        <div class="status-item operational">
+                            <span class="status-item-label">CDN Network</span>
+                            <span class="status-badge operational">Operational</span>
+                        </div>
+                        <div class="status-item operational">
+                            <span class="status-item-label">Auth Service</span>
+                            <span class="status-badge operational">Operational</span>
+                        </div>
+                        <div class="status-item operational">
+                            <span class="status-item-label">Monitoring Stack</span>
+                            <span class="status-badge operational">Operational</span>
+                        </div>
+                        <div class="status-item offline">
+                            <span class="status-item-label">Backup Service</span>
+                            <span class="status-badge offline">Offline</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- NETWORK TOPOLOGY MAP -->
+                <section class="topology-map">
+                    <div class="panel-header">
+                        <h2 class="panel-title">Network Topology</h2>
+                    </div>
+                    <div class="topology-canvas">
+                        <div class="topology-node core">
+                            CORE
+                            <span class="node-pulse"></span>
+                        </div>
+                        <div class="topology-node edge1">
+                            EU-01
+                            <span class="node-pulse"></span>
+                        </div>
+                        <div class="topology-node edge2">
+                            US-01
+                            <span class="node-pulse"></span>
+                        </div>
+                        <div class="topology-node edge3">
+                            APAC-01
+                            <span class="node-pulse"></span>
+                        </div>
+                        <div class="topology-node edge4">
+                            SA-01
+                            <span class="node-pulse"></span>
+                        </div>
+                        <div class="topology-node edge5">
+                            EU-02
+                            <span class="node-pulse"></span>
+                        </div>
+                        <div class="topology-node edge6">
+                            US-02
+                            <span class="node-pulse"></span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- CHARTS SECTION -->
+            <section class="charts-section">
+                <div class="chart-container">
+                    <div class="panel-header">
+                        <h2 class="panel-title">Request Volume (Last 10 Hours)</h2>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="panel-header">
+                        <h2 class="panel-title">Response Time Trend</h2>
+                    </div>
+                    <div class="chart-placeholder chart-line">
+                    </div>
+                </div>
+            </section>
+
+            <!-- EVENT STREAM -->
+            <section class="event-stream">
+                <div class="panel-header">
+                    <h2 class="panel-title">Live Event Stream</h2>
+                </div>
+                <div class="event-log">
+                    <div class="log-entry">
+                        <span class="log-timestamp">[14:28:43]</span>
+                        <span class="log-level info">[INFO]</span>
+                        <span class="log-message">Health check completed - all services responding</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-timestamp">[14:27:12]</span>
+                        <span class="log-level success">[SUCCESS]</span>
+                        <span class="log-message">Auto-scaling group added 3 new instances</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-timestamp">[14:25:08]</span>
+                        <span class="log-level warn">[WARN]</span>
+                        <span class="log-message">CPU utilization approaching threshold (85%)</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-timestamp">[14:23:45]</span>
+                        <span class="log-level error">[ERROR]</span>
+                        <span class="log-message">Database connection pool exhausted on primary cluster</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-timestamp">[14:22:33]</span>
+                        <span class="log-level info">[INFO]</span>
+                        <span class="log-message">Cache hit ratio: 94.7% (within optimal range)</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-timestamp">[14:21:15]</span>
+                        <span class="log-level success">[SUCCESS]</span>
+                        <span class="log-message">Deployment v2.8.4 completed successfully</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-timestamp">[14:19:12]</span>
+                        <span class="log-level error">[ERROR]</span>
+                        <span class="log-message">Memory threshold exceeded on Node-07 (94%)</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DATA TABLE -->
+            <section class="data-table-section">
+                <div class="panel-header">
+                    <h2 class="panel-title">Infrastructure Inventory</h2>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Instance ID</th>
+                                <th>Region</th>
+                                <th>Type</th>
+                                <th>CPU Usage</th>
+                                <th>Memory</th>
+                                <th>Network I/O</th>
+                                <th>Status</th>
+                                <th>Uptime</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="mono">i-0a3f9c2d8e7b1</td>
+                                <td>us-east-1</td>
+                                <td>t3.xlarge</td>
+                                <td>47%</td>
+                                <td>62%</td>
+                                <td>2.3 GB/s</td>
+                                <td><span class="table-badge active">Active</span></td>
+                                <td>14d 7h</td>
+                            </tr>
+                            <tr>
+                                <td class="mono">i-7b2c5d9e4a6f3</td>
+                                <td>eu-west-1</td>
+                                <td>t3.2xlarge</td>
+                                <td>85%</td>
+                                <td>78%</td>
+                                <td>4.1 GB/s</td>
+                                <td><span class="table-badge active">Active</span></td>
+                                <td>8d 3h</td>
+                            </tr>
+                            <tr>
+                                <td class="mono">i-4e8a1b6c2f9d7</td>
+                                <td>ap-southeast-1</td>
+                                <td>t3.large</td>
+                                <td>32%</td>
+                                <td>45%</td>
+                                <td>1.7 GB/s</td>
+                                <td><span class="table-badge active">Active</span></td>
+                                <td>21d 12h</td>
+                            </tr>
+                            <tr>
+                                <td class="mono">i-9d3e7f1a5c8b2</td>
+                                <td>us-west-2</td>
+                                <td>t3.xlarge</td>
+                                <td>94%</td>
+                                <td>88%</td>
+                                <td>3.8 GB/s</td>
+                                <td><span class="table-badge pending">Scaling</span></td>
+                                <td>5d 18h</td>
+                            </tr>
+                            <tr>
+                                <td class="mono">i-6c2f8a1d9e4b3</td>
+                                <td>sa-east-1</td>
+                                <td>t3.medium</td>
+                                <td>23%</td>
+                                <td>34%</td>
+                                <td>0.9 GB/s</td>
+                                <td><span class="table-badge active">Active</span></td>
+                                <td>18d 22h</td>
+                            </tr>
+                            <tr>
+                                <td class="mono">i-1f7d4e9b3a6c8</td>
+                                <td>eu-central-1</td>
+                                <td>t3.xlarge</td>
+                                <td>0%</td>
+                                <td>0%</td>
+                                <td>0 GB/s</td>
+                                <td><span class="table-badge failed">Failed</span></td>
+                                <td>--</td>
+                            </tr>
+                            <tr>
+                                <td class="mono">i-8b5c2d7e1a9f4</td>
+                                <td>ap-northeast-1</td>
+                                <td>t3.2xlarge</td>
+                                <td>56%</td>
+                                <td>71%</td>
+                                <td>3.2 GB/s</td>
+                                <td><span class="table-badge active">Active</span></td>
+                                <td>12d 9h</td>
+                            </tr>
+                            <tr>
+                                <td class="mono">i-3a9e1c6f8d2b7</td>
+                                <td>us-east-1</td>
+                                <td>t3.large</td>
+                                <td>41%</td>
+                                <td>53%</td>
+                                <td>2.1 GB/s</td>
+                                <td><span class="table-badge active">Active</span></td>
+                                <td>7d 15h</td>
+                            </tr>
+                            <tr>
+                                <td class="mono">i-5d8b3c1e9a7f2</td>
+                                <td>ca-central-1</td>
+                                <td>t3.xlarge</td>
+                                <td>0%</td>
+                                <td>0%</td>
+                                <td>0 GB/s</td>
+                                <td><span class="table-badge inactive">Stopped</span></td>
+                                <td>--</td>
+                            </tr>
+                            <tr>
+                                <td class="mono">i-2f6c9d1a4e8b3</td>
+                                <td>eu-west-2</td>
+                                <td>t3.medium</td>
+                                <td>29%</td>
+                                <td>38%</td>
+                                <td>1.4 GB/s</td>
+                                <td><span class="table-badge active">Active</span></td>
+                                <td>16d 4h</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer>
+            <div>
+                <span class="footer-agent">EXPLORER</span>
+                <span>Round 2 - Light Mode Command Center</span>
+            </div>
+            <div>
+                Last Updated: <span class="mono">2025-11-09 14:28:43 UTC</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Simulated real-time log updates
+        function addLogEntry() {
+            const eventLog = document.querySelector('.event-log');
+            const now = new Date();
+            const timestamp = `[${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}]`;
+
+            const messages = [
+                { level: 'info', text: 'Routine system check completed successfully' },
+                { level: 'success', text: 'Cache optimization improved hit ratio to 96.2%' },
+                { level: 'warn', text: 'Disk I/O latency increased on storage-node-04' },
+                { level: 'info', text: 'SSL certificate renewal scheduled for midnight' },
+                { level: 'success', text: 'Load balancer redistributed traffic across 12 nodes' },
+            ];
+
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.innerHTML = `
+                <span class="log-timestamp">${timestamp}</span>
+                <span class="log-level ${randomMessage.level}">[${randomMessage.level.toUpperCase()}]</span>
+                <span class="log-message">${randomMessage.text}</span>
+            `;
+
+            eventLog.insertBefore(logEntry, eventLog.firstChild);
+
+            // Keep only last 10 entries
+            while (eventLog.children.length > 10) {
+                eventLog.removeChild(eventLog.lastChild);
+            }
+        }
+
+        // Add new log entry every 8 seconds
+        setInterval(addLogEntry, 8000);
+
+        // Topology node hover interactions
+        document.querySelectorAll('.topology-node').forEach(node => {
+            node.addEventListener('click', function() {
+                const nodeName = this.textContent.trim();
+                alert(`Node: ${nodeName}\nStatus: Operational\nLatency: 12ms\nConnections: 1,247`);
+            });
+        });
+
+        // KPI card click interactions
+        document.querySelectorAll('.kpi-hex').forEach(card => {
+            card.addEventListener('click', function() {
+                const label = this.querySelector('.kpi-label').textContent;
+                const value = this.querySelector('.kpi-value').textContent;
+                console.log(`KPI Selected: ${label} = ${value}`);
+            });
+        });
+
+        // Auto-refresh timestamp in footer
+        function updateFooterTimestamp() {
+            const footerTimestamp = document.querySelector('footer .mono');
+            const now = new Date();
+            const timestamp = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+            footerTimestamp.textContent = timestamp;
+        }
+
+        setInterval(updateFooterTimestamp, 1000);
+    </script>
+</body>
+</html>

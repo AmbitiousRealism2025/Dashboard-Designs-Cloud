@@ -1,0 +1,1871 @@
+<!-- Agent: Darno | Round: 2 - Light Mode Masterpiece | Theme: Dark Ops Command Center (Light Mode) | Intent: Ultra-dense NOC monitoring with precision data tables and real-time system telemetry in clean light mode -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DARNO - Operations Command Center (Light Mode)</title>
+    <style>
+        /* === RESET & FOUNDATION === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.18s ease-out;
+        }
+
+        /* === CSS CUSTOM PROPERTIES === */
+        :root {
+            /* Light Mode Base Colors */
+            --bg-primary: #F8F9FA;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #E9ECEF;
+            --bg-panel: #FFFFFF;
+
+            /* Technical Accent Colors */
+            --accent-cyan: #00D9FF;
+            --accent-lime: #00FF88;
+            --accent-magenta: #FF00DD;
+            --accent-amber: #FFB800;
+
+            /* Semantic Colors */
+            --success: #00CC66;
+            --warning: #FF9500;
+            --danger: #FF3366;
+            --info: #0099FF;
+
+            /* Text Colors */
+            --text-primary: #1A1D21;
+            --text-secondary: #4A5568;
+            --text-muted: #718096;
+            --text-inverse: #FFFFFF;
+
+            /* Border & Grid */
+            --border-color: #D1D5DB;
+            --grid-color: #E5E7EB;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-lg: 0 4px 16px rgba(0,0,0,0.12);
+
+            /* Spacing System */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+
+            /* Typography */
+            --font-mono: 'Courier New', 'Consolas', monospace;
+            --font-condensed: 'Arial Narrow', 'Roboto Condensed', sans-serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        /* === BASE STYLES === */
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            overflow-x: hidden;
+            background-image:
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: -1px -1px;
+        }
+
+        /* === HEADER === */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 3px solid var(--accent-cyan);
+            padding: var(--space-md) var(--space-xl);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .agent-badge {
+            font-family: var(--font-mono);
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-magenta) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+        }
+
+        .system-title {
+            font-family: var(--font-condensed);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            border-left: 2px solid var(--border-color);
+            padding-left: var(--space-md);
+        }
+
+        .header-status {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-family: var(--font-condensed);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        .status-dot.online { background: var(--accent-lime); box-shadow: 0 0 8px var(--accent-lime); }
+        .status-dot.alert { background: var(--danger); box-shadow: 0 0 8px var(--danger); }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.15); }
+        }
+
+        .timestamp {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text-muted);
+            padding: var(--space-xs) var(--space-md);
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* === MAIN LAYOUT === */
+        .container {
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: var(--space-lg);
+        }
+
+        /* === KPI STRIP === */
+        .kpi-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .kpi-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta));
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .kpi-label {
+            font-family: var(--font-condensed);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-value {
+            font-family: var(--font-mono);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-delta {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .kpi-delta.positive {
+            background: rgba(0, 204, 102, 0.1);
+            color: var(--success);
+        }
+
+        .kpi-delta.negative {
+            background: rgba(255, 51, 102, 0.1);
+            color: var(--danger);
+        }
+
+        .kpi-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: var(--space-sm);
+            font-family: var(--font-condensed);
+        }
+
+        .kpi-sparkline {
+            height: 32px;
+            margin-top: var(--space-sm);
+            background: linear-gradient(to right,
+                transparent 0%,
+                var(--accent-cyan) 20%,
+                var(--accent-cyan) 40%,
+                transparent 45%,
+                transparent 55%,
+                var(--accent-lime) 60%,
+                var(--accent-lime) 80%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            animation: sparkline-shimmer 3s ease-in-out infinite;
+            opacity: 0.15;
+            border-radius: 2px;
+        }
+
+        @keyframes sparkline-shimmer {
+            0%, 100% { background-position: 0% 0%; }
+            50% { background-position: 100% 0%; }
+        }
+
+        /* === GRID LAYOUT === */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .panel {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: var(--space-md);
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-title {
+            font-family: var(--font-condensed);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--text-primary);
+        }
+
+        .panel-badge {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 3px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+        }
+
+        .panel-content {
+            padding: var(--space-md);
+        }
+
+        .col-12 { grid-column: span 12; }
+        .col-8 { grid-column: span 8; }
+        .col-6 { grid-column: span 6; }
+        .col-4 { grid-column: span 4; }
+        .col-3 { grid-column: span 3; }
+
+        /* === ALERT BAR === */
+        .alert-bar {
+            grid-column: span 12;
+            background: linear-gradient(90deg, rgba(255, 51, 102, 0.1) 0%, rgba(255, 0, 221, 0.1) 100%);
+            border: 1px solid var(--danger);
+            border-left: 4px solid var(--danger);
+            border-radius: 6px;
+            padding: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .alert-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--danger);
+            color: var(--text-inverse);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 18px;
+            animation: pulse-alert 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-alert {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert-title {
+            font-family: var(--font-condensed);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--danger);
+            margin-bottom: 4px;
+        }
+
+        .alert-message {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-family: var(--font-condensed);
+        }
+
+        .alert-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .btn-alert {
+            font-family: var(--font-condensed);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border: 1px solid var(--danger);
+            background: var(--bg-panel);
+            color: var(--danger);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-alert:hover {
+            background: var(--danger);
+            color: var(--text-inverse);
+        }
+
+        /* === DATA TABLE === */
+        .data-table {
+            width: 100%;
+            font-size: 11px;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .data-table thead {
+            background: var(--bg-tertiary);
+            position: sticky;
+            top: 0;
+        }
+
+        .data-table th {
+            font-family: var(--font-condensed);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: left;
+            padding: var(--space-sm) var(--space-md);
+            border-bottom: 2px solid var(--border-color);
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .data-table td {
+            padding: var(--space-sm) var(--space-md);
+            border-bottom: 1px solid var(--grid-color);
+            font-family: var(--font-mono);
+            font-size: 11px;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-family: var(--font-condensed);
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pill.online {
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--accent-lime);
+            border: 1px solid var(--accent-lime);
+        }
+
+        .status-pill.warning {
+            background: rgba(255, 149, 0, 0.15);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .status-pill.critical {
+            background: rgba(255, 51, 102, 0.15);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .status-pill.offline {
+            background: rgba(113, 128, 150, 0.15);
+            color: var(--text-muted);
+            border: 1px solid var(--text-muted);
+        }
+
+        /* === METRIC BARS === */
+        .metric-bar-container {
+            margin-bottom: var(--space-md);
+        }
+
+        .metric-bar-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-xs);
+            font-family: var(--font-condensed);
+            font-size: 11px;
+        }
+
+        .metric-bar-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .metric-bar-value {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .metric-bar-track {
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .metric-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease-out;
+        }
+
+        .metric-bar-fill.cyan {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--info));
+        }
+
+        .metric-bar-fill.lime {
+            background: linear-gradient(90deg, var(--accent-lime), var(--success));
+        }
+
+        .metric-bar-fill.magenta {
+            background: linear-gradient(90deg, var(--accent-magenta), var(--danger));
+        }
+
+        /* === CHART PLACEHOLDER === */
+        .chart-container {
+            height: 240px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .chart-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 39px, var(--grid-color) 39px, var(--grid-color) 40px),
+                repeating-linear-gradient(90deg, transparent, transparent 59px, var(--grid-color) 59px, var(--grid-color) 60px);
+        }
+
+        .chart-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to top right,
+                transparent 0%,
+                rgba(0, 217, 255, 0.1) 30%,
+                rgba(0, 255, 136, 0.2) 70%,
+                transparent 100%
+            );
+            clip-path: polygon(
+                0% 80%,
+                10% 75%,
+                20% 85%,
+                30% 60%,
+                40% 65%,
+                50% 40%,
+                60% 45%,
+                70% 25%,
+                80% 30%,
+                90% 15%,
+                100% 20%,
+                100% 100%,
+                0% 100%
+            );
+            border-top: 2px solid var(--accent-cyan);
+        }
+
+        .chart-area {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 45%;
+            background: linear-gradient(to top right,
+                transparent 0%,
+                rgba(255, 0, 221, 0.08) 40%,
+                rgba(0, 217, 255, 0.15) 80%,
+                transparent 100%
+            );
+            clip-path: polygon(
+                0% 85%,
+                15% 80%,
+                25% 70%,
+                35% 75%,
+                45% 55%,
+                55% 60%,
+                65% 40%,
+                75% 45%,
+                85% 30%,
+                95% 25%,
+                100% 20%,
+                100% 100%,
+                0% 100%
+            );
+        }
+
+        /* === EVENT TIMELINE === */
+        .timeline {
+            position: relative;
+            padding-left: var(--space-lg);
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--grid-color);
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -29px;
+            top: 4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 2px solid var(--bg-panel);
+        }
+
+        .timeline-dot.success {
+            background: var(--accent-lime);
+            box-shadow: 0 0 8px var(--accent-lime);
+        }
+
+        .timeline-dot.warning {
+            background: var(--warning);
+            box-shadow: 0 0 8px var(--warning);
+        }
+
+        .timeline-dot.critical {
+            background: var(--danger);
+            box-shadow: 0 0 8px var(--danger);
+            animation: pulse-dot 1.5s ease-in-out infinite;
+        }
+
+        .timeline-time {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .timeline-title {
+            font-family: var(--font-condensed);
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .timeline-detail {
+            font-size: 10px;
+            color: var(--text-secondary);
+            font-family: var(--font-condensed);
+        }
+
+        /* === SERVER GRID === */
+        .server-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: var(--space-sm);
+        }
+
+        .server-node {
+            aspect-ratio: 1;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .server-node::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .server-node.online::before {
+            background: var(--accent-lime);
+        }
+
+        .server-node.warning::before {
+            background: var(--warning);
+        }
+
+        .server-node.critical::before {
+            background: var(--danger);
+            animation: pulse-alert 1.5s ease-in-out infinite;
+        }
+
+        .server-node:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        .server-id {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .server-load {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: var(--text-muted);
+        }
+
+        /* === FOOTER === */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: var(--space-md) var(--space-xl);
+            margin-top: var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .footer-agent {
+            font-family: var(--font-condensed);
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-agent strong {
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+        }
+
+        .footer-meta {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 960px) {
+            .col-8, .col-6, .col-4 {
+                grid-column: span 12;
+            }
+
+            header {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+
+            .header-status {
+                justify-content: space-between;
+            }
+
+            .kpi-strip {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .kpi-strip {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .col-12, .col-8, .col-6, .col-4, .col-3 {
+                grid-column: span 1;
+            }
+
+            .server-grid {
+                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            }
+        }
+
+        /* === SCAN LINE EFFECT === */
+        @keyframes scan-line {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
+        .scan-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                var(--accent-cyan) 50%,
+                transparent 100%
+            );
+            opacity: 0.15;
+            animation: scan-line 8s linear infinite;
+            pointer-events: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Scan Line Effect -->
+    <div class="scan-line"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-brand">
+            <div class="agent-badge">DARNO</div>
+            <div class="system-title">Operations Command Center / Network Operations Console</div>
+        </div>
+        <div class="header-status">
+            <div class="status-indicator">
+                <div class="status-dot online"></div>
+                <span>Systems Online</span>
+            </div>
+            <div class="status-indicator">
+                <div class="status-dot alert"></div>
+                <span>3 Alerts Active</span>
+            </div>
+            <div class="timestamp" id="live-timestamp">2025-11-09 14:23:47 UTC</div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- KPI Strip -->
+        <section class="kpi-strip">
+            <div class="kpi-card">
+                <div class="kpi-label">System Uptime</div>
+                <div class="kpi-value">99.97%</div>
+                <div class="kpi-delta positive">+0.12%</div>
+                <div class="kpi-meta">Last 30 days | Target: 99.95%</div>
+                <div class="kpi-sparkline"></div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">Active Servers</div>
+                <div class="kpi-value">847/852</div>
+                <div class="kpi-delta negative">-5 offline</div>
+                <div class="kpi-meta">Fleet capacity: 99.4%</div>
+                <div class="kpi-sparkline"></div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">Network Throughput</div>
+                <div class="kpi-value">124.3 GB/s</div>
+                <div class="kpi-delta positive">+18.7%</div>
+                <div class="kpi-meta">Peak: 156.2 GB/s at 13:45 UTC</div>
+                <div class="kpi-sparkline"></div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">Response Time (P95)</div>
+                <div class="kpi-value">127 ms</div>
+                <div class="kpi-delta positive">-23 ms</div>
+                <div class="kpi-meta">SLA: &lt;200ms | Compliance: 100%</div>
+                <div class="kpi-sparkline"></div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">Active Incidents</div>
+                <div class="kpi-value">3</div>
+                <div class="kpi-delta negative">+2 new</div>
+                <div class="kpi-meta">2 Critical, 1 Warning</div>
+                <div class="kpi-sparkline"></div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">Request Rate</div>
+                <div class="kpi-value">847K/s</div>
+                <div class="kpi-delta positive">+12.4%</div>
+                <div class="kpi-meta">Avg last hour: 823K/s</div>
+                <div class="kpi-sparkline"></div>
+            </div>
+        </section>
+
+        <!-- Alert Bar -->
+        <div class="dashboard-grid">
+            <div class="alert-bar">
+                <div class="alert-icon">!</div>
+                <div class="alert-content">
+                    <div class="alert-title">Critical: Database Cluster DB-PROD-03 Experiencing High Latency</div>
+                    <div class="alert-message">Query response time exceeded 500ms threshold. Affecting 14% of requests. Auto-scaling triggered. Engineering team notified.</div>
+                </div>
+                <div class="alert-actions">
+                    <button class="btn-alert">View Details</button>
+                    <button class="btn-alert">Acknowledge</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- System Performance Chart -->
+            <div class="panel col-8">
+                <div class="panel-header">
+                    <div class="panel-title">System Performance - Last 6 Hours</div>
+                    <div class="panel-badge">Real-Time Monitoring</div>
+                </div>
+                <div class="panel-content">
+                    <div class="chart-container">
+                        <div class="chart-grid"></div>
+                        <div class="chart-area"></div>
+                        <div class="chart-line"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resource Utilization -->
+            <div class="panel col-4">
+                <div class="panel-header">
+                    <div class="panel-title">Resource Utilization</div>
+                    <div class="panel-badge">Cluster AVG</div>
+                </div>
+                <div class="panel-content">
+                    <div class="metric-bar-container">
+                        <div class="metric-bar-header">
+                            <span class="metric-bar-label">CPU Usage</span>
+                            <span class="metric-bar-value">67.3%</span>
+                        </div>
+                        <div class="metric-bar-track">
+                            <div class="metric-bar-fill cyan" style="width: 67.3%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric-bar-container">
+                        <div class="metric-bar-header">
+                            <span class="metric-bar-label">Memory Usage</span>
+                            <span class="metric-bar-value">82.1%</span>
+                        </div>
+                        <div class="metric-bar-track">
+                            <div class="metric-bar-fill lime" style="width: 82.1%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric-bar-container">
+                        <div class="metric-bar-header">
+                            <span class="metric-bar-label">Disk I/O</span>
+                            <span class="metric-bar-value">54.8%</span>
+                        </div>
+                        <div class="metric-bar-track">
+                            <div class="metric-bar-fill cyan" style="width: 54.8%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric-bar-container">
+                        <div class="metric-bar-header">
+                            <span class="metric-bar-label">Network Bandwidth</span>
+                            <span class="metric-bar-value">71.5%</span>
+                        </div>
+                        <div class="metric-bar-track">
+                            <div class="metric-bar-fill lime" style="width: 71.5%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric-bar-container">
+                        <div class="metric-bar-header">
+                            <span class="metric-bar-label">Database Connections</span>
+                            <span class="metric-bar-value">89.2%</span>
+                        </div>
+                        <div class="metric-bar-track">
+                            <div class="metric-bar-fill magenta" style="width: 89.2%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Incident Timeline -->
+            <div class="panel col-4">
+                <div class="panel-header">
+                    <div class="panel-title">Recent Incidents</div>
+                    <div class="panel-badge">Last 2 Hours</div>
+                </div>
+                <div class="panel-content">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot critical"></div>
+                            <div class="timeline-time">14:18:32 UTC</div>
+                            <div class="timeline-title">DB-PROD-03 High Latency</div>
+                            <div class="timeline-detail">Database cluster experiencing degraded performance. Auto-scaling initiated.</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-dot critical"></div>
+                            <div class="timeline-time">13:47:15 UTC</div>
+                            <div class="timeline-title">API Gateway Timeout Spike</div>
+                            <div class="timeline-detail">5.2% of requests timing out. Load balancer reconfigured. Monitoring.</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-dot warning"></div>
+                            <div class="timeline-time">13:22:09 UTC</div>
+                            <div class="timeline-title">Cache Cluster Warning</div>
+                            <div class="timeline-detail">Redis cache hit ratio dropped to 87%. Investigating key eviction patterns.</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-dot success"></div>
+                            <div class="timeline-time">12:55:43 UTC</div>
+                            <div class="timeline-title">Deployment Completed</div>
+                            <div class="timeline-detail">API v2.8.4 rolled out to production. All health checks passed.</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-dot success"></div>
+                            <div class="timeline-time">12:31:18 UTC</div>
+                            <div class="timeline-title">Auto-Scale Event</div>
+                            <div class="timeline-detail">Added 12 compute instances to handle traffic spike. Capacity +14%.</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-dot success"></div>
+                            <div class="timeline-time">12:08:55 UTC</div>
+                            <div class="timeline-title">Backup Completed</div>
+                            <div class="timeline-detail">Daily full backup completed successfully. 2.3 TB transferred to S3.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Server Fleet Status Table -->
+            <div class="panel col-8">
+                <div class="panel-header">
+                    <div class="panel-title">Server Fleet Status - Top 20 by Load</div>
+                    <div class="panel-badge">847 Total Servers</div>
+                </div>
+                <div class="panel-content" style="max-height: 400px; overflow-y: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Server ID</th>
+                                <th>Region</th>
+                                <th>Status</th>
+                                <th>CPU %</th>
+                                <th>Memory %</th>
+                                <th>Network GB/s</th>
+                                <th>Uptime</th>
+                                <th>Load Avg</th>
+                                <th>Disk I/O</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SRV-PROD-0142</td>
+                                <td>US-EAST-1A</td>
+                                <td><span class="status-pill critical">CRITICAL</span></td>
+                                <td>94.7</td>
+                                <td>88.2</td>
+                                <td>8.3</td>
+                                <td>14d 7h</td>
+                                <td>3.82</td>
+                                <td>HIGH</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0089</td>
+                                <td>EU-WEST-2B</td>
+                                <td><span class="status-pill warning">WARNING</span></td>
+                                <td>87.3</td>
+                                <td>91.5</td>
+                                <td>6.7</td>
+                                <td>21d 14h</td>
+                                <td>2.94</td>
+                                <td>NORMAL</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0234</td>
+                                <td>AP-SE-1C</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>82.1</td>
+                                <td>76.8</td>
+                                <td>7.2</td>
+                                <td>8d 3h</td>
+                                <td>2.67</td>
+                                <td>NORMAL</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0456</td>
+                                <td>US-WEST-2A</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>79.4</td>
+                                <td>84.3</td>
+                                <td>5.9</td>
+                                <td>32d 11h</td>
+                                <td>2.51</td>
+                                <td>LOW</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0721</td>
+                                <td>EU-CENTRAL-1B</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>76.8</td>
+                                <td>72.1</td>
+                                <td>6.4</td>
+                                <td>19d 8h</td>
+                                <td>2.38</td>
+                                <td>NORMAL</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0312</td>
+                                <td>US-EAST-1B</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>74.2</td>
+                                <td>79.6</td>
+                                <td>7.8</td>
+                                <td>11d 22h</td>
+                                <td>2.29</td>
+                                <td>HIGH</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0598</td>
+                                <td>AP-NE-1A</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>71.5</td>
+                                <td>68.9</td>
+                                <td>5.2</td>
+                                <td>27d 6h</td>
+                                <td>2.14</td>
+                                <td>LOW</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0823</td>
+                                <td>EU-WEST-1C</td>
+                                <td><span class="status-pill critical">CRITICAL</span></td>
+                                <td>93.1</td>
+                                <td>95.7</td>
+                                <td>9.1</td>
+                                <td>6d 17h</td>
+                                <td>4.12</td>
+                                <td>CRITICAL</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0167</td>
+                                <td>US-WEST-1B</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>68.3</td>
+                                <td>74.2</td>
+                                <td>6.1</td>
+                                <td>15d 9h</td>
+                                <td>2.03</td>
+                                <td>NORMAL</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0445</td>
+                                <td>AP-SE-2A</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>66.7</td>
+                                <td>71.8</td>
+                                <td>5.5</td>
+                                <td>23d 12h</td>
+                                <td>1.98</td>
+                                <td>LOW</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0701</td>
+                                <td>EU-CENTRAL-2B</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>64.9</td>
+                                <td>69.3</td>
+                                <td>6.8</td>
+                                <td>18d 5h</td>
+                                <td>1.87</td>
+                                <td>NORMAL</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0254</td>
+                                <td>US-EAST-2C</td>
+                                <td><span class="status-pill warning">WARNING</span></td>
+                                <td>85.6</td>
+                                <td>88.4</td>
+                                <td>7.3</td>
+                                <td>9d 14h</td>
+                                <td>2.76</td>
+                                <td>HIGH</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0612</td>
+                                <td>AP-NE-2B</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>62.1</td>
+                                <td>67.5</td>
+                                <td>5.9</td>
+                                <td>29d 19h</td>
+                                <td>1.79</td>
+                                <td>LOW</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0378</td>
+                                <td>EU-WEST-3A</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>59.8</td>
+                                <td>64.2</td>
+                                <td>4.7</td>
+                                <td>12d 8h</td>
+                                <td>1.68</td>
+                                <td>NORMAL</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0834</td>
+                                <td>US-WEST-3C</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>58.3</td>
+                                <td>62.7</td>
+                                <td>5.1</td>
+                                <td>25d 16h</td>
+                                <td>1.62</td>
+                                <td>LOW</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0129</td>
+                                <td>AP-SE-3B</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>56.7</td>
+                                <td>61.9</td>
+                                <td>6.2</td>
+                                <td>17d 21h</td>
+                                <td>1.54</td>
+                                <td>NORMAL</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0542</td>
+                                <td>EU-NORTH-1A</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>55.2</td>
+                                <td>59.8</td>
+                                <td>4.9</td>
+                                <td>22d 13h</td>
+                                <td>1.48</td>
+                                <td>LOW</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0687</td>
+                                <td>US-EAST-3A</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>53.9</td>
+                                <td>58.4</td>
+                                <td>5.6</td>
+                                <td>13d 7h</td>
+                                <td>1.43</td>
+                                <td>NORMAL</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0291</td>
+                                <td>AP-NE-3C</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>52.4</td>
+                                <td>56.1</td>
+                                <td>4.3</td>
+                                <td>28d 4h</td>
+                                <td>1.38</td>
+                                <td>LOW</td>
+                            </tr>
+                            <tr>
+                                <td>SRV-PROD-0763</td>
+                                <td>EU-SOUTH-1B</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>51.1</td>
+                                <td>54.8</td>
+                                <td>5.4</td>
+                                <td>20d 11h</td>
+                                <td>1.32</td>
+                                <td>NORMAL</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Network Traffic Chart -->
+            <div class="panel col-6">
+                <div class="panel-header">
+                    <div class="panel-title">Network Traffic Distribution</div>
+                    <div class="panel-badge">Global CDN</div>
+                </div>
+                <div class="panel-content">
+                    <div class="chart-container">
+                        <div class="chart-grid"></div>
+                        <div class="chart-area"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Database Performance Table -->
+            <div class="panel col-6">
+                <div class="panel-header">
+                    <div class="panel-title">Database Cluster Performance</div>
+                    <div class="panel-badge">12 Clusters</div>
+                </div>
+                <div class="panel-content" style="max-height: 280px; overflow-y: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Cluster ID</th>
+                                <th>Status</th>
+                                <th>QPS</th>
+                                <th>Latency (P95)</th>
+                                <th>Connections</th>
+                                <th>Repl Lag</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>DB-PROD-01</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>12,847</td>
+                                <td>23 ms</td>
+                                <td>847/1000</td>
+                                <td>0.3s</td>
+                            </tr>
+                            <tr>
+                                <td>DB-PROD-02</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>9,234</td>
+                                <td>31 ms</td>
+                                <td>623/1000</td>
+                                <td>0.5s</td>
+                            </tr>
+                            <tr>
+                                <td>DB-PROD-03</td>
+                                <td><span class="status-pill critical">CRITICAL</span></td>
+                                <td>15,672</td>
+                                <td>547 ms</td>
+                                <td>982/1000</td>
+                                <td>4.2s</td>
+                            </tr>
+                            <tr>
+                                <td>DB-PROD-04</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>11,456</td>
+                                <td>28 ms</td>
+                                <td>734/1000</td>
+                                <td>0.4s</td>
+                            </tr>
+                            <tr>
+                                <td>DB-PROD-05</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>8,923</td>
+                                <td>35 ms</td>
+                                <td>589/1000</td>
+                                <td>0.6s</td>
+                            </tr>
+                            <tr>
+                                <td>DB-PROD-06</td>
+                                <td><span class="status-pill warning">WARNING</span></td>
+                                <td>13,284</td>
+                                <td>187 ms</td>
+                                <td>891/1000</td>
+                                <td>2.1s</td>
+                            </tr>
+                            <tr>
+                                <td>DB-PROD-07</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>10,567</td>
+                                <td>26 ms</td>
+                                <td>678/1000</td>
+                                <td>0.5s</td>
+                            </tr>
+                            <tr>
+                                <td>DB-PROD-08</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>9,812</td>
+                                <td>29 ms</td>
+                                <td>612/1000</td>
+                                <td>0.7s</td>
+                            </tr>
+                            <tr>
+                                <td>DB-PROD-09</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>11,234</td>
+                                <td>32 ms</td>
+                                <td>756/1000</td>
+                                <td>0.4s</td>
+                            </tr>
+                            <tr>
+                                <td>DB-PROD-10</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>8,456</td>
+                                <td>27 ms</td>
+                                <td>534/1000</td>
+                                <td>0.5s</td>
+                            </tr>
+                            <tr>
+                                <td>DB-PROD-11</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>10,123</td>
+                                <td>30 ms</td>
+                                <td>689/1000</td>
+                                <td>0.6s</td>
+                            </tr>
+                            <tr>
+                                <td>DB-PROD-12</td>
+                                <td><span class="status-pill online">ONLINE</span></td>
+                                <td>9,678</td>
+                                <td>33 ms</td>
+                                <td>645/1000</td>
+                                <td>0.8s</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Server Fleet Visual Grid -->
+            <div class="panel col-12">
+                <div class="panel-header">
+                    <div class="panel-title">Server Fleet Visual Status Map - US-EAST Region</div>
+                    <div class="panel-badge">120 Servers</div>
+                </div>
+                <div class="panel-content">
+                    <div class="server-grid">
+                        <div class="server-node online">
+                            <div class="server-id">SRV-001</div>
+                            <div class="server-load">47%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-002</div>
+                            <div class="server-load">52%</div>
+                        </div>
+                        <div class="server-node warning">
+                            <div class="server-id">SRV-003</div>
+                            <div class="server-load">84%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-004</div>
+                            <div class="server-load">61%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-005</div>
+                            <div class="server-load">38%</div>
+                        </div>
+                        <div class="server-node critical">
+                            <div class="server-id">SRV-006</div>
+                            <div class="server-load">96%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-007</div>
+                            <div class="server-load">55%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-008</div>
+                            <div class="server-load">43%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-009</div>
+                            <div class="server-load">69%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-010</div>
+                            <div class="server-load">51%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-011</div>
+                            <div class="server-load">46%</div>
+                        </div>
+                        <div class="server-node warning">
+                            <div class="server-id">SRV-012</div>
+                            <div class="server-load">87%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-013</div>
+                            <div class="server-load">59%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-014</div>
+                            <div class="server-load">42%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-015</div>
+                            <div class="server-load">64%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-016</div>
+                            <div class="server-load">48%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-017</div>
+                            <div class="server-load">53%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-018</div>
+                            <div class="server-load">71%</div>
+                        </div>
+                        <div class="server-node critical">
+                            <div class="server-id">SRV-019</div>
+                            <div class="server-load">93%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-020</div>
+                            <div class="server-load">57%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-021</div>
+                            <div class="server-load">44%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-022</div>
+                            <div class="server-load">66%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-023</div>
+                            <div class="server-load">49%</div>
+                        </div>
+                        <div class="server-node warning">
+                            <div class="server-id">SRV-024</div>
+                            <div class="server-load">82%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-025</div>
+                            <div class="server-load">56%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-026</div>
+                            <div class="server-load">41%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-027</div>
+                            <div class="server-load">63%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-028</div>
+                            <div class="server-load">50%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-029</div>
+                            <div class="server-load">54%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-030</div>
+                            <div class="server-load">68%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-031</div>
+                            <div class="server-load">45%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-032</div>
+                            <div class="server-load">58%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-033</div>
+                            <div class="server-load">62%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-034</div>
+                            <div class="server-load">47%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-035</div>
+                            <div class="server-load">72%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-036</div>
+                            <div class="server-load">39%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-037</div>
+                            <div class="server-load">65%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-038</div>
+                            <td>52%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-039</div>
+                            <div class="server-load">60%</div>
+                        </div>
+                        <div class="server-node online">
+                            <div class="server-id">SRV-040</div>
+                            <div class="server-load">48%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Endpoint Performance -->
+            <div class="panel col-6">
+                <div class="panel-header">
+                    <div class="panel-title">API Endpoint Performance - Top 15</div>
+                    <div class="panel-badge">Last Hour</div>
+                </div>
+                <div class="panel-content" style="max-height: 360px; overflow-y: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Endpoint</th>
+                                <th>Requests</th>
+                                <th>P50</th>
+                                <th>P95</th>
+                                <th>P99</th>
+                                <th>Error %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>/api/v2/users</td>
+                                <td>1,284,623</td>
+                                <td>45ms</td>
+                                <td>127ms</td>
+                                <td>234ms</td>
+                                <td>0.02%</td>
+                            </tr>
+                            <tr>
+                                <td>/api/v2/products</td>
+                                <td>892,341</td>
+                                <td>52ms</td>
+                                <td>143ms</td>
+                                <td>267ms</td>
+                                <td>0.04%</td>
+                            </tr>
+                            <tr>
+                                <td>/api/v2/orders</td>
+                                <td>734,182</td>
+                                <td>67ms</td>
+                                <td>189ms</td>
+                                <td>312ms</td>
+                                <td>0.08%</td>
+                            </tr>
+                            <tr>
+                                <td>/api/v2/search</td>
+                                <td>623,891</td>
+                                <td>89ms</td>
+                                <td>234ms</td>
+                                <td>456ms</td>
+                                <td>0.12%</td>
+                            </tr>
+                            <tr>
+                                <td>/api/v2/analytics</td>
+                                <td>456,234</td>
+                                <td>123ms</td>
+                                <td>289ms</td>
+                                <td>534ms</td>
+                                <td>0.06%</td>
+                            </tr>
+                            <tr>
+                                <td>/api/v2/auth/login</td>
+                                <td>389,567</td>
+                                <td>34ms</td>
+                                <td>98ms</td>
+                                <td>178ms</td>
+                                <td>0.01%</td>
+                            </tr>
+                            <tr>
+                                <td>/api/v2/inventory</td>
+                                <td>312,445</td>
+                                <td>76ms</td>
+                                <td>201ms</td>
+                                <td>389ms</td>
+                                <td>0.05%</td>
+                            </tr>
+                            <tr>
+                                <td>/api/v2/payments</td>
+                                <td>267,823</td>
+                                <td>145ms</td>
+                                <td>312ms</td>
+                                <td>623ms</td>
+                                <td>0.03%</td>
+                            </tr>
+                            <tr>
+                                <td>/api/v2/recommendations</td>
+                                <td>234,912</td>
+                                <td>198ms</td>
+                                <td>445ms</td>
+                                <td>789ms</td>
+                                <td>0.09%</td>
+                            </tr>
+                            <tr>
+                                <td>/api/v2/notifications</td>
+                                <td>189,456</td>
+                                <td>23ms</td>
+                                <td>67ms</td>
+                                <td>134ms</td>
+                                <td>0.01%</td>
+                            </tr>
+                            <tr>
+                                <td>/api/v2/reviews</td>
+                                <td>167,834</td>
+                                <td>54ms</td>
+                                <td>156ms</td>
+                                <td>289ms</td>
+                                <td>0.07%</td>
+                            </tr>
+                            <tr>
+                                <td>/api/v2/shipping</td>
+                                <td>145,623</td>
+                                <td>87ms</td>
+                                <td>223ms</td>
+                                <td>412ms</td>
+                                <td>0.04%</td>
+                            </tr>
+                            <tr>
+                                <td>/api/v2/reports</td>
+                                <td>123,445</td>
+                                <td>234ms</td>
+                                <td>567ms</td>
+                                <td>1,023ms</td>
+                                <td>0.11%</td>
+                            </tr>
+                            <tr>
+                                <td>/api/v2/webhooks</td>
+                                <td>98,234</td>
+                                <td>43ms</td>
+                                <td>121ms</td>
+                                <td>234ms</td>
+                                <td>0.02%</td>
+                            </tr>
+                            <tr>
+                                <td>/api/v2/admin</td>
+                                <td>67,812</td>
+                                <td>156ms</td>
+                                <td>389ms</td>
+                                <td>734ms</td>
+                                <td>0.06%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SLA Compliance -->
+            <div class="panel col-6">
+                <div class="panel-header">
+                    <div class="panel-title">SLA Compliance Status</div>
+                    <div class="panel-badge">Monthly Overview</div>
+                </div>
+                <div class="panel-content">
+                    <div class="metric-bar-container">
+                        <div class="metric-bar-header">
+                            <span class="metric-bar-label">API Availability (Target: 99.95%)</span>
+                            <span class="metric-bar-value">99.97%</span>
+                        </div>
+                        <div class="metric-bar-track">
+                            <div class="metric-bar-fill lime" style="width: 99.97%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric-bar-container">
+                        <div class="metric-bar-header">
+                            <span class="metric-bar-label">Response Time SLA (Target: &lt;200ms)</span>
+                            <span class="metric-bar-value">100%</span>
+                        </div>
+                        <div class="metric-bar-track">
+                            <div class="metric-bar-fill lime" style="width: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric-bar-container">
+                        <div class="metric-bar-header">
+                            <span class="metric-bar-label">Error Rate SLA (Target: &lt;0.1%)</span>
+                            <span class="metric-bar-value">98.3%</span>
+                        </div>
+                        <div class="metric-bar-track">
+                            <div class="metric-bar-fill cyan" style="width: 98.3%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric-bar-container">
+                        <div class="metric-bar-header">
+                            <span class="metric-bar-label">Data Durability (Target: 99.999%)</span>
+                            <span class="metric-bar-value">100%</span>
+                        </div>
+                        <div class="metric-bar-track">
+                            <div class="metric-bar-fill lime" style="width: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric-bar-container">
+                        <div class="metric-bar-header">
+                            <span class="metric-bar-label">Security Compliance (Target: 100%)</span>
+                            <span class="metric-bar-value">100%</span>
+                        </div>
+                        <div class="metric-bar-track">
+                            <div class="metric-bar-fill lime" style="width: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: var(--space-lg); padding: var(--space-md); background: var(--bg-tertiary); border-radius: 4px; border-left: 3px solid var(--accent-lime);">
+                        <div style="font-family: var(--font-condensed); font-size: 11px; font-weight: 700; color: var(--text-secondary); margin-bottom: var(--space-xs);">OVERALL SLA STATUS</div>
+                        <div style="font-family: var(--font-mono); font-size: 24px; font-weight: 900; color: var(--success);">99.6% COMPLIANT</div>
+                        <div style="font-family: var(--font-condensed); font-size: 10px; color: var(--text-muted); margin-top: 4px;">All critical SLAs met. 2 minor warnings resolved.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-agent">
+            Design Agent: <strong>DARNO</strong> | Round 2 - Light Mode Masterpiece | Theme: Dark Ops Command Center (Light Mode)
+        </div>
+        <div class="footer-meta">
+            Dashboard Tournament 2025 | Data-First Analytical UX Specialist | Ultra-Dense Monitoring Dashboard
+        </div>
+    </footer>
+
+    <script>
+        // Live Timestamp Update
+        function updateTimestamp() {
+            const now = new Date();
+            const timestamp = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+            document.getElementById('live-timestamp').textContent = timestamp;
+        }
+
+        setInterval(updateTimestamp, 1000);
+        updateTimestamp();
+
+        // Simulate dynamic metric updates
+        function updateMetrics() {
+            const metricBars = document.querySelectorAll('.metric-bar-fill');
+            metricBars.forEach(bar => {
+                const currentWidth = parseFloat(bar.style.width);
+                const variation = (Math.random() - 0.5) * 3;
+                const newWidth = Math.max(30, Math.min(100, currentWidth + variation));
+                bar.style.width = newWidth + '%';
+            });
+        }
+
+        setInterval(updateMetrics, 5000);
+
+        // Add hover effects to table rows
+        document.querySelectorAll('.data-table tbody tr').forEach(row => {
+            row.addEventListener('click', function() {
+                this.style.background = 'var(--bg-tertiary)';
+                setTimeout(() => {
+                    this.style.background = '';
+                }, 300);
+            });
+        });
+
+        // Simulate server node interactions
+        document.querySelectorAll('.server-node').forEach(node => {
+            node.addEventListener('click', function() {
+                const serverId = this.querySelector('.server-id').textContent;
+                alert(`Server Details: ${serverId}\n\nClick "View Details" for full monitoring dashboard.`);
+            });
+        });
+    </script>
+</body>
+</html>
