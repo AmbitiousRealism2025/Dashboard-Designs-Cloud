@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Journey CX Studio - Explorer</title>
+    <!-- Agent: Explorer | Theme: Customer Journey CX Studio | Intent: Bold journey narrative with experimental radial lifecycle visualization and emotive customer storytelling -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        :root {
+            /* Warm CX palette */
+            --bg-primary: #FBF8F5;
+            --bg-secondary: #FFF;
+            --bg-accent: #FFF4ED;
+            --coral: #FF7F6B;
+            --coral-light: #FFB5A7;
+            --amber: #FFAB5E;
+            --amber-light: #FFD4A3;
+            --teal: #4ECDC4;
+            --teal-light: #A8E6E2;
+            --warm-gray: #8B7E74;
+            --warm-gray-light: #D4CCC6;
+            --text-primary: #3D3128;
+            --text-secondary: #6B5D52;
+            --success: #52B788;
+            --warn: #FFA94D;
+            --danger: #E63946;
+            --shadow: rgba(61, 49, 40, 0.08);
+            --shadow-hover: rgba(61, 49, 40, 0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Rounded Mplus 1c', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            grid-template-rows: 80px 1fr 60px;
+            grid-template-areas:
+                "header header"
+                "aside main"
+                "footer footer";
+            min-height: 100vh;
+        }
+
+        header {
+            grid-area: header;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--amber) 100%);
+            padding: 0 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 20px var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 1;
+        }
+
+        .header-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .header-text h1 {
+            color: white;
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header-text p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .btn {
+            padding: 0.65rem 1.5rem;
+            border: none;
+            border-radius: 24px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--coral);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+
+        aside {
+            grid-area: aside;
+            background: white;
+            padding: 2rem 1rem;
+            box-shadow: 2px 0 16px var(--shadow);
+        }
+
+        .nav-section {
+            margin-bottom: 2rem;
+        }
+
+        .nav-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--warm-gray);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            padding: 0 0.75rem;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1rem;
+            margin: 0.25rem 0;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .nav-item:hover {
+            background: var(--bg-accent);
+            color: var(--coral);
+            transform: translateX(4px);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, var(--coral), var(--amber));
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 127, 107, 0.3);
+        }
+
+        .nav-icon {
+            width: 20px;
+            text-align: center;
+        }
+
+        main {
+            grid-area: main;
+            padding: 2.5rem;
+            overflow-y: auto;
+            max-height: calc(100vh - 140px);
+        }
+
+        .dashboard-header {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-title h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .dashboard-title p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .time-filter {
+            display: flex;
+            gap: 0.5rem;
+            background: white;
+            padding: 0.35rem;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .time-btn {
+            padding: 0.5rem 1.25rem;
+            border: none;
+            background: transparent;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .time-btn.active {
+            background: var(--coral);
+            color: white;
+        }
+
+        /* KPI Cards Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .kpi-card {
+            background: white;
+            padding: 1.75rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 16px var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--coral), var(--amber));
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px var(--shadow-hover);
+        }
+
+        .kpi-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .kpi-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .kpi-delta {
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+        }
+
+        .kpi-delta.positive {
+            background: rgba(82, 183, 136, 0.15);
+            color: var(--success);
+        }
+
+        .kpi-delta.negative {
+            background: rgba(230, 57, 70, 0.15);
+            color: var(--danger);
+        }
+
+        .sparkline {
+            height: 40px;
+            background: linear-gradient(to right, var(--teal-light), var(--teal));
+            border-radius: 8px;
+            opacity: 0.3;
+            margin-top: 0.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sparkline::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Experimental Radial Journey Map */
+        .journey-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 6px;
+            height: 32px;
+            background: linear-gradient(180deg, var(--coral), var(--amber));
+            border-radius: 3px;
+        }
+
+        .journey-map {
+            background: white;
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px var(--shadow);
+            position: relative;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            overflow: hidden;
+        }
+
+        .journey-stage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .journey-stage:nth-child(1) { animation-delay: 0.1s; }
+        .journey-stage:nth-child(2) { animation-delay: 0.2s; }
+        .journey-stage:nth-child(3) { animation-delay: 0.3s; }
+        .journey-stage:nth-child(4) { animation-delay: 0.4s; }
+        .journey-stage:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stage-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            box-shadow: 0 8px 24px var(--shadow);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .stage-circle:hover {
+            transform: scale(1.08);
+            box-shadow: 0 12px 32px var(--shadow-hover);
+        }
+
+        .journey-stage:nth-child(1) .stage-circle {
+            background: linear-gradient(135deg, var(--coral-light), var(--coral));
+        }
+
+        .journey-stage:nth-child(2) .stage-circle {
+            background: linear-gradient(135deg, var(--amber-light), var(--amber));
+        }
+
+        .journey-stage:nth-child(3) .stage-circle {
+            background: linear-gradient(135deg, var(--teal-light), var(--teal));
+        }
+
+        .journey-stage:nth-child(4) .stage-circle {
+            background: linear-gradient(135deg, #FFB5A7, var(--coral));
+        }
+
+        .journey-stage:nth-child(5) .stage-circle {
+            background: linear-gradient(135deg, #A8E6E2, var(--teal));
+        }
+
+        .stage-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .stage-count {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.95);
+            font-weight: 600;
+        }
+
+        .stage-label {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stage-metric {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Customer Voices Section - Experimental Masonry */
+        .voices-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .voice-card {
+            background: white;
+            padding: 1.75rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 16px var(--shadow);
+            position: relative;
+            opacity: 0;
+            animation: floatIn 0.8s ease-out forwards;
+        }
+
+        .voice-card:nth-child(1) { animation-delay: 0.1s; }
+        .voice-card:nth-child(2) { animation-delay: 0.2s; }
+        .voice-card:nth-child(3) { animation-delay: 0.3s; }
+        .voice-card:nth-child(4) { animation-delay: 0.4s; }
+        .voice-card:nth-child(5) { animation-delay: 0.5s; }
+        .voice-card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .voice-card:hover {
+            transform: translateY(-6px) rotate(-1deg);
+            box-shadow: 0 12px 32px var(--shadow-hover);
+        }
+
+        .voice-card::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 4rem;
+            color: var(--coral);
+            opacity: 0.1;
+            font-weight: 900;
+        }
+
+        .voice-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .voice-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--coral), var(--amber));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .voice-meta h4 {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .voice-meta p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .voice-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .voice-rating {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .star {
+            color: var(--amber);
+            font-size: 1rem;
+        }
+
+        .voice-sentiment {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .sentiment-positive {
+            background: rgba(82, 183, 136, 0.15);
+            color: var(--success);
+        }
+
+        .sentiment-neutral {
+            background: rgba(255, 169, 77, 0.15);
+            color: var(--warn);
+        }
+
+        /* Chart Placeholders */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 16px var(--shadow);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .chart-placeholder {
+            height: 240px;
+            background: linear-gradient(to top, var(--teal-light) 0%, var(--coral-light) 100%);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0.5;
+        }
+
+        .chart-placeholder::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to right,
+                transparent 0%,
+                rgba(255,255,255,0.3) 20%,
+                transparent 25%,
+                rgba(255,255,255,0.3) 40%,
+                transparent 45%,
+                rgba(255,255,255,0.5) 65%,
+                transparent 70%,
+                rgba(255,255,255,0.3) 85%,
+                transparent 90%
+            );
+        }
+
+        .chart-grid-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: repeating-linear-gradient(
+                0deg,
+                rgba(255,255,255,0.3) 0px,
+                rgba(255,255,255,0.3) 1px,
+                transparent 1px,
+                transparent 48px
+            );
+        }
+
+        /* Segment Table */
+        .table-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 16px var(--shadow);
+            margin-bottom: 3rem;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .segment-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .segment-table th {
+            text-align: left;
+            padding: 1rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            border-bottom: 2px solid var(--warm-gray-light);
+        }
+
+        .segment-table td {
+            padding: 1.25rem 1rem;
+            border-bottom: 1px solid rgba(212, 204, 198, 0.3);
+        }
+
+        .segment-table tr:hover {
+            background: var(--bg-accent);
+        }
+
+        .segment-name {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+        }
+
+        .segment-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 0.4rem 0.9rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-healthy {
+            background: rgba(82, 183, 136, 0.15);
+            color: var(--success);
+        }
+
+        .status-risk {
+            background: rgba(255, 169, 77, 0.15);
+            color: var(--warn);
+        }
+
+        .status-critical {
+            background: rgba(230, 57, 70, 0.15);
+            color: var(--danger);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--warm-gray-light);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--teal), var(--coral));
+            border-radius: 4px;
+            transition: width 0.6s ease-out;
+        }
+
+        footer {
+            grid-area: footer;
+            background: white;
+            padding: 0 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 -2px 12px var(--shadow);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-agent {
+            font-weight: 700;
+            color: var(--coral);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .agent-badge {
+            background: linear-gradient(135deg, var(--coral), var(--amber));
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 960px) {
+            body {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "footer";
+            }
+
+            aside {
+                display: none;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .voices-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 0 1.5rem;
+            }
+
+            main {
+                padding: 1.5rem;
+            }
+
+            .journey-map {
+                flex-direction: column;
+                padding: 2rem;
+            }
+
+            .stage-circle {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-brand">
+            <div class="header-icon">❤️</div>
+            <div class="header-text">
+                <h1>CX Studio</h1>
+                <p>Customer Journey Intelligence</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-primary">
+                <span>📊</span> Export Report
+            </button>
+        </div>
+    </header>
+
+    <aside>
+        <div class="nav-section">
+            <div class="nav-label">Views</div>
+            <div class="nav-item active">
+                <span class="nav-icon">🎯</span>
+                <span>Journey Overview</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">👥</span>
+                <span>Segments</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">💬</span>
+                <span>Feedback</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">📈</span>
+                <span>Trends</span>
+            </div>
+        </div>
+        <div class="nav-section">
+            <div class="nav-label">Metrics</div>
+            <div class="nav-item">
+                <span class="nav-icon">⭐</span>
+                <span>NPS Tracking</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">😊</span>
+                <span>CSAT Scores</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">🔄</span>
+                <span>Churn Analysis</span>
+            </div>
+        </div>
+        <div class="nav-section">
+            <div class="nav-label">Actions</div>
+            <div class="nav-item">
+                <span class="nav-icon">🎬</span>
+                <span>Campaigns</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">⚙️</span>
+                <span>Settings</span>
+            </div>
+        </div>
+    </aside>
+
+    <main>
+        <div class="dashboard-header">
+            <div class="dashboard-title">
+                <h2>Customer Journey Dashboard</h2>
+                <p>Real-time insights across the lifecycle • Last updated: 2 minutes ago</p>
+            </div>
+            <div class="time-filter">
+                <button class="time-btn">7D</button>
+                <button class="time-btn active">30D</button>
+                <button class="time-btn">90D</button>
+                <button class="time-btn">YTD</button>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-label">Net Promoter Score</div>
+                <div class="kpi-value">67</div>
+                <div class="kpi-delta positive">↑ +8 pts</div>
+                <div class="sparkline"></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Avg CSAT</div>
+                <div class="kpi-value">4.6</div>
+                <div class="kpi-delta positive">↑ +0.3</div>
+                <div class="sparkline"></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Churn Rate</div>
+                <div class="kpi-value">2.1%</div>
+                <div class="kpi-delta negative">↑ +0.4%</div>
+                <div class="sparkline"></div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Active Customers</div>
+                <div class="kpi-value">8.4K</div>
+                <div class="kpi-delta positive">↑ +12%</div>
+                <div class="sparkline"></div>
+            </div>
+        </div>
+
+        <!-- Journey Map Section -->
+        <div class="journey-section">
+            <h3 class="section-title">Customer Lifecycle Journey</h3>
+            <div class="journey-map">
+                <div class="journey-stage">
+                    <div class="stage-circle">
+                        <div class="stage-number">1.2K</div>
+                        <div class="stage-count">users</div>
+                    </div>
+                    <div class="stage-label">Awareness</div>
+                    <div class="stage-metric">82% conversion</div>
+                </div>
+                <div class="journey-stage">
+                    <div class="stage-circle">
+                        <div class="stage-number">986</div>
+                        <div class="stage-count">users</div>
+                    </div>
+                    <div class="stage-label">Onboarding</div>
+                    <div class="stage-metric">76% complete</div>
+                </div>
+                <div class="journey-stage">
+                    <div class="stage-circle">
+                        <div class="stage-number">8.4K</div>
+                        <div class="stage-count">users</div>
+                    </div>
+                    <div class="stage-label">Active Use</div>
+                    <div class="stage-metric">91% healthy</div>
+                </div>
+                <div class="journey-stage">
+                    <div class="stage-circle">
+                        <div class="stage-number">2.8K</div>
+                        <div class="stage-count">users</div>
+                    </div>
+                    <div class="stage-label">Expansion</div>
+                    <div class="stage-metric">33% upgraded</div>
+                </div>
+                <div class="journey-stage">
+                    <div class="stage-circle">
+                        <div class="stage-number">1.9K</div>
+                        <div class="stage-count">users</div>
+                    </div>
+                    <div class="stage-label">Advocacy</div>
+                    <div class="stage-metric">67 NPS</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Voices Section -->
+        <div class="journey-section">
+            <h3 class="section-title">Customer Voices</h3>
+            <div class="voices-grid">
+                <div class="voice-card">
+                    <div class="voice-header">
+                        <div class="voice-avatar">SJ</div>
+                        <div class="voice-meta">
+                            <h4>Sarah Johnson</h4>
+                            <p>Enterprise • 6 months</p>
+                        </div>
+                    </div>
+                    <div class="voice-rating">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="voice-text">"The onboarding experience was seamless. Our team was productive within days, not weeks."</p>
+                    <span class="voice-sentiment sentiment-positive">Promoter</span>
+                </div>
+                <div class="voice-card">
+                    <div class="voice-header">
+                        <div class="voice-avatar">MC</div>
+                        <div class="voice-meta">
+                            <h4>Marcus Chen</h4>
+                            <p>Pro • 2 months</p>
+                        </div>
+                    </div>
+                    <div class="voice-rating">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">☆</span>
+                    </div>
+                    <p class="voice-text">"Great product overall, but wish there were more integration options with our existing tools."</p>
+                    <span class="voice-sentiment sentiment-neutral">Passive</span>
+                </div>
+                <div class="voice-card">
+                    <div class="voice-header">
+                        <div class="voice-avatar">EW</div>
+                        <div class="voice-meta">
+                            <h4>Emma Williams</h4>
+                            <p>Starter • 4 months</p>
+                        </div>
+                    </div>
+                    <div class="voice-rating">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="voice-text">"Customer support is exceptional. They truly care about our success and respond quickly."</p>
+                    <span class="voice-sentiment sentiment-positive">Promoter</span>
+                </div>
+                <div class="voice-card">
+                    <div class="voice-header">
+                        <div class="voice-avatar">RP</div>
+                        <div class="voice-meta">
+                            <h4>Raj Patel</h4>
+                            <p>Enterprise • 1 year</p>
+                        </div>
+                    </div>
+                    <div class="voice-rating">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="voice-text">"ROI has been incredible. We've reduced operational costs by 40% while improving customer satisfaction."</p>
+                    <span class="voice-sentiment sentiment-positive">Promoter</span>
+                </div>
+                <div class="voice-card">
+                    <div class="voice-header">
+                        <div class="voice-avatar">LK</div>
+                        <div class="voice-meta">
+                            <h4>Lisa Kim</h4>
+                            <p>Pro • 3 months</p>
+                        </div>
+                    </div>
+                    <div class="voice-rating">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">☆</span>
+                    </div>
+                    <p class="voice-text">"Interface is intuitive and beautiful. Mobile experience could use some improvements though."</p>
+                    <span class="voice-sentiment sentiment-neutral">Passive</span>
+                </div>
+                <div class="voice-card">
+                    <div class="voice-header">
+                        <div class="voice-avatar">JD</div>
+                        <div class="voice-meta">
+                            <h4>James Davis</h4>
+                            <p>Enterprise • 8 months</p>
+                        </div>
+                    </div>
+                    <div class="voice-rating">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="voice-text">"Analytics dashboard gives us insights we never had before. Game changer for our CX strategy."</p>
+                    <span class="voice-sentiment sentiment-positive">Promoter</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">CSAT Trend by Touchpoint</h3>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background: var(--coral);"></span>
+                            <span>Onboarding</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background: var(--teal);"></span>
+                            <span>Support</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background: var(--amber);"></span>
+                            <span>Product</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    <div class="chart-grid-lines"></div>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">NPS Distribution</h3>
+                </div>
+                <div class="chart-placeholder" style="background: linear-gradient(to bottom, var(--success) 0%, var(--warn) 50%, var(--danger) 100%);"></div>
+            </div>
+        </div>
+
+        <!-- Segment Performance Table -->
+        <div class="table-card">
+            <div class="table-header">
+                <h3 class="section-title">Segment Performance</h3>
+            </div>
+            <table class="segment-table">
+                <thead>
+                    <tr>
+                        <th>Segment</th>
+                        <th>Customers</th>
+                        <th>Avg NPS</th>
+                        <th>Churn Risk</th>
+                        <th>Engagement</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="segment-name">
+                                <div class="segment-icon" style="background: linear-gradient(135deg, var(--coral), var(--amber));">🚀</div>
+                                <span>Enterprise Power Users</span>
+                            </div>
+                        </td>
+                        <td>1,243</td>
+                        <td><strong>82</strong></td>
+                        <td>Low (1.2%)</td>
+                        <td>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 94%;"></div>
+                            </div>
+                        </td>
+                        <td><span class="status-pill status-healthy">Healthy</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="segment-name">
+                                <div class="segment-icon" style="background: linear-gradient(135deg, var(--teal), var(--coral));">💼</div>
+                                <span>Mid-Market Growing</span>
+                            </div>
+                        </td>
+                        <td>3,567</td>
+                        <td><strong>71</strong></td>
+                        <td>Medium (3.8%)</td>
+                        <td>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 78%;"></div>
+                            </div>
+                        </td>
+                        <td><span class="status-pill status-healthy">Healthy</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="segment-name">
+                                <div class="segment-icon" style="background: linear-gradient(135deg, var(--amber), var(--teal));">🌱</div>
+                                <span>Startup Early Adopters</span>
+                            </div>
+                        </td>
+                        <td>2,189</td>
+                        <td><strong>58</strong></td>
+                        <td>Medium (4.2%)</td>
+                        <td>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 68%;"></div>
+                            </div>
+                        </td>
+                        <td><span class="status-pill status-risk">At Risk</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="segment-name">
+                                <div class="segment-icon" style="background: linear-gradient(135deg, var(--coral-light), var(--coral));">👤</div>
+                                <span>Individual Freelancers</span>
+                            </div>
+                        </td>
+                        <td>1,456</td>
+                        <td><strong>65</strong></td>
+                        <td>Low (2.1%)</td>
+                        <td>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 72%;"></div>
+                            </div>
+                        </td>
+                        <td><span class="status-pill status-healthy">Healthy</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="segment-name">
+                                <div class="segment-icon" style="background: linear-gradient(135deg, var(--warn), var(--danger));">⚠️</div>
+                                <span>Dormant Accounts</span>
+                            </div>
+                        </td>
+                        <td>987</td>
+                        <td><strong>32</strong></td>
+                        <td>High (12.6%)</td>
+                        <td>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 28%;"></div>
+                            </div>
+                        </td>
+                        <td><span class="status-pill status-critical">Critical</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Additional Chart -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <h3 class="chart-title">Customer Retention Cohort Analysis</h3>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <span class="legend-dot" style="background: var(--success);"></span>
+                        <span>Retained</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot" style="background: var(--danger);"></span>
+                        <span>Churned</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-placeholder" style="height: 320px;">
+                <div class="chart-grid-lines"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            © 2025 CX Studio Dashboard • Last refresh: <strong>Nov 9, 2025 14:32 UTC</strong>
+        </div>
+        <div class="footer-agent">
+            <span>Designed by</span>
+            <span class="agent-badge">EXPLORER</span>
+        </div>
+    </footer>
+
+    <script>
+        // Simple progress bar animation on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const targetWidth = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                }, 100);
+            });
+        });
+
+        // Add subtle hover interaction for journey stages
+        const journeyStages = document.querySelectorAll('.journey-stage');
+        journeyStages.forEach(stage => {
+            stage.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px)';
+            });
+            stage.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

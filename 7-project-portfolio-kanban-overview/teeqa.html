@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Portfolio Overview | Teeqa Design</title>
+    <style>
+        /* Agent: Teeqa | Theme: Project Portfolio Kanban Overview | Intent: Delightful, brand-forward project wall with playful kanban cards and inviting visual language */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        :root {
+            /* Neutral base palette */
+            --bg-primary: #fafbfc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f4f6f8;
+            --text-primary: #1a1a2e;
+            --text-secondary: #5a6b7f;
+            --text-muted: #8b98a9;
+            --border-color: #e1e5eb;
+
+            /* Vibrant status colors (Teeqa brand-forward palette) */
+            --status-backlog: #9b87f5;
+            --status-backlog-light: #eae4ff;
+            --status-progress: #3b82f6;
+            --status-progress-light: #dbeafe;
+            --status-risk: #f59e0b;
+            --status-risk-light: #fef3c7;
+            --status-done: #10b981;
+            --status-done-light: #d1fae5;
+            --status-blocked: #ef4444;
+            --status-blocked-light: #fee2e2;
+
+            /* Accent colors */
+            --accent-purple: #8b5cf6;
+            --accent-pink: #ec4899;
+            --accent-teal: #14b8a6;
+            --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+            /* Spacing */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+
+            /* Shadows (Teeqa loves layered shadows) */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 20px 25px rgba(0, 0, 0, 0.12), 0 10px 10px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: grid;
+            grid-template-areas:
+                "header header"
+                "aside main"
+                "footer footer";
+            grid-template-columns: 240px 1fr;
+            grid-template-rows: auto 1fr auto;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            grid-area: header;
+            background: var(--bg-secondary);
+            border-bottom: 2px solid var(--border-color);
+            padding: var(--space-lg) var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .page-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            border-left: 2px solid var(--border-color);
+            padding-left: var(--space-md);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--space-sm);
+            align-items: center;
+        }
+
+        .btn {
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 8px;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            border-color: var(--accent-purple);
+        }
+
+        /* Aside Navigation */
+        aside {
+            grid-area: aside;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: var(--space-lg);
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .nav-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: var(--space-sm);
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 6px;
+            margin-bottom: var(--space-xs);
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .nav-item:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: var(--status-progress-light);
+            color: var(--status-progress);
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        /* Main Content */
+        main {
+            grid-area: main;
+            padding: var(--space-xl);
+            overflow-y: auto;
+        }
+
+        .dashboard-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-gradient);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease-out;
+        }
+
+        .kpi-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-purple);
+        }
+
+        .kpi-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-delta {
+            display: inline-flex;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-delta.positive {
+            background: var(--status-done-light);
+            color: var(--status-done);
+        }
+
+        .kpi-delta.negative {
+            background: var(--status-risk-light);
+            color: var(--status-risk);
+        }
+
+        .kpi-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .sparkline {
+            width: 100%;
+            height: 40px;
+            margin-top: var(--space-md);
+            background: linear-gradient(to right,
+                var(--status-progress-light) 0%,
+                var(--status-progress-light) 20%,
+                var(--status-done-light) 20%,
+                var(--status-done-light) 40%,
+                var(--status-progress-light) 40%,
+                var(--status-progress-light) 70%,
+                var(--status-done-light) 70%,
+                var(--status-done-light) 100%);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sparkline::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            to { left: 100%; }
+        }
+
+        /* Kanban Swimlanes - The Star of Teeqa's Design! */
+        .swimlanes {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .swimlane {
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            padding: var(--space-md);
+            min-height: 500px;
+        }
+
+        .swimlane-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 8px;
+        }
+
+        .swimlane-backlog .swimlane-header {
+            background: var(--status-backlog-light);
+        }
+
+        .swimlane-progress .swimlane-header {
+            background: var(--status-progress-light);
+        }
+
+        .swimlane-risk .swimlane-header {
+            background: var(--status-risk-light);
+        }
+
+        .swimlane-done .swimlane-header {
+            background: var(--status-done-light);
+        }
+
+        .swimlane-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .swimlane-backlog .swimlane-title {
+            color: var(--status-backlog);
+        }
+
+        .swimlane-progress .swimlane-title {
+            color: var(--status-progress);
+        }
+
+        .swimlane-risk .swimlane-title {
+            color: var(--status-risk);
+        }
+
+        .swimlane-done .swimlane-title {
+            color: var(--status-done);
+        }
+
+        .swimlane-count {
+            background: var(--bg-secondary);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .swimlane-cards {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        /* Kanban Cards - Teeqa's Playful, Delightful Touch */
+        .kanban-card {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kanban-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            transition: width 0.3s ease-out;
+        }
+
+        .swimlane-backlog .kanban-card::before {
+            background: var(--status-backlog);
+        }
+
+        .swimlane-progress .kanban-card::before {
+            background: var(--status-progress);
+        }
+
+        .swimlane-risk .kanban-card::before {
+            background: var(--status-risk);
+        }
+
+        .swimlane-done .kanban-card::before {
+            background: var(--status-done);
+        }
+
+        /* Teeqa's signature tilt effect on hover */
+        .kanban-card:hover {
+            transform: rotate(1deg) translateY(-4px) scale(1.02);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .kanban-card:hover::before {
+            width: 100%;
+            opacity: 0.05;
+        }
+
+        .swimlane-backlog .kanban-card:hover {
+            border-color: var(--status-backlog);
+        }
+
+        .swimlane-progress .kanban-card:hover {
+            border-color: var(--status-progress);
+        }
+
+        .swimlane-risk .kanban-card:hover {
+            border-color: var(--status-risk);
+        }
+
+        .swimlane-done .kanban-card:hover {
+            border-color: var(--status-done);
+        }
+
+        .card-tags {
+            display: flex;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-sm);
+            flex-wrap: wrap;
+        }
+
+        .card-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 2px 6px;
+            border-radius: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        .tag-priority {
+            background: var(--status-risk-light);
+            color: var(--status-risk);
+        }
+
+        .tag-team {
+            background: var(--status-progress-light);
+            color: var(--status-progress);
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+            line-height: 1.4;
+        }
+
+        .card-owner {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+
+        .owner-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .owner-name {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .card-progress {
+            margin-top: var(--space-md);
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: progress-shimmer 1.5s infinite;
+        }
+
+        @keyframes progress-shimmer {
+            to { left: 100%; }
+        }
+
+        .swimlane-backlog .progress-bar {
+            background: var(--status-backlog);
+        }
+
+        .swimlane-progress .progress-bar {
+            background: var(--status-progress);
+        }
+
+        .swimlane-risk .progress-bar {
+            background: var(--status-risk);
+        }
+
+        .swimlane-done .progress-bar {
+            background: var(--status-done);
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border-color);
+            font-size: 11px;
+            color: var(--text-muted);
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease-out;
+        }
+
+        .kanban-card:hover .card-meta {
+            opacity: 1;
+            max-height: 50px;
+        }
+
+        /* Charts */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .chart-card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .chart-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .chart-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .chart-filter {
+            font-size: 12px;
+            color: var(--text-secondary);
+            padding: 4px 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-tertiary);
+            cursor: pointer;
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 250px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: var(--space-md);
+            gap: 8px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(180deg, var(--accent-purple), var(--accent-pink));
+            border-radius: 4px 4px 0 0;
+            animation: bar-grow 0.6s ease-out;
+        }
+
+        @keyframes bar-grow {
+            from { transform: scaleY(0); }
+            to { transform: scaleY(1); }
+        }
+
+        .chart-bar:nth-child(1) { height: 60%; opacity: 0.7; }
+        .chart-bar:nth-child(2) { height: 80%; opacity: 0.8; }
+        .chart-bar:nth-child(3) { height: 45%; opacity: 0.6; }
+        .chart-bar:nth-child(4) { height: 90%; opacity: 0.9; }
+        .chart-bar:nth-child(5) { height: 70%; opacity: 0.75; }
+        .chart-bar:nth-child(6) { height: 85%; opacity: 0.85; }
+        .chart-bar:nth-child(7) { height: 55%; opacity: 0.65; }
+        .chart-bar:nth-child(8) { height: 95%; opacity: 0.95; }
+
+        .chart-donut {
+            width: 100%;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .donut {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--status-progress) 0deg 126deg,
+                var(--status-done) 126deg 234deg,
+                var(--status-risk) 234deg 306deg,
+                var(--status-backlog) 306deg 360deg
+            );
+            position: relative;
+            animation: donut-spin 1s ease-out;
+        }
+
+        @keyframes donut-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .donut::after {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: var(--bg-secondary);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .donut-label {
+            position: absolute;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        /* Data Table */
+        .table-card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .table-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .table-search {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .table-search input {
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            outline: none;
+            width: 200px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        thead {
+            background: var(--bg-tertiary);
+        }
+
+        th {
+            text-align: left;
+            padding: var(--space-md);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        th:first-child {
+            border-radius: 8px 0 0 0;
+        }
+
+        th:last-child {
+            border-radius: 0 8px 0 0;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        td {
+            padding: var(--space-md);
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: capitalize;
+        }
+
+        .status-pill.on-track {
+            background: var(--status-done-light);
+            color: var(--status-done);
+        }
+
+        .status-pill.at-risk {
+            background: var(--status-risk-light);
+            color: var(--status-risk);
+        }
+
+        .status-pill.blocked {
+            background: var(--status-blocked-light);
+            color: var(--status-blocked);
+        }
+
+        .status-pill.planning {
+            background: var(--status-backlog-light);
+            color: var(--status-backlog);
+        }
+
+        .table-budget {
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            grid-area: footer;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: var(--space-lg) var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .agent-badge {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.3px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .swimlanes {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 960px) {
+            body {
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "footer";
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                display: none;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .swimlanes {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                flex-direction: column;
+                gap: var(--space-md);
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Agent: Teeqa | Theme: Project Portfolio Kanban Overview | Intent: Delightful, brand-forward project wall with playful kanban cards and inviting visual language -->
+
+    <header>
+        <div class="header-left">
+            <div class="logo">ProjectHub</div>
+            <div class="page-title">Portfolio Overview</div>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-secondary">🔍 Filter</button>
+            <button class="btn btn-secondary">📊 Reports</button>
+            <button class="btn btn-primary">➕ New Project</button>
+        </div>
+    </header>
+
+    <aside>
+        <div class="nav-section">
+            <div class="nav-label">Views</div>
+            <ul class="nav-list">
+                <li class="nav-item active">
+                    <div class="nav-icon" style="background: var(--status-progress);"></div>
+                    Portfolio Board
+                </li>
+                <li class="nav-item">
+                    <div class="nav-icon" style="background: var(--status-done);"></div>
+                    Timeline View
+                </li>
+                <li class="nav-item">
+                    <div class="nav-icon" style="background: var(--status-risk);"></div>
+                    Resource Allocation
+                </li>
+                <li class="nav-item">
+                    <div class="nav-icon" style="background: var(--accent-purple);"></div>
+                    Budget Tracking
+                </li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-label">Filters</div>
+            <ul class="nav-list">
+                <li class="nav-item">All Projects</li>
+                <li class="nav-item">My Projects</li>
+                <li class="nav-item">High Priority</li>
+                <li class="nav-item">Overdue</li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-label">Teams</div>
+            <ul class="nav-list">
+                <li class="nav-item">Engineering</li>
+                <li class="nav-item">Marketing</li>
+                <li class="nav-item">Design</li>
+                <li class="nav-item">Operations</li>
+            </ul>
+        </div>
+    </aside>
+
+    <main>
+        <!-- KPI Section -->
+        <div class="dashboard-section">
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Active Projects</div>
+                    <div class="kpi-value">24</div>
+                    <div class="kpi-delta positive">↑ 3 new</div>
+                    <div class="kpi-meta">8 at risk, 16 on track</div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Total Budget</div>
+                    <div class="kpi-value">$2.4M</div>
+                    <div class="kpi-delta negative">↓ 8.5%</div>
+                    <div class="kpi-meta">$1.8M utilized (75%)</div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Team Utilization</div>
+                    <div class="kpi-value">82%</div>
+                    <div class="kpi-delta positive">↑ 4%</div>
+                    <div class="kpi-meta">68 of 83 team members</div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Completion Rate</div>
+                    <div class="kpi-value">67%</div>
+                    <div class="kpi-delta positive">↑ 12%</div>
+                    <div class="kpi-meta">16 completed this quarter</div>
+                    <div class="sparkline"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kanban Swimlanes - The Hero Section -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Project Pipeline</h2>
+                <button class="btn btn-secondary">⚙️ Configure Columns</button>
+            </div>
+
+            <div class="swimlanes">
+                <!-- Backlog -->
+                <div class="swimlane swimlane-backlog">
+                    <div class="swimlane-header">
+                        <div class="swimlane-title">📋 Backlog</div>
+                        <div class="swimlane-count">5</div>
+                    </div>
+                    <div class="swimlane-cards">
+                        <div class="kanban-card">
+                            <div class="card-tags">
+                                <span class="card-tag tag-priority">High</span>
+                                <span class="card-tag tag-team">Marketing</span>
+                            </div>
+                            <div class="card-title">Brand Refresh Campaign</div>
+                            <div class="card-owner">
+                                <div class="owner-avatar">SJ</div>
+                                <div class="owner-name">Sarah Jones</div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="progress-label">
+                                    <span>Planning</span>
+                                    <span>15%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 15%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-meta">
+                                <span>Budget: $85K</span>
+                                <span>Due: Q2 2025</span>
+                            </div>
+                        </div>
+
+                        <div class="kanban-card">
+                            <div class="card-tags">
+                                <span class="card-tag tag-team">Engineering</span>
+                            </div>
+                            <div class="card-title">Mobile App v2.0</div>
+                            <div class="card-owner">
+                                <div class="owner-avatar">RA</div>
+                                <div class="owner-name">Raj Amin</div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="progress-label">
+                                    <span>Discovery</span>
+                                    <span>8%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 8%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-meta">
+                                <span>Budget: $240K</span>
+                                <span>Due: Q3 2025</span>
+                            </div>
+                        </div>
+
+                        <div class="kanban-card">
+                            <div class="card-tags">
+                                <span class="card-tag tag-team">Operations</span>
+                            </div>
+                            <div class="card-title">Warehouse Automation</div>
+                            <div class="card-owner">
+                                <div class="owner-avatar">MC</div>
+                                <div class="owner-name">Maria Chen</div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="progress-label">
+                                    <span>RFP Phase</span>
+                                    <span>20%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 20%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-meta">
+                                <span>Budget: $450K</span>
+                                <span>Due: Q4 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- In Progress -->
+                <div class="swimlane swimlane-progress">
+                    <div class="swimlane-header">
+                        <div class="swimlane-title">⚡ In Progress</div>
+                        <div class="swimlane-count">8</div>
+                    </div>
+                    <div class="swimlane-cards">
+                        <div class="kanban-card">
+                            <div class="card-tags">
+                                <span class="card-tag tag-priority">High</span>
+                                <span class="card-tag tag-team">Engineering</span>
+                            </div>
+                            <div class="card-title">API Gateway Upgrade</div>
+                            <div class="card-owner">
+                                <div class="owner-avatar">DK</div>
+                                <div class="owner-name">David Kim</div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="progress-label">
+                                    <span>Development</span>
+                                    <span>65%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 65%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-meta">
+                                <span>Budget: $125K / $150K</span>
+                                <span>Due: Feb 15</span>
+                            </div>
+                        </div>
+
+                        <div class="kanban-card">
+                            <div class="card-tags">
+                                <span class="card-tag tag-team">Design</span>
+                            </div>
+                            <div class="card-title">Design System 2.0</div>
+                            <div class="card-owner">
+                                <div class="owner-avatar">EM</div>
+                                <div class="owner-name">Emma Mills</div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="progress-label">
+                                    <span>Implementation</span>
+                                    <span>48%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 48%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-meta">
+                                <span>Budget: $45K / $60K</span>
+                                <span>Due: Jan 30</span>
+                            </div>
+                        </div>
+
+                        <div class="kanban-card">
+                            <div class="card-tags">
+                                <span class="card-tag tag-team">Marketing</span>
+                            </div>
+                            <div class="card-title">Q1 Campaign Launch</div>
+                            <div class="card-owner">
+                                <div class="owner-avatar">TW</div>
+                                <div class="owner-name">Tom Walker</div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="progress-label">
+                                    <span>Content Creation</span>
+                                    <span>72%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 72%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-meta">
+                                <span>Budget: $95K / $110K</span>
+                                <span>Due: Jan 20</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- At Risk -->
+                <div class="swimlane swimlane-risk">
+                    <div class="swimlane-header">
+                        <div class="swimlane-title">⚠️ At Risk</div>
+                        <div class="swimlane-count">3</div>
+                    </div>
+                    <div class="swimlane-cards">
+                        <div class="kanban-card">
+                            <div class="card-tags">
+                                <span class="card-tag tag-priority">High</span>
+                                <span class="card-tag tag-team">Engineering</span>
+                            </div>
+                            <div class="card-title">Cloud Migration Phase 2</div>
+                            <div class="card-owner">
+                                <div class="owner-avatar">LP</div>
+                                <div class="owner-name">Lisa Park</div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="progress-label">
+                                    <span>Migration</span>
+                                    <span>42%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 42%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-meta">
+                                <span>Budget: $180K / $175K ⚠️</span>
+                                <span>Due: Jan 25 (overdue)</span>
+                            </div>
+                        </div>
+
+                        <div class="kanban-card">
+                            <div class="card-tags">
+                                <span class="card-tag tag-priority">High</span>
+                                <span class="card-tag tag-team">Operations</span>
+                            </div>
+                            <div class="card-title">Supply Chain Optimization</div>
+                            <div class="card-owner">
+                                <div class="owner-avatar">JB</div>
+                                <div class="owner-name">John Barnes</div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="progress-label">
+                                    <span>Analysis</span>
+                                    <span>55%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 55%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-meta">
+                                <span>Budget: $210K / $200K ⚠️</span>
+                                <span>Due: Feb 5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Done -->
+                <div class="swimlane swimlane-done">
+                    <div class="swimlane-header">
+                        <div class="swimlane-title">✅ Done</div>
+                        <div class="swimlane-count">8</div>
+                    </div>
+                    <div class="swimlane-cards">
+                        <div class="kanban-card">
+                            <div class="card-tags">
+                                <span class="card-tag tag-team">Design</span>
+                            </div>
+                            <div class="card-title">User Research Sprint</div>
+                            <div class="card-owner">
+                                <div class="owner-avatar">AV</div>
+                                <div class="owner-name">Amy Vega</div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="progress-label">
+                                    <span>Complete</span>
+                                    <span>100%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-meta">
+                                <span>Budget: $28K / $30K ✓</span>
+                                <span>Completed: Jan 10</span>
+                            </div>
+                        </div>
+
+                        <div class="kanban-card">
+                            <div class="card-tags">
+                                <span class="card-tag tag-team">Marketing</span>
+                            </div>
+                            <div class="card-title">Holiday Campaign 2024</div>
+                            <div class="card-owner">
+                                <div class="owner-avatar">NS</div>
+                                <div class="owner-name">Nina Shah</div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="progress-label">
+                                    <span>Complete</span>
+                                    <span>100%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-meta">
+                                <span>Budget: $145K / $150K ✓</span>
+                                <span>Completed: Dec 20</span>
+                            </div>
+                        </div>
+
+                        <div class="kanban-card">
+                            <div class="card-tags">
+                                <span class="card-tag tag-team">Engineering</span>
+                            </div>
+                            <div class="card-title">Security Audit Q4</div>
+                            <div class="card-owner">
+                                <div class="owner-avatar">CT</div>
+                                <div class="owner-name">Chris Taylor</div>
+                            </div>
+                            <div class="card-progress">
+                                <div class="progress-label">
+                                    <span>Complete</span>
+                                    <span>100%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="card-meta">
+                                <span>Budget: $52K / $55K ✓</span>
+                                <span>Completed: Dec 15</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Analytics & Insights</h2>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Project Velocity Trend</div>
+                        <select class="chart-filter">
+                            <option>Last 8 Weeks</option>
+                            <option>Last Quarter</option>
+                            <option>This Year</option>
+                        </select>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Portfolio Status</div>
+                        <select class="chart-filter">
+                            <option>All Projects</option>
+                            <option>Active Only</option>
+                        </select>
+                    </div>
+                    <div class="chart-donut">
+                        <div class="donut"></div>
+                        <div class="donut-label">24</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Chart -->
+        <div class="dashboard-section">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">Budget Allocation by Department</div>
+                    <select class="chart-filter">
+                        <option>Current Quarter</option>
+                        <option>Next Quarter</option>
+                        <option>Full Year</option>
+                    </select>
+                </div>
+                <div class="chart-placeholder">
+                    <div class="chart-bar" style="height: 75%;"></div>
+                    <div class="chart-bar" style="height: 55%;"></div>
+                    <div class="chart-bar" style="height: 85%;"></div>
+                    <div class="chart-bar" style="height: 45%;"></div>
+                    <div class="chart-bar" style="height: 65%;"></div>
+                    <div class="chart-bar" style="height: 50%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="dashboard-section">
+            <div class="table-card">
+                <div class="table-header">
+                    <div class="table-title">High-Priority Projects Detail</div>
+                    <div class="table-search">
+                        <span>🔍</span>
+                        <input type="text" placeholder="Search projects...">
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Project Name</th>
+                            <th>Owner</th>
+                            <th>Status</th>
+                            <th>Progress</th>
+                            <th>Budget</th>
+                            <th>Due Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>API Gateway Upgrade</strong></td>
+                            <td>David Kim</td>
+                            <td><span class="status-pill on-track">On Track</span></td>
+                            <td>65%</td>
+                            <td class="table-budget">$125K / $150K</td>
+                            <td>Feb 15, 2025</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cloud Migration Phase 2</strong></td>
+                            <td>Lisa Park</td>
+                            <td><span class="status-pill at-risk">At Risk</span></td>
+                            <td>42%</td>
+                            <td class="table-budget">$180K / $175K</td>
+                            <td>Jan 25, 2025</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Design System 2.0</strong></td>
+                            <td>Emma Mills</td>
+                            <td><span class="status-pill on-track">On Track</span></td>
+                            <td>48%</td>
+                            <td class="table-budget">$45K / $60K</td>
+                            <td>Jan 30, 2025</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Q1 Campaign Launch</strong></td>
+                            <td>Tom Walker</td>
+                            <td><span class="status-pill on-track">On Track</span></td>
+                            <td>72%</td>
+                            <td class="table-budget">$95K / $110K</td>
+                            <td>Jan 20, 2025</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Supply Chain Optimization</strong></td>
+                            <td>John Barnes</td>
+                            <td><span class="status-pill at-risk">At Risk</span></td>
+                            <td>55%</td>
+                            <td class="table-budget">$210K / $200K</td>
+                            <td>Feb 5, 2025</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Brand Refresh Campaign</strong></td>
+                            <td>Sarah Jones</td>
+                            <td><span class="status-pill planning">Planning</span></td>
+                            <td>15%</td>
+                            <td class="table-budget">$0 / $85K</td>
+                            <td>Q2 2025</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mobile App v2.0</strong></td>
+                            <td>Raj Amin</td>
+                            <td><span class="status-pill planning">Planning</span></td>
+                            <td>8%</td>
+                            <td class="table-budget">$0 / $240K</td>
+                            <td>Q3 2025</td>
+                        </tr>
+                        <tr>
+                            <td><strong>User Research Sprint</strong></td>
+                            <td>Amy Vega</td>
+                            <td><span class="status-pill on-track">Completed</span></td>
+                            <td>100%</td>
+                            <td class="table-budget">$28K / $30K</td>
+                            <td>Jan 10, 2025</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-brand">
+            <span>Designed by</span>
+            <span class="agent-badge">Teeqa</span>
+            <span>| Brand-Forward Project UX</span>
+        </div>
+        <div>Last updated: January 12, 2025 at 2:45 PM</div>
+    </footer>
+
+    <script>
+        // Simple interactivity for delightful touches
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers to kanban cards for expand/collapse
+            const cards = document.querySelectorAll('.kanban-card');
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Toggle expanded state (visual feedback only in this demo)
+                    this.style.zIndex = this.style.zIndex === '10' ? '1' : '10';
+                });
+            });
+
+            // Table row click feedback
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', function() {
+                    tableRows.forEach(r => r.style.background = '');
+                    this.style.background = 'var(--status-progress-light)';
+                });
+            });
+
+            // Nav item selection
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    navItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

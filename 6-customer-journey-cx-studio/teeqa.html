@@ -1,0 +1,1687 @@
+<!-- Agent: Teeqa | Theme: Customer Journey CX Studio | Intent: Creating a warm, inviting CX command center that celebrates customers through vibrant branding and delightful interactions -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Journey Studio | Teeqa Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Warm Color Palette */
+            --coral-primary: #FF6B6B;
+            --coral-light: #FFE3E3;
+            --coral-dark: #E85555;
+            --amber-primary: #FFB84D;
+            --amber-light: #FFF3E0;
+            --teal-primary: #4ECDC4;
+            --teal-light: #E0F7F6;
+            --teal-dark: #3DB9B0;
+
+            /* Neutrals */
+            --bg-primary: #FAFAFA;
+            --bg-secondary: #FFFFFF;
+            --bg-subtle: #F5F5F5;
+            --text-primary: #2D3748;
+            --text-secondary: #718096;
+            --text-light: #A0AEC0;
+            --border-light: #E2E8F0;
+            --border-medium: #CBD5E0;
+
+            /* Semantic Colors */
+            --success: #48BB78;
+            --success-bg: #E6F9F0;
+            --warning: #F6A623;
+            --warning-bg: #FFF6E5;
+            --danger: #F56565;
+            --danger-bg: #FFF0F0;
+            --info: #667EEA;
+            --info-bg: #EEF2FF;
+
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+
+            /* Borders */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-full: 9999px;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.14);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--coral-primary) 0%, var(--amber-primary) 100%);
+            color: white;
+            padding: var(--space-lg) var(--space-xl);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .header-left p {
+            font-size: 0.95rem;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        .brand-badge {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            border: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--coral-primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            max-width: 1600px;
+            margin: 0 auto;
+            min-height: calc(100vh - 120px);
+        }
+
+        aside {
+            width: 260px;
+            background: var(--bg-secondary);
+            padding: var(--space-xl);
+            border-right: 1px solid var(--border-light);
+            animation: slideRight 0.4s ease-out;
+        }
+
+        @keyframes slideRight {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .nav-section h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            margin-bottom: var(--space-md);
+            font-weight: 700;
+        }
+
+        .nav-item {
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-sm);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .nav-item:hover {
+            background: var(--coral-light);
+            color: var(--coral-dark);
+            transform: translateX(4px);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, var(--coral-light) 0%, var(--amber-light) 100%);
+            color: var(--coral-primary);
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: var(--space-xl);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Lifecycle Stages */
+        .lifecycle-nav {
+            display: flex;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+            overflow-x: auto;
+            padding-bottom: var(--space-sm);
+        }
+
+        .stage-tab {
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--radius-lg);
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-light);
+            cursor: pointer;
+            white-space: nowrap;
+            font-weight: 600;
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stage-tab:hover {
+            border-color: var(--coral-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stage-tab.active {
+            background: linear-gradient(135deg, var(--coral-primary) 0%, var(--amber-primary) 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .stage-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            animation: scaleIn 0.4s ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .kpi-card:nth-child(1) { animation-delay: 0.1s; }
+        .kpi-card:nth-child(2) { animation-delay: 0.15s; }
+        .kpi-card:nth-child(3) { animation-delay: 0.2s; }
+        .kpi-card:nth-child(4) { animation-delay: 0.25s; }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--coral-primary), var(--amber-primary));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--coral-light);
+        }
+
+        .kpi-card:hover::before {
+            opacity: 1;
+        }
+
+        .kpi-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-value {
+            font-size: 2.25rem;
+            font-weight: 700;
+            font-family: 'Quicksand', sans-serif;
+            margin-bottom: var(--space-xs);
+            background: linear-gradient(135deg, var(--coral-primary), var(--amber-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .kpi-delta {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-delta.positive {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .kpi-delta.negative {
+            background: var(--danger-bg);
+            color: var(--danger);
+        }
+
+        .kpi-delta.neutral {
+            background: var(--info-bg);
+            color: var(--info);
+        }
+
+        .kpi-meta {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .sparkline {
+            height: 40px;
+            margin-top: var(--space-md);
+            background: linear-gradient(to top, var(--coral-light) 0%, transparent 100%);
+            border-radius: var(--radius-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sparkline::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--coral-primary), var(--teal-primary));
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .section-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-md);
+            background: linear-gradient(135deg, var(--coral-primary), var(--amber-primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Charts Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .chart-card {
+            background: var(--bg-secondary);
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+        }
+
+        .chart-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--coral-light);
+        }
+
+        .chart-header {
+            margin-bottom: var(--space-lg);
+        }
+
+        .chart-header h3 {
+            font-size: 1.1rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        .chart-header p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .chart-placeholder {
+            height: 280px;
+            background: linear-gradient(to bottom, var(--bg-subtle) 0%, var(--bg-primary) 100%);
+            border-radius: var(--radius-md);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: var(--space-lg);
+        }
+
+        /* Funnel Chart */
+        .funnel-chart {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            padding: var(--space-md);
+        }
+
+        .funnel-stage {
+            position: relative;
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--radius-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            box-shadow: var(--shadow-sm);
+            animation: expandRight 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes expandRight {
+            from {
+                transform: scaleX(0);
+                opacity: 0;
+            }
+            to {
+                transform: scaleX(1);
+                opacity: 1;
+            }
+        }
+
+        .funnel-stage:nth-child(1) {
+            animation-delay: 0.2s;
+            background: linear-gradient(90deg, var(--coral-light) 0%, white 100%);
+        }
+        .funnel-stage:nth-child(2) {
+            animation-delay: 0.3s;
+            background: linear-gradient(90deg, var(--amber-light) 0%, white 100%);
+            width: 90%;
+            margin-left: 5%;
+        }
+        .funnel-stage:nth-child(3) {
+            animation-delay: 0.4s;
+            background: linear-gradient(90deg, var(--teal-light) 0%, white 100%);
+            width: 75%;
+            margin-left: 12.5%;
+        }
+        .funnel-stage:nth-child(4) {
+            animation-delay: 0.5s;
+            background: linear-gradient(90deg, var(--success-bg) 0%, white 100%);
+            width: 55%;
+            margin-left: 22.5%;
+        }
+
+        .funnel-label {
+            font-weight: 600;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .funnel-value {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--coral-primary);
+        }
+
+        /* Journey Map */
+        .journey-steps {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: space-between;
+        }
+
+        .journey-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            padding: var(--space-md);
+            animation: popIn 0.4s ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .journey-step:nth-child(1) { animation-delay: 0.2s; }
+        .journey-step:nth-child(2) { animation-delay: 0.3s; }
+        .journey-step:nth-child(3) { animation-delay: 0.4s; }
+        .journey-step:nth-child(4) { animation-delay: 0.5s; }
+        .journey-step:nth-child(5) { animation-delay: 0.6s; }
+
+        .journey-step::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background: var(--border-medium);
+            z-index: -1;
+        }
+
+        .journey-step:last-child::before {
+            display: none;
+        }
+
+        .journey-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--coral-primary), var(--amber-primary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-sm);
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .journey-step:hover .journey-circle {
+            transform: scale(1.15);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .journey-step-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .journey-step-value {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Customer Voices Section */
+        .voices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .voice-card {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-subtle) 100%);
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            border: 2px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .voice-card:nth-child(1) { animation-delay: 0.2s; }
+        .voice-card:nth-child(2) { animation-delay: 0.3s; }
+        .voice-card:nth-child(3) { animation-delay: 0.4s; }
+
+        .voice-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 6rem;
+            font-family: Georgia, serif;
+            color: var(--coral-light);
+            opacity: 0.5;
+            line-height: 1;
+        }
+
+        .voice-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--coral-primary);
+        }
+
+        .voice-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--coral-primary), var(--teal-primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            font-family: 'Quicksand', sans-serif;
+            box-shadow: var(--shadow-md);
+        }
+
+        .voice-meta h4 {
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+
+        .voice-meta p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .voice-quote {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+            position: relative;
+            z-index: 1;
+        }
+
+        .voice-score {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .score-badge {
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--coral-primary), var(--amber-primary));
+            color: white;
+        }
+
+        .score-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Segment Cards */
+        .segment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .segment-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            border: 2px solid var(--border-light);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .segment-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--coral-primary);
+        }
+
+        .segment-header {
+            padding: var(--space-lg);
+            background: linear-gradient(135deg, var(--coral-light), var(--amber-light));
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .segment-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-md);
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .segment-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .segment-info p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .segment-body {
+            padding: var(--space-lg);
+        }
+
+        .segment-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .segment-stat:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .segment-stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .segment-stat-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Quicksand', sans-serif;
+            color: var(--coral-primary);
+        }
+
+        .segment-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .segment-card:hover .segment-details {
+            max-height: 200px;
+        }
+
+        .segment-detail-item {
+            padding: var(--space-sm) 0;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Data Table */
+        .table-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            margin-bottom: var(--space-xl);
+        }
+
+        .table-header {
+            padding: var(--space-lg);
+            border-bottom: 2px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-header h3 {
+            font-size: 1.2rem;
+        }
+
+        .table-controls {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .control-btn {
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-medium);
+            background: white;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .control-btn:hover {
+            background: var(--coral-light);
+            border-color: var(--coral-primary);
+            color: var(--coral-dark);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--bg-subtle);
+        }
+
+        th {
+            padding: var(--space-md) var(--space-lg);
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tbody tr:hover {
+            background: var(--coral-light);
+        }
+
+        td {
+            padding: var(--space-md) var(--space-lg);
+            font-size: 0.9rem;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pill.active {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .status-pill.at-risk {
+            background: var(--warning-bg);
+            color: var(--warning);
+        }
+
+        .status-pill.churned {
+            background: var(--danger-bg);
+            color: var(--danger);
+        }
+
+        .status-pill.new {
+            background: var(--info-bg);
+            color: var(--info);
+        }
+
+        .customer-cell {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .customer-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--teal-primary), var(--coral-primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            padding: var(--space-xl);
+            border-top: 2px solid var(--border-light);
+            margin-top: var(--space-2xl);
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
+
+        .agent-badge {
+            background: linear-gradient(135deg, var(--coral-primary), var(--amber-primary));
+            color: white;
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .footer-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-right {
+            text-align: right;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--space-lg);
+            font-size: 0.85rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--coral-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 960px) {
+            .container {
+                flex-direction: column;
+            }
+
+            aside {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-light);
+            }
+
+            .nav-section {
+                display: inline-block;
+                margin-right: var(--space-lg);
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: var(--space-lg);
+                text-align: center;
+            }
+
+            .footer-left {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header-content {
+                flex-direction: column;
+                gap: var(--space-md);
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lifecycle-nav {
+                flex-wrap: wrap;
+            }
+
+            .voices-grid, .segment-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="header-left">
+                <h1>
+                    Customer Journey Studio
+                    <span class="brand-badge">TEEQA</span>
+                </h1>
+                <p>Your customers' story, beautifully visualized</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary">Export Report</button>
+                <button class="btn btn-primary">Share Insights</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside>
+            <div class="nav-section">
+                <h3>Journey Stages</h3>
+                <div class="nav-item active">
+                    <div class="nav-icon">🎯</div>
+                    <span>Overview</span>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">🌟</div>
+                    <span>Acquisition</span>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">🚀</div>
+                    <span>Onboarding</span>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">💎</div>
+                    <span>Retention</span>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">📈</div>
+                    <span>Growth</span>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <h3>Insights</h3>
+                <div class="nav-item">
+                    <div class="nav-icon">💬</div>
+                    <span>Customer Voices</span>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">👥</div>
+                    <span>Segments</span>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">📊</div>
+                    <span>Analytics</span>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <h3>Settings</h3>
+                <div class="nav-item">
+                    <div class="nav-icon">⚙️</div>
+                    <span>Configure</span>
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <!-- Lifecycle Stage Navigation -->
+            <div class="lifecycle-nav">
+                <div class="stage-tab active">
+                    <div class="stage-dot"></div>
+                    <span>All Stages</span>
+                </div>
+                <div class="stage-tab">
+                    <div class="stage-dot" style="background: var(--coral-primary);"></div>
+                    <span>Acquire</span>
+                </div>
+                <div class="stage-tab">
+                    <div class="stage-dot" style="background: var(--amber-primary);"></div>
+                    <span>Onboard</span>
+                </div>
+                <div class="stage-tab">
+                    <div class="stage-dot" style="background: var(--teal-primary);"></div>
+                    <span>Retain</span>
+                </div>
+                <div class="stage-tab">
+                    <div class="stage-dot" style="background: var(--success);"></div>
+                    <span>Grow</span>
+                </div>
+            </div>
+
+            <!-- KPI Grid -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Net Promoter Score</div>
+                    <div class="kpi-value">67</div>
+                    <div class="kpi-delta positive">↑ 12 pts</div>
+                    <div class="kpi-meta">vs. last quarter</div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Customer Satisfaction</div>
+                    <div class="kpi-value">4.8</div>
+                    <div class="kpi-delta positive">↑ 0.3</div>
+                    <div class="kpi-meta">out of 5.0 stars</div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Churn Rate</div>
+                    <div class="kpi-value">2.4%</div>
+                    <div class="kpi-delta positive">↓ 0.8%</div>
+                    <div class="kpi-meta">monthly average</div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Active Customers</div>
+                    <div class="kpi-value">12.4K</div>
+                    <div class="kpi-delta positive">↑ 8.3%</div>
+                    <div class="kpi-meta">+950 this month</div>
+                    <div class="sparkline"></div>
+                </div>
+            </div>
+
+            <!-- Customer Voices Section -->
+            <div class="section-header">
+                <h2>
+                    <div class="section-icon">💬</div>
+                    Customer Voices
+                </h2>
+            </div>
+
+            <div class="voices-grid">
+                <div class="voice-card">
+                    <div class="voice-header">
+                        <div class="avatar">SJ</div>
+                        <div class="voice-meta">
+                            <h4>Sarah Johnson</h4>
+                            <p>Enterprise • 6 months</p>
+                        </div>
+                    </div>
+                    <div class="voice-quote">
+                        "The onboarding experience was seamless. Our team was up and running in just two days, and the support has been exceptional throughout our journey."
+                    </div>
+                    <div class="voice-score">
+                        <div class="score-badge">NPS: 9</div>
+                        <div class="score-label">Promoter</div>
+                    </div>
+                </div>
+
+                <div class="voice-card">
+                    <div class="voice-header">
+                        <div class="avatar">MC</div>
+                        <div class="voice-meta">
+                            <h4>Michael Chen</h4>
+                            <p>Growth • 2 years</p>
+                        </div>
+                    </div>
+                    <div class="voice-quote">
+                        "What started as a trial has become essential to our workflow. The product keeps getting better, and the team clearly listens to customer feedback."
+                    </div>
+                    <div class="voice-score">
+                        <div class="score-badge">NPS: 10</div>
+                        <div class="score-label">Promoter</div>
+                    </div>
+                </div>
+
+                <div class="voice-card">
+                    <div class="voice-header">
+                        <div class="avatar">EK</div>
+                        <div class="voice-meta">
+                            <h4>Emma Kowalski</h4>
+                            <p>Startup • 3 months</p>
+                        </div>
+                    </div>
+                    <div class="voice-quote">
+                        "As a small team, we needed something powerful but easy to use. This hits the perfect balance. The interface is delightful and our productivity has soared."
+                    </div>
+                    <div class="voice-score">
+                        <div class="score-badge">NPS: 8</div>
+                        <div class="score-label">Promoter</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="section-header">
+                <h2>
+                    <div class="section-icon">📊</div>
+                    Journey Analytics
+                </h2>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Conversion Funnel</h3>
+                        <p>From visitor to loyal customer</p>
+                    </div>
+                    <div class="chart-placeholder funnel-chart">
+                        <div class="funnel-stage">
+                            <div class="funnel-label">Website Visitors</div>
+                            <div class="funnel-value">45,200</div>
+                        </div>
+                        <div class="funnel-stage">
+                            <div class="funnel-label">Trial Signups</div>
+                            <div class="funnel-value">8,340</div>
+                        </div>
+                        <div class="funnel-stage">
+                            <div class="funnel-label">Active Users</div>
+                            <div class="funnel-value">5,210</div>
+                        </div>
+                        <div class="funnel-stage">
+                            <div class="funnel-label">Paid Customers</div>
+                            <div class="funnel-value">3,180</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Customer Journey Stages</h3>
+                        <p>Average time & success rate per stage</p>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div class="journey-steps">
+                            <div class="journey-step">
+                                <div class="journey-circle">🎯</div>
+                                <div class="journey-step-label">Awareness</div>
+                                <div class="journey-step-value">3.2 days</div>
+                            </div>
+                            <div class="journey-step">
+                                <div class="journey-circle" style="background: linear-gradient(135deg, var(--amber-primary), var(--coral-primary));">📝</div>
+                                <div class="journey-step-label">Trial</div>
+                                <div class="journey-step-value">14 days</div>
+                            </div>
+                            <div class="journey-step">
+                                <div class="journey-circle" style="background: linear-gradient(135deg, var(--teal-primary), var(--amber-primary));">✓</div>
+                                <div class="journey-step-label">Activation</div>
+                                <div class="journey-step-value">2.1 days</div>
+                            </div>
+                            <div class="journey-step">
+                                <div class="journey-circle" style="background: linear-gradient(135deg, var(--success), var(--teal-primary));">💎</div>
+                                <div class="journey-step-label">Retention</div>
+                                <div class="journey-step-value">97.6%</div>
+                            </div>
+                            <div class="journey-step">
+                                <div class="journey-circle" style="background: linear-gradient(135deg, var(--info), var(--success));">📈</div>
+                                <div class="journey-step-label">Expansion</div>
+                                <div class="journey-step-value">42%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Segments -->
+            <div class="section-header">
+                <h2>
+                    <div class="section-icon">👥</div>
+                    Customer Segments
+                </h2>
+            </div>
+
+            <div class="segment-grid">
+                <div class="segment-card">
+                    <div class="segment-header">
+                        <div class="segment-icon">🚀</div>
+                        <div class="segment-info">
+                            <h3>Fast Adopters</h3>
+                            <p>2,840 customers</p>
+                        </div>
+                    </div>
+                    <div class="segment-body">
+                        <div class="segment-stat">
+                            <div class="segment-stat-label">Avg. NPS</div>
+                            <div class="segment-stat-value">72</div>
+                        </div>
+                        <div class="segment-stat">
+                            <div class="segment-stat-label">CSAT</div>
+                            <div class="segment-stat-value">4.9</div>
+                        </div>
+                        <div class="segment-stat">
+                            <div class="segment-stat-label">Churn Risk</div>
+                            <div class="segment-stat-value">Low</div>
+                        </div>
+                        <div class="segment-details">
+                            <div class="segment-detail-item">
+                                <span>Engagement Score</span>
+                                <span>9.2/10</span>
+                            </div>
+                            <div class="segment-detail-item">
+                                <span>Feature Adoption</span>
+                                <span>87%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="segment-card">
+                    <div class="segment-header" style="background: linear-gradient(135deg, var(--amber-light), var(--teal-light));">
+                        <div class="segment-icon">🌱</div>
+                        <div class="segment-info">
+                            <h3>Growing Accounts</h3>
+                            <p>4,120 customers</p>
+                        </div>
+                    </div>
+                    <div class="segment-body">
+                        <div class="segment-stat">
+                            <div class="segment-stat-label">Avg. NPS</div>
+                            <div class="segment-stat-value">65</div>
+                        </div>
+                        <div class="segment-stat">
+                            <div class="segment-stat-label">CSAT</div>
+                            <div class="segment-stat-value">4.7</div>
+                        </div>
+                        <div class="segment-stat">
+                            <div class="segment-stat-label">Churn Risk</div>
+                            <div class="segment-stat-value">Low</div>
+                        </div>
+                        <div class="segment-details">
+                            <div class="segment-detail-item">
+                                <span>Engagement Score</span>
+                                <span>7.8/10</span>
+                            </div>
+                            <div class="segment-detail-item">
+                                <span>Feature Adoption</span>
+                                <span>64%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="segment-card">
+                    <div class="segment-header" style="background: linear-gradient(135deg, var(--warning-bg), var(--amber-light));">
+                        <div class="segment-icon">⚠️</div>
+                        <div class="segment-info">
+                            <h3>Needs Attention</h3>
+                            <p>680 customers</p>
+                        </div>
+                    </div>
+                    <div class="segment-body">
+                        <div class="segment-stat">
+                            <div class="segment-stat-label">Avg. NPS</div>
+                            <div class="segment-stat-value">42</div>
+                        </div>
+                        <div class="segment-stat">
+                            <div class="segment-stat-label">CSAT</div>
+                            <div class="segment-stat-value">3.8</div>
+                        </div>
+                        <div class="segment-stat">
+                            <div class="segment-stat-label">Churn Risk</div>
+                            <div class="segment-stat-value">High</div>
+                        </div>
+                        <div class="segment-details">
+                            <div class="segment-detail-item">
+                                <span>Engagement Score</span>
+                                <span>4.2/10</span>
+                            </div>
+                            <div class="segment-detail-item">
+                                <span>Feature Adoption</span>
+                                <span>31%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="table-card">
+                <div class="table-header">
+                    <h3>Recent Customer Activity</h3>
+                    <div class="table-controls">
+                        <button class="control-btn">Filter</button>
+                        <button class="control-btn">Export</button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Segment</th>
+                            <th>Journey Stage</th>
+                            <th>NPS Score</th>
+                            <th>CSAT</th>
+                            <th>Status</th>
+                            <th>Last Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar">AC</div>
+                                    <span>Acme Corp</span>
+                                </div>
+                            </td>
+                            <td>Enterprise</td>
+                            <td>Retention</td>
+                            <td>9</td>
+                            <td>4.8</td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>2 hours ago</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar">TI</div>
+                                    <span>TechInnovate</span>
+                                </div>
+                            </td>
+                            <td>Growth</td>
+                            <td>Expansion</td>
+                            <td>10</td>
+                            <td>5.0</td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>5 hours ago</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar">DS</div>
+                                    <span>DataSync Solutions</span>
+                                </div>
+                            </td>
+                            <td>Startup</td>
+                            <td>Onboarding</td>
+                            <td>8</td>
+                            <td>4.6</td>
+                            <td><span class="status-pill new">New</span></td>
+                            <td>1 day ago</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar">BP</div>
+                                    <span>BluePrint Inc</span>
+                                </div>
+                            </td>
+                            <td>Mid-Market</td>
+                            <td>Retention</td>
+                            <td>7</td>
+                            <td>4.2</td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>3 days ago</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar">QG</div>
+                                    <span>QuantumGrid</span>
+                                </div>
+                            </td>
+                            <td>Enterprise</td>
+                            <td>Retention</td>
+                            <td>4</td>
+                            <td>3.5</td>
+                            <td><span class="status-pill at-risk">At Risk</span></td>
+                            <td>7 days ago</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar">NW</div>
+                                    <span>NextWave Labs</span>
+                                </div>
+                            </td>
+                            <td>Growth</td>
+                            <td>Activation</td>
+                            <td>9</td>
+                            <td>4.9</td>
+                            <td><span class="status-pill new">New</span></td>
+                            <td>4 hours ago</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="customer-cell">
+                                    <div class="customer-avatar">SV</div>
+                                    <span>SkyVentures</span>
+                                </div>
+                            </td>
+                            <td>Mid-Market</td>
+                            <td>Retention</td>
+                            <td>8</td>
+                            <td>4.7</td>
+                            <td><span class="status-pill active">Active</span></td>
+                            <td>1 day ago</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="agent-badge">Designed by Teeqa</div>
+                <div class="footer-meta">
+                    Customer Journey CX Studio • Last updated: Nov 9, 2025
+                </div>
+            </div>
+            <div class="footer-right">
+                <div class="footer-links">
+                    <a href="#">Documentation</a>
+                    <a href="#">Support</a>
+                    <a href="#">API</a>
+                    <a href="#">Privacy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Gentle entrance animations
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add stagger effect to cards
+            const cards = document.querySelectorAll('.kpi-card, .voice-card, .segment-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+
+            // Interactive stage tabs
+            const stageTabs = document.querySelectorAll('.stage-tab');
+            stageTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    stageTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+
+            // Interactive nav items
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    navItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                });
+            });
+
+            // Sparkline animation
+            const sparklines = document.querySelectorAll('.sparkline');
+            sparklines.forEach(sparkline => {
+                const after = window.getComputedStyle(sparkline, '::after');
+                sparkline.addEventListener('mouseenter', () => {
+                    sparkline.style.background = 'linear-gradient(to top, var(--amber-light) 0%, transparent 100%)';
+                });
+                sparkline.addEventListener('mouseleave', () => {
+                    sparkline.style.background = 'linear-gradient(to top, var(--coral-light) 0%, transparent 100%)';
+                });
+            });
+
+            // Table row interactions
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', () => {
+                    console.log('Customer details clicked');
+                    // In a real app, this would open a detail modal
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Executive Boardroom Dashboard — Zeeqa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Agent: Zeeqa | Theme: Executive Boardroom | Intent: Austere elegance through restraint—letting data breathe with typographic precision -->
+  <style>
+    :root {
+      --bg: #1a1d29;
+      --bg-elevated: #21242f;
+      --card: #23263280;
+      --accent: #b8956a;
+      --accent-muted: #9d8b6c;
+      --text: #f5f5f5;
+      --text-secondary: #b8bcc8;
+      --text-tertiary: #8a8e9a;
+      --border: #2d313d;
+      --success: #7a9b7e;
+      --warn: #c8a872;
+      --danger: #b37d7d;
+      --radius: 2px;
+      --spacing-unit: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: transform 0.2s ease-out,
+                  box-shadow 0.2s ease-out,
+                  opacity 0.2s ease-out;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      grid-template-areas:
+        "sidebar header"
+        "sidebar main"
+        "sidebar footer";
+    }
+
+    header {
+      grid-area: header;
+      padding: calc(var(--spacing-unit) * 5) calc(var(--spacing-unit) * 6);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .header-title {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: calc(var(--spacing-unit) * 1);
+      color: var(--text);
+    }
+
+    .header-meta {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.03em;
+    }
+
+    aside {
+      grid-area: sidebar;
+      border-right: 1px solid var(--border);
+      background: var(--bg);
+      padding: calc(var(--spacing-unit) * 6) calc(var(--spacing-unit) * 3);
+      display: flex;
+      flex-direction: column;
+      gap: calc(var(--spacing-unit) * 6);
+    }
+
+    .brand {
+      padding-bottom: calc(var(--spacing-unit) * 4);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand-name {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .nav-section-title {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-tertiary);
+      margin-bottom: calc(var(--spacing-unit) * 2);
+      font-weight: 500;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: calc(var(--spacing-unit) * 1);
+    }
+
+    .nav-item {
+      padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 2);
+      font-size: 14px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-left: 2px solid transparent;
+      margin-left: calc(var(--spacing-unit) * -2);
+      padding-left: calc(var(--spacing-unit) * 2);
+    }
+
+    .nav-item:hover {
+      color: var(--text);
+      border-left-color: var(--accent-muted);
+    }
+
+    .nav-item.active {
+      color: var(--text);
+      border-left-color: var(--accent);
+    }
+
+    main {
+      grid-area: main;
+      padding: calc(var(--spacing-unit) * 6);
+      overflow-y: auto;
+      background: var(--bg);
+    }
+
+    .main-content {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section {
+      margin-bottom: calc(var(--spacing-unit) * 8);
+    }
+
+    .section-header {
+      margin-bottom: calc(var(--spacing-unit) * 4);
+    }
+
+    .section-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-tertiary);
+      font-weight: 500;
+    }
+
+    .grid {
+      display: grid;
+      gap: calc(var(--spacing-unit) * 3);
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .grid-2 {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    .card {
+      background: var(--card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: calc(var(--spacing-unit) * 4);
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .kpi-card {
+      text-align: center;
+      padding: calc(var(--spacing-unit) * 5) calc(var(--spacing-unit) * 3);
+    }
+
+    .kpi-label {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-bottom: calc(var(--spacing-unit) * 2);
+      letter-spacing: 0.05em;
+    }
+
+    .kpi-value {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 40px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: calc(var(--spacing-unit) * 1);
+      letter-spacing: -0.02em;
+    }
+
+    .kpi-delta {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-bottom: calc(var(--spacing-unit) * 3);
+    }
+
+    .kpi-delta.positive {
+      color: var(--success);
+    }
+
+    .kpi-delta.negative {
+      color: var(--danger);
+    }
+
+    .kpi-meta {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      padding-top: calc(var(--spacing-unit) * 2);
+      border-top: 1px solid var(--border);
+    }
+
+    .chart-card {
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: calc(var(--spacing-unit) * 3);
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .chart-title {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .chart-subtitle {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-top: calc(var(--spacing-unit) * 0.5);
+    }
+
+    .chart-placeholder {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      position: relative;
+      background: linear-gradient(to bottom, rgba(184, 149, 106, 0.03), transparent);
+      overflow: hidden;
+    }
+
+    .chart-grid {
+      position: absolute;
+      inset: calc(var(--spacing-unit) * 3);
+      background-image:
+        repeating-linear-gradient(to bottom, transparent, transparent 19%, var(--border) 20%);
+      opacity: 0.4;
+    }
+
+    .chart-line {
+      position: absolute;
+      bottom: 15%;
+      left: 10%;
+      right: 10%;
+      height: 60%;
+      border-top: 2px solid var(--accent);
+      opacity: 0.6;
+      clip-path: polygon(0 80%, 25% 60%, 50% 40%, 75% 25%, 100% 15%, 100% 100%, 0 100%);
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .table th,
+    .table td {
+      padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 2);
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .table th {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-tertiary);
+      font-weight: 500;
+      padding-top: 0;
+    }
+
+    .table td {
+      color: var(--text-secondary);
+    }
+
+    .table tbody tr:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .status-indicator {
+      display: inline-block;
+      padding: calc(var(--spacing-unit) * 0.5) calc(var(--spacing-unit) * 1.5);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-radius: var(--radius);
+      font-weight: 500;
+    }
+
+    .status-indicator.on-track {
+      color: var(--success);
+      background: rgba(122, 155, 126, 0.15);
+      border: 1px solid rgba(122, 155, 126, 0.3);
+    }
+
+    .status-indicator.at-risk {
+      color: var(--warn);
+      background: rgba(200, 168, 114, 0.15);
+      border: 1px solid rgba(200, 168, 114, 0.3);
+    }
+
+    .status-indicator.critical {
+      color: var(--danger);
+      background: rgba(179, 125, 125, 0.15);
+      border: 1px solid rgba(179, 125, 125, 0.3);
+    }
+
+    .insight-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: calc(var(--spacing-unit) * 3);
+    }
+
+    .insight-item {
+      padding-left: calc(var(--spacing-unit) * 2);
+      border-left: 1px solid var(--border);
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .insight-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: calc(var(--spacing-unit) * 1);
+      font-weight: 500;
+    }
+
+    footer {
+      grid-area: footer;
+      padding: calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 6);
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-tertiary);
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .agent-signature {
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      font-weight: 500;
+    }
+
+    @media (max-width: 960px) {
+      body {
+        grid-template-columns: 64px minmax(0, 1fr);
+      }
+
+      aside {
+        padding: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 1);
+      }
+
+      .brand-name,
+      .nav-section-title,
+      .nav-item {
+        font-size: 9px;
+        text-align: center;
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+          "header"
+          "main"
+          "footer";
+      }
+
+      aside {
+        display: none;
+      }
+
+      .grid-4 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      main {
+        padding: calc(var(--spacing-unit) * 3);
+      }
+    }
+  </style>
+</head>
+<body>
+  <aside>
+    <div class="brand">
+      <div class="brand-name">ZEEQA</div>
+    </div>
+
+    <nav>
+      <div class="nav-section-title">Views</div>
+      <ul class="nav-list">
+        <li class="nav-item active">Overview</li>
+        <li class="nav-item">Financials</li>
+        <li class="nav-item">Operations</li>
+        <li class="nav-item">Strategic</li>
+        <li class="nav-item">Risk</li>
+      </ul>
+    </nav>
+  </aside>
+
+  <header>
+    <div class="header-content">
+      <h1 class="header-title">Executive Performance Summary</h1>
+      <p class="header-meta">Q4 2025 · Board Review · Confidential</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="main-content">
+      <!-- KPI Section -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-title">Key Performance Indicators</div>
+        </div>
+        <div class="grid grid-4">
+          <div class="card kpi-card">
+            <div class="kpi-label">Revenue</div>
+            <div class="kpi-value">$4.8M</div>
+            <div class="kpi-delta positive">+14.2% QoQ</div>
+            <div class="kpi-meta">Target: $4.5M</div>
+          </div>
+
+          <div class="card kpi-card">
+            <div class="kpi-label">Operating Margin</div>
+            <div class="kpi-value">22.4%</div>
+            <div class="kpi-delta positive">+3.1 pts</div>
+            <div class="kpi-meta">Benchmark: 20%</div>
+          </div>
+
+          <div class="card kpi-card">
+            <div class="kpi-label">Customer Retention</div>
+            <div class="kpi-value">94.7%</div>
+            <div class="kpi-delta positive">+2.3 pts</div>
+            <div class="kpi-meta">Industry avg: 91%</div>
+          </div>
+
+          <div class="card kpi-card">
+            <div class="kpi-label">Cash Position</div>
+            <div class="kpi-value">$8.2M</div>
+            <div class="kpi-delta negative">−6.8% QoQ</div>
+            <div class="kpi-meta">18 mo. runway</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Charts & Insights Section -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-title">Performance Analysis</div>
+        </div>
+        <div class="grid grid-2">
+          <div class="card chart-card">
+            <div class="chart-header">
+              <div>
+                <div class="chart-title">Revenue Trajectory</div>
+                <div class="chart-subtitle">Quarterly performance vs. forecast</div>
+              </div>
+            </div>
+            <div class="chart-placeholder">
+              <div class="chart-grid"></div>
+              <div class="chart-line"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="chart-title" style="margin-bottom: calc(var(--spacing-unit) * 3);">Strategic Insights</div>
+            <ul class="insight-list">
+              <li class="insight-item">
+                <div class="insight-label">Growth</div>
+                <div>Enterprise segment exceeded targets by 18%, driven by North American expansion and product-led acquisition.</div>
+              </li>
+              <li class="insight-item">
+                <div class="insight-label">Efficiency</div>
+                <div>Operational improvements yielded 310 basis points in margin expansion, outpacing industry benchmarks.</div>
+              </li>
+              <li class="insight-item">
+                <div class="insight-label">Capital</div>
+                <div>Cash deployment in R&D and infrastructure positions the business for sustained growth through 2026.</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Market Position Chart -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-title">Market Position</div>
+        </div>
+        <div class="card chart-card">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Competitive Landscape</div>
+              <div class="chart-subtitle">Market share evolution and positioning</div>
+            </div>
+          </div>
+          <div class="chart-placeholder">
+            <div class="chart-grid"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Strategic Initiatives Table -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-title">Strategic Initiatives</div>
+        </div>
+        <div class="card">
+          <div class="table-wrapper">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Initiative</th>
+                  <th>Executive Owner</th>
+                  <th>Investment</th>
+                  <th>Timeline</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Platform Modernization</td>
+                  <td>J. Chen, CTO</td>
+                  <td>$2.4M</td>
+                  <td>Q1–Q3 2026</td>
+                  <td><span class="status-indicator on-track">On Track</span></td>
+                </tr>
+                <tr>
+                  <td>European Market Entry</td>
+                  <td>M. Dubois, SVP</td>
+                  <td>$3.8M</td>
+                  <td>Q2–Q4 2026</td>
+                  <td><span class="status-indicator on-track">On Track</span></td>
+                </tr>
+                <tr>
+                  <td>Supply Chain Optimization</td>
+                  <td>R. Kumar, COO</td>
+                  <td>$1.6M</td>
+                  <td>Q4 2025–Q2 2026</td>
+                  <td><span class="status-indicator at-risk">At Risk</span></td>
+                </tr>
+                <tr>
+                  <td>M&A Integration—Vertex</td>
+                  <td>S. Williams, CFO</td>
+                  <td>$12.5M</td>
+                  <td>Q3–Q4 2025</td>
+                  <td><span class="status-indicator critical">Critical</span></td>
+                </tr>
+                <tr>
+                  <td>Customer Analytics Platform</td>
+                  <td>L. Martinez, CMO</td>
+                  <td>$950K</td>
+                  <td>Q1–Q2 2026</td>
+                  <td><span class="status-indicator on-track">On Track</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <span>Prepared for Board of Directors · December 2025</span>
+      <span class="agent-signature">DESIGNED BY ZEEQA</span>
+    </div>
+  </footer>
+
+  <script>
+    // Minimal interactivity for navigation
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+      });
+    });
+
+    // Gentle fade-in on load
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.card').forEach((card, index) => {
+        card.style.opacity = '0';
+        setTimeout(() => {
+          card.style.opacity = '1';
+        }, index * 40);
+      });
+    });
+  </script>
+</body>
+</html>

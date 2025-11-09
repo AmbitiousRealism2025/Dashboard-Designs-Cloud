@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Darno Dashboard - Modern Startup Pitch</title>
+<!-- Agent: Darno | Theme: Modern Startup Pitch | Intent: Data-dense SaaS metrics with analytical precision wrapped in vibrant startup energy -->
+<style>
+:root {
+  /* Color System - Modern Startup Pitch */
+  --bg-primary: #f8f9fd;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f0f2f9;
+
+  /* Gradient Accents */
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  --gradient-secondary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  --gradient-warn: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+
+  /* Solid Colors */
+  --accent-primary: #6366f1;
+  --accent-purple: #a855f7;
+  --accent-blue: #3b82f6;
+
+  /* Semantic Colors */
+  --success: #10b981;
+  --success-bg: #d1fae5;
+  --warn: #f59e0b;
+  --warn-bg: #fef3c7;
+  --danger: #ef4444;
+  --danger-bg: #fee2e2;
+  --info: #3b82f6;
+  --info-bg: #dbeafe;
+
+  /* Text */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+
+  /* Borders & Shadows */
+  --border: #e2e8f0;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-gradient: 0 8px 16px rgba(99, 102, 241, 0.2);
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: all 0.2s ease-out;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 14px;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header"
+    "aside main"
+    "footer footer";
+  min-height: 100vh;
+}
+
+/* Header */
+header {
+  grid-area: header;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-md) var(--space-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.brand-logo {
+  width: 36px;
+  height: 36px;
+  background: var(--gradient-primary);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 800;
+  font-size: 18px;
+  box-shadow: var(--shadow-gradient);
+  animation: breathe 3s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { box-shadow: 0 8px 16px rgba(99, 102, 241, 0.2); }
+  50% { box-shadow: 0 8px 24px rgba(168, 85, 247, 0.4); }
+}
+
+.brand-text h1 {
+  font-size: 20px;
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.brand-text .agent-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.btn {
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: var(--shadow-gradient);
+  animation: breathe 3s ease-in-out infinite;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 20px rgba(99, 102, 241, 0.3);
+}
+
+.btn-secondary {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-secondary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Aside Navigation */
+aside {
+  grid-area: aside;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  padding: var(--space-lg);
+  overflow-y: auto;
+}
+
+.nav-section {
+  margin-bottom: var(--space-xl);
+}
+
+.nav-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-sm);
+}
+
+.nav-list {
+  list-style: none;
+}
+
+.nav-item {
+  margin-bottom: var(--space-xs);
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  background: var(--bg-tertiary);
+  color: var(--accent-primary);
+  transform: translateX(3px);
+}
+
+.nav-link.active {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+  color: var(--accent-primary);
+  font-weight: 600;
+  border-left: 3px solid var(--accent-primary);
+}
+
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.7;
+}
+
+/* Main Content */
+main {
+  grid-area: main;
+  padding: var(--space-xl);
+  overflow-y: auto;
+}
+
+/* Hero Section */
+.hero-section {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: var(--space-2xl);
+  margin-bottom: var(--space-xl);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(40%, -40%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-tagline {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: var(--space-sm);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xl);
+  font-weight: 500;
+}
+
+.hero-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+.hero-metric {
+  padding: var(--space-lg);
+  background: var(--bg-primary);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+
+.hero-metric::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  padding: 2px;
+  background: var(--gradient-primary);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+}
+
+.hero-metric:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-gradient);
+}
+
+.hero-metric:hover::before {
+  opacity: 1;
+}
+
+.hero-metric-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-xs);
+}
+
+.hero-metric-value {
+  font-size: 36px;
+  font-weight: 800;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: var(--space-xs);
+}
+
+.hero-metric-delta {
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hero-metric-delta.positive {
+  color: var(--success);
+}
+
+.hero-metric-delta.negative {
+  color: var(--danger);
+}
+
+.hero-metric-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: var(--space-xs);
+  font-weight: 500;
+}
+
+/* Section Headers */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.section-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* KPI Grid */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.kpi-card {
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.kpi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-md);
+}
+
+.kpi-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.kpi-status {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.kpi-status.success { background: var(--success); }
+.kpi-status.warn { background: var(--warn); }
+.kpi-status.danger { background: var(--danger); }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.kpi-value {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: var(--space-sm);
+}
+
+.kpi-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+
+.kpi-delta.positive { color: var(--success); }
+.kpi-delta.negative { color: var(--danger); }
+.kpi-delta.neutral { color: var(--text-muted); }
+
+.kpi-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: var(--space-md);
+}
+
+.sparkline {
+  height: 40px;
+  background: linear-gradient(to right,
+    rgba(99, 102, 241, 0.1) 0%,
+    rgba(168, 85, 247, 0.15) 50%,
+    rgba(99, 102, 241, 0.1) 100%);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.sparkline::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Charts Section */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.chart-card {
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+}
+
+.chart-card.full-width {
+  grid-column: 1 / -1;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--border);
+}
+
+.chart-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.chart-legend {
+  display: flex;
+  gap: var(--space-md);
+  font-size: 11px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.chart-placeholder {
+  height: 240px;
+  background: linear-gradient(to top,
+    rgba(99, 102, 241, 0.05) 0%,
+    rgba(168, 85, 247, 0.08) 40%,
+    rgba(99, 102, 241, 0.05) 100%);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-md);
+}
+
+/* Simulated bars */
+.chart-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+  gap: 8px;
+}
+
+.chart-bar {
+  flex: 1;
+  background: var(--gradient-primary);
+  border-radius: 4px 4px 0 0;
+  position: relative;
+  opacity: 0.7;
+}
+
+.chart-bar:hover {
+  opacity: 1;
+  transform: scaleY(1.05);
+}
+
+.chart-bar:nth-child(1) { height: 45%; }
+.chart-bar:nth-child(2) { height: 68%; }
+.chart-bar:nth-child(3) { height: 82%; }
+.chart-bar:nth-child(4) { height: 71%; }
+.chart-bar:nth-child(5) { height: 95%; }
+.chart-bar:nth-child(6) { height: 88%; }
+.chart-bar:nth-child(7) { height: 100%; }
+
+/* Line chart simulation */
+.chart-line {
+  position: absolute;
+  inset: var(--space-md);
+  background:
+    linear-gradient(135deg, transparent 48%, var(--accent-primary) 49%, var(--accent-primary) 51%, transparent 52%),
+    linear-gradient(to right, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+  border-radius: 6px;
+}
+
+/* Data Table */
+.table-container {
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+  margin-bottom: var(--space-xl);
+  overflow-x: auto;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+}
+
+.table-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.table-filters {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.filter-pill {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+.filter-pill.active {
+  background: var(--gradient-primary);
+  color: white;
+  border-color: transparent;
+}
+
+.filter-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+thead {
+  background: var(--bg-tertiary);
+}
+
+th {
+  padding: var(--space-md);
+  text-align: left;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--border);
+}
+
+td {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+tr:hover {
+  background: var(--bg-tertiary);
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.status-pill.success {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.status-pill.warn {
+  background: var(--warn-bg);
+  color: var(--warn);
+}
+
+.status-pill.danger {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.status-pill.info {
+  background: var(--info-bg);
+  color: var(--info);
+}
+
+.metric-cell {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.trend-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.trend-indicator.up { color: var(--success); }
+.trend-indicator.down { color: var(--danger); }
+.trend-indicator.flat { color: var(--text-muted); }
+
+/* Footer */
+footer {
+  grid-area: footer;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  padding: var(--space-lg) var(--space-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.footer-meta {
+  display: flex;
+  gap: var(--space-xl);
+}
+
+.footer-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.footer-agent {
+  font-weight: 700;
+  color: var(--accent-primary);
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  body {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "main"
+      "footer";
+  }
+
+  aside {
+    display: none;
+  }
+
+  .hero-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-actions {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .hero-tagline {
+    font-size: 24px;
+  }
+
+  .hero-metric-value {
+    font-size: 28px;
+  }
+
+  .table-container {
+    overflow-x: scroll;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    <div class="brand-logo">D</div>
+    <div class="brand-text">
+      <h1>Growth Analytics</h1>
+      <div class="agent-name">Agent: Darno</div>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-secondary">Export Data</button>
+    <button class="btn btn-primary">Share Report</button>
+  </div>
+</header>
+
+<aside>
+  <nav>
+    <div class="nav-section">
+      <div class="nav-section-title">Overview</div>
+      <ul class="nav-list">
+        <li class="nav-item"><a href="#" class="nav-link active">
+          <span class="nav-icon">📊</span> Dashboard
+        </a></li>
+        <li class="nav-item"><a href="#" class="nav-link">
+          <span class="nav-icon">📈</span> Analytics
+        </a></li>
+        <li class="nav-item"><a href="#" class="nav-link">
+          <span class="nav-icon">👥</span> Users
+        </a></li>
+      </ul>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-title">Metrics</div>
+      <ul class="nav-list">
+        <li class="nav-item"><a href="#" class="nav-link">
+          <span class="nav-icon">💰</span> Revenue
+        </a></li>
+        <li class="nav-item"><a href="#" class="nav-link">
+          <span class="nav-icon">🔄</span> Conversion
+        </a></li>
+        <li class="nav-item"><a href="#" class="nav-link">
+          <span class="nav-icon">🎯</span> Retention
+        </a></li>
+        <li class="nav-item"><a href="#" class="nav-link">
+          <span class="nav-icon">⚡</span> Engagement
+        </a></li>
+      </ul>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-title">Management</div>
+      <ul class="nav-list">
+        <li class="nav-item"><a href="#" class="nav-link">
+          <span class="nav-icon">⚙️</span> Settings
+        </a></li>
+        <li class="nav-item"><a href="#" class="nav-link">
+          <span class="nav-icon">📋</span> Reports
+        </a></li>
+        <li class="nav-item"><a href="#" class="nav-link">
+          <span class="nav-icon">🔔</span> Alerts
+        </a></li>
+      </ul>
+    </div>
+  </nav>
+</aside>
+
+<main>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h2 class="hero-tagline">Your SaaS is scaling. Here's the data that proves it.</h2>
+      <p class="hero-subtitle">Real-time growth metrics • Updated 2 minutes ago • Q4 2024</p>
+
+      <div class="hero-metrics">
+        <div class="hero-metric">
+          <div class="hero-metric-label">Monthly Recurring Revenue</div>
+          <div class="hero-metric-value">$847K</div>
+          <div class="hero-metric-delta positive">↑ 23.4% MoM</div>
+          <div class="hero-metric-meta">$682K prev month • $3.2M ARR run rate</div>
+        </div>
+
+        <div class="hero-metric">
+          <div class="hero-metric-label">Active Users (MAU)</div>
+          <div class="hero-metric-value">12,847</div>
+          <div class="hero-metric-delta positive">↑ 18.2% MoM</div>
+          <div class="hero-metric-meta">10,872 prev month • 78% retention rate</div>
+        </div>
+
+        <div class="hero-metric">
+          <div class="hero-metric-label">Net Revenue Retention</div>
+          <div class="hero-metric-value">118%</div>
+          <div class="hero-metric-delta positive">↑ 5 pts MoM</div>
+          <div class="hero-metric-meta">113% prev month • Expansion $142K</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPI Cards -->
+  <div class="section-header">
+    <h2 class="section-title">Key Performance Indicators</h2>
+    <div class="section-meta">Last 30 days vs. prior 30 days</div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <div class="kpi-label">New Sign-ups</div>
+        <div class="kpi-status success"></div>
+      </div>
+      <div class="kpi-value">4,283</div>
+      <div class="kpi-delta positive">↑ 31.2% (+1,020)</div>
+      <div class="kpi-meta">
+        <span>3,263 prev period</span>
+        <span>142/day avg</span>
+      </div>
+      <div class="sparkline"></div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <div class="kpi-label">Trial → Paid Conv.</div>
+        <div class="kpi-status success"></div>
+      </div>
+      <div class="kpi-value">34.7%</div>
+      <div class="kpi-delta positive">↑ 2.4 pts (+8.3%)</div>
+      <div class="kpi-meta">
+        <span>32.3% prev period</span>
+        <span>1,487 conversions</span>
+      </div>
+      <div class="sparkline"></div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <div class="kpi-label">Avg Revenue Per User</div>
+        <div class="kpi-status success"></div>
+      </div>
+      <div class="kpi-value">$65.92</div>
+      <div class="kpi-delta positive">↑ 4.2% (+$2.66)</div>
+      <div class="kpi-meta">
+        <span>$63.26 prev period</span>
+        <span>↑ Plan upgrades +12%</span>
+      </div>
+      <div class="sparkline"></div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <div class="kpi-label">Churn Rate</div>
+        <div class="kpi-status warn"></div>
+      </div>
+      <div class="kpi-value">3.8%</div>
+      <div class="kpi-delta negative">↑ 0.4 pts (+11.8%)</div>
+      <div class="kpi-meta">
+        <span>3.4% prev period</span>
+        <span>488 churned users</span>
+      </div>
+      <div class="sparkline"></div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <div class="kpi-label">Customer Acq. Cost</div>
+        <div class="kpi-status success"></div>
+      </div>
+      <div class="kpi-value">$142</div>
+      <div class="kpi-delta positive">↓ 8.4% (-$13)</div>
+      <div class="kpi-meta">
+        <span>$155 prev period</span>
+        <span>LTV:CAC = 4.2:1</span>
+      </div>
+      <div class="sparkline"></div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <div class="kpi-label">Weekly Active Users</div>
+        <div class="kpi-status success"></div>
+      </div>
+      <div class="kpi-value">8,941</div>
+      <div class="kpi-delta positive">↑ 21.3% (+1,572)</div>
+      <div class="kpi-meta">
+        <span>7,369 prev period</span>
+        <span>69.6% of MAU</span>
+      </div>
+      <div class="sparkline"></div>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="section-header">
+    <h2 class="section-title">Growth Trends</h2>
+    <div class="section-meta">7-day rolling average</div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">Revenue Growth (Last 7 Months)</div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--accent-primary);"></span>
+            MRR
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--accent-purple);"></span>
+            New MRR
+          </div>
+        </div>
+      </div>
+      <div class="chart-placeholder">
+        <div class="chart-bars">
+          <div class="chart-bar"></div>
+          <div class="chart-bar"></div>
+          <div class="chart-bar"></div>
+          <div class="chart-bar"></div>
+          <div class="chart-bar"></div>
+          <div class="chart-bar"></div>
+          <div class="chart-bar"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">User Acquisition Funnel</div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--success);"></span>
+            Converted
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--warn);"></span>
+            In Trial
+          </div>
+        </div>
+      </div>
+      <div class="chart-placeholder">
+        <div class="chart-bars">
+          <div class="chart-bar" style="background: var(--gradient-success);"></div>
+          <div class="chart-bar" style="background: var(--gradient-success);"></div>
+          <div class="chart-bar" style="background: var(--gradient-success);"></div>
+          <div class="chart-bar" style="background: var(--gradient-success);"></div>
+          <div class="chart-bar" style="background: var(--gradient-success);"></div>
+          <div class="chart-bar" style="background: var(--gradient-success);"></div>
+          <div class="chart-bar" style="background: var(--gradient-success);"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card full-width">
+      <div class="chart-header">
+        <div class="chart-title">Cohort Retention Analysis (Monthly Cohorts)</div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--accent-primary);"></span>
+            Month 0-3
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--accent-purple);"></span>
+            Month 4-6
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--accent-blue);"></span>
+            Month 7+
+          </div>
+        </div>
+      </div>
+      <div class="chart-placeholder" style="height: 180px;">
+        <div class="chart-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Table -->
+  <div class="table-container">
+    <div class="table-header">
+      <div class="table-title">Top Performing Segments (Last 30 Days)</div>
+      <div class="table-filters">
+        <span class="filter-pill active">All Segments</span>
+        <span class="filter-pill">Enterprise</span>
+        <span class="filter-pill">SMB</span>
+        <span class="filter-pill">Self-Serve</span>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Segment</th>
+          <th>Active Users</th>
+          <th>MRR</th>
+          <th>ARPU</th>
+          <th>Churn</th>
+          <th>NPS</th>
+          <th>Growth (MoM)</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Enterprise (101-500)</strong></td>
+          <td class="metric-cell">1,247</td>
+          <td class="metric-cell">$328,405</td>
+          <td class="metric-cell">$263.31</td>
+          <td class="metric-cell">1.2%</td>
+          <td class="metric-cell">68</td>
+          <td>
+            <span class="trend-indicator up">↑ 18.4%</span>
+          </td>
+          <td><span class="status-pill success">Scaling</span></td>
+        </tr>
+        <tr>
+          <td><strong>Mid-Market (21-100)</strong></td>
+          <td class="metric-cell">2,841</td>
+          <td class="metric-cell">$264,723</td>
+          <td class="metric-cell">$93.19</td>
+          <td class="metric-cell">2.8%</td>
+          <td class="metric-cell">64</td>
+          <td>
+            <span class="trend-indicator up">↑ 24.7%</span>
+          </td>
+          <td><span class="status-pill success">Healthy</span></td>
+        </tr>
+        <tr>
+          <td><strong>SMB (6-20 users)</strong></td>
+          <td class="metric-cell">4,182</td>
+          <td class="metric-cell">$186,441</td>
+          <td class="metric-cell">$44.59</td>
+          <td class="metric-cell">4.3%</td>
+          <td class="metric-cell">58</td>
+          <td>
+            <span class="trend-indicator up">↑ 15.2%</span>
+          </td>
+          <td><span class="status-pill warn">Monitor</span></td>
+        </tr>
+        <tr>
+          <td><strong>Self-Serve (1-5)</strong></td>
+          <td class="metric-cell">4,577</td>
+          <td class="metric-cell">$67,431</td>
+          <td class="metric-cell">$14.73</td>
+          <td class="metric-cell">6.8%</td>
+          <td class="metric-cell">51</td>
+          <td>
+            <span class="trend-indicator up">↑ 28.1%</span>
+          </td>
+          <td><span class="status-pill warn">High Churn</span></td>
+        </tr>
+        <tr>
+          <td><strong>Freemium (Active)</strong></td>
+          <td class="metric-cell">8,429</td>
+          <td class="metric-cell">—</td>
+          <td class="metric-cell">$0.00</td>
+          <td class="metric-cell">12.4%</td>
+          <td class="metric-cell">47</td>
+          <td>
+            <span class="trend-indicator up">↑ 32.6%</span>
+          </td>
+          <td><span class="status-pill info">Pipeline</span></td>
+        </tr>
+        <tr>
+          <td><strong>Trial (14-Day)</strong></td>
+          <td class="metric-cell">1,893</td>
+          <td class="metric-cell">—</td>
+          <td class="metric-cell">—</td>
+          <td class="metric-cell">—</td>
+          <td class="metric-cell">—</td>
+          <td>
+            <span class="trend-indicator up">↑ 31.2%</span>
+          </td>
+          <td><span class="status-pill info">Converting</span></td>
+        </tr>
+        <tr>
+          <td><strong>Annual Prepay</strong></td>
+          <td class="metric-cell">678</td>
+          <td class="metric-cell">$89,247</td>
+          <td class="metric-cell">$131.61</td>
+          <td class="metric-cell">0.8%</td>
+          <td class="metric-cell">72</td>
+          <td>
+            <span class="trend-indicator up">↑ 11.3%</span>
+          </td>
+          <td><span class="status-pill success">Sticky</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-meta">
+    <div class="footer-item">
+      <span>Agent:</span>
+      <span class="footer-agent">Darno</span>
+    </div>
+    <div class="footer-item">
+      <span>Theme: Modern Startup Pitch</span>
+    </div>
+    <div class="footer-item">
+      <span>Last Updated: 2024-11-09 14:23 UTC</span>
+    </div>
+  </div>
+  <div class="footer-item">
+    <span>Data refreshes every 5 minutes</span>
+  </div>
+</footer>
+
+</body>
+</html>

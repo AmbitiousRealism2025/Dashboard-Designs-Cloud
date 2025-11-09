@@ -1,0 +1,1695 @@
+<!-- Agent: Darno | Theme: Project Portfolio Kanban Overview | Intent: Data-dense analytical Kanban with embedded metrics, risk scoring, and executive-grade project intelligence -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Portfolio Kanban | Darno Analytics</title>
+    <style>
+        :root {
+            /* Neutral base palette */
+            --bg-primary: #fafafa;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f5f5f5;
+            --text-primary: #1a1a1a;
+            --text-secondary: #525252;
+            --text-tertiary: #737373;
+            --border-color: #d4d4d4;
+            --border-light: #e5e5e5;
+
+            /* Status colors - distinct and accessible */
+            --status-backlog: #94a3b8;
+            --status-backlog-bg: #f1f5f9;
+            --status-progress: #3b82f6;
+            --status-progress-bg: #eff6ff;
+            --status-risk: #f97316;
+            --status-risk-bg: #fff7ed;
+            --status-done: #10b981;
+            --status-done-bg: #f0fdf4;
+
+            /* Semantic colors */
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+
+            /* Spacing system */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+
+            /* Typography */
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Courier New', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.18s ease-out;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 2px solid var(--border-color);
+            padding: var(--space-md) var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: baseline;
+            gap: var(--space-md);
+        }
+
+        .header-brand h1 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .agent-badge {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-tertiary);
+            background: var(--bg-tertiary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-light);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--space-sm);
+            align-items: center;
+        }
+
+        .header-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--text-secondary);
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg-secondary);
+            border-color: var(--text-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--text-secondary);
+            border-color: var(--text-secondary);
+        }
+
+        /* Layout */
+        .layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            min-height: calc(100vh - 64px);
+        }
+
+        /* Sidebar */
+        aside {
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-light);
+            padding: var(--space-lg) 0;
+        }
+
+        .nav-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .nav-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-tertiary);
+            padding: 0 var(--space-lg);
+            margin-bottom: var(--space-sm);
+        }
+
+        .nav-item {
+            padding: var(--space-sm) var(--space-lg);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-weight: 600;
+            border-left: 3px solid var(--text-primary);
+        }
+
+        .nav-count {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-tertiary);
+            font-family: var(--font-mono);
+        }
+
+        /* Main Content */
+        main {
+            padding: var(--space-xl);
+            overflow-x: hidden;
+        }
+
+        .section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: var(--space-md);
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+        }
+
+        .section-meta {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            font-family: var(--font-mono);
+        }
+
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            padding: var(--space-md);
+            border-radius: 2px;
+        }
+
+        .kpi-card:hover {
+            border-color: var(--border-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transform: translateY(-1px);
+        }
+
+        .kpi-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-tertiary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-value {
+            font-size: 32px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-delta {
+            font-size: 12px;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-delta.positive { color: var(--success); }
+        .kpi-delta.negative { color: var(--danger); }
+        .kpi-delta.neutral { color: var(--text-tertiary); }
+
+        .kpi-meta {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .sparkline {
+            height: 24px;
+            background: linear-gradient(to right, var(--bg-tertiary) 0%, var(--bg-tertiary) 20%, var(--status-progress-bg) 50%, var(--bg-tertiary) 80%, var(--bg-tertiary) 100%);
+            border-radius: 2px;
+            margin-top: var(--space-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sparkline::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Charts Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .chart-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            padding: var(--space-md);
+            border-radius: 2px;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: var(--space-md);
+        }
+
+        .chart-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+        }
+
+        .chart-placeholder {
+            height: 180px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-placeholder.bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: var(--space-md);
+            gap: var(--space-xs);
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--status-progress), var(--status-progress) 70%, var(--status-progress-bg) 100%);
+            min-height: 30%;
+            border-radius: 2px 2px 0 0;
+        }
+
+        .chart-placeholder.distribution {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-sm);
+            padding: var(--space-md);
+        }
+
+        .distribution-segment {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .distribution-bar {
+            width: 100%;
+            background: var(--status-backlog);
+            border-radius: 2px;
+        }
+
+        .distribution-segment:nth-child(2) .distribution-bar {
+            background: var(--status-progress);
+        }
+
+        .distribution-segment:nth-child(3) .distribution-bar {
+            background: var(--status-risk);
+        }
+
+        .distribution-segment:nth-child(4) .distribution-bar {
+            background: var(--status-done);
+        }
+
+        .distribution-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-align: center;
+        }
+
+        /* Kanban Swimlanes */
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .kanban-column {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-light);
+            border-radius: 2px;
+            min-height: 500px;
+        }
+
+        .kanban-header {
+            padding: var(--space-md);
+            border-bottom: 2px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+
+        .kanban-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .kanban-stats {
+            display: flex;
+            gap: var(--space-md);
+            font-size: 11px;
+            font-family: var(--font-mono);
+            color: var(--text-tertiary);
+        }
+
+        .kanban-stat strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .kanban-cards {
+            padding: var(--space-sm);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .kanban-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 2px;
+            padding: var(--space-md);
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .kanban-card:hover {
+            transform: translateY(-2px) rotate(0.5deg);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: var(--border-color);
+        }
+
+        .kanban-card.expanded {
+            transform: none;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: var(--space-sm);
+        }
+
+        .card-id {
+            font-size: 10px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            color: var(--text-tertiary);
+        }
+
+        .card-priority {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .priority-high {
+            background: #fef2f2;
+            color: var(--danger);
+            border: 1px solid #fecaca;
+        }
+
+        .priority-medium {
+            background: #fffbeb;
+            color: var(--warning);
+            border: 1px solid #fde68a;
+        }
+
+        .priority-low {
+            background: #f0fdf4;
+            color: var(--success);
+            border: 1px solid #bbf7d0;
+        }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            line-height: 1.3;
+        }
+
+        .card-owner {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+            font-weight: 500;
+        }
+
+        .card-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .card-metric {
+            font-size: 10px;
+            color: var(--text-tertiary);
+        }
+
+        .card-metric strong {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            color: var(--text-primary);
+        }
+
+        .progress-bar-container {
+            margin-top: var(--space-sm);
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-tertiary);
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--status-progress), var(--status-progress));
+            transition: width 0.3s ease-out;
+        }
+
+        .progress-fill.warning {
+            background: linear-gradient(to right, var(--warning), var(--warning));
+        }
+
+        .progress-fill.danger {
+            background: linear-gradient(to right, var(--danger), var(--danger));
+        }
+
+        .progress-fill.success {
+            background: linear-gradient(to right, var(--success), var(--success));
+        }
+
+        .card-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .kanban-card.expanded .card-details {
+            max-height: 300px;
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border-light);
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            padding: var(--space-xs) 0;
+            color: var(--text-secondary);
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--text-tertiary);
+        }
+
+        .detail-value {
+            font-family: var(--font-mono);
+            font-weight: 500;
+        }
+
+        /* Data Table */
+        .table-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 2px;
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        .data-table thead {
+            background: var(--bg-tertiary);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: var(--space-md);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .data-table th.sortable {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .data-table th.sortable:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .data-table td {
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-secondary);
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .table-project-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 2px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+
+        .status-backlog {
+            background: var(--status-backlog-bg);
+            color: var(--status-backlog);
+            border: 1px solid var(--status-backlog);
+        }
+
+        .status-progress {
+            background: var(--status-progress-bg);
+            color: var(--status-progress);
+            border: 1px solid var(--status-progress);
+        }
+
+        .status-risk {
+            background: var(--status-risk-bg);
+            color: var(--status-risk);
+            border: 1px solid var(--status-risk);
+        }
+
+        .status-done {
+            background: var(--status-done-bg);
+            color: var(--status-done);
+            border: 1px solid var(--status-done);
+        }
+
+        .table-number {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            text-align: right;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-light);
+            padding: var(--space-md) var(--space-xl);
+            font-size: 11px;
+            color: var(--text-tertiary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-meta {
+            font-family: var(--font-mono);
+        }
+
+        /* Responsive */
+        @media (max-width: 960px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                border-right: none;
+                border-bottom: 1px solid var(--border-light);
+            }
+
+            .kanban-board {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kanban-board {
+                grid-template-columns: 1fr;
+            }
+
+            .header-actions {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-brand">
+            <h1>Project Portfolio Command Center</h1>
+            <span class="agent-badge">Darno</span>
+        </div>
+        <div class="header-actions">
+            <span class="header-meta">Q4 2025 • 37 Active Projects</span>
+            <button class="btn">Export Report</button>
+            <button class="btn btn-primary">+ New Project</button>
+        </div>
+    </header>
+
+    <div class="layout">
+        <aside>
+            <div class="nav-section">
+                <div class="nav-title">Views</div>
+                <div class="nav-item active">
+                    <span>Portfolio Overview</span>
+                    <span class="nav-count">37</span>
+                </div>
+                <div class="nav-item">
+                    <span>Kanban Board</span>
+                </div>
+                <div class="nav-item">
+                    <span>Timeline / Gantt</span>
+                </div>
+                <div class="nav-item">
+                    <span>Resource Allocation</span>
+                </div>
+                <div class="nav-item">
+                    <span>Budget Analysis</span>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-title">Filters</div>
+                <div class="nav-item">
+                    <span>All Programs</span>
+                    <span class="nav-count">8</span>
+                </div>
+                <div class="nav-item">
+                    <span>Digital Transformation</span>
+                    <span class="nav-count">12</span>
+                </div>
+                <div class="nav-item">
+                    <span>Product Development</span>
+                    <span class="nav-count">15</span>
+                </div>
+                <div class="nav-item">
+                    <span>Infrastructure</span>
+                    <span class="nav-count">6</span>
+                </div>
+                <div class="nav-item">
+                    <span>Customer Experience</span>
+                    <span class="nav-count">4</span>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-title">Status</div>
+                <div class="nav-item">
+                    <span>At Risk</span>
+                    <span class="nav-count" style="color: var(--danger);">8</span>
+                </div>
+                <div class="nav-item">
+                    <span>Blocked</span>
+                    <span class="nav-count" style="color: var(--danger);">3</span>
+                </div>
+                <div class="nav-item">
+                    <span>Needs Review</span>
+                    <span class="nav-count" style="color: var(--warning);">5</span>
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <!-- KPI Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Portfolio Metrics</h2>
+                    <span class="section-meta">Updated 12 mins ago</span>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-label">Active Projects</div>
+                        <div class="kpi-value">37</div>
+                        <div class="kpi-delta positive">+4 from last quarter</div>
+                        <div class="kpi-meta">
+                            <span>32 on track</span>
+                            <span>5 at risk</span>
+                        </div>
+                        <div class="sparkline"></div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">Budget Utilization</div>
+                        <div class="kpi-value">73.2%</div>
+                        <div class="kpi-delta neutral">$8.4M / $11.5M allocated</div>
+                        <div class="kpi-meta">
+                            <span>Burn rate: 91%</span>
+                            <span>Forecast: on target</span>
+                        </div>
+                        <div class="sparkline"></div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">Avg Velocity</div>
+                        <div class="kpi-value">82.4</div>
+                        <div class="kpi-delta positive">+6.3% vs target</div>
+                        <div class="kpi-meta">
+                            <span>Story pts/sprint</span>
+                            <span>Target: 77.5</span>
+                        </div>
+                        <div class="sparkline"></div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">On-Time Delivery</div>
+                        <div class="kpi-value">84%</div>
+                        <div class="kpi-delta negative">-3% from Q3</div>
+                        <div class="kpi-meta">
+                            <span>31 of 37 projects</span>
+                            <span>6 delayed</span>
+                        </div>
+                        <div class="sparkline"></div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">Resource Load</div>
+                        <div class="kpi-value">94%</div>
+                        <div class="kpi-delta warning">Near capacity</div>
+                        <div class="kpi-meta">
+                            <span>247 FTE allocated</span>
+                            <span>263 total capacity</span>
+                        </div>
+                        <div class="sparkline"></div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-label">Risk Score</div>
+                        <div class="kpi-value">6.8</div>
+                        <div class="kpi-delta positive">-1.2 from last week</div>
+                        <div class="kpi-meta">
+                            <span>Composite index</span>
+                            <span>Target: &lt;8.0</span>
+                        </div>
+                        <div class="sparkline"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Portfolio Analytics</h2>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <span class="chart-title">Project Completion Velocity (6mo trend)</span>
+                            <span class="section-meta">Story Points/Sprint</span>
+                        </div>
+                        <div class="chart-placeholder bar-chart">
+                            <div class="chart-bar" style="height: 65%;"></div>
+                            <div class="chart-bar" style="height: 72%;"></div>
+                            <div class="chart-bar" style="height: 58%;"></div>
+                            <div class="chart-bar" style="height: 79%;"></div>
+                            <div class="chart-bar" style="height: 85%;"></div>
+                            <div class="chart-bar" style="height: 92%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <span class="chart-title">Budget Allocation by Status</span>
+                            <span class="section-meta">$11.5M Total</span>
+                        </div>
+                        <div class="chart-placeholder distribution">
+                            <div class="distribution-segment">
+                                <div class="distribution-bar" style="height: 45px;"></div>
+                                <div class="distribution-label">Backlog<br>$1.2M</div>
+                            </div>
+                            <div class="distribution-segment">
+                                <div class="distribution-bar" style="height: 95px;"></div>
+                                <div class="distribution-label">Progress<br>$5.8M</div>
+                            </div>
+                            <div class="distribution-segment">
+                                <div class="distribution-bar" style="height: 35px;"></div>
+                                <div class="distribution-label">At Risk<br>$1.1M</div>
+                            </div>
+                            <div class="distribution-segment">
+                                <div class="distribution-bar" style="height: 75px;"></div>
+                                <div class="distribution-label">Done<br>$3.4M</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <span class="chart-title">Risk Distribution (Heat Index)</span>
+                            <span class="section-meta">Probability × Impact</span>
+                        </div>
+                        <div class="chart-placeholder bar-chart">
+                            <div class="chart-bar" style="height: 45%; background: var(--status-done);"></div>
+                            <div class="chart-bar" style="height: 68%; background: var(--status-progress);"></div>
+                            <div class="chart-bar" style="height: 52%; background: var(--status-progress);"></div>
+                            <div class="chart-bar" style="height: 78%; background: var(--status-risk);"></div>
+                            <div class="chart-bar" style="height: 35%; background: var(--status-done);"></div>
+                            <div class="chart-bar" style="height: 42%; background: var(--status-done);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kanban Board Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Project Swimlanes — Status View</h2>
+                    <span class="section-meta">Click cards to expand detailed metrics</span>
+                </div>
+
+                <div class="kanban-board">
+                    <!-- Backlog Column -->
+                    <div class="kanban-column">
+                        <div class="kanban-header">
+                            <div class="kanban-title">Backlog</div>
+                            <div class="kanban-stats">
+                                <span class="kanban-stat"><strong>7</strong> projects</span>
+                                <span class="kanban-stat"><strong>$1.2M</strong> budget</span>
+                            </div>
+                        </div>
+                        <div class="kanban-cards">
+                            <div class="kanban-card" onclick="toggleCard(this)">
+                                <div class="card-header">
+                                    <span class="card-id">PRJ-041</span>
+                                    <span class="card-priority priority-medium">Medium</span>
+                                </div>
+                                <div class="card-title">Mobile App Redesign</div>
+                                <div class="card-owner">Owner: Sarah Chen</div>
+                                <div class="card-metrics">
+                                    <div class="card-metric">
+                                        <strong>$180K</strong>
+                                        Budget
+                                    </div>
+                                    <div class="card-metric">
+                                        <strong>Q1 2026</strong>
+                                        Target
+                                    </div>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-label">
+                                        <span>Planning</span>
+                                        <span>12%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 12%;"></div>
+                                    </div>
+                                </div>
+                                <div class="card-details">
+                                    <div class="detail-row">
+                                        <span class="detail-label">Team Size:</span>
+                                        <span class="detail-value">5 FTE</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Risk Score:</span>
+                                        <span class="detail-value">4.2 / 10</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Dependencies:</span>
+                                        <span class="detail-value">2 blockers</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Velocity:</span>
+                                        <span class="detail-value">N/A (not started)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="kanban-card" onclick="toggleCard(this)">
+                                <div class="card-header">
+                                    <span class="card-id">PRJ-038</span>
+                                    <span class="card-priority priority-low">Low</span>
+                                </div>
+                                <div class="card-title">Legacy System Migration</div>
+                                <div class="card-owner">Owner: Marcus Lee</div>
+                                <div class="card-metrics">
+                                    <div class="card-metric">
+                                        <strong>$425K</strong>
+                                        Budget
+                                    </div>
+                                    <div class="card-metric">
+                                        <strong>Q2 2026</strong>
+                                        Target
+                                    </div>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-label">
+                                        <span>Requirements</span>
+                                        <span>8%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 8%;"></div>
+                                    </div>
+                                </div>
+                                <div class="card-details">
+                                    <div class="detail-row">
+                                        <span class="detail-label">Team Size:</span>
+                                        <span class="detail-value">8 FTE</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Risk Score:</span>
+                                        <span class="detail-value">7.8 / 10</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Dependencies:</span>
+                                        <span class="detail-value">5 external</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- In Progress Column -->
+                    <div class="kanban-column">
+                        <div class="kanban-header">
+                            <div class="kanban-title">In Progress</div>
+                            <div class="kanban-stats">
+                                <span class="kanban-stat"><strong>18</strong> projects</span>
+                                <span class="kanban-stat"><strong>$5.8M</strong> budget</span>
+                            </div>
+                        </div>
+                        <div class="kanban-cards">
+                            <div class="kanban-card" onclick="toggleCard(this)">
+                                <div class="card-header">
+                                    <span class="card-id">PRJ-029</span>
+                                    <span class="card-priority priority-high">High</span>
+                                </div>
+                                <div class="card-title">AI Customer Support Platform</div>
+                                <div class="card-owner">Owner: Jennifer Walsh</div>
+                                <div class="card-metrics">
+                                    <div class="card-metric">
+                                        <strong>$680K</strong>
+                                        Budget
+                                    </div>
+                                    <div class="card-metric">
+                                        <strong>Dec 15</strong>
+                                        Deadline
+                                    </div>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-label">
+                                        <span>Development</span>
+                                        <span>67%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 67%;"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-label">
+                                        <span>Budget Used</span>
+                                        <span>72%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill warning" style="width: 72%;"></div>
+                                    </div>
+                                </div>
+                                <div class="card-details">
+                                    <div class="detail-row">
+                                        <span class="detail-label">Team Size:</span>
+                                        <span class="detail-value">12 FTE</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Risk Score:</span>
+                                        <span class="detail-value">5.6 / 10</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Velocity:</span>
+                                        <span class="detail-value">78 pts/sprint</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Sprint Progress:</span>
+                                        <span class="detail-value">Sprint 12 of 18</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="kanban-card" onclick="toggleCard(this)">
+                                <div class="card-header">
+                                    <span class="card-id">PRJ-033</span>
+                                    <span class="card-priority priority-medium">Medium</span>
+                                </div>
+                                <div class="card-title">Data Warehouse Optimization</div>
+                                <div class="card-owner">Owner: David Park</div>
+                                <div class="card-metrics">
+                                    <div class="card-metric">
+                                        <strong>$320K</strong>
+                                        Budget
+                                    </div>
+                                    <div class="card-metric">
+                                        <strong>Jan 31</strong>
+                                        Deadline
+                                    </div>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-label">
+                                        <span>Implementation</span>
+                                        <span>45%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 45%;"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-label">
+                                        <span>Budget Used</span>
+                                        <span>38%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill success" style="width: 38%;"></div>
+                                    </div>
+                                </div>
+                                <div class="card-details">
+                                    <div class="detail-row">
+                                        <span class="detail-label">Team Size:</span>
+                                        <span class="detail-value">6 FTE</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Risk Score:</span>
+                                        <span class="detail-value">3.2 / 10</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Velocity:</span>
+                                        <span class="detail-value">92 pts/sprint</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="kanban-card" onclick="toggleCard(this)">
+                                <div class="card-header">
+                                    <span class="card-id">PRJ-027</span>
+                                    <span class="card-priority priority-medium">Medium</span>
+                                </div>
+                                <div class="card-title">Payment Gateway Integration</div>
+                                <div class="card-owner">Owner: Alex Rivera</div>
+                                <div class="card-metrics">
+                                    <div class="card-metric">
+                                        <strong>$195K</strong>
+                                        Budget
+                                    </div>
+                                    <div class="card-metric">
+                                        <strong>Dec 1</strong>
+                                        Deadline
+                                    </div>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-label">
+                                        <span>Testing</span>
+                                        <span>82%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill success" style="width: 82%;"></div>
+                                    </div>
+                                </div>
+                                <div class="card-details">
+                                    <div class="detail-row">
+                                        <span class="detail-label">Team Size:</span>
+                                        <span class="detail-value">4 FTE</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Velocity:</span>
+                                        <span class="detail-value">65 pts/sprint</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- At Risk Column -->
+                    <div class="kanban-column">
+                        <div class="kanban-header">
+                            <div class="kanban-title">At Risk</div>
+                            <div class="kanban-stats">
+                                <span class="kanban-stat"><strong>5</strong> projects</span>
+                                <span class="kanban-stat"><strong>$1.1M</strong> budget</span>
+                            </div>
+                        </div>
+                        <div class="kanban-cards">
+                            <div class="kanban-card" onclick="toggleCard(this)">
+                                <div class="card-header">
+                                    <span class="card-id">PRJ-024</span>
+                                    <span class="card-priority priority-high">High</span>
+                                </div>
+                                <div class="card-title">Security Compliance Update</div>
+                                <div class="card-owner">Owner: Rachel Kim</div>
+                                <div class="card-metrics">
+                                    <div class="card-metric">
+                                        <strong>$285K</strong>
+                                        Budget
+                                    </div>
+                                    <div class="card-metric">
+                                        <strong>Nov 30</strong>
+                                        Deadline
+                                    </div>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-label">
+                                        <span>Remediation</span>
+                                        <span>58%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill warning" style="width: 58%;"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-label">
+                                        <span>Budget Used</span>
+                                        <span>91%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill danger" style="width: 91%;"></div>
+                                    </div>
+                                </div>
+                                <div class="card-details">
+                                    <div class="detail-row">
+                                        <span class="detail-label">Team Size:</span>
+                                        <span class="detail-value">7 FTE</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Risk Score:</span>
+                                        <span class="detail-value">8.9 / 10</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Issues:</span>
+                                        <span class="detail-value">Budget overrun, scope creep</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Velocity:</span>
+                                        <span class="detail-value">52 pts/sprint (-32%)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="kanban-card" onclick="toggleCard(this)">
+                                <div class="card-header">
+                                    <span class="card-id">PRJ-031</span>
+                                    <span class="card-priority priority-high">High</span>
+                                </div>
+                                <div class="card-title">Infrastructure Modernization</div>
+                                <div class="card-owner">Owner: Thomas Grant</div>
+                                <div class="card-metrics">
+                                    <div class="card-metric">
+                                        <strong>$540K</strong>
+                                        Budget
+                                    </div>
+                                    <div class="card-metric">
+                                        <strong>Dec 20</strong>
+                                        Deadline
+                                    </div>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-label">
+                                        <span>Migration</span>
+                                        <span>34%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill danger" style="width: 34%;"></div>
+                                    </div>
+                                </div>
+                                <div class="card-details">
+                                    <div class="detail-row">
+                                        <span class="detail-label">Risk Score:</span>
+                                        <span class="detail-value">9.2 / 10</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Issues:</span>
+                                        <span class="detail-value">Resource shortage, dependencies</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Done Column -->
+                    <div class="kanban-column">
+                        <div class="kanban-header">
+                            <div class="kanban-title">Done</div>
+                            <div class="kanban-stats">
+                                <span class="kanban-stat"><strong>7</strong> projects</span>
+                                <span class="kanban-stat"><strong>$3.4M</strong> delivered</span>
+                            </div>
+                        </div>
+                        <div class="kanban-cards">
+                            <div class="kanban-card" onclick="toggleCard(this)">
+                                <div class="card-header">
+                                    <span class="card-id">PRJ-019</span>
+                                    <span class="card-priority priority-medium">Medium</span>
+                                </div>
+                                <div class="card-title">Customer Dashboard V2</div>
+                                <div class="card-owner">Owner: Emily Zhao</div>
+                                <div class="card-metrics">
+                                    <div class="card-metric">
+                                        <strong>$245K</strong>
+                                        Budget
+                                    </div>
+                                    <div class="card-metric">
+                                        <strong>Oct 31</strong>
+                                        Completed
+                                    </div>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-label">
+                                        <span>Complete</span>
+                                        <span>100%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill success" style="width: 100%;"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-label">
+                                        <span>Budget Used</span>
+                                        <span>96%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill success" style="width: 96%;"></div>
+                                    </div>
+                                </div>
+                                <div class="card-details">
+                                    <div class="detail-row">
+                                        <span class="detail-label">Final Cost:</span>
+                                        <span class="detail-value">$235K (4% under)</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Duration:</span>
+                                        <span class="detail-value">16 weeks</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Avg Velocity:</span>
+                                        <span class="detail-value">88 pts/sprint</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="kanban-card" onclick="toggleCard(this)">
+                                <div class="card-header">
+                                    <span class="card-id">PRJ-016</span>
+                                    <span class="card-priority priority-high">High</span>
+                                </div>
+                                <div class="card-title">API Gateway Deployment</div>
+                                <div class="card-owner">Owner: Kevin O'Brien</div>
+                                <div class="card-metrics">
+                                    <div class="card-metric">
+                                        <strong>$380K</strong>
+                                        Budget
+                                    </div>
+                                    <div class="card-metric">
+                                        <strong>Oct 15</strong>
+                                        Completed
+                                    </div>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-label">
+                                        <span>Complete</span>
+                                        <span>100%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill success" style="width: 100%;"></div>
+                                    </div>
+                                </div>
+                                <div class="card-details">
+                                    <div class="detail-row">
+                                        <span class="detail-label">Final Cost:</span>
+                                        <span class="detail-value">$372K (2% under)</span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Duration:</span>
+                                        <span class="detail-value">22 weeks</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="kanban-card" onclick="toggleCard(this)">
+                                <div class="card-header">
+                                    <span class="card-id">PRJ-012</span>
+                                    <span class="card-priority priority-low">Low</span>
+                                </div>
+                                <div class="card-title">Analytics Platform Upgrade</div>
+                                <div class="card-owner">Owner: Lisa Martinez</div>
+                                <div class="card-metrics">
+                                    <div class="card-metric">
+                                        <strong>$155K</strong>
+                                        Budget
+                                    </div>
+                                    <div class="card-metric">
+                                        <strong>Sep 28</strong>
+                                        Completed
+                                    </div>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-label">
+                                        <span>Complete</span>
+                                        <span>100%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill success" style="width: 100%;"></div>
+                                    </div>
+                                </div>
+                                <div class="card-details">
+                                    <div class="detail-row">
+                                        <span class="detail-label">Final Cost:</span>
+                                        <span class="detail-value">$148K (5% under)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Project Table -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Project Details — Comprehensive View</h2>
+                    <span class="section-meta">Sortable by all columns</span>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th class="sortable">ID</th>
+                                <th class="sortable">Project Name</th>
+                                <th class="sortable">Owner</th>
+                                <th class="sortable">Status</th>
+                                <th class="sortable">Progress</th>
+                                <th class="sortable">Budget</th>
+                                <th class="sortable">Spent</th>
+                                <th class="sortable">Risk</th>
+                                <th class="sortable">Velocity</th>
+                                <th class="sortable">Deadline</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PRJ-029</td>
+                                <td class="table-project-name">AI Customer Support Platform</td>
+                                <td>Jennifer Walsh</td>
+                                <td><span class="status-pill status-progress">In Progress</span></td>
+                                <td class="table-number">67%</td>
+                                <td class="table-number">$680K</td>
+                                <td class="table-number">$489K</td>
+                                <td class="table-number">5.6</td>
+                                <td class="table-number">78</td>
+                                <td>Dec 15, 2025</td>
+                            </tr>
+                            <tr>
+                                <td>PRJ-033</td>
+                                <td class="table-project-name">Data Warehouse Optimization</td>
+                                <td>David Park</td>
+                                <td><span class="status-pill status-progress">In Progress</span></td>
+                                <td class="table-number">45%</td>
+                                <td class="table-number">$320K</td>
+                                <td class="table-number">$122K</td>
+                                <td class="table-number">3.2</td>
+                                <td class="table-number">92</td>
+                                <td>Jan 31, 2026</td>
+                            </tr>
+                            <tr>
+                                <td>PRJ-027</td>
+                                <td class="table-project-name">Payment Gateway Integration</td>
+                                <td>Alex Rivera</td>
+                                <td><span class="status-pill status-progress">In Progress</span></td>
+                                <td class="table-number">82%</td>
+                                <td class="table-number">$195K</td>
+                                <td class="table-number">$168K</td>
+                                <td class="table-number">2.8</td>
+                                <td class="table-number">65</td>
+                                <td>Dec 1, 2025</td>
+                            </tr>
+                            <tr>
+                                <td>PRJ-024</td>
+                                <td class="table-project-name">Security Compliance Update</td>
+                                <td>Rachel Kim</td>
+                                <td><span class="status-pill status-risk">At Risk</span></td>
+                                <td class="table-number">58%</td>
+                                <td class="table-number">$285K</td>
+                                <td class="table-number">$259K</td>
+                                <td class="table-number">8.9</td>
+                                <td class="table-number">52</td>
+                                <td>Nov 30, 2025</td>
+                            </tr>
+                            <tr>
+                                <td>PRJ-031</td>
+                                <td class="table-project-name">Infrastructure Modernization</td>
+                                <td>Thomas Grant</td>
+                                <td><span class="status-pill status-risk">At Risk</span></td>
+                                <td class="table-number">34%</td>
+                                <td class="table-number">$540K</td>
+                                <td class="table-number">$418K</td>
+                                <td class="table-number">9.2</td>
+                                <td class="table-number">48</td>
+                                <td>Dec 20, 2025</td>
+                            </tr>
+                            <tr>
+                                <td>PRJ-041</td>
+                                <td class="table-project-name">Mobile App Redesign</td>
+                                <td>Sarah Chen</td>
+                                <td><span class="status-pill status-backlog">Backlog</span></td>
+                                <td class="table-number">12%</td>
+                                <td class="table-number">$180K</td>
+                                <td class="table-number">$22K</td>
+                                <td class="table-number">4.2</td>
+                                <td class="table-number">—</td>
+                                <td>Q1 2026</td>
+                            </tr>
+                            <tr>
+                                <td>PRJ-038</td>
+                                <td class="table-project-name">Legacy System Migration</td>
+                                <td>Marcus Lee</td>
+                                <td><span class="status-pill status-backlog">Backlog</span></td>
+                                <td class="table-number">8%</td>
+                                <td class="table-number">$425K</td>
+                                <td class="table-number">$34K</td>
+                                <td class="table-number">7.8</td>
+                                <td class="table-number">—</td>
+                                <td>Q2 2026</td>
+                            </tr>
+                            <tr>
+                                <td>PRJ-019</td>
+                                <td class="table-project-name">Customer Dashboard V2</td>
+                                <td>Emily Zhao</td>
+                                <td><span class="status-pill status-done">Done</span></td>
+                                <td class="table-number">100%</td>
+                                <td class="table-number">$245K</td>
+                                <td class="table-number">$235K</td>
+                                <td class="table-number">1.2</td>
+                                <td class="table-number">88</td>
+                                <td>Oct 31, 2025</td>
+                            </tr>
+                            <tr>
+                                <td>PRJ-016</td>
+                                <td class="table-project-name">API Gateway Deployment</td>
+                                <td>Kevin O'Brien</td>
+                                <td><span class="status-pill status-done">Done</span></td>
+                                <td class="table-number">100%</td>
+                                <td class="table-number">$380K</td>
+                                <td class="table-number">$372K</td>
+                                <td class="table-number">0.8</td>
+                                <td class="table-number">95</td>
+                                <td>Oct 15, 2025</td>
+                            </tr>
+                            <tr>
+                                <td>PRJ-012</td>
+                                <td class="table-project-name">Analytics Platform Upgrade</td>
+                                <td>Lisa Martinez</td>
+                                <td><span class="status-pill status-done">Done</span></td>
+                                <td class="table-number">100%</td>
+                                <td class="table-number">$155K</td>
+                                <td class="table-number">$148K</td>
+                                <td class="table-number">0.5</td>
+                                <td class="table-number">82</td>
+                                <td>Sep 28, 2025</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-meta">
+            Dashboard Engine: Darno Analytics v2.8.4 | Data refresh: Every 5 minutes | Last sync: 2025-11-09 14:32:18 UTC
+        </div>
+        <div class="footer-meta">
+            37 active projects • 247 FTE allocated • $11.5M total portfolio value
+        </div>
+    </footer>
+
+    <script>
+        // Card expand/collapse interaction
+        function toggleCard(card) {
+            card.classList.toggle('expanded');
+        }
+
+        // Table sorting (simplified implementation)
+        document.querySelectorAll('.data-table th.sortable').forEach(header => {
+            header.addEventListener('click', function() {
+                const table = this.closest('table');
+                const tbody = table.querySelector('tbody');
+                const rows = Array.from(tbody.querySelectorAll('tr'));
+                const columnIndex = Array.from(this.parentNode.children).indexOf(this);
+                const isNumeric = this.textContent.includes('Progress') ||
+                                 this.textContent.includes('Budget') ||
+                                 this.textContent.includes('Spent') ||
+                                 this.textContent.includes('Risk') ||
+                                 this.textContent.includes('Velocity');
+
+                rows.sort((a, b) => {
+                    const aVal = a.children[columnIndex].textContent.trim();
+                    const bVal = b.children[columnIndex].textContent.trim();
+
+                    if (isNumeric) {
+                        const aNum = parseFloat(aVal.replace(/[^0-9.-]/g, '')) || 0;
+                        const bNum = parseFloat(bVal.replace(/[^0-9.-]/g, '')) || 0;
+                        return bNum - aNum;
+                    } else {
+                        return aVal.localeCompare(bVal);
+                    }
+                });
+
+                rows.forEach(row => tbody.appendChild(row));
+            });
+        });
+
+        // Initialize progress bar animations on load
+        window.addEventListener('load', function() {
+            document.querySelectorAll('.progress-fill').forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

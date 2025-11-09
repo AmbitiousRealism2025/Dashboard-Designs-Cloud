@@ -1,0 +1,1135 @@
+<!-- Agent: Atlas | Theme: Minimalist Analytical | Intent: Operational command center with multi-role perspectives in minimal grayscale aesthetic -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas • Operational Command Dashboard</title>
+    <style>
+        /* CSS Custom Properties */
+        :root {
+            /* Grayscale Palette */
+            --bg-primary: #fafafa;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f5f5f5;
+            --border-light: #e8e8e8;
+            --border-medium: #d4d4d4;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --text-tertiary: #999999;
+
+            /* Single Accent Color */
+            --accent-blue: #0066cc;
+            --accent-blue-light: #e6f0ff;
+
+            /* Semantic Status Colors (muted) */
+            --status-ok: #2d7d2d;
+            --status-ok-bg: #f0f7f0;
+            --status-warn: #996600;
+            --status-warn-bg: #fff8e6;
+            --status-critical: #cc3333;
+            --status-critical-bg: #fff0f0;
+            --status-neutral: #666666;
+            --status-neutral-bg: #f5f5f5;
+
+            /* Spacing System */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+
+            /* Typography */
+            --font-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-mono: "SF Mono", Monaco, "Cascadia Code", monospace;
+            --line-height-tight: 1.3;
+            --line-height-normal: 1.5;
+        }
+
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Minimal transitions */
+        * {
+            transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            font-size: 13px;
+            line-height: var(--line-height-normal);
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas:
+                "header header"
+                "aside main"
+                "footer footer";
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            grid-area: header;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-light);
+            padding: var(--space-md) var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: baseline;
+            gap: var(--space-md);
+        }
+
+        .header-title {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+        }
+
+        .header-subtitle {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+
+        .role-selector {
+            display: flex;
+            gap: var(--space-xs);
+            align-items: center;
+        }
+
+        .role-selector label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .role-selector select {
+            font-family: var(--font-primary);
+            font-size: 12px;
+            padding: 4px 8px;
+            border: 1px solid var(--border-medium);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .role-selector select:hover {
+            border-color: var(--accent-blue);
+        }
+
+        .system-status {
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+            font-size: 11px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--status-ok);
+        }
+
+        .status-dot.warn { background: var(--status-warn); }
+        .status-dot.critical { background: var(--status-critical); }
+
+        /* Aside Navigation */
+        aside {
+            grid-area: aside;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-light);
+            padding: var(--space-lg) 0;
+        }
+
+        .nav-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .nav-section-title {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-tertiary);
+            padding: 0 var(--space-md);
+            margin-bottom: var(--space-sm);
+            font-weight: 600;
+        }
+
+        .nav-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px var(--space-md);
+            font-size: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-left: 2px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            color: var(--accent-blue);
+            background: var(--accent-blue-light);
+            border-left-color: var(--accent-blue);
+            font-weight: 500;
+        }
+
+        .nav-badge {
+            font-size: 10px;
+            padding: 1px 5px;
+            background: var(--status-neutral-bg);
+            color: var(--text-secondary);
+            border-radius: 2px;
+            font-family: var(--font-mono);
+        }
+
+        .nav-badge.alert {
+            background: var(--status-critical-bg);
+            color: var(--status-critical);
+        }
+
+        /* Main Content */
+        main {
+            grid-area: main;
+            padding: var(--space-xl);
+            overflow-y: auto;
+        }
+
+        .dashboard-header {
+            margin-bottom: var(--space-xl);
+        }
+
+        .dashboard-title {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: var(--space-xs);
+        }
+
+        .dashboard-meta {
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            padding: var(--space-md);
+        }
+
+        .kpi-card:hover {
+            border-color: var(--border-medium);
+            transform: scale(1.01);
+        }
+
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .kpi-status {
+            font-size: 9px;
+            padding: 2px 5px;
+            border-radius: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .kpi-status.ok {
+            background: var(--status-ok-bg);
+            color: var(--status-ok);
+        }
+
+        .kpi-status.warn {
+            background: var(--status-warn-bg);
+            color: var(--status-warn);
+        }
+
+        .kpi-status.critical {
+            background: var(--status-critical-bg);
+            color: var(--status-critical);
+        }
+
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: var(--line-height-tight);
+            margin-bottom: var(--space-xs);
+            font-family: var(--font-mono);
+        }
+
+        .kpi-value.accent {
+            color: var(--accent-blue);
+        }
+
+        .kpi-delta {
+            font-size: 11px;
+            font-family: var(--font-mono);
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-delta.positive { color: var(--status-ok); }
+        .kpi-delta.negative { color: var(--status-critical); }
+        .kpi-delta.neutral { color: var(--text-tertiary); }
+
+        .kpi-meta {
+            font-size: 10px;
+            color: var(--text-tertiary);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .sparkline {
+            height: 24px;
+            margin-top: var(--space-sm);
+            background: linear-gradient(to right, var(--bg-tertiary) 0%, var(--bg-tertiary) 100%);
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sparkline::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to right,
+                transparent 0%,
+                var(--accent-blue) 20%,
+                var(--accent-blue) 40%,
+                transparent 60%,
+                var(--accent-blue) 80%,
+                var(--accent-blue) 100%
+            );
+            opacity: 0.15;
+        }
+
+        /* Charts Section */
+        .charts-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .chart-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            padding: var(--space-md);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .chart-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .chart-controls {
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .chart-control {
+            font-size: 10px;
+            padding: 2px 6px;
+            border: 1px solid var(--border-medium);
+            background: var(--bg-tertiary);
+            cursor: pointer;
+            border-radius: 2px;
+        }
+
+        .chart-control:hover {
+            background: var(--accent-blue-light);
+            border-color: var(--accent-blue);
+        }
+
+        .chart-control.active {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+
+        .chart-placeholder {
+            height: 200px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-light);
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: var(--space-sm);
+        }
+
+        /* Grid lines */
+        .chart-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 39px, var(--border-light) 39px, var(--border-light) 40px),
+                repeating-linear-gradient(90deg, transparent, transparent 49px, var(--border-light) 49px, var(--border-light) 50px);
+        }
+
+        /* Line chart effect */
+        .chart-line {
+            position: absolute;
+            bottom: 20%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                var(--accent-blue) 10%,
+                var(--accent-blue) 30%,
+                transparent 35%,
+                var(--accent-blue) 50%,
+                var(--accent-blue) 80%,
+                transparent 100%
+            );
+        }
+
+        /* Bar chart effect */
+        .chart-bars {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: var(--border-medium);
+            opacity: 0.4;
+        }
+
+        .chart-bar.highlight {
+            background: var(--accent-blue);
+            opacity: 0.7;
+        }
+
+        /* Data Table */
+        .table-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .table-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .table-action {
+            font-size: 11px;
+            padding: 4px 8px;
+            border: 1px solid var(--border-medium);
+            background: var(--bg-secondary);
+            cursor: pointer;
+            border-radius: 2px;
+        }
+
+        .table-action:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .data-table-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        .data-table thead {
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-medium);
+        }
+
+        .data-table th {
+            padding: var(--space-sm) var(--space-md);
+            text-align: left;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 600;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .data-table th:hover {
+            color: var(--accent-blue);
+            cursor: pointer;
+        }
+
+        .data-table tbody tr {
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .data-table td {
+            padding: 8px var(--space-md);
+            line-height: var(--line-height-tight);
+        }
+
+        .table-id {
+            font-family: var(--font-mono);
+            color: var(--text-tertiary);
+            font-size: 11px;
+        }
+
+        .table-metric {
+            font-family: var(--font-mono);
+            font-weight: 500;
+        }
+
+        .table-metric.accent {
+            color: var(--accent-blue);
+        }
+
+        .status-pill {
+            display: inline-block;
+            font-size: 9px;
+            padding: 3px 6px;
+            border-radius: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .status-pill.operational {
+            background: var(--status-ok-bg);
+            color: var(--status-ok);
+        }
+
+        .status-pill.degraded {
+            background: var(--status-warn-bg);
+            color: var(--status-warn);
+        }
+
+        .status-pill.down {
+            background: var(--status-critical-bg);
+            color: var(--status-critical);
+        }
+
+        .status-pill.maintenance {
+            background: var(--status-neutral-bg);
+            color: var(--status-neutral);
+        }
+
+        /* Alert Banner */
+        .alert-banner {
+            background: var(--status-warn-bg);
+            border-left: 3px solid var(--status-warn);
+            padding: var(--space-md);
+            margin-bottom: var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .alert-content {
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
+
+        .alert-icon {
+            font-size: 16px;
+            color: var(--status-warn);
+        }
+
+        .alert-text {
+            font-size: 12px;
+            color: var(--text-primary);
+        }
+
+        .alert-dismiss {
+            font-size: 11px;
+            padding: 4px 8px;
+            border: 1px solid var(--border-medium);
+            background: var(--bg-secondary);
+            cursor: pointer;
+            border-radius: 2px;
+        }
+
+        /* Footer */
+        footer {
+            grid-area: footer;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-light);
+            padding: var(--space-md) var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        .footer-agent {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .footer-meta {
+            display: flex;
+            gap: var(--space-lg);
+        }
+
+        /* Responsive */
+        @media (max-width: 960px) {
+            body {
+                grid-template-columns: 160px 1fr;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .charts-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "footer";
+            }
+
+            aside {
+                display: none;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-left">
+            <h1 class="header-title">Operational Command Center</h1>
+            <span class="header-subtitle">Multi-Stakeholder Dashboard</span>
+        </div>
+        <div class="role-selector">
+            <label for="role">View:</label>
+            <select id="role">
+                <option value="operations">Operations</option>
+                <option value="finance">Finance</option>
+                <option value="risk">Risk Management</option>
+                <option value="executive">Executive</option>
+            </select>
+        </div>
+        <div class="system-status">
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>Systems: OK</span>
+            </div>
+            <div class="status-indicator">
+                <span class="status-dot warn"></span>
+                <span>2 Alerts</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Aside Navigation -->
+    <aside>
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Primary</div>
+                <div class="nav-item active">
+                    <span>Overview</span>
+                </div>
+                <div class="nav-item">
+                    <span>System Health</span>
+                    <span class="nav-badge">12</span>
+                </div>
+                <div class="nav-item">
+                    <span>Performance</span>
+                </div>
+                <div class="nav-item">
+                    <span>Incidents</span>
+                    <span class="nav-badge alert">2</span>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Analytics</div>
+                <div class="nav-item">
+                    <span>Metrics</span>
+                </div>
+                <div class="nav-item">
+                    <span>Trends</span>
+                </div>
+                <div class="nav-item">
+                    <span>Reports</span>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Operations</div>
+                <div class="nav-item">
+                    <span>Deployments</span>
+                </div>
+                <div class="nav-item">
+                    <span>Workflows</span>
+                    <span class="nav-badge">5</span>
+                </div>
+                <div class="nav-item">
+                    <span>Audit Log</span>
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <h2 class="dashboard-title">System Overview</h2>
+            <p class="dashboard-meta">Last updated: 2025-11-09 14:23:15 UTC • Refresh interval: 30s • Data lag: &lt;5s</p>
+        </div>
+
+        <!-- Alert Banner -->
+        <div class="alert-banner">
+            <div class="alert-content">
+                <span class="alert-icon">⚠</span>
+                <span class="alert-text"><strong>Service Degradation:</strong> API response times elevated by 15% in US-EAST-1 region. Incident #2847 active.</span>
+            </div>
+            <button class="alert-dismiss">Acknowledge</button>
+        </div>
+
+        <!-- KPI Grid -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <span class="kpi-label">System Uptime</span>
+                    <span class="kpi-status ok">OK</span>
+                </div>
+                <div class="kpi-value accent">99.97%</div>
+                <div class="kpi-delta neutral">30-day avg: 99.95%</div>
+                <div class="kpi-meta">
+                    <span>Target: 99.95%</span>
+                    <span>SLA: Met</span>
+                </div>
+                <div class="sparkline"></div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <span class="kpi-label">Active Requests</span>
+                    <span class="kpi-status ok">Normal</span>
+                </div>
+                <div class="kpi-value">8,347</div>
+                <div class="kpi-delta positive">↑ 12.3% vs 1h ago</div>
+                <div class="kpi-meta">
+                    <span>Peak: 12.4k</span>
+                    <span>Avg: 7.2k</span>
+                </div>
+                <div class="sparkline"></div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <span class="kpi-label">Error Rate</span>
+                    <span class="kpi-status warn">Elevated</span>
+                </div>
+                <div class="kpi-value accent">0.43%</div>
+                <div class="kpi-delta negative">↑ 0.18pp vs baseline</div>
+                <div class="kpi-meta">
+                    <span>Baseline: 0.25%</span>
+                    <span>Threshold: 0.50%</span>
+                </div>
+                <div class="sparkline"></div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <span class="kpi-label">Avg Response Time</span>
+                    <span class="kpi-status ok">OK</span>
+                </div>
+                <div class="kpi-value">247<span style="font-size: 16px; font-weight: 400;">ms</span></div>
+                <div class="kpi-delta positive">↓ 8.1% vs 1h ago</div>
+                <div class="kpi-meta">
+                    <span>p95: 580ms</span>
+                    <span>p99: 1.2s</span>
+                </div>
+                <div class="sparkline"></div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <span class="kpi-label">Open Incidents</span>
+                    <span class="kpi-status warn">Active</span>
+                </div>
+                <div class="kpi-value accent">2</div>
+                <div class="kpi-delta neutral">1 critical, 1 medium</div>
+                <div class="kpi-meta">
+                    <span>MTTR: 24m</span>
+                    <span>Resolved: 18/day</span>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <span class="kpi-label">Capacity Utilization</span>
+                    <span class="kpi-status ok">Normal</span>
+                </div>
+                <div class="kpi-value">67%</div>
+                <div class="kpi-delta neutral">↑ 3.2% vs 1h ago</div>
+                <div class="kpi-meta">
+                    <span>Alert: 85%</span>
+                    <span>Max: 92%</span>
+                </div>
+                <div class="sparkline"></div>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="charts-row">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <span class="chart-title">Request Volume (24h)</span>
+                    <div class="chart-controls">
+                        <button class="chart-control">1h</button>
+                        <button class="chart-control">6h</button>
+                        <button class="chart-control active">24h</button>
+                        <button class="chart-control">7d</button>
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    <div class="chart-bars">
+                        <div class="chart-bar" style="height: 45%"></div>
+                        <div class="chart-bar" style="height: 52%"></div>
+                        <div class="chart-bar" style="height: 48%"></div>
+                        <div class="chart-bar highlight" style="height: 67%"></div>
+                        <div class="chart-bar highlight" style="height: 72%"></div>
+                        <div class="chart-bar highlight" style="height: 68%"></div>
+                        <div class="chart-bar" style="height: 58%"></div>
+                        <div class="chart-bar" style="height: 43%"></div>
+                        <div class="chart-bar" style="height: 38%"></div>
+                        <div class="chart-bar" style="height: 42%"></div>
+                        <div class="chart-bar" style="height: 51%"></div>
+                        <div class="chart-bar highlight" style="height: 75%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <span class="chart-title">Response Time Distribution</span>
+                    <div class="chart-controls">
+                        <button class="chart-control">p50</button>
+                        <button class="chart-control active">p95</button>
+                        <button class="chart-control">p99</button>
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    <div class="chart-line"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-row">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <span class="chart-title">Error Rate by Service</span>
+                    <div class="chart-controls">
+                        <button class="chart-control active">All</button>
+                        <button class="chart-control">API</button>
+                        <button class="chart-control">DB</button>
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    <div class="chart-bars">
+                        <div class="chart-bar" style="height: 25%"></div>
+                        <div class="chart-bar" style="height: 18%"></div>
+                        <div class="chart-bar highlight" style="height: 45%"></div>
+                        <div class="chart-bar" style="height: 22%"></div>
+                        <div class="chart-bar" style="height: 28%"></div>
+                        <div class="chart-bar" style="height: 15%"></div>
+                        <div class="chart-bar highlight" style="height: 52%"></div>
+                        <div class="chart-bar" style="height: 31%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <span class="chart-title">Capacity Trends (7d)</span>
+                    <div class="chart-controls">
+                        <button class="chart-control">CPU</button>
+                        <button class="chart-control active">Memory</button>
+                        <button class="chart-control">Disk</button>
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    <div class="chart-line" style="bottom: 35%; background: linear-gradient(90deg, transparent 0%, var(--accent-blue) 20%, var(--accent-blue) 80%, transparent 100%);"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="table-section">
+            <div class="table-header">
+                <h3 class="table-title">Service Status Matrix</h3>
+                <div class="table-actions">
+                    <button class="table-action">Filter</button>
+                    <button class="table-action">Export CSV</button>
+                    <button class="table-action">Refresh</button>
+                </div>
+            </div>
+
+            <div class="data-table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Service ID</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Uptime</th>
+                            <th>Requests/min</th>
+                            <th>Error Rate</th>
+                            <th>Latency (p95)</th>
+                            <th>CPU</th>
+                            <th>Memory</th>
+                            <th>Last Deploy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="table-id">SVC-001</span></td>
+                            <td>Auth Gateway</td>
+                            <td><span class="status-pill operational">Operational</span></td>
+                            <td class="table-metric">99.99%</td>
+                            <td class="table-metric">1,247</td>
+                            <td class="table-metric">0.12%</td>
+                            <td class="table-metric">142ms</td>
+                            <td class="table-metric">42%</td>
+                            <td class="table-metric">61%</td>
+                            <td>2h ago</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-id">SVC-002</span></td>
+                            <td>API Core</td>
+                            <td><span class="status-pill degraded">Degraded</span></td>
+                            <td class="table-metric">99.85%</td>
+                            <td class="table-metric accent">3,842</td>
+                            <td class="table-metric accent">0.67%</td>
+                            <td class="table-metric accent">423ms</td>
+                            <td class="table-metric">78%</td>
+                            <td class="table-metric">72%</td>
+                            <td>15m ago</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-id">SVC-003</span></td>
+                            <td>Data Processing</td>
+                            <td><span class="status-pill operational">Operational</span></td>
+                            <td class="table-metric">99.98%</td>
+                            <td class="table-metric">847</td>
+                            <td class="table-metric">0.08%</td>
+                            <td class="table-metric">218ms</td>
+                            <td class="table-metric">54%</td>
+                            <td class="table-metric">68%</td>
+                            <td>6h ago</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-id">SVC-004</span></td>
+                            <td>Storage Layer</td>
+                            <td><span class="status-pill operational">Operational</span></td>
+                            <td class="table-metric">100.0%</td>
+                            <td class="table-metric">2,156</td>
+                            <td class="table-metric">0.00%</td>
+                            <td class="table-metric">87ms</td>
+                            <td class="table-metric">38%</td>
+                            <td class="table-metric">45%</td>
+                            <td>1d ago</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-id">SVC-005</span></td>
+                            <td>Notification Hub</td>
+                            <td><span class="status-pill maintenance">Maintenance</span></td>
+                            <td class="table-metric">—</td>
+                            <td class="table-metric">0</td>
+                            <td class="table-metric">—</td>
+                            <td class="table-metric">—</td>
+                            <td class="table-metric">12%</td>
+                            <td class="table-metric">23%</td>
+                            <td>scheduled</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-id">SVC-006</span></td>
+                            <td>Cache Service</td>
+                            <td><span class="status-pill operational">Operational</span></td>
+                            <td class="table-metric">99.97%</td>
+                            <td class="table-metric">5,234</td>
+                            <td class="table-metric">0.15%</td>
+                            <td class="table-metric">12ms</td>
+                            <td class="table-metric">34%</td>
+                            <td class="table-metric">82%</td>
+                            <td>3h ago</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-id">SVC-007</span></td>
+                            <td>Search Index</td>
+                            <td><span class="status-pill operational">Operational</span></td>
+                            <td class="table-metric">99.94%</td>
+                            <td class="table-metric">1,892</td>
+                            <td class="table-metric">0.22%</td>
+                            <td class="table-metric">284ms</td>
+                            <td class="table-metric">67%</td>
+                            <td class="table-metric">71%</td>
+                            <td>8h ago</td>
+                        </tr>
+                        <tr>
+                            <td><span class="table-id">SVC-008</span></td>
+                            <td>Analytics Engine</td>
+                            <td><span class="status-pill operational">Operational</span></td>
+                            <td class="table-metric">99.92%</td>
+                            <td class="table-metric">623</td>
+                            <td class="table-metric">0.18%</td>
+                            <td class="table-metric">512ms</td>
+                            <td class="table-metric">58%</td>
+                            <td class="table-metric">64%</td>
+                            <td>12h ago</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div>
+            <span class="footer-agent">Atlas</span> • Operational Command Dashboard • Theme: Minimalist Analytical
+        </div>
+        <div class="footer-meta">
+            <span>Version 2.4.1</span>
+            <span>Environment: Production</span>
+            <span>Region: Global</span>
+        </div>
+    </footer>
+
+    <script>
+        // Minimal interactivity for role selector
+        document.getElementById('role').addEventListener('change', function(e) {
+            console.log('Role view changed to:', e.target.value);
+            // In a real implementation, this would filter/modify dashboard data
+        });
+
+        // Alert dismiss
+        const alertBanner = document.querySelector('.alert-banner');
+        const dismissBtn = document.querySelector('.alert-dismiss');
+        if (dismissBtn && alertBanner) {
+            dismissBtn.addEventListener('click', function() {
+                alertBanner.style.opacity = '0';
+                setTimeout(() => alertBanner.style.display = 'none', 150);
+            });
+        }
+
+        // Chart control interactions
+        document.querySelectorAll('.chart-control').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const parent = this.closest('.chart-controls');
+                parent.querySelectorAll('.chart-control').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Table sorting hint (visual only)
+        document.querySelectorAll('.data-table th').forEach(th => {
+            th.addEventListener('click', function() {
+                console.log('Sort by:', this.textContent);
+            });
+        });
+    </script>
+</body>
+</html>

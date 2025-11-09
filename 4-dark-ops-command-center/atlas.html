@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Center - Infrastructure Operations Dashboard</title>
+    <!-- Agent: Atlas | Theme: Dark Ops Command Center | Intent: Multi-perspective infrastructure monitoring with real-time alert triage and operational command workflow -->
+    <style>
+        /* === CSS VARIABLES === */
+        :root {
+            /* Dark Ops Color Palette */
+            --bg-primary: #050509;
+            --bg-secondary: #0a0b12;
+            --bg-tertiary: #111218;
+            --bg-card: #16171f;
+            --bg-hover: #1d1e28;
+
+            /* Neon Accents */
+            --accent-cyan: #00ffff;
+            --accent-lime: #00ff00;
+            --accent-magenta: #ff00ff;
+            --accent-amber: #ffaa00;
+
+            /* Semantic Colors */
+            --status-critical: #ff0044;
+            --status-warning: #ffaa00;
+            --status-healthy: #00ff00;
+            --status-info: #00ffff;
+
+            /* Text */
+            --text-primary: #e8e9f0;
+            --text-secondary: #9ca0b8;
+            --text-tertiary: #5a5e7a;
+
+            /* Borders & Dividers */
+            --border-color: #252638;
+            --border-glow: rgba(0, 255, 255, 0.3);
+
+            /* Spacing */
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+        }
+
+        /* === GLOBAL RESET & LAYOUT === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.2s ease-out;
+        }
+
+        body {
+            font-family: 'Roboto Condensed', 'Arial Narrow', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Gridline background effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(0deg, transparent 24%, rgba(0, 255, 255, 0.03) 25%, rgba(0, 255, 255, 0.03) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.03) 75%, rgba(0, 255, 255, 0.03) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(0, 255, 255, 0.03) 25%, rgba(0, 255, 255, 0.03) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.03) 75%, rgba(0, 255, 255, 0.03) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        .app-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            grid-template-rows: auto 1fr auto;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* === HEADER === */
+        header {
+            grid-column: 1 / -1;
+            background: var(--bg-secondary);
+            border-bottom: 2px solid var(--border-color);
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.1);
+            position: relative;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta), var(--accent-cyan));
+            opacity: 0.5;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .header-brand h1 {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--status-healthy);
+            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 8px var(--status-healthy);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+        }
+
+        .timestamp {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-family: 'Courier New', monospace;
+            letter-spacing: 0.5px;
+        }
+
+        .global-alerts {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .alert-badge {
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid;
+        }
+
+        .alert-badge.critical {
+            background: rgba(255, 0, 68, 0.15);
+            border-color: var(--status-critical);
+            color: var(--status-critical);
+            box-shadow: 0 0 12px rgba(255, 0, 68, 0.4);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .alert-badge.warning {
+            background: rgba(255, 170, 0, 0.15);
+            border-color: var(--status-warning);
+            color: var(--status-warning);
+        }
+
+        /* === ASIDE NAVIGATION === */
+        aside {
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: var(--spacing-lg);
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .nav-section h3 {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-tertiary);
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            padding: var(--spacing-sm) var(--spacing-md);
+            margin-bottom: var(--spacing-xs);
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--text-secondary);
+            border: 1px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-hover);
+            color: var(--accent-cyan);
+            border-color: var(--border-glow);
+        }
+
+        .nav-item.active {
+            background: var(--bg-tertiary);
+            color: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+        }
+
+        .nav-count {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            background: var(--bg-primary);
+            color: var(--text-tertiary);
+            font-weight: 700;
+        }
+
+        .nav-item.active .nav-count {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+        }
+
+        .role-switcher {
+            margin-top: var(--spacing-xl);
+            padding: var(--spacing-md);
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        .role-switcher label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-tertiary);
+            display: block;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .role-switcher select {
+            width: 100%;
+            padding: var(--spacing-sm);
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            border-radius: 4px;
+            font-size: 12px;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .role-switcher select:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+        }
+
+        /* === MAIN CONTENT === */
+        main {
+            padding: var(--spacing-lg);
+            overflow-y: auto;
+        }
+
+        /* Critical Alert Banner */
+        .alert-banner {
+            background: linear-gradient(135deg, rgba(255, 0, 68, 0.2), rgba(255, 0, 68, 0.05));
+            border: 1px solid var(--status-critical);
+            border-left: 4px solid var(--status-critical);
+            border-radius: 6px;
+            padding: var(--spacing-md) var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 0 20px rgba(255, 0, 68, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alert-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: scanline 3s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .alert-content {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .alert-icon {
+            font-size: 24px;
+            color: var(--status-critical);
+        }
+
+        .alert-text h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--status-critical);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .alert-text p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .alert-action {
+            padding: 8px 16px;
+            background: var(--status-critical);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+
+        .alert-action:hover {
+            background: #ff2266;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 0, 68, 0.5);
+        }
+
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: var(--spacing-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--kpi-accent), transparent);
+            opacity: 0.6;
+        }
+
+        .kpi-card.healthy::before { --kpi-accent: var(--status-healthy); }
+        .kpi-card.warning::before { --kpi-accent: var(--status-warning); }
+        .kpi-card.critical::before { --kpi-accent: var(--status-critical); }
+        .kpi-card.info::before { --kpi-accent: var(--status-info); }
+
+        .kpi-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.15);
+        }
+
+        .kpi-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-tertiary);
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+        }
+
+        .kpi-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-xs);
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .kpi-card.healthy .kpi-value {
+            color: var(--status-healthy);
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        .kpi-card.warning .kpi-value {
+            color: var(--status-warning);
+            text-shadow: 0 0 10px rgba(255, 170, 0, 0.5);
+        }
+        .kpi-card.critical .kpi-value {
+            color: var(--status-critical);
+            text-shadow: 0 0 10px rgba(255, 0, 68, 0.5);
+        }
+        .kpi-card.info .kpi-value {
+            color: var(--status-info);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .kpi-delta {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .kpi-delta.positive { color: var(--status-healthy); }
+        .kpi-delta.negative { color: var(--status-critical); }
+
+        .kpi-meta {
+            font-size: 11px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sparkline {
+            height: 30px;
+            margin-top: var(--spacing-sm);
+            background: linear-gradient(to right, transparent 0%, rgba(0, 255, 255, 0.1) 50%, transparent 100%);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sparkline::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(to right,
+                transparent 0%,
+                var(--accent-cyan) 20%,
+                var(--accent-cyan) 40%,
+                transparent 60%,
+                var(--accent-cyan) 80%,
+                var(--accent-cyan) 100%);
+            clip-path: polygon(0% 100%, 10% 60%, 20% 40%, 30% 50%, 40% 30%, 50% 70%, 60% 50%, 70% 20%, 80% 40%, 90% 30%, 100% 0%, 100% 100%);
+            opacity: 0.6;
+        }
+
+        /* System Status Grid */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-header h2 {
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+        }
+
+        .section-meta {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .status-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .status-item:hover {
+            border-color: var(--border-glow);
+            background: var(--bg-hover);
+        }
+
+        .status-info {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .status-dot.online {
+            background: var(--status-healthy);
+            box-shadow: 0 0 10px var(--status-healthy);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .status-dot.degraded {
+            background: var(--status-warning);
+            box-shadow: 0 0 10px var(--status-warning);
+        }
+
+        .status-dot.offline {
+            background: var(--status-critical);
+            box-shadow: 0 0 10px var(--status-critical);
+        }
+
+        .status-name {
+            font-size: 12px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .status-value {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Charts Section */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: var(--spacing-md);
+            position: relative;
+        }
+
+        .chart-card.glow {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+        }
+
+        .chart-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.05), transparent);
+            animation: scanline 4s linear infinite;
+            pointer-events: none;
+        }
+
+        .chart-header {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .chart-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .chart-subtitle {
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        .chart-placeholder {
+            height: 200px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            background-image:
+                linear-gradient(0deg, var(--border-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .chart-placeholder::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(to right,
+                transparent 0%,
+                var(--accent-cyan) 5%,
+                transparent 10%,
+                var(--accent-cyan) 15%,
+                transparent 20%,
+                var(--accent-lime) 25%,
+                transparent 30%,
+                var(--accent-lime) 35%,
+                transparent 40%,
+                var(--accent-magenta) 50%,
+                transparent 60%,
+                var(--accent-cyan) 70%,
+                transparent 80%,
+                var(--accent-lime) 90%,
+                transparent 100%
+            );
+            clip-path: polygon(
+                0% 100%, 5% 60%, 10% 70%, 15% 40%, 20% 50%, 25% 30%, 30% 40%, 35% 20%,
+                40% 35%, 45% 45%, 50% 15%, 55% 25%, 60% 40%, 65% 30%, 70% 50%, 75% 40%,
+                80% 60%, 85% 50%, 90% 30%, 95% 45%, 100% 35%, 100% 100%
+            );
+            opacity: 0.7;
+        }
+
+        /* Data Table */
+        .table-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .table-header {
+            padding: var(--spacing-md) var(--spacing-lg);
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        thead {
+            background: var(--bg-secondary);
+        }
+
+        th {
+            padding: var(--spacing-sm) var(--spacing-md);
+            text-align: left;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-tertiary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tbody tr:hover {
+            background: var(--bg-hover);
+        }
+
+        td {
+            padding: var(--spacing-md);
+            color: var(--text-secondary);
+        }
+
+        td:first-child {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid;
+        }
+
+        .status-pill.online {
+            background: rgba(0, 255, 0, 0.15);
+            border-color: var(--status-healthy);
+            color: var(--status-healthy);
+            box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+        }
+
+        .status-pill.investigating {
+            background: rgba(255, 170, 0, 0.15);
+            border-color: var(--status-warning);
+            color: var(--status-warning);
+            box-shadow: 0 0 8px rgba(255, 170, 0, 0.3);
+        }
+
+        .status-pill.critical {
+            background: rgba(255, 0, 68, 0.15);
+            border-color: var(--status-critical);
+            color: var(--status-critical);
+            box-shadow: 0 0 8px rgba(255, 0, 68, 0.3);
+        }
+
+        .status-pill.resolved {
+            background: rgba(0, 255, 255, 0.15);
+            border-color: var(--status-info);
+            color: var(--status-info);
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+        }
+
+        .priority-high {
+            color: var(--status-critical);
+            font-weight: 700;
+        }
+
+        .priority-medium {
+            color: var(--status-warning);
+            font-weight: 600;
+        }
+
+        .priority-low {
+            color: var(--text-secondary);
+        }
+
+        .timestamp-cell {
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        /* === FOOTER === */
+        footer {
+            grid-column: 1 / -1;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        .footer-agent {
+            font-weight: 700;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-meta {
+            display: flex;
+            gap: var(--spacing-lg);
+        }
+
+        .event-stream {
+            grid-column: 1 / -1;
+            background: var(--bg-tertiary);
+            border-top: 1px solid var(--border-color);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .event-stream-content {
+            display: inline-block;
+            animation: scroll-left 30s linear infinite;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 960px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-meta {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: var(--spacing-sm);
+            }
+
+            table {
+                font-size: 10px;
+            }
+
+            th, td {
+                padding: var(--spacing-xs);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="header-brand">
+                <h1>OPS COMMAND</h1>
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span>Systems Operational</span>
+                </div>
+            </div>
+            <div class="header-meta">
+                <div class="timestamp" id="timestamp">2025-11-09 14:37:42 UTC</div>
+                <div class="global-alerts">
+                    <div class="alert-badge critical">3 Critical</div>
+                    <div class="alert-badge warning">12 Warnings</div>
+                </div>
+            </div>
+        </header>
+
+        <aside>
+            <nav>
+                <div class="nav-section">
+                    <h3>System Views</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item active">
+                            Overview
+                            <span class="nav-count">15</span>
+                        </li>
+                        <li class="nav-item">
+                            Infrastructure
+                            <span class="nav-count">42</span>
+                        </li>
+                        <li class="nav-item">
+                            Applications
+                            <span class="nav-count">28</span>
+                        </li>
+                        <li class="nav-item">
+                            Security
+                            <span class="nav-count">7</span>
+                        </li>
+                        <li class="nav-item">
+                            Network
+                            <span class="nav-count">18</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Alert Triage</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            Critical Issues
+                            <span class="nav-count">3</span>
+                        </li>
+                        <li class="nav-item">
+                            Warnings
+                            <span class="nav-count">12</span>
+                        </li>
+                        <li class="nav-item">
+                            Investigating
+                            <span class="nav-count">5</span>
+                        </li>
+                        <li class="nav-item">
+                            Resolved
+                            <span class="nav-count">47</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3>Monitoring</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item">Uptime & SLA</li>
+                        <li class="nav-item">Performance Metrics</li>
+                        <li class="nav-item">Error Tracking</li>
+                        <li class="nav-item">Resource Usage</li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="role-switcher">
+                <label for="role">Active Perspective</label>
+                <select id="role">
+                    <option value="ops">Operations Engineer</option>
+                    <option value="sre">Site Reliability</option>
+                    <option value="security">Security Analyst</option>
+                    <option value="devops">DevOps Lead</option>
+                    <option value="executive">Executive View</option>
+                </select>
+            </div>
+        </aside>
+
+        <main>
+            <!-- Critical Alert Banner -->
+            <div class="alert-banner">
+                <div class="alert-content">
+                    <div class="alert-icon">⚠</div>
+                    <div class="alert-text">
+                        <h4>Database Cluster Degraded</h4>
+                        <p>Primary node experiencing high latency - failover initiated 3 minutes ago</p>
+                    </div>
+                </div>
+                <button class="alert-action">Investigate</button>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="kpi-grid">
+                <div class="kpi-card healthy">
+                    <div class="kpi-label">System Uptime</div>
+                    <div class="kpi-value">99.97%</div>
+                    <div class="kpi-delta positive">▲ 0.02% vs target</div>
+                    <div class="kpi-meta">
+                        <span class="pulse-dot"></span>
+                        <span>42 services online</span>
+                    </div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card critical">
+                    <div class="kpi-label">Active Incidents</div>
+                    <div class="kpi-value">3</div>
+                    <div class="kpi-delta negative">▲ 2 in last hour</div>
+                    <div class="kpi-meta">P0: 1 | P1: 2 | P2: 0</div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card warning">
+                    <div class="kpi-label">Avg Response Time</div>
+                    <div class="kpi-value">287ms</div>
+                    <div class="kpi-delta negative">▲ 34% vs baseline</div>
+                    <div class="kpi-meta">SLA threshold: 250ms</div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card info">
+                    <div class="kpi-label">Requests/sec</div>
+                    <div class="kpi-value">12.4K</div>
+                    <div class="kpi-delta positive">▼ 8% vs peak</div>
+                    <div class="kpi-meta">Peak: 13.5K @ 14:22 UTC</div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card healthy">
+                    <div class="kpi-label">Error Rate</div>
+                    <div class="kpi-value">0.12%</div>
+                    <div class="kpi-delta positive">▼ 0.05% vs hour ago</div>
+                    <div class="kpi-meta">15 errors in last 5min</div>
+                    <div class="sparkline"></div>
+                </div>
+
+                <div class="kpi-card healthy">
+                    <div class="kpi-label">CPU Utilization</div>
+                    <div class="kpi-value">42%</div>
+                    <div class="kpi-delta positive">Normal range</div>
+                    <div class="kpi-meta">Across 18 nodes</div>
+                    <div class="sparkline"></div>
+                </div>
+            </div>
+
+            <!-- System Status Grid -->
+            <div class="section-header">
+                <h2>Infrastructure Status</h2>
+                <span class="section-meta">Last updated: 14:37:41 UTC</span>
+            </div>
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="status-info">
+                        <span class="status-dot online"></span>
+                        <span class="status-name">API Gateway</span>
+                    </div>
+                    <span class="status-value">99.9%</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-info">
+                        <span class="status-dot degraded"></span>
+                        <span class="status-name">Database Primary</span>
+                    </div>
+                    <span class="status-value">degraded</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-info">
+                        <span class="status-dot online"></span>
+                        <span class="status-name">Cache Layer</span>
+                    </div>
+                    <span class="status-value">100%</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-info">
+                        <span class="status-dot online"></span>
+                        <span class="status-name">Load Balancer</span>
+                    </div>
+                    <span class="status-value">99.8%</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-info">
+                        <span class="status-dot online"></span>
+                        <span class="status-name">Auth Service</span>
+                    </div>
+                    <span class="status-value">100%</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-info">
+                        <span class="status-dot online"></span>
+                        <span class="status-name">Storage Backend</span>
+                    </div>
+                    <span class="status-value">99.7%</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-info">
+                        <span class="status-dot offline"></span>
+                        <span class="status-name">Analytics Pipeline</span>
+                    </div>
+                    <span class="status-value">offline</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-info">
+                        <span class="status-dot online"></span>
+                        <span class="status-name">Message Queue</span>
+                    </div>
+                    <span class="status-value">99.9%</span>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="section-header">
+                <h2>Performance Metrics</h2>
+                <span class="section-meta">Real-time monitoring</span>
+            </div>
+            <div class="charts-grid">
+                <div class="chart-card glow">
+                    <div class="chart-header">
+                        <div class="chart-title">Network Traffic</div>
+                        <div class="chart-subtitle">Inbound/Outbound - Last 6 hours</div>
+                    </div>
+                    <div class="chart-placeholder"></div>
+                </div>
+
+                <div class="chart-card glow">
+                    <div class="chart-header">
+                        <div class="chart-title">Response Time Distribution</div>
+                        <div class="chart-subtitle">P50, P95, P99 latency - Last 6 hours</div>
+                    </div>
+                    <div class="chart-placeholder"></div>
+                </div>
+
+                <div class="chart-card glow">
+                    <div class="chart-header">
+                        <div class="chart-title">Error Rate Trend</div>
+                        <div class="chart-subtitle">4xx/5xx errors by endpoint - Last 6 hours</div>
+                    </div>
+                    <div class="chart-placeholder"></div>
+                </div>
+            </div>
+
+            <!-- Incident Log Table -->
+            <div class="section-header">
+                <h2>Recent Incidents</h2>
+                <span class="section-meta">Last 24 hours</span>
+            </div>
+            <div class="table-container">
+                <div class="table-header">
+                    <div class="table-title">Incident Triage Queue</div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Incident ID</th>
+                            <th>Service</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Assigned To</th>
+                            <th>Started</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>INC-4782</td>
+                            <td>Database Cluster</td>
+                            <td class="priority-high">P0 - Critical</td>
+                            <td><span class="status-pill investigating">Investigating</span></td>
+                            <td>SRE Team Alpha</td>
+                            <td class="timestamp-cell">14:34:12 UTC</td>
+                            <td>3m 30s</td>
+                        </tr>
+                        <tr>
+                            <td>INC-4781</td>
+                            <td>Analytics Pipeline</td>
+                            <td class="priority-high">P1 - High</td>
+                            <td><span class="status-pill critical">Critical</span></td>
+                            <td>Data Engineering</td>
+                            <td class="timestamp-cell">13:47:05 UTC</td>
+                            <td>50m 37s</td>
+                        </tr>
+                        <tr>
+                            <td>INC-4780</td>
+                            <td>API Gateway</td>
+                            <td class="priority-medium">P2 - Medium</td>
+                            <td><span class="status-pill resolved">Resolved</span></td>
+                            <td>Platform Ops</td>
+                            <td class="timestamp-cell">12:15:22 UTC</td>
+                            <td>18m 12s</td>
+                        </tr>
+                        <tr>
+                            <td>INC-4779</td>
+                            <td>Auth Service</td>
+                            <td class="priority-high">P1 - High</td>
+                            <td><span class="status-pill resolved">Resolved</span></td>
+                            <td>Security Team</td>
+                            <td class="timestamp-cell">11:03:47 UTC</td>
+                            <td>42m 08s</td>
+                        </tr>
+                        <tr>
+                            <td>INC-4778</td>
+                            <td>Storage Backend</td>
+                            <td class="priority-medium">P2 - Medium</td>
+                            <td><span class="status-pill resolved">Resolved</span></td>
+                            <td>Infrastructure</td>
+                            <td class="timestamp-cell">09:28:33 UTC</td>
+                            <td>1h 14m</td>
+                        </tr>
+                        <tr>
+                            <td>INC-4777</td>
+                            <td>Load Balancer</td>
+                            <td class="priority-low">P3 - Low</td>
+                            <td><span class="status-pill resolved">Resolved</span></td>
+                            <td>Network Ops</td>
+                            <td class="timestamp-cell">08:12:19 UTC</td>
+                            <td>23m 44s</td>
+                        </tr>
+                        <tr>
+                            <td>INC-4776</td>
+                            <td>Cache Layer</td>
+                            <td class="priority-medium">P2 - Medium</td>
+                            <td><span class="status-pill resolved">Resolved</span></td>
+                            <td>SRE Team Beta</td>
+                            <td class="timestamp-cell">06:45:08 UTC</td>
+                            <td>35m 22s</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <div class="event-stream">
+            <div class="event-stream-content">
+                [14:37:42] Database failover initiated → [14:37:15] High latency detected on db-primary-01 → [14:36:28] Alert threshold exceeded: response_time > 250ms → [14:35:11] Traffic spike detected: +22% in 5min → [14:34:12] INC-4782 created: Database Cluster degraded → [14:33:05] Cache hit rate: 94.2% → [14:32:48] Deployment completed: api-gateway v2.4.1 → [14:31:22] Auto-scaling triggered: +2 instances → [14:30:00] Scheduled health check: All systems nominal → [14:29:15] SSL certificate renewed: *.example.com → [14:28:33] Backup completed: database-production → [14:27:42] Database failover initiated → [14:27:15] High latency detected on db-primary-01 → [14:26:28] Alert threshold exceeded: response_time > 250ms → [14:25:11] Traffic spike detected: +22% in 5min →
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-agent">
+                Design Agent: <span style="color: var(--accent-cyan); text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);">ATLAS</span>
+            </div>
+            <div class="footer-meta">
+                <span>Command Center v3.2.1</span>
+                <span>|</span>
+                <span>Monitoring 42 services across 5 regions</span>
+                <span>|</span>
+                <span>Last sync: 14:37:42 UTC</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Update timestamp every second
+        function updateTimestamp() {
+            const now = new Date();
+            const utc = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+            document.getElementById('timestamp').textContent = utc;
+        }
+
+        setInterval(updateTimestamp, 1000);
+        updateTimestamp();
+
+        // Simple role switcher interaction
+        document.getElementById('role').addEventListener('change', function(e) {
+            console.log('Switched to perspective:', e.target.value);
+            // In a real app, this would filter/reorganize the dashboard view
+        });
+    </script>
+</body>
+</html>

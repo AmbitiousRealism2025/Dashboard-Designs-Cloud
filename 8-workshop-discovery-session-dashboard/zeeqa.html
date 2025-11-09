@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Discovery Session — Zeeqa</title>
+    <style>
+        /* Agent: Zeeqa | Theme: Workshop Discovery Session | Intent: Refined facilitation canvas with restrained sticky-note aesthetics and generous whitespace for clarity */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Refined sticky-note palette */
+            --note-yellow: #FFF9E6;
+            --note-pink: #FFE6F0;
+            --note-blue: #E6F4FF;
+            --note-mint: #E6FFF2;
+
+            /* Accent colors - saturated but controlled */
+            --accent-yellow: #FFD700;
+            --accent-pink: #FF69B4;
+            --accent-blue: #4A90E2;
+            --accent-mint: #2ECC71;
+
+            /* Neutrals - Zeeqa signature minimal palette */
+            --background: #FAFAFA;
+            --surface: #FFFFFF;
+            --text-primary: #1A1A1A;
+            --text-secondary: #6B6B6B;
+            --border: #E0E0E0;
+            --shadow: rgba(0, 0, 0, 0.06);
+
+            /* Semantic colors */
+            --success: #2ECC71;
+            --warn: #F39C12;
+            --danger: #E74C3C;
+
+            /* Spacing system - generous for projector use */
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 40px;
+            --space-xl: 64px;
+
+            /* Typography - larger for in-room visibility */
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-size-sm: 15px;
+            --font-size-base: 18px;
+            --font-size-lg: 22px;
+            --font-size-xl: 32px;
+            --font-size-2xl: 48px;
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-bold: 600;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: var(--font-size-base);
+        }
+
+        /* Grid Layout */
+        .layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            grid-template-rows: auto 1fr auto;
+            min-height: 100vh;
+            gap: 0;
+        }
+
+        /* Header */
+        header {
+            grid-column: 1 / -1;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: var(--space-lg) var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left h1 {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-xs);
+            letter-spacing: -0.5px;
+        }
+
+        .header-meta {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            font-weight: var(--font-weight-normal);
+        }
+
+        .header-right {
+            text-align: right;
+        }
+
+        .session-status {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--note-mint);
+            border: 1px solid var(--accent-mint);
+            border-radius: 4px;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-xs);
+        }
+
+        .session-timer {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+        }
+
+        /* Sidebar */
+        aside {
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: var(--space-lg) 0;
+        }
+
+        .nav-section {
+            margin-bottom: var(--space-lg);
+            padding: 0 var(--space-md);
+        }
+
+        .nav-label {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            font-weight: var(--font-weight-medium);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .nav-item {
+            padding: var(--space-sm);
+            margin-bottom: var(--space-xs);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease-out;
+            font-size: var(--font-size-base);
+        }
+
+        .nav-item:hover {
+            background: var(--background);
+        }
+
+        .nav-item.active {
+            background: var(--text-primary);
+            color: var(--surface);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* Main Content */
+        main {
+            padding: var(--space-xl);
+            max-width: 1600px;
+            overflow-y: auto;
+        }
+
+        /* KPI Section */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .kpi-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: var(--space-lg);
+            transition: all 0.2s ease-out;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px var(--shadow);
+        }
+
+        .kpi-label {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            font-weight: var(--font-weight-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-value {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            line-height: 1.1;
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-meta {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+        }
+
+        /* Sticky Notes Section */
+        .section-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-md);
+            letter-spacing: -0.3px;
+        }
+
+        .sticky-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .sticky-column h3 {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-md);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+        }
+
+        .sticky-note {
+            background: var(--note-yellow);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 4px;
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.2s ease-out;
+            animation: noteDropIn 0.4s ease-out;
+        }
+
+        .sticky-note:hover {
+            transform: translateY(-3px) rotate(0.5deg);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .sticky-note.pink {
+            background: var(--note-pink);
+        }
+
+        .sticky-note.blue {
+            background: var(--note-blue);
+        }
+
+        .sticky-note.mint {
+            background: var(--note-mint);
+        }
+
+        .sticky-content {
+            font-size: var(--font-size-base);
+            line-height: 1.5;
+            margin-bottom: var(--space-sm);
+        }
+
+        .sticky-meta {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            padding-top: var(--space-sm);
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        @keyframes noteDropIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) rotate(-2deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+
+        /* Charts Section */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .chart-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: var(--space-lg);
+        }
+
+        .chart-header {
+            margin-bottom: var(--space-md);
+        }
+
+        .chart-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-xs);
+        }
+
+        .chart-subtitle {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+        }
+
+        .chart-placeholder {
+            height: 280px;
+            background: linear-gradient(to bottom, var(--background) 0%, var(--surface) 100%);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            height: 200px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: var(--accent-blue);
+            border-radius: 4px 4px 0 0;
+            opacity: 0.8;
+            transition: all 0.2s ease-out;
+        }
+
+        .chart-bar:hover {
+            opacity: 1;
+            transform: scaleY(1.05);
+        }
+
+        /* Action Items Table */
+        .table-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .table-header {
+            margin-bottom: var(--space-md);
+        }
+
+        .table-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-medium);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: var(--space-sm) var(--space-md);
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--border);
+            font-size: var(--font-size-base);
+        }
+
+        tr {
+            transition: all 0.2s ease-out;
+        }
+
+        tr:hover {
+            background: var(--background);
+        }
+
+        tr:hover .hover-reveal {
+            opacity: 1;
+        }
+
+        .hover-reveal {
+            opacity: 0;
+            transition: opacity 0.2s ease-out;
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .priority-high {
+            background: #FFE6E6;
+            color: var(--danger);
+        }
+
+        .priority-medium {
+            background: #FFF4E6;
+            color: var(--warn);
+        }
+
+        .priority-low {
+            background: #E6F7EE;
+            color: var(--success);
+        }
+
+        /* Live Notes Section */
+        .live-notes {
+            background: var(--surface);
+            border: 2px solid var(--text-primary);
+            border-radius: 8px;
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .live-notes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .live-notes-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--danger);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        .decision-item {
+            padding: var(--space-md);
+            background: var(--background);
+            border-left: 4px solid var(--accent-blue);
+            border-radius: 4px;
+            margin-bottom: var(--space-sm);
+            font-size: var(--font-size-base);
+        }
+
+        .decision-time {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            margin-top: var(--space-xs);
+        }
+
+        /* Footer */
+        footer {
+            grid-column: 1 / -1;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: var(--space-md) var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+        }
+
+        .footer-brand {
+            font-weight: var(--font-weight-medium);
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .sticky-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 960px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-section {
+                display: inline-block;
+                margin-right: var(--space-md);
+            }
+        }
+
+        @media (max-width: 640px) {
+            :root {
+                --space-lg: 24px;
+                --space-xl: 32px;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-md);
+            }
+
+            .header-right {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Agent: Zeeqa | Theme: Workshop Discovery Session | Intent: Refined facilitation canvas with restrained sticky-note aesthetics and generous whitespace for clarity -->
+
+    <div class="layout">
+        <header>
+            <div class="header-left">
+                <h1>Product Strategy Workshop</h1>
+                <div class="header-meta">Q1 2025 Planning Session · Innovation Lab · 12 participants</div>
+            </div>
+            <div class="header-right">
+                <div class="session-status">Session Active</div>
+                <div class="session-timer">2:34:18</div>
+            </div>
+        </header>
+
+        <aside>
+            <nav>
+                <div class="nav-section">
+                    <div class="nav-label">Sections</div>
+                    <div class="nav-item active">Overview</div>
+                    <div class="nav-item">Insights</div>
+                    <div class="nav-item">Action Items</div>
+                    <div class="nav-item">Decisions</div>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-label">Views</div>
+                    <div class="nav-item">By Theme</div>
+                    <div class="nav-item">By Owner</div>
+                    <div class="nav-item">Timeline</div>
+                </div>
+            </nav>
+        </aside>
+
+        <main>
+            <!-- KPI Cards -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Participants</div>
+                    <div class="kpi-value">12</div>
+                    <div class="kpi-meta">Cross-functional team</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Topics Covered</div>
+                    <div class="kpi-value">8</div>
+                    <div class="kpi-meta">Of 10 planned</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Decisions Made</div>
+                    <div class="kpi-value">5</div>
+                    <div class="kpi-meta">3 pending review</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Action Items</div>
+                    <div class="kpi-value">23</div>
+                    <div class="kpi-meta">18 assigned</div>
+                </div>
+            </div>
+
+            <!-- Sticky Notes: What We Learned -->
+            <h2 class="section-title">What We Learned</h2>
+            <div class="sticky-grid">
+                <div class="sticky-column">
+                    <h3>Key Insights</h3>
+                    <div class="sticky-note yellow">
+                        <div class="sticky-content">
+                            Customer retention drops significantly after month 3 — need stronger onboarding sequence
+                        </div>
+                        <div class="sticky-meta">Theme: Product Experience</div>
+                    </div>
+                    <div class="sticky-note yellow">
+                        <div class="sticky-content">
+                            Support tickets cluster around integration setup — documentation gap identified
+                        </div>
+                        <div class="sticky-meta">Theme: Customer Success</div>
+                    </div>
+                    <div class="sticky-note yellow">
+                        <div class="sticky-content">
+                            Power users want API access and automation capabilities — feature request consensus
+                        </div>
+                        <div class="sticky-meta">Theme: Platform Evolution</div>
+                    </div>
+                </div>
+
+                <div class="sticky-column">
+                    <h3>Ideas to Explore</h3>
+                    <div class="sticky-note blue">
+                        <div class="sticky-content">
+                            Build interactive onboarding checklist with milestone rewards to improve activation
+                        </div>
+                        <div class="sticky-meta">Owner: Product Team</div>
+                    </div>
+                    <div class="sticky-note blue">
+                        <div class="sticky-content">
+                            Launch monthly webinar series focused on advanced use cases and best practices
+                        </div>
+                        <div class="sticky-meta">Owner: Marketing</div>
+                    </div>
+                    <div class="sticky-note blue">
+                        <div class="sticky-content">
+                            Create integration marketplace with pre-built templates for common workflows
+                        </div>
+                        <div class="sticky-meta">Owner: Engineering</div>
+                    </div>
+                    <div class="sticky-note blue">
+                        <div class="sticky-content">
+                            Develop customer health scoring model to proactively identify churn risk
+                        </div>
+                        <div class="sticky-meta">Owner: Data Team</div>
+                    </div>
+                </div>
+
+                <div class="sticky-column">
+                    <h3>Risks & Blockers</h3>
+                    <div class="sticky-note pink">
+                        <div class="sticky-content">
+                            Engineering capacity constrained — may need to deprioritize lower-impact features
+                        </div>
+                        <div class="sticky-meta">Severity: High</div>
+                    </div>
+                    <div class="sticky-note pink">
+                        <div class="sticky-content">
+                            Budget approval needed for customer research initiative — timeline at risk
+                        </div>
+                        <div class="sticky-meta">Severity: Medium</div>
+                    </div>
+                    <div class="sticky-note pink">
+                        <div class="sticky-content">
+                            Competing priorities between growth and retention initiatives — need strategic alignment
+                        </div>
+                        <div class="sticky-meta">Severity: High</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <h2 class="section-title">Session Analytics</h2>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Participation by Theme</div>
+                        <div class="chart-subtitle">Number of contributions per topic area</div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <div class="chart-bars">
+                            <div class="chart-bar" style="height: 75%; background: var(--accent-yellow);"></div>
+                            <div class="chart-bar" style="height: 90%; background: var(--accent-blue);"></div>
+                            <div class="chart-bar" style="height: 60%; background: var(--accent-mint);"></div>
+                            <div class="chart-bar" style="height: 85%; background: var(--accent-pink);"></div>
+                            <div class="chart-bar" style="height: 70%; background: var(--accent-yellow);"></div>
+                            <div class="chart-bar" style="height: 55%; background: var(--accent-blue);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Energy & Engagement</div>
+                        <div class="chart-subtitle">Group energy levels throughout session</div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0;">
+                            <polyline
+                                points="40,200 120,160 200,140 280,120 360,180 440,150 520,130 600,110"
+                                fill="none"
+                                stroke="var(--accent-mint)"
+                                stroke-width="3"
+                                opacity="0.8"
+                            />
+                            <polyline
+                                points="40,200 120,160 200,140 280,120 360,180 440,150 520,130 600,110"
+                                fill="var(--accent-mint)"
+                                opacity="0.1"
+                            />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Items Table -->
+            <div class="table-card">
+                <div class="table-header">
+                    <h2 class="table-title">Next Moves — Action Items</h2>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Design new onboarding flow wireframes</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>Not Started</td>
+                            <td><span class="hover-reveal">Owner: Sarah Chen · Due: Jan 20</span></td>
+                        </tr>
+                        <tr>
+                            <td>Audit existing integration documentation</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>In Progress</td>
+                            <td><span class="hover-reveal">Owner: Marcus Reid · Due: Jan 18</span></td>
+                        </tr>
+                        <tr>
+                            <td>Draft API roadmap proposal</td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                            <td>Not Started</td>
+                            <td><span class="hover-reveal">Owner: Engineering · Due: Jan 25</span></td>
+                        </tr>
+                        <tr>
+                            <td>Schedule customer research interviews</td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                            <td>Not Started</td>
+                            <td><span class="hover-reveal">Owner: Priya Patel · Due: Jan 22</span></td>
+                        </tr>
+                        <tr>
+                            <td>Build health score calculation prototype</td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                            <td>Not Started</td>
+                            <td><span class="hover-reveal">Owner: Data Team · Due: Feb 1</span></td>
+                        </tr>
+                        <tr>
+                            <td>Create budget proposal for research initiative</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>In Progress</td>
+                            <td><span class="hover-reveal">Owner: Lisa Martinez · Due: Jan 19</span></td>
+                        </tr>
+                        <tr>
+                            <td>Map customer journey touchpoints</td>
+                            <td><span class="priority-badge priority-low">Low</span></td>
+                            <td>Not Started</td>
+                            <td><span class="hover-reveal">Owner: UX Team · Due: Jan 30</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Live Notes & Decisions -->
+            <div class="live-notes">
+                <div class="live-notes-header">
+                    <h2 class="live-notes-title">Live Notes & Decisions</h2>
+                    <div class="live-indicator">
+                        <div class="pulse-dot"></div>
+                        <span>Recording</span>
+                    </div>
+                </div>
+
+                <div class="decision-item">
+                    <strong>Decision:</strong> Prioritize onboarding improvements over new feature development for Q1
+                    <div class="decision-time">14:32 — Unanimous agreement</div>
+                </div>
+
+                <div class="decision-item">
+                    <strong>Decision:</strong> Allocate 2 engineers to integration documentation sprint starting next week
+                    <div class="decision-time">14:45 — Leadership approved</div>
+                </div>
+
+                <div class="decision-item">
+                    <strong>Decision:</strong> Launch beta API program with 10 select power users in February
+                    <div class="decision-time">15:18 — Pending security review</div>
+                </div>
+
+                <div class="decision-item">
+                    <strong>Note:</strong> Customer success team to share retention data analysis by end of week
+                    <div class="decision-time">15:42 — Action logged</div>
+                </div>
+
+                <div class="decision-item">
+                    <strong>Decision:</strong> Monthly all-hands demo to showcase customer stories and product wins
+                    <div class="decision-time">16:05 — Starting February</div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-brand">Designed by Zeeqa</div>
+            <div>Last updated: Today at 16:34 · Q1 2025 Planning · Dashboard Designs Project</div>
+        </footer>
+    </div>
+
+    <script>
+        // Simple animation triggers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Stagger sticky note animations
+            const notes = document.querySelectorAll('.sticky-note');
+            notes.forEach((note, index) => {
+                note.style.animationDelay = `${index * 0.05}s`;
+            });
+
+            // Simulate session timer
+            const timerElement = document.querySelector('.session-timer');
+            let seconds = 9258; // 2:34:18
+
+            setInterval(() => {
+                seconds++;
+                const hours = Math.floor(seconds / 3600);
+                const minutes = Math.floor((seconds % 3600) / 60);
+                const secs = seconds % 60;
+                timerElement.textContent =
+                    `${hours}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

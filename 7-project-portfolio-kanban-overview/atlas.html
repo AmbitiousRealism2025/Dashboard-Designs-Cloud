@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Project Portfolio Command Center | Atlas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Agent: Atlas | Theme: Project Portfolio Kanban Overview | Intent: Multi-stakeholder project command center with operational status monitoring and swimlane triage flows -->
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --bg-secondary: #e8ecf1;
+      --card: #ffffff;
+      --text: #1a2332;
+      --text-muted: #5a6c7d;
+      --border: #d1d9e3;
+      --border-heavy: #a8b5c7;
+
+      /* Status Colors - clearly differentiated per theme requirements */
+      --status-backlog: #94a3b8;
+      --status-backlog-bg: #f1f5f9;
+      --status-progress: #3b82f6;
+      --status-progress-bg: #eff6ff;
+      --status-risk: #f97316;
+      --status-risk-bg: #fff7ed;
+      --status-done: #22c55e;
+      --status-done-bg: #f0fdf4;
+      --status-blocked: #dc2626;
+      --status-blocked-bg: #fef2f2;
+
+      /* Operational accents */
+      --alert-critical: #dc2626;
+      --alert-warning: #f59e0b;
+      --alert-info: #3b82f6;
+      --accent-primary: #2563eb;
+
+      --shadow: 0 1px 3px rgba(26, 35, 50, 0.08);
+      --shadow-hover: 0 4px 12px rgba(26, 35, 50, 0.15);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: all 0.2s ease-out;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      grid-template-rows: auto minmax(0, 1fr);
+      grid-template-areas:
+        "sidebar header"
+        "sidebar main";
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    header {
+      grid-area: header;
+      background: var(--card);
+      border-bottom: 2px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+
+    .brand-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      color: white;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+    }
+
+    .brand-text h1 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .brand-text p {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--status-done);
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.15); }
+    }
+
+    .btn {
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--card);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn:hover {
+      background: var(--bg);
+      border-color: var(--border-heavy);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .btn-primary {
+      background: var(--accent-primary);
+      color: white;
+      border-color: var(--accent-primary);
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+      border-color: #1d4ed8;
+    }
+
+    aside {
+      grid-area: sidebar;
+      background: var(--card);
+      border-right: 2px solid var(--border);
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      overflow-y: auto;
+    }
+
+    .sidebar-section {
+      padding: 0 16px;
+    }
+
+    .sidebar-title {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item {
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+
+    .nav-item-icon {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      background: var(--bg);
+      color: var(--accent-primary);
+    }
+
+    .nav-item.active {
+      font-weight: 600;
+      border-left: 3px solid var(--accent-primary);
+      padding-left: 9px;
+    }
+
+    .alert-count {
+      margin-left: auto;
+      background: var(--alert-critical);
+      color: white;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    main {
+      grid-area: main;
+      padding: 20px 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Alert Banner */
+    .alert-banner {
+      background: linear-gradient(to right, #fef3c7, #fde68a);
+      border: 2px solid var(--alert-warning);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      box-shadow: var(--shadow);
+    }
+
+    .alert-banner.critical {
+      background: linear-gradient(to right, #fee2e2, #fecaca);
+      border-color: var(--alert-critical);
+    }
+
+    .alert-icon {
+      font-size: 18px;
+    }
+
+    /* KPI Strip */
+    .kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .kpi-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--border-heavy);
+    }
+
+    .kpi-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    .kpi-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .kpi-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .kpi-delta {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .kpi-delta.positive {
+      background: var(--status-done-bg);
+      color: var(--status-done);
+    }
+
+    .kpi-delta.negative {
+      background: var(--status-blocked-bg);
+      color: var(--status-blocked);
+    }
+
+    .kpi-progress-bar {
+      height: 6px;
+      background: var(--bg);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .kpi-progress-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--status-progress), var(--status-done));
+      border-radius: 3px;
+      transition: width 0.6s ease-out;
+    }
+
+    /* Section Headers */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Charts Row */
+    .charts-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    .chart-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .chart-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .chart-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .chart-badge {
+      padding: 4px 8px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .chart-placeholder {
+      flex: 1;
+      min-height: 180px;
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg-secondary) 100%);
+      border: 2px dashed var(--border);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-visual {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 70%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      padding: 12px;
+      gap: 4px;
+    }
+
+    .chart-bar {
+      flex: 1;
+      background: var(--status-progress);
+      border-radius: 4px 4px 0 0;
+      opacity: 0.6;
+    }
+
+    .chart-bar:nth-child(2) { height: 65%; background: var(--status-done); }
+    .chart-bar:nth-child(3) { height: 85%; background: var(--status-progress); }
+    .chart-bar:nth-child(4) { height: 50%; background: var(--status-risk); }
+    .chart-bar:nth-child(5) { height: 75%; background: var(--status-done); }
+    .chart-bar:nth-child(6) { height: 90%; background: var(--status-progress); }
+    .chart-bar:nth-child(7) { height: 60%; background: var(--status-done); }
+
+    /* Kanban Swimlane Section - KEY DIFFERENTIATOR */
+    .swimlane-container {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .swimlane {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .swimlane-column {
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 400px;
+    }
+
+    .swimlane-column.backlog {
+      border-top: 4px solid var(--status-backlog);
+    }
+
+    .swimlane-column.in-progress {
+      border-top: 4px solid var(--status-progress);
+    }
+
+    .swimlane-column.at-risk {
+      border-top: 4px solid var(--status-risk);
+    }
+
+    .swimlane-column.done {
+      border-top: 4px solid var(--status-done);
+    }
+
+    .column-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 4px;
+    }
+
+    .column-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+
+    .column-count {
+      background: var(--card);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    /* Kanban Ticket Cards */
+    .ticket-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .ticket-card:hover {
+      transform: perspective(600px) rotateX(2deg) rotateY(-2deg) translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+      border-color: var(--border-heavy);
+    }
+
+    .ticket-card.expanded {
+      grid-column: span 1;
+    }
+
+    .ticket-priority {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .ticket-priority.high {
+      background: var(--status-blocked);
+      box-shadow: 0 0 6px var(--status-blocked);
+    }
+
+    .ticket-priority.medium {
+      background: var(--status-risk);
+    }
+
+    .ticket-priority.low {
+      background: var(--status-backlog);
+    }
+
+    .ticket-id {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+    }
+
+    .ticket-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .ticket-owner {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .owner-avatar {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .ticket-progress {
+      margin-top: 8px;
+    }
+
+    .ticket-progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .ticket-progress-bar {
+      height: 4px;
+      background: var(--bg);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .ticket-progress-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.4s ease-out;
+    }
+
+    .ticket-meta {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .ticket-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .ticket-expanded-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .ticket-card.expanded .ticket-expanded-content {
+      max-height: 200px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Data Table */
+    .table-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      overflow-x: auto;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .data-table thead {
+      background: var(--bg);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .data-table th {
+      padding: 10px 12px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    .data-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .data-table tbody tr:hover {
+      background: var(--bg);
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .status-pill.backlog {
+      background: var(--status-backlog-bg);
+      color: var(--status-backlog);
+      border: 1px solid var(--status-backlog);
+    }
+
+    .status-pill.progress {
+      background: var(--status-progress-bg);
+      color: var(--status-progress);
+      border: 1px solid var(--status-progress);
+    }
+
+    .status-pill.risk {
+      background: var(--status-risk-bg);
+      color: var(--status-risk);
+      border: 1px solid var(--status-risk);
+    }
+
+    .status-pill.done {
+      background: var(--status-done-bg);
+      color: var(--status-done);
+      border: 1px solid var(--status-done);
+    }
+
+    .status-pill.blocked {
+      background: var(--status-blocked-bg);
+      color: var(--status-blocked);
+      border: 1px solid var(--status-blocked);
+    }
+
+    /* Footer */
+    footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--card);
+    }
+
+    .footer-agent {
+      font-weight: 600;
+      color: var(--accent-primary);
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      body {
+        grid-template-columns: 64px minmax(0, 1fr);
+      }
+      aside {
+        padding: 16px 8px;
+      }
+      .nav-item span:not(.nav-item-icon) {
+        display: none;
+      }
+      .kpi-strip {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .charts-row {
+        grid-template-columns: 1fr;
+      }
+      .swimlane {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+          "header"
+          "main";
+      }
+      aside {
+        display: none;
+      }
+      .kpi-strip {
+        grid-template-columns: 1fr;
+      }
+      .swimlane {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <aside>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Command Views</div>
+      <ul class="nav-list">
+        <li class="nav-item active">
+          <span class="nav-item-icon">◉</span>
+          <span>Portfolio Overview</span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-item-icon">▦</span>
+          <span>Kanban Board</span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-item-icon">⚡</span>
+          <span>Critical Path</span>
+          <span class="alert-count">3</span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-item-icon">👥</span>
+          <span>Resource View</span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-item-icon">📊</span>
+          <span>Velocity & Burn</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Stakeholders</div>
+      <ul class="nav-list">
+        <li class="nav-item">
+          <span class="nav-item-icon">◆</span>
+          <span>PM Dashboard</span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-item-icon">★</span>
+          <span>Executive View</span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-item-icon">◈</span>
+          <span>Team Status</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Operations</div>
+      <ul class="nav-list">
+        <li class="nav-item">
+          <span class="nav-item-icon">⚙</span>
+          <span>Settings</span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-item-icon">📋</span>
+          <span>Reports</span>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <header>
+    <div class="brand-area">
+      <div class="brand-icon">⚡</div>
+      <div class="brand-text">
+        <h1>Project Portfolio Command Center</h1>
+        <p>Atlas PMO Operations Suite</p>
+      </div>
+    </div>
+    <div class="header-controls">
+      <div class="status-indicator">
+        <span class="status-dot"></span>
+        <span>Live Sync Active</span>
+      </div>
+      <button class="btn">
+        <span>⟳</span>
+        <span>Refresh</span>
+      </button>
+      <button class="btn">
+        <span>⚙</span>
+        <span>Filters</span>
+      </button>
+      <button class="btn btn-primary">
+        <span>+</span>
+        <span>New Project</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Critical Alerts Banner -->
+    <div class="alert-banner critical">
+      <span class="alert-icon">⚠</span>
+      <strong>3 projects require immediate attention:</strong> Data Platform Migration (blocked), Mobile App Redesign (budget overrun), Customer Portal v2 (resource conflict)
+    </div>
+
+    <!-- KPI Strip - Portfolio Level Metrics -->
+    <section>
+      <div class="section-header">
+        <div class="section-title">
+          <span>📊</span>
+          <span>Portfolio Health Metrics</span>
+        </div>
+        <div class="section-meta">Last updated: 2 minutes ago</div>
+      </div>
+      <div class="kpi-strip">
+        <div class="kpi-card">
+          <div class="kpi-label">Active Projects</div>
+          <div class="kpi-value">23</div>
+          <div class="kpi-meta">
+            <span>17 on track</span>
+            <span class="kpi-delta positive">↑ 3</span>
+          </div>
+          <div class="kpi-progress-bar">
+            <div class="kpi-progress-fill" style="width: 74%"></div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">At Risk</div>
+          <div class="kpi-value">4</div>
+          <div class="kpi-meta">
+            <span>Needs triage</span>
+            <span class="kpi-delta negative">↑ 1</span>
+          </div>
+          <div class="kpi-progress-bar">
+            <div class="kpi-progress-fill" style="width: 17%; background: var(--status-risk);"></div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">Budget Utilization</div>
+          <div class="kpi-value">68%</div>
+          <div class="kpi-meta">
+            <span>$8.2M / $12M</span>
+            <span class="kpi-delta positive">On pace</span>
+          </div>
+          <div class="kpi-progress-bar">
+            <div class="kpi-progress-fill" style="width: 68%"></div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">Avg. Completion</div>
+          <div class="kpi-value">57%</div>
+          <div class="kpi-meta">
+            <span>Portfolio-wide</span>
+            <span class="kpi-delta positive">↑ 8%</span>
+          </div>
+          <div class="kpi-progress-bar">
+            <div class="kpi-progress-fill" style="width: 57%"></div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-label">Team Velocity</div>
+          <div class="kpi-value">142</div>
+          <div class="kpi-meta">
+            <span>Story points/sprint</span>
+            <span class="kpi-delta positive">↑ 12%</span>
+          </div>
+          <div class="kpi-progress-bar">
+            <div class="kpi-progress-fill" style="width: 85%"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Charts Row -->
+    <section>
+      <div class="section-header">
+        <div class="section-title">
+          <span>📈</span>
+          <span>Operational Analytics</span>
+        </div>
+        <div class="section-meta">Multi-stakeholder visibility</div>
+      </div>
+      <div class="charts-row">
+        <div class="chart-card">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Portfolio Burndown</div>
+              <div class="chart-subtitle">Actual vs. planned completion over time</div>
+            </div>
+            <div class="chart-badge">Q4 2025</div>
+          </div>
+          <div class="chart-placeholder">
+            <div class="chart-visual">
+              <div class="chart-bar" style="height: 45%"></div>
+              <div class="chart-bar" style="height: 65%"></div>
+              <div class="chart-bar" style="height: 85%"></div>
+              <div class="chart-bar" style="height: 50%"></div>
+              <div class="chart-bar" style="height: 75%"></div>
+              <div class="chart-bar" style="height: 90%"></div>
+              <div class="chart-bar" style="height: 60%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Resource Allocation</div>
+              <div class="chart-subtitle">Team capacity distribution</div>
+            </div>
+            <div class="chart-badge">Live</div>
+          </div>
+          <div class="chart-placeholder">
+            <div style="position: absolute; inset: 20px; display: flex; flex-direction: column; gap: 8px; justify-content: center;">
+              <div style="height: 20px; background: var(--status-done); border-radius: 4px; width: 85%;"></div>
+              <div style="height: 20px; background: var(--status-progress); border-radius: 4px; width: 92%;"></div>
+              <div style="height: 20px; background: var(--status-risk); border-radius: 4px; width: 68%;"></div>
+              <div style="height: 20px; background: var(--status-backlog); border-radius: 4px; width: 45%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <div>
+              <div class="chart-title">Status Distribution</div>
+              <div class="chart-subtitle">Current project states</div>
+            </div>
+            <div class="chart-badge">Real-time</div>
+          </div>
+          <div class="chart-placeholder">
+            <div style="position: absolute; inset: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px;">
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600;">
+                <div style="width: 12px; height: 12px; border-radius: 2px; background: var(--status-done);"></div>
+                <span>Done: 5</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600;">
+                <div style="width: 12px; height: 12px; border-radius: 2px; background: var(--status-progress);"></div>
+                <span>In Progress: 12</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600;">
+                <div style="width: 12px; height: 12px; border-radius: 2px; background: var(--status-risk);"></div>
+                <span>At Risk: 4</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600;">
+                <div style="width: 12px; height: 12px; border-radius: 2px; background: var(--status-backlog);"></div>
+                <span>Backlog: 2</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kanban Swimlane Section - CORE FEATURE -->
+    <section class="swimlane-container">
+      <div class="section-header">
+        <div class="section-title">
+          <span>▦</span>
+          <span>Project Portfolio Swimlanes</span>
+        </div>
+        <div class="section-meta">Drag to triage • Click to expand details</div>
+      </div>
+
+      <div class="swimlane">
+        <!-- Backlog Column -->
+        <div class="swimlane-column backlog">
+          <div class="column-header">
+            <div class="column-title">Backlog</div>
+            <div class="column-count">2</div>
+          </div>
+
+          <div class="ticket-card">
+            <div class="ticket-priority low"></div>
+            <div class="ticket-id">PRJ-018</div>
+            <div class="ticket-title">Analytics Dashboard v3</div>
+            <div class="ticket-owner">
+              <div class="owner-avatar">AS</div>
+              <span>A. Singh</span>
+            </div>
+            <div class="ticket-progress">
+              <div class="ticket-progress-label">
+                <span>Planning</span>
+                <span>15%</span>
+              </div>
+              <div class="ticket-progress-bar">
+                <div class="ticket-progress-fill" style="width: 15%; background: var(--status-backlog);"></div>
+              </div>
+            </div>
+            <div class="ticket-meta">
+              <div class="ticket-meta-item">📅 Q1 2026</div>
+              <div class="ticket-meta-item">💰 $85K</div>
+            </div>
+          </div>
+
+          <div class="ticket-card">
+            <div class="ticket-priority low"></div>
+            <div class="ticket-id">PRJ-022</div>
+            <div class="ticket-title">API Gateway Upgrade</div>
+            <div class="ticket-owner">
+              <div class="owner-avatar">RK</div>
+              <span>R. Kumar</span>
+            </div>
+            <div class="ticket-progress">
+              <div class="ticket-progress-label">
+                <span>Scoping</span>
+                <span>10%</span>
+              </div>
+              <div class="ticket-progress-bar">
+                <div class="ticket-progress-fill" style="width: 10%; background: var(--status-backlog);"></div>
+              </div>
+            </div>
+            <div class="ticket-meta">
+              <div class="ticket-meta-item">📅 Q1 2026</div>
+              <div class="ticket-meta-item">💰 $120K</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- In Progress Column -->
+        <div class="swimlane-column in-progress">
+          <div class="column-header">
+            <div class="column-title">In Progress</div>
+            <div class="column-count">12</div>
+          </div>
+
+          <div class="ticket-card">
+            <div class="ticket-priority medium"></div>
+            <div class="ticket-id">PRJ-007</div>
+            <div class="ticket-title">Cloud Migration Phase 2</div>
+            <div class="ticket-owner">
+              <div class="owner-avatar">MC</div>
+              <span>M. Chen</span>
+            </div>
+            <div class="ticket-progress">
+              <div class="ticket-progress-label">
+                <span>Development</span>
+                <span>62%</span>
+              </div>
+              <div class="ticket-progress-bar">
+                <div class="ticket-progress-fill" style="width: 62%; background: var(--status-progress);"></div>
+              </div>
+            </div>
+            <div class="ticket-meta">
+              <div class="ticket-meta-item">📅 Nov 30</div>
+              <div class="ticket-meta-item">💰 $340K</div>
+            </div>
+          </div>
+
+          <div class="ticket-card">
+            <div class="ticket-priority medium"></div>
+            <div class="ticket-id">PRJ-011</div>
+            <div class="ticket-title">CRM Integration Suite</div>
+            <div class="ticket-owner">
+              <div class="owner-avatar">JW</div>
+              <span>J. Williams</span>
+            </div>
+            <div class="ticket-progress">
+              <div class="ticket-progress-label">
+                <span>Testing</span>
+                <span>78%</span>
+              </div>
+              <div class="ticket-progress-bar">
+                <div class="ticket-progress-fill" style="width: 78%; background: var(--status-progress);"></div>
+              </div>
+            </div>
+            <div class="ticket-meta">
+              <div class="ticket-meta-item">📅 Nov 15</div>
+              <div class="ticket-meta-item">💰 $215K</div>
+            </div>
+          </div>
+
+          <div class="ticket-card">
+            <div class="ticket-priority low"></div>
+            <div class="ticket-id">PRJ-014</div>
+            <div class="ticket-title">Security Audit Remediation</div>
+            <div class="ticket-owner">
+              <div class="owner-avatar">DL</div>
+              <span>D. Lopez</span>
+            </div>
+            <div class="ticket-progress">
+              <div class="ticket-progress-label">
+                <span>Implementation</span>
+                <span>45%</span>
+              </div>
+              <div class="ticket-progress-bar">
+                <div class="ticket-progress-fill" style="width: 45%; background: var(--status-progress);"></div>
+              </div>
+            </div>
+            <div class="ticket-meta">
+              <div class="ticket-meta-item">📅 Dec 10</div>
+              <div class="ticket-meta-item">💰 $95K</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- At Risk Column -->
+        <div class="swimlane-column at-risk">
+          <div class="column-header">
+            <div class="column-title">At Risk</div>
+            <div class="column-count">4</div>
+          </div>
+
+          <div class="ticket-card">
+            <div class="ticket-priority high"></div>
+            <div class="ticket-id">PRJ-003</div>
+            <div class="ticket-title">Data Platform Migration</div>
+            <div class="ticket-owner">
+              <div class="owner-avatar">SK</div>
+              <span>S. Kim</span>
+            </div>
+            <div class="ticket-progress">
+              <div class="ticket-progress-label">
+                <span>BLOCKED</span>
+                <span>32%</span>
+              </div>
+              <div class="ticket-progress-bar">
+                <div class="ticket-progress-fill" style="width: 32%; background: var(--status-blocked);"></div>
+              </div>
+            </div>
+            <div class="ticket-meta">
+              <div class="ticket-meta-item">⚠ Vendor delay</div>
+            </div>
+          </div>
+
+          <div class="ticket-card">
+            <div class="ticket-priority high"></div>
+            <div class="ticket-id">PRJ-009</div>
+            <div class="ticket-title">Mobile App Redesign</div>
+            <div class="ticket-owner">
+              <div class="owner-avatar">TN</div>
+              <span>T. Nguyen</span>
+            </div>
+            <div class="ticket-progress">
+              <div class="ticket-progress-label">
+                <span>Budget overrun</span>
+                <span>68%</span>
+              </div>
+              <div class="ticket-progress-bar">
+                <div class="ticket-progress-fill" style="width: 68%; background: var(--status-risk);"></div>
+              </div>
+            </div>
+            <div class="ticket-meta">
+              <div class="ticket-meta-item">💰 +$45K over</div>
+            </div>
+          </div>
+
+          <div class="ticket-card">
+            <div class="ticket-priority medium"></div>
+            <div class="ticket-id">PRJ-016</div>
+            <div class="ticket-title">Customer Portal v2</div>
+            <div class="ticket-owner">
+              <div class="owner-avatar">EP</div>
+              <span>E. Patel</span>
+            </div>
+            <div class="ticket-progress">
+              <div class="ticket-progress-label">
+                <span>Resource conflict</span>
+                <span>54%</span>
+              </div>
+              <div class="ticket-progress-bar">
+                <div class="ticket-progress-fill" style="width: 54%; background: var(--status-risk);"></div>
+              </div>
+            </div>
+            <div class="ticket-meta">
+              <div class="ticket-meta-item">👥 2 devs needed</div>
+            </div>
+          </div>
+
+          <div class="ticket-card">
+            <div class="ticket-priority medium"></div>
+            <div class="ticket-id">PRJ-020</div>
+            <div class="ticket-title">Payment Gateway Update</div>
+            <div class="ticket-owner">
+              <div class="owner-avatar">BJ</div>
+              <span>B. Johnson</span>
+            </div>
+            <div class="ticket-progress">
+              <div class="ticket-progress-label">
+                <span>Timeline slip</span>
+                <span>41%</span>
+              </div>
+              <div class="ticket-progress-bar">
+                <div class="ticket-progress-fill" style="width: 41%; background: var(--status-risk);"></div>
+              </div>
+            </div>
+            <div class="ticket-meta">
+              <div class="ticket-meta-item">📅 Delayed 2 weeks</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Done Column -->
+        <div class="swimlane-column done">
+          <div class="column-header">
+            <div class="column-title">Done</div>
+            <div class="column-count">5</div>
+          </div>
+
+          <div class="ticket-card">
+            <div class="ticket-id">PRJ-001</div>
+            <div class="ticket-title">Q3 Infrastructure Upgrade</div>
+            <div class="ticket-owner">
+              <div class="owner-avatar">MR</div>
+              <span>M. Rodriguez</span>
+            </div>
+            <div class="ticket-progress">
+              <div class="ticket-progress-label">
+                <span>Completed</span>
+                <span>100%</span>
+              </div>
+              <div class="ticket-progress-bar">
+                <div class="ticket-progress-fill" style="width: 100%; background: var(--status-done);"></div>
+              </div>
+            </div>
+            <div class="ticket-meta">
+              <div class="ticket-meta-item">✓ Oct 28</div>
+              <div class="ticket-meta-item">💰 On budget</div>
+            </div>
+          </div>
+
+          <div class="ticket-card">
+            <div class="ticket-id">PRJ-005</div>
+            <div class="ticket-title">Email Campaign System</div>
+            <div class="ticket-owner">
+              <div class="owner-avatar">HZ</div>
+              <span>H. Zhang</span>
+            </div>
+            <div class="ticket-progress">
+              <div class="ticket-progress-label">
+                <span>Delivered</span>
+                <span>100%</span>
+              </div>
+              <div class="ticket-progress-bar">
+                <div class="ticket-progress-fill" style="width: 100%; background: var(--status-done);"></div>
+              </div>
+            </div>
+            <div class="ticket-meta">
+              <div class="ticket-meta-item">✓ Oct 22</div>
+              <div class="ticket-meta-item">⚡ Early</div>
+            </div>
+          </div>
+
+          <div class="ticket-card">
+            <div class="ticket-id">PRJ-008</div>
+            <div class="ticket-title">Onboarding Flow Redesign</div>
+            <div class="ticket-owner">
+              <div class="owner-avatar">LB</div>
+              <span>L. Brown</span>
+            </div>
+            <div class="ticket-progress">
+              <div class="ticket-progress-label">
+                <span>Shipped</span>
+                <span>100%</span>
+              </div>
+              <div class="ticket-progress-bar">
+                <div class="ticket-progress-fill" style="width: 100%; background: var(--status-done);"></div>
+              </div>
+            </div>
+            <div class="ticket-meta">
+              <div class="ticket-meta-item">✓ Oct 19</div>
+              <div class="ticket-meta-item">💰 -$8K under</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detailed Project Table -->
+    <section class="table-card">
+      <div class="section-header">
+        <div class="section-title">
+          <span>📋</span>
+          <span>Detailed Project Registry</span>
+        </div>
+        <div class="section-meta">Full portfolio view with stakeholder assignments</div>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Project ID</th>
+            <th>Project Name</th>
+            <th>Owner</th>
+            <th>Status</th>
+            <th>Progress</th>
+            <th>Budget</th>
+            <th>Target Date</th>
+            <th>Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>PRJ-003</strong></td>
+            <td>Data Platform Migration</td>
+            <td>S. Kim</td>
+            <td><span class="status-pill blocked">Blocked</span></td>
+            <td>32%</td>
+            <td>$485K / $520K</td>
+            <td>Nov 20, 2025</td>
+            <td><span style="color: var(--status-blocked); font-weight: 600;">High</span></td>
+          </tr>
+          <tr>
+            <td><strong>PRJ-007</strong></td>
+            <td>Cloud Migration Phase 2</td>
+            <td>M. Chen</td>
+            <td><span class="status-pill progress">In Progress</span></td>
+            <td>62%</td>
+            <td>$298K / $340K</td>
+            <td>Nov 30, 2025</td>
+            <td><span style="color: var(--status-risk); font-weight: 600;">Medium</span></td>
+          </tr>
+          <tr>
+            <td><strong>PRJ-009</strong></td>
+            <td>Mobile App Redesign</td>
+            <td>T. Nguyen</td>
+            <td><span class="status-pill risk">At Risk</span></td>
+            <td>68%</td>
+            <td>$245K / $200K</td>
+            <td>Dec 5, 2025</td>
+            <td><span style="color: var(--status-blocked); font-weight: 600;">High</span></td>
+          </tr>
+          <tr>
+            <td><strong>PRJ-011</strong></td>
+            <td>CRM Integration Suite</td>
+            <td>J. Williams</td>
+            <td><span class="status-pill progress">In Progress</span></td>
+            <td>78%</td>
+            <td>$189K / $215K</td>
+            <td>Nov 15, 2025</td>
+            <td><span style="color: var(--status-risk); font-weight: 600;">Medium</span></td>
+          </tr>
+          <tr>
+            <td><strong>PRJ-001</strong></td>
+            <td>Q3 Infrastructure Upgrade</td>
+            <td>M. Rodriguez</td>
+            <td><span class="status-pill done">Completed</span></td>
+            <td>100%</td>
+            <td>$412K / $425K</td>
+            <td>Oct 28, 2025</td>
+            <td><span style="color: var(--text-muted); font-weight: 600;">Low</span></td>
+          </tr>
+          <tr>
+            <td><strong>PRJ-014</strong></td>
+            <td>Security Audit Remediation</td>
+            <td>D. Lopez</td>
+            <td><span class="status-pill progress">In Progress</span></td>
+            <td>45%</td>
+            <td>$78K / $95K</td>
+            <td>Dec 10, 2025</td>
+            <td><span style="color: var(--text-muted); font-weight: 600;">Low</span></td>
+          </tr>
+          <tr>
+            <td><strong>PRJ-016</strong></td>
+            <td>Customer Portal v2</td>
+            <td>E. Patel</td>
+            <td><span class="status-pill risk">At Risk</span></td>
+            <td>54%</td>
+            <td>$156K / $180K</td>
+            <td>Dec 1, 2025</td>
+            <td><span style="color: var(--status-risk); font-weight: 600;">Medium</span></td>
+          </tr>
+          <tr>
+            <td><strong>PRJ-018</strong></td>
+            <td>Analytics Dashboard v3</td>
+            <td>A. Singh</td>
+            <td><span class="status-pill backlog">Backlog</span></td>
+            <td>15%</td>
+            <td>$24K / $85K</td>
+            <td>Q1 2026</td>
+            <td><span style="color: var(--text-muted); font-weight: 600;">Low</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      <div>
+        <strong>Portfolio Status:</strong> 23 active projects · 8.2M allocated · 17 on track · 4 at risk · 2 blocked
+      </div>
+      <div>
+        <span>Designed by </span>
+        <span class="footer-agent">Atlas</span>
+        <span> · Operational Command & Multi-Stakeholder UX</span>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Ticket card expand/collapse interaction
+    document.querySelectorAll('.ticket-card').forEach(card => {
+      card.addEventListener('click', function() {
+        this.classList.toggle('expanded');
+      });
+    });
+
+    // Nav item click handlers
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', function() {
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Simulate live updates (optional)
+    setInterval(() => {
+      const statusDot = document.querySelector('.status-dot');
+      statusDot.style.background = statusDot.style.background === 'var(--status-done)'
+        ? 'var(--status-progress)'
+        : 'var(--status-done)';
+    }, 3000);
+  </script>
+</body>
+</html>

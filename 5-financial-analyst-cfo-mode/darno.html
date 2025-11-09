@@ -1,0 +1,1305 @@
+<!-- Agent: Darno | Theme: Financial Analyst CFO Mode | Intent: Maximum data density with institutional precision for executive financial decision-making -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CFO Financial Dashboard | Q4 2024 Performance Analysis</title>
+    <style>
+        /* ========================================
+           DARNO DESIGN SYSTEM - CFO MODE
+           Data-first analytical precision
+        ======================================== */
+
+        :root {
+            /* Financial Analyst Color Palette */
+            --bg-primary: #FAFBFC;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #F4F6F8;
+
+            --navy-deep: #1B3A57;
+            --navy-mid: #2C5F8D;
+            --navy-light: #3D7AB3;
+
+            --green-deep: #0F5132;
+            --green-mid: #198754;
+            --green-light: #20C997;
+
+            --grey-900: #212529;
+            --grey-700: #495057;
+            --grey-500: #6C757D;
+            --grey-300: #ADB5BD;
+            --grey-200: #CED4DA;
+            --grey-100: #DEE2E6;
+
+            --red-alert: #C82333;
+            --amber-warn: #E0A800;
+
+            /* Semantic Colors */
+            --success: var(--green-mid);
+            --danger: var(--red-alert);
+            --warn: var(--amber-warn);
+            --neutral: var(--grey-500);
+
+            /* Spacing & Typography */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+
+            --font-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-mono: "SF Mono", Monaco, "Cascadia Code", "Courier New", monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.18s ease-out;
+        }
+
+        body {
+            font-family: var(--font-base);
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--grey-900);
+            background: var(--bg-primary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ========================================
+           LAYOUT STRUCTURE
+        ======================================== */
+
+        .app-container {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas:
+                "header header"
+                "sidebar main"
+                "footer footer";
+            min-height: 100vh;
+        }
+
+        /* ========================================
+           HEADER - Executive Brand Bar
+        ======================================== */
+
+        header {
+            grid-area: header;
+            background: var(--navy-deep);
+            color: white;
+            padding: var(--spacing-md) var(--spacing-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--green-deep);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: baseline;
+            gap: var(--spacing-lg);
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .header-subtitle {
+            font-size: 13px;
+            opacity: 0.85;
+            font-weight: 400;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+            font-size: 13px;
+        }
+
+        .fiscal-period {
+            padding: var(--spacing-xs) var(--spacing-md);
+            background: rgba(255,255,255,0.12);
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        .agent-badge {
+            font-weight: 600;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            background: var(--green-mid);
+            color: white;
+            border-radius: 3px;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* ========================================
+           SIDEBAR - Navigation & Filters
+        ======================================== */
+
+        aside {
+            grid-area: sidebar;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--grey-200);
+            padding: var(--spacing-lg) 0;
+        }
+
+        .nav-section {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .nav-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--grey-500);
+            padding: 0 var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .nav-item {
+            padding: var(--spacing-sm) var(--spacing-md);
+            color: var(--grey-700);
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-tertiary);
+            color: var(--navy-mid);
+        }
+
+        .nav-item.active {
+            background: var(--navy-deep);
+            color: white;
+            font-weight: 500;
+            border-left: 3px solid var(--green-mid);
+        }
+
+        .nav-value {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--grey-500);
+        }
+
+        .nav-item.active .nav-value {
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* ========================================
+           MAIN CONTENT AREA
+        ======================================== */
+
+        main {
+            grid-area: main;
+            padding: var(--spacing-lg);
+            overflow-y: auto;
+        }
+
+        /* ========================================
+           KPI STRIP - Financial Metrics Bar
+        ======================================== */
+
+        .kpi-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--grey-200);
+            padding: var(--spacing-md);
+            border-radius: 2px;
+        }
+
+        .kpi-card:hover {
+            border-color: var(--navy-mid);
+            box-shadow: 0 2px 8px rgba(27, 58, 87, 0.08);
+        }
+
+        .kpi-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--grey-500);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--navy-deep);
+            font-variant-numeric: tabular-nums;
+            line-height: 1.1;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .kpi-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            margin-top: var(--spacing-sm);
+        }
+
+        .kpi-delta {
+            font-weight: 600;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .kpi-delta.positive {
+            color: var(--success);
+        }
+
+        .kpi-delta.negative {
+            color: var(--danger);
+        }
+
+        .kpi-delta.neutral {
+            color: var(--neutral);
+        }
+
+        .kpi-context {
+            font-size: 11px;
+            color: var(--grey-500);
+        }
+
+        /* ========================================
+           DASHBOARD GRID - Charts & Tables
+        ======================================== */
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .panel {
+            background: var(--bg-secondary);
+            border: 1px solid var(--grey-200);
+            border-radius: 2px;
+            padding: var(--spacing-lg);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--grey-100);
+        }
+
+        .panel-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--navy-deep);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .panel-subtitle {
+            font-size: 11px;
+            color: var(--grey-500);
+            font-weight: 400;
+        }
+
+        .panel-full {
+            grid-column: span 12;
+        }
+
+        .panel-half {
+            grid-column: span 6;
+        }
+
+        .panel-third {
+            grid-column: span 4;
+        }
+
+        /* ========================================
+           CHART PLACEHOLDERS - CSS-Only Visuals
+        ======================================== */
+
+        .chart-container {
+            height: 240px;
+            position: relative;
+            background: linear-gradient(to bottom, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+            border: 1px solid var(--grey-100);
+            padding: var(--spacing-md);
+        }
+
+        /* Waterfall Chart */
+        .chart-waterfall {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 100%;
+            gap: 0.5rem;
+        }
+
+        .waterfall-bar {
+            flex: 1;
+            background: var(--navy-mid);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            border-radius: 2px 2px 0 0;
+        }
+
+        .waterfall-bar.positive {
+            background: var(--green-mid);
+        }
+
+        .waterfall-bar.negative {
+            background: var(--red-alert);
+        }
+
+        .waterfall-bar.total {
+            background: var(--navy-deep);
+        }
+
+        .waterfall-label {
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 10px;
+            color: var(--grey-700);
+            font-weight: 600;
+        }
+
+        .waterfall-value {
+            position: absolute;
+            top: -18px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--grey-900);
+        }
+
+        /* Stacked Bar Chart */
+        .chart-stacked {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 100%;
+            gap: var(--spacing-sm);
+        }
+
+        .stacked-row {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .stacked-label {
+            width: 120px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--grey-700);
+            text-align: right;
+        }
+
+        .stacked-bar-container {
+            flex: 1;
+            height: 28px;
+            background: var(--grey-100);
+            border-radius: 2px;
+            display: flex;
+            position: relative;
+        }
+
+        .stacked-segment {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .segment-revenue { background: var(--green-mid); }
+        .segment-cogs { background: var(--navy-mid); }
+        .segment-opex { background: var(--grey-500); }
+        .segment-margin { background: var(--green-deep); }
+
+        .stacked-value {
+            width: 80px;
+            text-align: right;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--grey-900);
+        }
+
+        /* Line Chart Grid */
+        .chart-line {
+            position: relative;
+            height: 100%;
+            background:
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent,
+                    transparent 24%,
+                    var(--grey-200) 24%,
+                    var(--grey-200) 25%
+                );
+        }
+
+        .line-path {
+            position: absolute;
+            bottom: 20%;
+            left: 5%;
+            right: 5%;
+            height: 60%;
+            background: linear-gradient(135deg,
+                transparent 48%,
+                var(--green-mid) 48%,
+                var(--green-mid) 52%,
+                transparent 52%
+            );
+            background-size: 20px 20px;
+            clip-path: polygon(
+                0% 100%, 10% 75%, 25% 80%, 40% 45%,
+                55% 50%, 70% 30%, 85% 25%, 100% 10%,
+                100% 100%, 0% 100%
+            );
+            opacity: 0.3;
+        }
+
+        .line-markers {
+            position: absolute;
+            bottom: 20%;
+            left: 5%;
+            right: 5%;
+            height: 60%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .line-marker {
+            width: 8px;
+            height: 8px;
+            background: var(--green-mid);
+            border: 2px solid white;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        /* ========================================
+           DATA TABLE - Financial Details
+        ======================================== */
+
+        .data-table-container {
+            overflow-x: auto;
+            border: 1px solid var(--grey-200);
+            border-radius: 2px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .data-table thead {
+            background: var(--navy-deep);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: var(--spacing-sm) var(--spacing-md);
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-right: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .data-table th:last-child {
+            border-right: none;
+        }
+
+        .data-table th.align-right {
+            text-align: right;
+        }
+
+        .data-table tbody tr {
+            border-bottom: 1px solid var(--grey-200);
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .data-table tbody tr:hover td {
+            color: var(--navy-deep);
+            font-weight: 500;
+        }
+
+        .data-table td {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-right: 1px solid var(--grey-100);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .data-table td:last-child {
+            border-right: none;
+        }
+
+        .data-table td.align-right {
+            text-align: right;
+        }
+
+        .data-table .row-category {
+            font-weight: 600;
+            color: var(--navy-deep);
+        }
+
+        .data-table .row-total {
+            background: var(--bg-tertiary);
+            font-weight: 700;
+            border-top: 2px solid var(--grey-300);
+            border-bottom: 3px double var(--grey-300);
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .status-green {
+            background: #D1F0E1;
+            color: var(--green-deep);
+        }
+
+        .status-amber {
+            background: #FFF3CD;
+            color: #8B6914;
+        }
+
+        .status-red {
+            background: #F8D7DA;
+            color: var(--red-alert);
+        }
+
+        .status-grey {
+            background: var(--grey-100);
+            color: var(--grey-700);
+        }
+
+        .variance-positive {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .variance-negative {
+            color: var(--danger);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           FOOTER - Metadata Bar
+        ======================================== */
+
+        footer {
+            grid-area: footer;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--grey-200);
+            padding: var(--spacing-md) var(--spacing-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--grey-500);
+        }
+
+        .footer-left {
+            display: flex;
+            gap: var(--spacing-lg);
+        }
+
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .footer-label {
+            font-weight: 600;
+            color: var(--grey-700);
+        }
+
+        /* ========================================
+           LEGEND - Chart Keys
+        ======================================== */
+
+        .legend {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 11px;
+            color: var(--grey-700);
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        /* ========================================
+           ANIMATIONS
+        ======================================== */
+
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .kpi-value {
+            animation: countUp 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .data-table tbody tr {
+            animation: slideIn 0.3s ease-out;
+            animation-fill-mode: backwards;
+        }
+
+        .data-table tbody tr:nth-child(1) { animation-delay: 0.05s; }
+        .data-table tbody tr:nth-child(2) { animation-delay: 0.08s; }
+        .data-table tbody tr:nth-child(3) { animation-delay: 0.11s; }
+        .data-table tbody tr:nth-child(4) { animation-delay: 0.14s; }
+        .data-table tbody tr:nth-child(5) { animation-delay: 0.17s; }
+
+        /* ========================================
+           RESPONSIVE BREAKPOINTS
+        ======================================== */
+
+        @media (max-width: 960px) {
+            .app-container {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "footer";
+            }
+
+            aside {
+                display: none;
+            }
+
+            .kpi-strip {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+
+            .panel-half,
+            .panel-third {
+                grid-column: span 12;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header-left {
+                flex-direction: column;
+                gap: var(--spacing-xs);
+            }
+
+            .kpi-strip {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- ========================================
+             HEADER
+        ======================================== -->
+        <header>
+            <div class="header-left">
+                <div class="header-title">CFO Financial Dashboard</div>
+                <div class="header-subtitle">Enterprise Performance Analysis</div>
+            </div>
+            <div class="header-right">
+                <div class="fiscal-period">FY2024 Q4</div>
+                <div class="agent-badge">Darno</div>
+            </div>
+        </header>
+
+        <!-- ========================================
+             SIDEBAR NAVIGATION
+        ======================================== -->
+        <aside>
+            <nav>
+                <div class="nav-section">
+                    <div class="nav-section-title">Financial Views</div>
+                    <div class="nav-item active">
+                        <span>Executive Summary</span>
+                        <span class="nav-value">●</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>P&L Statement</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>Balance Sheet</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>Cash Flow</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>Budget vs Actual</span>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Analysis</div>
+                    <div class="nav-item">
+                        <span>Variance Analysis</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>KPI Trends</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>Segment Performance</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>Forecast Models</span>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Reports</div>
+                    <div class="nav-item">
+                        <span>Board Package</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>Investor Metrics</span>
+                    </div>
+                    <div class="nav-item">
+                        <span>Audit Trail</span>
+                    </div>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- ========================================
+             MAIN CONTENT
+        ======================================== -->
+        <main>
+            <!-- KPI Strip -->
+            <section class="kpi-strip">
+                <div class="kpi-card">
+                    <div class="kpi-label">Total Revenue</div>
+                    <div class="kpi-value" data-target="47.2">$47.2M</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">↑ 12.4%</span>
+                        <span class="kpi-context">vs Q3</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Gross Margin</div>
+                    <div class="kpi-value" data-target="68.3">68.3%</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">↑ 2.1pp</span>
+                        <span class="kpi-context">Target: 65%</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Operating Income</div>
+                    <div class="kpi-value" data-target="8.4">$8.4M</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">↑ 18.7%</span>
+                        <span class="kpi-context">17.8% margin</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">EBITDA</div>
+                    <div class="kpi-value" data-target="11.8">$11.8M</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">↑ 15.2%</span>
+                        <span class="kpi-context">25.0% margin</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Cash Position</div>
+                    <div class="kpi-value" data-target="34.6">$34.6M</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta neutral">→ 2.3%</span>
+                        <span class="kpi-context">18mo runway</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-label">Quick Ratio</div>
+                    <div class="kpi-value" data-target="2.8">2.8:1</div>
+                    <div class="kpi-meta">
+                        <span class="kpi-delta positive">↑ 0.3</span>
+                        <span class="kpi-context">Excellent</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- P&L Waterfall Chart -->
+                <section class="panel panel-half">
+                    <div class="panel-header">
+                        <div>
+                            <div class="panel-title">P&L Waterfall Analysis</div>
+                            <div class="panel-subtitle">Q4 2024 Operating Performance ($M)</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-waterfall">
+                            <div class="waterfall-bar positive" style="height: 85%;">
+                                <div class="waterfall-value">$47.2</div>
+                                <div class="waterfall-label">Revenue</div>
+                            </div>
+                            <div class="waterfall-bar negative" style="height: 27%;">
+                                <div class="waterfall-value">-$15.0</div>
+                                <div class="waterfall-label">COGS</div>
+                            </div>
+                            <div class="waterfall-bar" style="height: 58%;">
+                                <div class="waterfall-value">$32.2</div>
+                                <div class="waterfall-label">Gross Profit</div>
+                            </div>
+                            <div class="waterfall-bar negative" style="height: 35%;">
+                                <div class="waterfall-value">-$19.4</div>
+                                <div class="waterfall-label">OpEx</div>
+                            </div>
+                            <div class="waterfall-bar negative" style="height: 8%;">
+                                <div class="waterfall-value">-$4.4</div>
+                                <div class="waterfall-label">D&A</div>
+                            </div>
+                            <div class="waterfall-bar total" style="height: 18%;">
+                                <div class="waterfall-value">$8.4</div>
+                                <div class="waterfall-label">Op Income</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Revenue Mix Stacked Bars -->
+                <section class="panel panel-half">
+                    <div class="panel-header">
+                        <div>
+                            <div class="panel-title">Revenue Mix by Segment</div>
+                            <div class="panel-subtitle">Q4 2024 Breakdown (% of Total)</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-stacked">
+                            <div class="stacked-row">
+                                <div class="stacked-label">Enterprise</div>
+                                <div class="stacked-bar-container">
+                                    <div class="stacked-segment segment-revenue" style="width: 45%;">45%</div>
+                                </div>
+                                <div class="stacked-value">$21.2M</div>
+                            </div>
+                            <div class="stacked-row">
+                                <div class="stacked-label">Mid-Market</div>
+                                <div class="stacked-bar-container">
+                                    <div class="stacked-segment segment-cogs" style="width: 32%;">32%</div>
+                                </div>
+                                <div class="stacked-value">$15.1M</div>
+                            </div>
+                            <div class="stacked-row">
+                                <div class="stacked-label">SMB</div>
+                                <div class="stacked-bar-container">
+                                    <div class="stacked-segment segment-opex" style="width: 18%;">18%</div>
+                                </div>
+                                <div class="stacked-value">$8.5M</div>
+                            </div>
+                            <div class="stacked-row">
+                                <div class="stacked-label">Professional Svc</div>
+                                <div class="stacked-bar-container">
+                                    <div class="stacked-segment segment-margin" style="width: 5%;">5%</div>
+                                </div>
+                                <div class="stacked-value">$2.4M</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-dot segment-revenue"></div>
+                            <span>Enterprise (45%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot segment-cogs"></div>
+                            <span>Mid-Market (32%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot segment-opex"></div>
+                            <span>SMB (18%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot segment-margin"></div>
+                            <span>Services (5%)</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Cash Flow Trend -->
+                <section class="panel panel-third">
+                    <div class="panel-header">
+                        <div>
+                            <div class="panel-title">Operating Cash Flow</div>
+                            <div class="panel-subtitle">Last 6 Months ($M)</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-line">
+                            <div class="line-path"></div>
+                            <div class="line-markers">
+                                <div class="line-marker" style="margin-bottom: 60%;"></div>
+                                <div class="line-marker" style="margin-bottom: 45%;"></div>
+                                <div class="line-marker" style="margin-bottom: 50%;"></div>
+                                <div class="line-marker" style="margin-bottom: 25%;"></div>
+                                <div class="line-marker" style="margin-bottom: 30%;"></div>
+                                <div class="line-marker" style="margin-bottom: 5%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Key Metrics Summary -->
+                <section class="panel panel-third">
+                    <div class="panel-header">
+                        <div>
+                            <div class="panel-title">Key Ratios</div>
+                            <div class="panel-subtitle">Financial Health Indicators</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: var(--spacing-md);">
+                        <div>
+                            <div class="kpi-label">Current Ratio</div>
+                            <div class="kpi-value" style="font-size: 22px;">3.2:1</div>
+                            <div class="kpi-context">Industry Avg: 2.1</div>
+                        </div>
+                        <div>
+                            <div class="kpi-label">Debt-to-Equity</div>
+                            <div class="kpi-value" style="font-size: 22px;">0.45:1</div>
+                            <div class="kpi-context">Target: <0.60</div>
+                        </div>
+                        <div>
+                            <div class="kpi-label">ROE (Return on Equity)</div>
+                            <div class="kpi-value" style="font-size: 22px;">23.6%</div>
+                            <div class="kpi-context">YoY: +4.2pp</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Expense Ratios -->
+                <section class="panel panel-third">
+                    <div class="panel-header">
+                        <div>
+                            <div class="panel-title">Expense Efficiency</div>
+                            <div class="panel-subtitle">% of Revenue</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: var(--spacing-md);">
+                        <div>
+                            <div class="kpi-label">R&D Spend</div>
+                            <div class="kpi-value" style="font-size: 22px;">18.5%</div>
+                            <div class="kpi-delta positive">↓ 1.2pp</div>
+                        </div>
+                        <div>
+                            <div class="kpi-label">Sales & Marketing</div>
+                            <div class="kpi-value" style="font-size: 22px;">24.3%</div>
+                            <div class="kpi-delta positive">↓ 2.4pp</div>
+                        </div>
+                        <div>
+                            <div class="kpi-label">G&A</div>
+                            <div class="kpi-value" style="font-size: 22px;">8.4%</div>
+                            <div class="kpi-delta neutral">→ 0.1pp</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Detailed Financial Table -->
+                <section class="panel panel-full">
+                    <div class="panel-header">
+                        <div>
+                            <div class="panel-title">Quarterly Financial Performance Detail</div>
+                            <div class="panel-subtitle">FY2024 Q1-Q4 Comparison ($000s)</div>
+                        </div>
+                    </div>
+                    <div class="data-table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Line Item</th>
+                                    <th class="align-right">Q1 2024</th>
+                                    <th class="align-right">Q2 2024</th>
+                                    <th class="align-right">Q3 2024</th>
+                                    <th class="align-right">Q4 2024</th>
+                                    <th class="align-right">QoQ Δ</th>
+                                    <th class="align-right">YoY Δ</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="row-category">Revenue</td>
+                                    <td class="align-right">$38,450</td>
+                                    <td class="align-right">$40,280</td>
+                                    <td class="align-right">$42,010</td>
+                                    <td class="align-right">$47,220</td>
+                                    <td class="align-right variance-positive">+12.4%</td>
+                                    <td class="align-right variance-positive">+22.8%</td>
+                                    <td><span class="status-pill status-green">On Target</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Cost of Goods Sold</td>
+                                    <td class="align-right">$12,680</td>
+                                    <td class="align-right">$13,100</td>
+                                    <td class="align-right">$13,780</td>
+                                    <td class="align-right">$14,960</td>
+                                    <td class="align-right variance-negative">+8.6%</td>
+                                    <td class="align-right variance-negative">+18.0%</td>
+                                    <td><span class="status-pill status-green">Improving</span></td>
+                                </tr>
+                                <tr class="row-total">
+                                    <td class="row-category">Gross Profit</td>
+                                    <td class="align-right">$25,770</td>
+                                    <td class="align-right">$27,180</td>
+                                    <td class="align-right">$28,230</td>
+                                    <td class="align-right">$32,260</td>
+                                    <td class="align-right variance-positive">+14.3%</td>
+                                    <td class="align-right variance-positive">+25.2%</td>
+                                    <td><span class="status-pill status-green">Strong</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Research & Development</td>
+                                    <td class="align-right">$7,690</td>
+                                    <td class="align-right">$7,850</td>
+                                    <td class="align-right">$8,560</td>
+                                    <td class="align-right">$8,740</td>
+                                    <td class="align-right variance-negative">+2.1%</td>
+                                    <td class="align-right variance-negative">+13.6%</td>
+                                    <td><span class="status-pill status-amber">Watch</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Sales & Marketing</td>
+                                    <td class="align-right">$10,380</td>
+                                    <td class="align-right">$10,880</td>
+                                    <td class="align-right">$11,420</td>
+                                    <td class="align-right">$11,480</td>
+                                    <td class="align-right variance-negative">+0.5%</td>
+                                    <td class="align-right variance-negative">+10.6%</td>
+                                    <td><span class="status-pill status-green">Efficient</span></td>
+                                </tr>
+                                <tr>
+                                    <td>General & Administrative</td>
+                                    <td class="align-right">$3,460</td>
+                                    <td class="align-right">$3,540</td>
+                                    <td class="align-right">$3,680</td>
+                                    <td class="align-right">$3,960</td>
+                                    <td class="align-right variance-negative">+7.6%</td>
+                                    <td class="align-right variance-negative">+14.5%</td>
+                                    <td><span class="status-pill status-amber">Review</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Depreciation & Amortization</td>
+                                    <td class="align-right">$3,180</td>
+                                    <td class="align-right">$3,320</td>
+                                    <td class="align-right">$3,460</td>
+                                    <td class="align-right">$4,360</td>
+                                    <td class="align-right variance-negative">+26.0%</td>
+                                    <td class="align-right variance-negative">+37.1%</td>
+                                    <td><span class="status-pill status-grey">Planned</span></td>
+                                </tr>
+                                <tr class="row-total">
+                                    <td class="row-category">Operating Income</td>
+                                    <td class="align-right">$1,060</td>
+                                    <td class="align-right">$1,590</td>
+                                    <td class="align-right">$1,110</td>
+                                    <td class="align-right">$3,720</td>
+                                    <td class="align-right variance-positive">+235%</td>
+                                    <td class="align-right variance-positive">+251%</td>
+                                    <td><span class="status-pill status-green">Excellent</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Interest Income</td>
+                                    <td class="align-right">$280</td>
+                                    <td class="align-right">$310</td>
+                                    <td class="align-right">$340</td>
+                                    <td class="align-right">$380</td>
+                                    <td class="align-right variance-positive">+11.8%</td>
+                                    <td class="align-right variance-positive">+35.7%</td>
+                                    <td><span class="status-pill status-green">Stable</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Interest Expense</td>
+                                    <td class="align-right">($120)</td>
+                                    <td class="align-right">($130)</td>
+                                    <td class="align-right">($140)</td>
+                                    <td class="align-right">($150)</td>
+                                    <td class="align-right variance-negative">+7.1%</td>
+                                    <td class="align-right variance-negative">+25.0%</td>
+                                    <td><span class="status-pill status-grey">Normal</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Tax Provision</td>
+                                    <td class="align-right">($310)</td>
+                                    <td class="align-right">($460)</td>
+                                    <td class="align-right">($340)</td>
+                                    <td class="align-right">($1,020)</td>
+                                    <td class="align-right variance-negative">+200%</td>
+                                    <td class="align-right variance-negative">+229%</td>
+                                    <td><span class="status-pill status-grey">Expected</span></td>
+                                </tr>
+                                <tr class="row-total">
+                                    <td class="row-category">Net Income</td>
+                                    <td class="align-right">$910</td>
+                                    <td class="align-right">$1,310</td>
+                                    <td class="align-right">$970</td>
+                                    <td class="align-right">$2,930</td>
+                                    <td class="align-right variance-positive">+202%</td>
+                                    <td class="align-right variance-positive">+222%</td>
+                                    <td><span class="status-pill status-green">Outstanding</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- ========================================
+             FOOTER
+        ======================================== -->
+        <footer>
+            <div class="footer-left">
+                <div class="footer-item">
+                    <span class="footer-label">Last Updated:</span>
+                    <span>2024-12-28 16:45 EST</span>
+                </div>
+                <div class="footer-item">
+                    <span class="footer-label">Data Source:</span>
+                    <span>NetSuite ERP | Consolidated</span>
+                </div>
+                <div class="footer-item">
+                    <span class="footer-label">Fiscal Period:</span>
+                    <span>FY2024 Q4 (Oct-Dec)</span>
+                </div>
+            </div>
+            <div class="footer-right">
+                <div class="footer-item">
+                    <span class="footer-label">Design Agent:</span>
+                    <span>Darno - Data-First Analytical UX</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ========================================
+         OPTIONAL JAVASCRIPT
+    ======================================== -->
+    <script>
+        // Animated counter for KPI values
+        document.addEventListener('DOMContentLoaded', function() {
+            const kpiValues = document.querySelectorAll('.kpi-value[data-target]');
+
+            kpiValues.forEach(element => {
+                const target = parseFloat(element.getAttribute('data-target'));
+                const isPercent = element.textContent.includes('%');
+                const isCurrency = element.textContent.includes('$');
+                const isRatio = element.textContent.includes(':');
+
+                let current = 0;
+                const increment = target / 30;
+                const duration = 800;
+                const stepTime = duration / 30;
+
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+
+                    let displayValue = current.toFixed(1);
+
+                    if (isCurrency) {
+                        element.textContent = '$' + displayValue + 'M';
+                    } else if (isPercent) {
+                        element.textContent = displayValue + '%';
+                    } else if (isRatio) {
+                        element.textContent = displayValue + ':1';
+                    } else {
+                        element.textContent = displayValue;
+                    }
+                }, stepTime);
+            });
+
+            // Console log for verification
+            console.log('Darno Financial Dashboard initialized');
+            console.log('Theme: CFO Mode - Institutional Precision');
+            console.log('Data density: Maximum | Executive readability: Optimized');
+        });
+    </script>
+</body>
+</html>
