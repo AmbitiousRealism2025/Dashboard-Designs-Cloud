@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Modern Startup Pitch Dashboard | Darno v2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Agent: Darno | Theme: Modern Startup Pitch | Intent: Data-dense SaaS metrics dashboard with analytical precision and vibrant gradient accents -->
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --purple: #7c3aed;
+      --blue: #2563eb;
+      --cyan: #0891b2;
+      --text: #0f172a;
+      --text-mid: #475569;
+      --text-light: #94a3b8;
+      --border: #e2e8f0;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .app {
+      max-width: 1800px;
+      margin: 0 auto;
+      padding: 30px 40px;
+    }
+
+    .top-bar {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 30px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    }
+
+    .brand { display: flex; align-items: center; gap: 16px; }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 22px;
+      color: white;
+    }
+
+    .brand-info h1 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .brand-info p {
+      font-size: 12px;
+      color: var(--text-mid);
+    }
+
+    .top-meta {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .meta-chip {
+      padding: 6px 14px;
+      background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(37,99,235,0.1));
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 8px;
+      font-weight: 600;
+      color: var(--purple);
+    }
+
+    .agent-badge {
+      padding: 6px 14px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      border-radius: 8px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: white;
+      font-weight: 700;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .metric {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      transition: all 0.25s;
+    }
+
+    .metric:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(124,58,237,0.12);
+      border-color: rgba(124,58,237,0.3);
+    }
+
+    .metric-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-mid);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 10px;
+    }
+
+    .metric-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .metric-delta {
+      font-size: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .metric-delta.up {
+      background: rgba(16,185,129,0.12);
+      color: var(--success);
+    }
+
+    .metric-meta {
+      font-size: 10px;
+      color: var(--text-light);
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .panel {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .panel-header {
+      margin-bottom: 20px;
+    }
+
+    .panel-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .panel-subtitle {
+      font-size: 11px;
+      color: var(--text-mid);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .chart {
+      height: 240px;
+      background: linear-gradient(135deg, rgba(124,58,237,0.04), rgba(37,99,235,0.04));
+      border: 1px dashed rgba(124,58,237,0.2);
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .chart-trend {
+      position: absolute;
+      bottom: 12%;
+      left: 8%;
+      right: 8%;
+      height: 60%;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      clip-path: polygon(0 100%, 0 50%, 20% 60%, 40% 30%, 60% 40%, 80% 20%, 100% 15%, 100% 100%);
+      opacity: 0.7;
+    }
+
+    .data-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .data-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px;
+      background: var(--bg);
+      border-radius: 8px;
+      font-size: 12px;
+    }
+
+    .data-label {
+      color: var(--text-mid);
+      font-weight: 500;
+    }
+
+    .data-value {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .table-section {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .table thead {
+      background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(37,99,235,0.08));
+    }
+
+    .table th {
+      padding: 14px 18px;
+      text-align: left;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--purple);
+      font-weight: 700;
+    }
+
+    .table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-mid);
+    }
+
+    .table tbody tr:hover {
+      background: var(--bg);
+    }
+
+    .table .primary {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status.green {
+      background: rgba(16,185,129,0.12);
+      color: var(--success);
+    }
+
+    .status.yellow {
+      background: rgba(245,158,11,0.12);
+      color: var(--warning);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 11px;
+      color: var(--text-light);
+    }
+
+    @media (max-width: 1400px) {
+      .metrics { grid-template-columns: repeat(3, 1fr); }
+      .content { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="top-bar">
+      <div class="brand">
+        <div class="logo">D</div>
+        <div class="brand-info">
+          <h1>SaaS Metrics Dashboard</h1>
+          <p>Data-driven growth intelligence</p>
+        </div>
+      </div>
+      <div class="top-meta">
+        <div class="meta-chip">Q4 2025</div>
+        <div class="meta-chip">Live Data</div>
+        <div class="agent-badge">Darno · R2</div>
+      </div>
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-label">MRR</div>
+        <div class="metric-value">$342K</div>
+        <div class="metric-delta up">▲ 28.4%</div>
+        <div class="metric-meta">Target: $280K</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">ARR</div>
+        <div class="metric-value">$4.1M</div>
+        <div class="metric-delta up">▲ 32.1%</div>
+        <div class="metric-meta">YoY growth</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">CAC</div>
+        <div class="metric-value">$1,240</div>
+        <div class="metric-delta up">▲ 8.2%</div>
+        <div class="metric-meta">Payback: 5.2mo</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">LTV</div>
+        <div class="metric-value">$18.2K</div>
+        <div class="metric-delta up">▲ 14.7%</div>
+        <div class="metric-meta">LTV:CAC = 14.7</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Churn</div>
+        <div class="metric-value">3.2%</div>
+        <div class="metric-delta up">▲ 0.6 pts</div>
+        <div class="metric-meta">Logo churn</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">NRR</div>
+        <div class="metric-value">124%</div>
+        <div class="metric-delta up">▲ 4 pts</div>
+        <div class="metric-meta">Net retention</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">MRR Growth Trend</div>
+          <div class="panel-subtitle">Last 12 Months</div>
+        </div>
+        <div class="chart">
+          <div class="chart-trend"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Key SaaS Metrics</div>
+          <div class="panel-subtitle">Performance Snapshot</div>
+        </div>
+        <div class="data-grid">
+          <div class="data-item">
+            <span class="data-label">Quick Ratio</span>
+            <span class="data-value">4.2x</span>
+          </div>
+          <div class="data-item">
+            <span class="data-label">Burn Multiple</span>
+            <span class="data-value">0.8</span>
+          </div>
+          <div class="data-item">
+            <span class="data-label">Magic Number</span>
+            <span class="data-value">1.3</span>
+          </div>
+          <div class="data-item">
+            <span class="data-label">Rule of 40</span>
+            <span class="data-value">56</span>
+          </div>
+          <div class="data-item">
+            <span class="data-label">ARPU</span>
+            <span class="data-value">$284</span>
+          </div>
+          <div class="data-item">
+            <span class="data-label">Expansion MRR</span>
+            <span class="data-value">$42K</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-section">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Growth Initiative</th>
+            <th>Owner</th>
+            <th>MRR Impact</th>
+            <th>CAC</th>
+            <th>Conv Rate</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="primary">Self-Serve Funnel</td>
+            <td>Product</td>
+            <td>$124K</td>
+            <td>$420</td>
+            <td>12.4%</td>
+            <td><span class="status green">Scaling</span></td>
+          </tr>
+          <tr>
+            <td class="primary">Enterprise Sales</td>
+            <td>Sales</td>
+            <td>$98K</td>
+            <td>$2,840</td>
+            <td>18.2%</td>
+            <td><span class="status green">Strong</span></td>
+          </tr>
+          <tr>
+            <td class="primary">Partner Channel</td>
+            <td>Partnerships</td>
+            <td>$67K</td>
+            <td>$680</td>
+            <td>8.7%</td>
+            <td><span class="status green">Growing</span></td>
+          </tr>
+          <tr>
+            <td class="primary">Paid Acquisition</td>
+            <td>Marketing</td>
+            <td>$53K</td>
+            <td>$1,120</td>
+            <td>6.2%</td>
+            <td><span class="status yellow">Optimizing</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="footer">
+      SaaS Metrics Dashboard · Powered by data · Darno Design Agent (Round 2) · 2025
+    </div>
+  </div>
+</body>
+</html>

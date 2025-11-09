@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Financial Analyst CFO Mode | Explorer v2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Agent: Explorer | Theme: Financial Analyst CFO Mode | Intent: Institutional financial dashboard with numeric rigor -->
+  <style>
+    :root { --white: #ffffff; --bg: #f8f9fa; --navy: #1e3a5f; --green: #0f5132; --gray: #495057; --border: #dee2e6; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Georgia', serif; background: var(--white); color: var(--navy); font-size: 14px; line-height: 1.5; font-variant-numeric: tabular-nums; }
+    .page { max-width: 1600px; margin: 0 auto; padding: 40px 60px; }
+    .header { margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--navy); }
+    .title { font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+    .subtitle { font-size: 14px; color: var(--gray); }
+    .agent { display: inline-block; margin-top: 10px; padding: 4px 12px; background: var(--bg); border: 1px solid var(--border); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 40px; }
+    .metric { background: var(--bg); border: 1px solid var(--border); padding: 20px; }
+    .metric-label { font-size: 11px; color: var(--gray); text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+    .metric-value { font-size: 32px; font-weight: 600; margin-bottom: 8px; }
+    .metric-delta { font-size: 13px; color: var(--green); font-weight: 600; }
+    .content { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
+    .panel { background: var(--bg); border: 1px solid var(--border); padding: 24px; }
+    .panel-title { font-size: 14px; font-weight: 600; margin-bottom: 16px; text-transform: uppercase; }
+    .chart { height: 240px; border: 1px solid var(--border); position: relative; background: var(--white); }
+    .chart-bar { position: absolute; bottom: 10%; left: 8%; right: 8%; height: 60%; background: var(--navy); clip-path: polygon(0 100%, 0 52%, 25% 48%, 50% 35%, 75% 42%, 100% 28%, 100% 100%); opacity: 0.8; }
+    .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .data-item { display: flex; justify-content: space-between; padding: 12px; background: var(--white); border: 1px solid var(--border); font-size: 12px; }
+    .data-label { color: var(--gray); font-weight: 500; }
+    .data-value { font-weight: 700; }
+    .table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .table thead { background: var(--bg); border-bottom: 2px solid var(--navy); }
+    .table th { padding: 12px; text-align: left; font-size: 11px; text-transform: uppercase; font-weight: 700; }
+    .table td { padding: 12px; border-bottom: 1px solid var(--border); color: var(--gray); }
+    .table .primary { color: var(--navy); font-weight: 600; }
+    .status { padding: 4px 10px; background: var(--bg); border: 1px solid var(--green); color: var(--green); font-size: 10px; text-transform: uppercase; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <h1 class="title">Financial Performance Dashboard</h1>
+      <p class="subtitle">Q4 2025 Executive Financial Review</p>
+      <div class="agent">Explorer · Round 2</div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="metric-label">Revenue</div><div class="metric-value">$4.2M</div><div class="metric-delta">+14.8%</div></div>
+      <div class="metric"><div class="metric-label">EBITDA</div><div class="metric-value">$1.1M</div><div class="metric-delta">+18.2%</div></div>
+      <div class="metric"><div class="metric-label">Margin</div><div class="metric-value">26.2%</div><div class="metric-delta">+2.4 pts</div></div>
+      <div class="metric"><div class="metric-label">Cash</div><div class="metric-value">$7.8M</div><div class="metric-delta">+$980K</div></div>
+    </div>
+    <div class="content">
+      <div class="panel"><div class="panel-title">Revenue Trend</div><div class="chart"><div class="chart-bar"></div></div></div>
+      <div class="panel"><div class="panel-title">Key Metrics</div><div class="data-grid">
+        <div class="data-item"><span class="data-label">Gross Margin</span><span class="data-value">68.4%</span></div>
+        <div class="data-item"><span class="data-label">Op Margin</span><span class="data-value">26.2%</span></div>
+        <div class="data-item"><span class="data-label">Net Margin</span><span class="data-value">18.6%</span></div>
+        <div class="data-item"><span class="data-label">ROE</span><span class="data-value">24.8%</span></div>
+        <div class="data-item"><span class="data-label">ROA</span><span class="data-value">16.2%</span></div>
+        <div class="data-item"><span class="data-label">Burn Rate</span><span class="data-value">$420K</span></div>
+      </div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Financial Initiatives</div>
+      <table class="table">
+        <thead><tr><th>Initiative</th><th>Owner</th><th>Budget</th><th>Spent</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="primary">Revenue Growth Program</td><td>CFO</td><td>$840K</td><td>$720K</td><td><span class="status">Active</span></td></tr>
+          <tr><td class="primary">Cost Optimization</td><td>COO</td><td>$420K</td><td>$380K</td><td><span class="status">Active</span></td></tr>
+          <tr><td class="primary">Capital Efficiency</td><td>Finance</td><td>$280K</td><td>$240K</td><td><span class="status">Active</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

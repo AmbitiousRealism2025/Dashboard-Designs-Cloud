@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Journey CX Studio | Teeqa v2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Agent: Teeqa | Theme: Customer Journey CX Studio | Intent: Warm human-centric customer experience dashboard -->
+  <style>
+    :root { --bg: #fffbf5; --coral: #ff6b6b; --teal: #06b6d4; --amber: #f59e0b; --warm: #ff9f1c; --text: #2d3436; --light: #636e72; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Nunito', -apple-system, sans-serif; background: linear-gradient(135deg, var(--bg), #fff8e1); color: var(--text); line-height: 1.6; }
+    .page { max-width: 1500px; margin: 0 auto; padding: 40px 60px; }
+    .header { margin-bottom: 40px; text-align: center; }
+    .logo { width: 60px; height: 60px; background: linear-gradient(135deg, var(--coral), var(--warm)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 20px; color: white; font-weight: 900; }
+    .title { font-size: 32px; font-weight: 800; margin-bottom: 8px; background: linear-gradient(135deg, var(--coral), var(--warm)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .subtitle { font-size: 16px; color: var(--light); }
+    .agent { display: inline-block; margin-top: 12px; padding: 6px 14px; background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3); border-radius: 20px; font-size: 11px; color: var(--coral); font-weight: 700; }
+    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 40px; }
+    .metric { background: white; border-radius: 20px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: transform 0.3s; }
+    .metric:hover { transform: translateY(-4px); }
+    .metric-emoji { font-size: 32px; margin-bottom: 12px; }
+    .metric-label { font-size: 12px; color: var(--light); margin-bottom: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+    .metric-value { font-size: 36px; font-weight: 800; margin-bottom: 8px; background: linear-gradient(135deg, var(--coral), var(--warm)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .metric-delta { font-size: 14px; color: var(--teal); font-weight: 700; }
+    .content { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 40px; }
+    .panel { background: white; border-radius: 20px; padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    .panel-title { font-size: 20px; font-weight: 800; margin-bottom: 20px; color: var(--coral); }
+    .chart { height: 260px; background: linear-gradient(135deg, rgba(255,107,107,0.05), rgba(255,159,28,0.05)); border-radius: 16px; position: relative; }
+    .chart-area { position: absolute; bottom: 0; left: 10%; right: 10%; height: 70%; background: linear-gradient(135deg, var(--coral), var(--warm)); border-radius: 16px 16px 0 0; clip-path: polygon(0 100%, 0 42%, 20% 48%, 40% 28%, 60% 36%, 80% 20%, 100% 18%, 100% 100%); opacity: 0.7; }
+    .insights { display: flex; flex-direction: column; gap: 16px; }
+    .insight { padding: 18px; background: linear-gradient(135deg, rgba(255,107,107,0.05), rgba(255,159,28,0.05)); border-left: 4px solid var(--coral); border-radius: 12px; }
+    .insight-icon { font-size: 24px; margin-bottom: 8px; }
+    .insight-text { font-size: 13px; color: var(--light); line-height: 1.6; }
+    .insight-text strong { color: var(--text); font-weight: 700; }
+    .table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .table thead { background: linear-gradient(135deg, rgba(255,107,107,0.08), rgba(255,159,28,0.08)); }
+    .table th { padding: 14px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--coral); font-weight: 700; }
+    .table td { padding: 14px; border-bottom: 1px solid rgba(0,0,0,0.05); color: var(--light); }
+    .table .primary { color: var(--text); font-weight: 700; }
+    .status { padding: 5px 12px; border-radius: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+    .status.happy { background: rgba(6,182,212,0.12); color: var(--teal); }
+    .status.needs-love { background: rgba(245,158,11,0.12); color: var(--amber); }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="logo">♥</div>
+      <h1 class="title">Customer Experience Dashboard</h1>
+      <p class="subtitle">Understanding & delighting our customers · Q4 2025</p>
+      <div class="agent">Teeqa · Round 2</div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="metric-emoji">😊</div><div class="metric-label">CSAT Score</div><div class="metric-value">4.7</div><div class="metric-delta">+0.3</div></div>
+      <div class="metric"><div class="metric-emoji">💬</div><div class="metric-label">NPS</div><div class="metric-value">+68</div><div class="metric-delta">+12 pts</div></div>
+      <div class="metric"><div class="metric-emoji">🎯</div><div class="metric-label">Retention</div><div class="metric-value">94%</div><div class="metric-delta">+2.4%</div></div>
+      <div class="metric"><div class="metric-emoji">⭐</div><div class="metric-label">Reviews</div><div class="metric-value">4.8</div><div class="metric-delta">+0.2</div></div>
+    </div>
+    <div class="content">
+      <div class="panel"><div class="panel-title">Customer Satisfaction Trend</div><div class="chart"><div class="chart-area"></div></div></div>
+      <div class="panel"><div class="panel-title">Customer Voices</div><div class="insights">
+        <div class="insight"><div class="insight-icon">💡</div><div class="insight-text"><strong>Onboarding praised:</strong> Customers love our new guided setup experience.</div></div>
+        <div class="insight"><div class="insight-icon">❤️</div><div class="insight-text"><strong>Support excellence:</strong> Response times under 2 hours driving satisfaction.</div></div>
+        <div class="insight"><div class="insight-icon">🚀</div><div class="insight-text"><strong>Feature requests:</strong> Mobile app most requested enhancement.</div></div>
+      </div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Customer Journey Initiatives</div>
+      <table class="table">
+        <thead><tr><th>Initiative</th><th>Team</th><th>Impact</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="primary">Onboarding Redesign</td><td>Product</td><td>+18% activation</td><td><span class="status happy">Launched</span></td></tr>
+          <tr><td class="primary">24/7 Support</td><td>CX</td><td>+CSAT 0.4</td><td><span class="status happy">Active</span></td></tr>
+          <tr><td class="primary">Loyalty Program</td><td>Marketing</td><td>+NPS 8pts</td><td><span class="status happy">Growing</span></td></tr>
+          <tr><td class="primary">Mobile App</td><td>Engineering</td><td>TBD</td><td><span class="status needs-love">Building</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

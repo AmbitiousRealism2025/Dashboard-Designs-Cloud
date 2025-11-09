@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Minimalist Analytical Dashboard | Zeeqa v2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Agent: Zeeqa | Theme: Minimalist Analytical | Intent: Ultra-minimalist data dashboard with maximum whitespace and typographic precision -->
+  <style>
+    :root { --white: #ffffff; --gray-100: #f5f5f5; --gray-300: #d4d4d4; --gray-500: #737373; --gray-900: #0a0a0a; --blue: #2563eb; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, sans-serif; background: var(--white); color: var(--gray-900); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 1400px; margin: 0 auto; padding: 80px 100px; }
+    .header { margin-bottom: 80px; padding-bottom: 30px; border-bottom: 1px solid var(--gray-300); }
+    .logo { width: 36px; height: 36px; background: var(--blue); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; color: white; margin-bottom: 20px; }
+    .title { font-size: 36px; font-weight: 300; letter-spacing: -1px; margin-bottom: 8px; }
+    .subtitle { font-size: 15px; color: var(--gray-500); }
+    .agent { display: inline-block; margin-top: 12px; padding: 4px 10px; background: var(--gray-100); border: 1px solid var(--gray-300); font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gray-500); }
+    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px; margin-bottom: 80px; }
+    .metric::before { content: ''; display: block; width: 24px; height: 1px; background: var(--blue); margin-bottom: 12px; }
+    .metric-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gray-500); margin-bottom: 12px; }
+    .metric-value { font-size: 48px; font-weight: 200; letter-spacing: -2px; margin-bottom: 10px; line-height: 1; }
+    .metric-delta { font-size: 14px; font-weight: 500; color: var(--blue); }
+    .metric-note { font-size: 11px; color: var(--gray-500); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--gray-300); }
+    .content { display: grid; grid-template-columns: 2fr 1fr; gap: 60px; margin-bottom: 80px; }
+    .block-title { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 24px; }
+    .chart { height: 300px; border: 1px solid var(--gray-300); position: relative; }
+    .chart-line { position: absolute; bottom: 10%; left: 5%; right: 5%; height: 60%; border: 1px solid var(--blue); clip-path: polygon(0 100%, 0 44%, 25% 52%, 50% 28%, 75% 34%, 100% 16%, 100% 100%); }
+    .insights { display: flex; flex-direction: column; gap: 28px; }
+    .insight { padding-left: 14px; border-left: 1px solid var(--blue); }
+    .insight-title { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .insight-body { font-size: 12px; color: var(--gray-500); line-height: 1.7; }
+    .table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .table thead { border-bottom: 1px solid var(--gray-300); }
+    .table th { padding: 12px; text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gray-500); font-weight: 600; }
+    .table td { padding: 16px 12px; border-bottom: 1px solid var(--gray-300); color: var(--gray-500); }
+    .table .primary { color: var(--gray-900); font-weight: 500; }
+    .status { padding: 3px 8px; background: var(--gray-100); font-size: 9px; text-transform: uppercase; font-weight: 600; color: var(--blue); }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="logo">Z</div>
+      <h1 class="title">Data Dashboard</h1>
+      <p class="subtitle">Quarterly Analysis · Q4 2025</p>
+      <div class="agent">Zeeqa · Round 2</div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="metric-label">Revenue</div><div class="metric-value">$3.4M</div><div class="metric-delta">+15.2%</div><div class="metric-note">Quarter total</div></div>
+      <div class="metric"><div class="metric-label">Margin</div><div class="metric-value">31.8%</div><div class="metric-delta">+2.4 pts</div><div class="metric-note">Operating</div></div>
+      <div class="metric"><div class="metric-label">Base</div><div class="metric-value">1,892</div><div class="metric-delta">+10.4%</div><div class="metric-note">Customers</div></div>
+      <div class="metric"><div class="metric-label">Efficiency</div><div class="metric-value">1.38</div><div class="metric-delta">+0.16</div><div class="metric-note">Sales ratio</div></div>
+    </div>
+    <div class="content">
+      <div><div class="block-title">Revenue</div><div class="chart"><div class="chart-line"></div></div></div>
+      <div><div class="block-title">Analysis</div><div class="insights">
+        <div class="insight"><div class="insight-title">Growth</div><div class="insight-body">Consistent revenue growth driven by expansion.</div></div>
+        <div class="insight"><div class="insight-title">Efficiency</div><div class="insight-body">Operational leverage improving margins.</div></div>
+        <div class="insight"><div class="insight-title">Scale</div><div class="insight-body">Customer acquisition accelerating.</div></div>
+      </div></div>
+    </div>
+    <table class="table">
+      <thead><tr><th>Initiative</th><th>Owner</th><th>Budget</th><th>Progress</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="primary">Platform</td><td>CTO</td><td>$720K</td><td>86%</td><td><span class="status">Active</span></td></tr>
+        <tr><td class="primary">Sales</td><td>CRO</td><td>$540K</td><td>79%</td><td><span class="status">Active</span></td></tr>
+        <tr><td class="primary">Product</td><td>CPO</td><td>$420K</td><td>90%</td><td><span class="status">Active</span></td></tr>
+        <tr><td class="primary">Operations</td><td>COO</td><td>$280K</td><td>61%</td><td><span class="status">Active</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
